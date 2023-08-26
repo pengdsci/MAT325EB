@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Topic 4 Basics of Data Representation and Error Analysis | MAT325 E-Pack: Numerical Analysis</title>
+  <meta name="description" content="The output format for this example is bookdown::gitbook." />
+  <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Topic 4 Basics of Data Representation and Error Analysis | MAT325 E-Pack: Numerical Analysis" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="The output format for this example is bookdown::gitbook." />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Topic 4 Basics of Data Representation and Error Analysis | MAT325 E-Pack: Numerical Analysis" />
+  
+  <meta name="twitter:description" content="The output format for this example is bookdown::gitbook." />
+  
+
+<meta name="author" content="Cheng Peng" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="scientific-computing-with-r.html"/>
+<link rel="next" href="error-analysis-algorithms-and-convergence.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<center><li><a href="./"><font color = "darkred"><b>MAT 325 E-Coursepack: Numerical Analysis</b></font></a><br><font color = "navy">Cheng Peng</font></li></center>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="calculus-review.html"><a href="calculus-review.html"><i class="fa fa-check"></i><b>2</b> Calculus Review</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="calculus-review.html"><a href="calculus-review.html#limits-and-continuity"><i class="fa fa-check"></i><b>2.1</b> Limits and Continuity</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="calculus-review.html"><a href="calculus-review.html#limits"><i class="fa fa-check"></i><b>2.1.1</b> Limits</a></li>
+<li class="chapter" data-level="2.1.2" data-path="calculus-review.html"><a href="calculus-review.html#continuity"><i class="fa fa-check"></i><b>2.1.2</b> Continuity</a></li>
+<li class="chapter" data-level="2.1.3" data-path="calculus-review.html"><a href="calculus-review.html#convergence-of-a-sequence"><i class="fa fa-check"></i><b>2.1.3</b> Convergence of A Sequence</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="calculus-review.html"><a href="calculus-review.html#differentiation"><i class="fa fa-check"></i><b>2.2</b> Differentiation</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="calculus-review.html"><a href="calculus-review.html#definition"><i class="fa fa-check"></i><b>2.2.1</b> Definition</a></li>
+<li class="chapter" data-level="2.2.2" data-path="calculus-review.html"><a href="calculus-review.html#properties"><i class="fa fa-check"></i><b>2.2.2</b> Properties</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="calculus-review.html"><a href="calculus-review.html#integration"><i class="fa fa-check"></i><b>2.3</b> Integration</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="calculus-review.html"><a href="calculus-review.html#series-vs-sequence"><i class="fa fa-check"></i><b>2.3.1</b> Series vs Sequence</a></li>
+<li class="chapter" data-level="2.3.2" data-path="calculus-review.html"><a href="calculus-review.html#definition-of-definite-integral"><i class="fa fa-check"></i><b>2.3.2</b> Definition of Definite Integral</a></li>
+<li class="chapter" data-level="2.3.3" data-path="calculus-review.html"><a href="calculus-review.html#taylor-expansion"><i class="fa fa-check"></i><b>2.3.3</b> Taylor Expansion</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html"><i class="fa fa-check"></i><b>3</b> Scientific Computing with R</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#vectors-and-matrices"><i class="fa fa-check"></i><b>3.1</b> Vectors and Matrices</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#vectors"><i class="fa fa-check"></i><b>3.1.1</b> Vectors</a></li>
+<li class="chapter" data-level="3.1.2" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#matrices"><i class="fa fa-check"></i><b>3.1.2</b> Matrices</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#built-in-mathematical-functions-and-operators"><i class="fa fa-check"></i><b>3.2</b> Built-in Mathematical Functions and Operators</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#arithmetic-operators"><i class="fa fa-check"></i><b>3.2.1</b> Arithmetic Operators</a></li>
+<li class="chapter" data-level="3.2.2" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#basic-mathematical-functions"><i class="fa fa-check"></i><b>3.2.2</b> Basic Mathematical Functions</a></li>
+<li class="chapter" data-level="3.2.3" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#trigonometry"><i class="fa fa-check"></i><b>3.2.3</b> Trigonometry</a></li>
+<li class="chapter" data-level="3.2.4" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#linear-algebra"><i class="fa fa-check"></i><b>3.2.4</b> Linear Algebra</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#graphic-functions-in-base-r"><i class="fa fa-check"></i><b>3.3</b> Graphic Functions in Base R</a></li>
+<li class="chapter" data-level="3.4" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#rounding-and-related-functions"><i class="fa fa-check"></i><b>3.4</b> Rounding and Related Functions</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#round"><i class="fa fa-check"></i><b>3.4.1</b> round()</a></li>
+<li class="chapter" data-level="3.4.2" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#controlling-number-of-displayed-digits"><i class="fa fa-check"></i><b>3.4.2</b> Controlling Number of Displayed Digits</a></li>
+<li class="chapter" data-level="3.4.3" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#signif"><i class="fa fa-check"></i><b>3.4.3</b> <code>Signif()</code></a></li>
+<li class="chapter" data-level="3.4.4" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#floor-and-ceiling"><i class="fa fa-check"></i><b>3.4.4</b> <code>floor()</code> and <code>ceiling()</code></a></li>
+<li class="chapter" data-level="3.4.5" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#trunc"><i class="fa fa-check"></i><b>3.4.5</b> <code>trunc()</code></a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#control-statements"><i class="fa fa-check"></i><b>3.5</b> Control Statements</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#conditional-statements"><i class="fa fa-check"></i><b>3.5.1</b> Conditional Statements</a></li>
+<li class="chapter" data-level="3.5.2" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#loops-in-r"><i class="fa fa-check"></i><b>3.5.2</b> Loops in R</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#numerical-example"><i class="fa fa-check"></i><b>3.6</b> Numerical Example</a>
+<ul>
+<li class="chapter" data-level="3.6.1" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#version-1"><i class="fa fa-check"></i><b>3.6.1</b> VERSION 1</a></li>
+<li class="chapter" data-level="3.6.2" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#version-2"><i class="fa fa-check"></i><b>3.6.2</b> Version 2</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#user-defined-functions"><i class="fa fa-check"></i><b>3.7</b> User Defined Functions</a>
+<ul>
+<li class="chapter" data-level="3.7.1" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#writing-r-functions-for-root-finding-methods"><i class="fa fa-check"></i><b>3.7.1</b> Writing R Functions for Root-finding Methods</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="basics-of-data-representation-and-error-analysis.html"><a href="basics-of-data-representation-and-error-analysis.html"><i class="fa fa-check"></i><b>4</b> Basics of Data Representation and Error Analysis</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="basics-of-data-representation-and-error-analysis.html"><a href="basics-of-data-representation-and-error-analysis.html#data-representation"><i class="fa fa-check"></i><b>4.1</b> Data Representation</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="basics-of-data-representation-and-error-analysis.html"><a href="basics-of-data-representation-and-error-analysis.html#number-systems"><i class="fa fa-check"></i><b>4.1.1</b> Number Systems</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="basics-of-data-representation-and-error-analysis.html"><a href="basics-of-data-representation-and-error-analysis.html#how-data-is-stored-in-computer-memory"><i class="fa fa-check"></i><b>4.2</b> How data is stored in computer memory</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="basics-of-data-representation-and-error-analysis.html"><a href="basics-of-data-representation-and-error-analysis.html#how-integers-are-stored-in-memory"><i class="fa fa-check"></i><b>4.2.1</b> How integers are stored in memory?</a></li>
+<li class="chapter" data-level="4.2.2" data-path="basics-of-data-representation-and-error-analysis.html"><a href="basics-of-data-representation-and-error-analysis.html#floating-point-numbers"><i class="fa fa-check"></i><b>4.2.2</b> Floating-point Numbers</a></li>
+<li class="chapter" data-level="4.2.3" data-path="basics-of-data-representation-and-error-analysis.html"><a href="basics-of-data-representation-and-error-analysis.html#how-floating-point-numbers-are-stored-in-memory"><i class="fa fa-check"></i><b>4.2.3</b> How Floating-point Numbers Are Stored in Memory?</a></li>
+<li class="chapter" data-level="4.2.4" data-path="basics-of-data-representation-and-error-analysis.html"><a href="basics-of-data-representation-and-error-analysis.html#basic-types-errors-in-error-analysis"><i class="fa fa-check"></i><b>4.2.4</b> Basic Types Errors in Error Analysis</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="error-analysis-algorithms-and-convergence.html"><a href="error-analysis-algorithms-and-convergence.html"><i class="fa fa-check"></i><b>5</b> Error Analysis, Algorithms and Convergence</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="error-analysis-algorithms-and-convergence.html"><a href="error-analysis-algorithms-and-convergence.html#error-analysis"><i class="fa fa-check"></i><b>5.1</b> Error Analysis</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="error-analysis-algorithms-and-convergence.html"><a href="error-analysis-algorithms-and-convergence.html#understanding-numerical-error"><i class="fa fa-check"></i><b>5.1.1</b> Understanding Numerical Error</a></li>
+<li class="chapter" data-level="5.1.2" data-path="error-analysis-algorithms-and-convergence.html"><a href="error-analysis-algorithms-and-convergence.html#error-classification"><i class="fa fa-check"></i><b>5.1.2</b> Error Classification</a></li>
+<li class="chapter" data-level="5.1.3" data-path="error-analysis-algorithms-and-convergence.html"><a href="error-analysis-algorithms-and-convergence.html#approximation-significant-digits-figures"><i class="fa fa-check"></i><b>5.1.3</b> Approximation Significant Digits (Figures)</a></li>
+<li class="chapter" data-level="5.1.4" data-path="error-analysis-algorithms-and-convergence.html"><a href="error-analysis-algorithms-and-convergence.html#nested-arithmetic"><i class="fa fa-check"></i><b>5.1.4</b> Nested Arithmetic</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="error-analysis-algorithms-and-convergence.html"><a href="error-analysis-algorithms-and-convergence.html#algorithms-and-convergence"><i class="fa fa-check"></i><b>5.2</b> Algorithms and Convergence</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="error-analysis-algorithms-and-convergence.html"><a href="error-analysis-algorithms-and-convergence.html#algorithm-and-psuedo-code"><i class="fa fa-check"></i><b>5.2.1</b> Algorithm and Psuedo-code</a></li>
+<li class="chapter" data-level="5.2.2" data-path="error-analysis-algorithms-and-convergence.html"><a href="error-analysis-algorithms-and-convergence.html#rules-of-pseudo-code"><i class="fa fa-check"></i><b>5.2.2</b> Rules of Pseudo-code</a></li>
+<li class="chapter" data-level="5.2.3" data-path="error-analysis-algorithms-and-convergence.html"><a href="error-analysis-algorithms-and-convergence.html#stability-of-algorithms"><i class="fa fa-check"></i><b>5.2.3</b> Stability of Algorithms</a></li>
+<li class="chapter" data-level="5.2.4" data-path="error-analysis-algorithms-and-convergence.html"><a href="error-analysis-algorithms-and-convergence.html#rates-of-convergence"><i class="fa fa-check"></i><b>5.2.4</b> Rates of Convergence</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="bisection-method.html"><a href="bisection-method.html"><i class="fa fa-check"></i><b>6</b> Bisection Method</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="bisection-method.html"><a href="bisection-method.html#the-question"><i class="fa fa-check"></i><b>6.1</b> The Question</a></li>
+<li class="chapter" data-level="6.2" data-path="bisection-method.html"><a href="bisection-method.html#bisection-method-1"><i class="fa fa-check"></i><b>6.2</b> Bisection Method</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="bisection-method.html"><a href="bisection-method.html#the-logic-of-bisection-method"><i class="fa fa-check"></i><b>6.2.1</b> The Logic of Bisection Method</a></li>
+<li class="chapter" data-level="6.2.2" data-path="bisection-method.html"><a href="bisection-method.html#bisection-algorithm"><i class="fa fa-check"></i><b>6.2.2</b> Bisection Algorithm</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="bisection-method.html"><a href="bisection-method.html#error-analysis-1"><i class="fa fa-check"></i><b>6.3</b> Error Analysis</a></li>
+<li class="chapter" data-level="6.4" data-path="bisection-method.html"><a href="bisection-method.html#numerical-examples."><i class="fa fa-check"></i><b>6.4</b> Numerical Examples.</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="fixed-point-method.html"><a href="fixed-point-method.html"><i class="fa fa-check"></i><b>7</b> Fixed Point Method</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="fixed-point-method.html"><a href="fixed-point-method.html#some-theories-of-the-fixed-point-method"><i class="fa fa-check"></i><b>7.1</b> Some Theories of the Fixed Point Method</a></li>
+<li class="chapter" data-level="7.2" data-path="fixed-point-method.html"><a href="fixed-point-method.html#fixed-point-iteration"><i class="fa fa-check"></i><b>7.2</b> Fixed Point Iteration</a></li>
+<li class="chapter" data-level="7.3" data-path="fixed-point-method.html"><a href="fixed-point-method.html#error-analysis-2"><i class="fa fa-check"></i><b>7.3</b> Error Analysis</a></li>
+<li class="chapter" data-level="7.4" data-path="fixed-point-method.html"><a href="fixed-point-method.html#numerical-example-1"><i class="fa fa-check"></i><b>7.4</b> Numerical Example</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="newtons-method.html"><a href="newtons-method.html"><i class="fa fa-check"></i><b>8</b> Newton’s Method</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="newtons-method.html"><a href="newtons-method.html#notations-big-o-and-little-o"><i class="fa fa-check"></i><b>8.1</b> Notations: Big O and Little o</a></li>
+<li class="chapter" data-level="8.2" data-path="newtons-method.html"><a href="newtons-method.html#foundations-of-newton-method"><i class="fa fa-check"></i><b>8.2</b> Foundations of Newton Method</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="newtons-method.html"><a href="newtons-method.html#the-algorithmic-logic"><i class="fa fa-check"></i><b>8.2.1</b> The Algorithmic Logic</a></li>
+<li class="chapter" data-level="8.2.2" data-path="newtons-method.html"><a href="newtons-method.html#initial-starting-value-matters"><i class="fa fa-check"></i><b>8.2.2</b> Initial Starting Value Matters</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="newtons-method.html"><a href="newtons-method.html#algorithm-and-pseudo-code"><i class="fa fa-check"></i><b>8.3</b> Algorithm and Pseudo-code</a></li>
+<li class="chapter" data-level="8.4" data-path="newtons-method.html"><a href="newtons-method.html#error-analysis-3"><i class="fa fa-check"></i><b>8.4</b> Error Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="secant-method.html"><a href="secant-method.html"><i class="fa fa-check"></i><b>9</b> Secant Method</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="secant-method.html"><a href="secant-method.html#secant-method-1"><i class="fa fa-check"></i><b>9.1</b> Secant Method</a></li>
+<li class="chapter" data-level="9.2" data-path="secant-method.html"><a href="secant-method.html#secant-algorithm-and-implementation"><i class="fa fa-check"></i><b>9.2</b> Secant Algorithm and Implementation</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="secant-method.html"><a href="secant-method.html#implementation-with-r"><i class="fa fa-check"></i><b>9.2.1</b> Implementation with R</a></li>
+<li class="chapter" data-level="9.2.2" data-path="secant-method.html"><a href="secant-method.html#numerical-examples"><i class="fa fa-check"></i><b>9.2.2</b> Numerical Examples</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="secant-method.html"><a href="secant-method.html#error-analysis-4"><i class="fa fa-check"></i><b>9.3</b> Error Analysis</a></li>
+<li class="chapter" data-level="9.4" data-path="secant-method.html"><a href="secant-method.html#false-position-method"><i class="fa fa-check"></i><b>9.4</b> False Position Method</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html"><i class="fa fa-check"></i><b>10</b> Lagrange Interpolation</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html#concepts-of-interpolation-method"><i class="fa fa-check"></i><b>10.1</b> Concepts of Interpolation Method</a>
+<ul>
+<li class="chapter" data-level="10.1.1" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html#data-fitting-interpolation"><i class="fa fa-check"></i><b>10.1.1</b> Data-fitting / Interpolation:</a></li>
+<li class="chapter" data-level="10.1.2" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html#functional-equation-curve-approximation"><i class="fa fa-check"></i><b>10.1.2</b> Functional Equation (Curve Approximation)</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html#the-lagrange-interpolation"><i class="fa fa-check"></i><b>10.2</b> The Lagrange Interpolation</a>
+<ul>
+<li class="chapter" data-level="10.2.1" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html#linear-lagrange-interpolation"><i class="fa fa-check"></i><b>10.2.1</b> Linear Lagrange Interpolation</a></li>
+<li class="chapter" data-level="10.2.2" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html#quadratic-lagrange-interpolation"><i class="fa fa-check"></i><b>10.2.2</b> Quadratic Lagrange Interpolation</a></li>
+<li class="chapter" data-level="10.2.3" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html#general-lagrange-interpolation"><i class="fa fa-check"></i><b>10.2.3</b> General Lagrange Interpolation</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html#lagrange-algorithm-and-implementation"><i class="fa fa-check"></i><b>10.3</b> Lagrange Algorithm and Implementation</a>
+<ul>
+<li class="chapter" data-level="10.3.1" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html#pseudo-code"><i class="fa fa-check"></i><b>10.3.1</b> Pseudo-code</a></li>
+<li class="chapter" data-level="10.3.2" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html#r-function-with-scalar-input"><i class="fa fa-check"></i><b>10.3.2</b> R Function with Scalar Input</a></li>
+<li class="chapter" data-level="10.3.3" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html#r-function-with-vector-input"><i class="fa fa-check"></i><b>10.3.3</b> R Function with Vector Input</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html#error-analysis-5"><i class="fa fa-check"></i><b>10.4</b> Error Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="newton-interpolation.html"><a href="newton-interpolation.html"><i class="fa fa-check"></i><b>11</b> Newton Interpolation</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="newton-interpolation.html"><a href="newton-interpolation.html#some-definitions"><i class="fa fa-check"></i><b>11.1</b> Some Definitions</a>
+<ul>
+<li class="chapter" data-level="11.1.1" data-path="newton-interpolation.html"><a href="newton-interpolation.html#definitions"><i class="fa fa-check"></i><b>11.1.1</b> Definitions</a></li>
+<li class="chapter" data-level="11.1.2" data-path="newton-interpolation.html"><a href="newton-interpolation.html#calculation-of-divided-difference"><i class="fa fa-check"></i><b>11.1.2</b> Calculation of Divided Difference</a></li>
+<li class="chapter" data-level="11.1.3" data-path="newton-interpolation.html"><a href="newton-interpolation.html#algorithm-of-calculating-divided-differences"><i class="fa fa-check"></i><b>11.1.3</b> Algorithm of Calculating Divided Differences</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="newton-interpolation.html"><a href="newton-interpolation.html#newton-interpolation-polynomial"><i class="fa fa-check"></i><b>11.2</b> Newton Interpolation Polynomial</a>
+<ul>
+<li class="chapter" data-level="11.2.1" data-path="newton-interpolation.html"><a href="newton-interpolation.html#definition-of-newton-interpolation"><i class="fa fa-check"></i><b>11.2.1</b> Definition of Newton Interpolation</a></li>
+<li class="chapter" data-level="11.2.2" data-path="newton-interpolation.html"><a href="newton-interpolation.html#newton-interpolation-algorithm"><i class="fa fa-check"></i><b>11.2.2</b> Newton Interpolation Algorithm</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="newton-interpolation.html"><a href="newton-interpolation.html#error-analysis-6"><i class="fa fa-check"></i><b>11.3</b> Error Analysis</a></li>
+<li class="chapter" data-level="11.4" data-path="newton-interpolation.html"><a href="newton-interpolation.html#some-remarks-of-newton-interpolation"><i class="fa fa-check"></i><b>11.4</b> Some Remarks of Newton Interpolation</a></li>
+<li class="chapter" data-level="11.5" data-path="newton-interpolation.html"><a href="newton-interpolation.html#implicit-loops-in-r-programming"><i class="fa fa-check"></i><b>11.5</b> Implicit Loops in R Programming</a>
+<ul>
+<li class="chapter" data-level="11.5.1" data-path="newton-interpolation.html"><a href="newton-interpolation.html#implicit-in-r-primitive-functions"><i class="fa fa-check"></i><b>11.5.1</b> Implicit in R Primitive Functions</a></li>
+<li class="chapter" data-level="11.5.2" data-path="newton-interpolation.html"><a href="newton-interpolation.html#some-vectorized-primitive-functions"><i class="fa fa-check"></i><b>11.5.2</b> Some Vectorized Primitive Functions</a></li>
+<li class="chapter" data-level="11.5.3" data-path="newton-interpolation.html"><a href="newton-interpolation.html#divided-difference-variants"><i class="fa fa-check"></i><b>11.5.3</b> Divided Difference Variants</a></li>
+<li class="chapter" data-level="11.5.4" data-path="newton-interpolation.html"><a href="newton-interpolation.html#vectorizing-newtoninterp"><i class="fa fa-check"></i><b>11.5.4</b> Vectorizing <strong>NewtonInterp()</strong></a></li>
+<li class="chapter" data-level="11.5.5" data-path="newton-interpolation.html"><a href="newton-interpolation.html#code-efficiency-with-implivit-loops"><i class="fa fa-check"></i><b>11.5.5</b> Code Efficiency with Implivit Loops</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="gauss-elimination-method.html"><a href="gauss-elimination-method.html"><i class="fa fa-check"></i><b>12</b> Gauss Elimination Method</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="gauss-elimination-method.html"><a href="gauss-elimination-method.html#naive-gaussian-elimination-methods"><i class="fa fa-check"></i><b>12.1</b> Naive Gaussian Elimination Methods</a></li>
+<li class="chapter" data-level="12.2" data-path="gauss-elimination-method.html"><a href="gauss-elimination-method.html#gaussian-elimination-algorithm"><i class="fa fa-check"></i><b>12.2</b> Gaussian Elimination Algorithm</a></li>
+<li class="chapter" data-level="12.3" data-path="gauss-elimination-method.html"><a href="gauss-elimination-method.html#gauss-jordan-elimination-optional"><i class="fa fa-check"></i><b>12.3</b> Gauss-Jordan Elimination (<code>Optional</code>)</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="determinant-and-inversion-of-matrices.html"><a href="determinant-and-inversion-of-matrices.html"><i class="fa fa-check"></i><b>13</b> Determinant and Inversion of Matrices</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="determinant-and-inversion-of-matrices.html"><a href="determinant-and-inversion-of-matrices.html#concepts-of-matrix-a-review"><i class="fa fa-check"></i><b>13.1</b> Concepts of Matrix: A Review</a>
+<ul>
+<li class="chapter" data-level="13.1.1" data-path="determinant-and-inversion-of-matrices.html"><a href="determinant-and-inversion-of-matrices.html#definitions-of-some-special-matrices"><i class="fa fa-check"></i><b>13.1.1</b> Definitions of Some Special Matrices</a></li>
+<li class="chapter" data-level="13.1.2" data-path="determinant-and-inversion-of-matrices.html"><a href="determinant-and-inversion-of-matrices.html#binary-operations"><i class="fa fa-check"></i><b>13.1.2</b> Binary Operations</a></li>
+<li class="chapter" data-level="13.1.3" data-path="determinant-and-inversion-of-matrices.html"><a href="determinant-and-inversion-of-matrices.html#unary-operations"><i class="fa fa-check"></i><b>13.1.3</b> Unary Operations</a></li>
+</ul></li>
+<li class="chapter" data-level="13.2" data-path="determinant-and-inversion-of-matrices.html"><a href="determinant-and-inversion-of-matrices.html#determinant-of-a-square-matrix"><i class="fa fa-check"></i><b>13.2</b> Determinant of a Square Matrix</a></li>
+<li class="chapter" data-level="13.3" data-path="determinant-and-inversion-of-matrices.html"><a href="determinant-and-inversion-of-matrices.html#matrix-inversion"><i class="fa fa-check"></i><b>13.3</b> Matrix Inversion</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="matrix-factorization.html"><a href="matrix-factorization.html"><i class="fa fa-check"></i><b>14</b> Matrix Factorization</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="matrix-factorization.html"><a href="matrix-factorization.html#elementary-and-permutation-matrices"><i class="fa fa-check"></i><b>14.1</b> Elementary and Permutation Matrices</a></li>
+<li class="chapter" data-level="14.2" data-path="matrix-factorization.html"><a href="matrix-factorization.html#lu-factorization-algorithm"><i class="fa fa-check"></i><b>14.2</b> LU Factorization Algorithm</a>
+<ul>
+<li class="chapter" data-level="14.2.1" data-path="matrix-factorization.html"><a href="matrix-factorization.html#row-operations-with-row-swapping"><i class="fa fa-check"></i><b>14.2.1</b> Row Operations with Row Swapping</a></li>
+<li class="chapter" data-level="14.2.2" data-path="matrix-factorization.html"><a href="matrix-factorization.html#row-operations-with-row-swapping-1"><i class="fa fa-check"></i><b>14.2.2</b> Row Operations with Row-swapping</a></li>
+<li class="chapter" data-level="14.2.3" data-path="matrix-factorization.html"><a href="matrix-factorization.html#lu-algorithm"><i class="fa fa-check"></i><b>14.2.3</b> LU ALgorithm</a></li>
+</ul></li>
+<li class="chapter" data-level="14.3" data-path="matrix-factorization.html"><a href="matrix-factorization.html#benefit-of-lu-factorization"><i class="fa fa-check"></i><b>14.3</b> Benefit of LU Factorization</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="least-square-approximation.html"><a href="least-square-approximation.html"><i class="fa fa-check"></i><b>15</b> Least Square Approximation</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="least-square-approximation.html"><a href="least-square-approximation.html#concepts-of-least-square-approximation"><i class="fa fa-check"></i><b>15.1</b> Concepts of Least Square Approximation</a></li>
+<li class="chapter" data-level="15.2" data-path="least-square-approximation.html"><a href="least-square-approximation.html#approximating-one-variable-linear-function"><i class="fa fa-check"></i><b>15.2</b> Approximating One-variable Linear Function</a></li>
+<li class="chapter" data-level="15.3" data-path="least-square-approximation.html"><a href="least-square-approximation.html#approximating-multiple-variable-linear-function"><i class="fa fa-check"></i><b>15.3</b> Approximating Multiple-variable Linear Function</a>
+<ul>
+<li class="chapter" data-level="15.3.1" data-path="least-square-approximation.html"><a href="least-square-approximation.html#an-extension-of-the-height-example"><i class="fa fa-check"></i><b>15.3.1</b> An Extension of the Height Example</a></li>
+<li class="chapter" data-level="15.3.2" data-path="least-square-approximation.html"><a href="least-square-approximation.html#approximating-general-multi-variables-linear-functions"><i class="fa fa-check"></i><b>15.3.2</b> Approximating General Multi-variables Linear Functions</a></li>
+</ul></li>
+<li class="chapter" data-level="15.4" data-path="least-square-approximation.html"><a href="least-square-approximation.html#approximating-one-variable-polynomial-function"><i class="fa fa-check"></i><b>15.4</b> Approximating One-variable Polynomial Function</a>
+<ul>
+<li class="chapter" data-level="15.4.1" data-path="least-square-approximation.html"><a href="least-square-approximation.html#approximating-quadratic-function"><i class="fa fa-check"></i><b>15.4.1</b> Approximating Quadratic Function</a></li>
+<li class="chapter" data-level="15.4.2" data-path="least-square-approximation.html"><a href="least-square-approximation.html#approximating-general-polynomial-functions"><i class="fa fa-check"></i><b>15.4.2</b> Approximating General Polynomial Functions</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="concepts-of-spline-interpolations.html"><a href="concepts-of-spline-interpolations.html"><i class="fa fa-check"></i><b>16</b> Concepts of Spline Interpolations</a>
+<ul>
+<li class="chapter" data-level="16.1" data-path="concepts-of-spline-interpolations.html"><a href="concepts-of-spline-interpolations.html#linear-splines"><i class="fa fa-check"></i><b>16.1</b> Linear Splines</a></li>
+<li class="chapter" data-level="16.2" data-path="concepts-of-spline-interpolations.html"><a href="concepts-of-spline-interpolations.html#quadratic-spline-interpolation"><i class="fa fa-check"></i><b>16.2</b> Quadratic Spline Interpolation</a>
+<ul>
+<li class="chapter" data-level="16.2.1" data-path="concepts-of-spline-interpolations.html"><a href="concepts-of-spline-interpolations.html#formulation-of-quadratic-spline"><i class="fa fa-check"></i><b>16.2.1</b> Formulation of Quadratic Spline</a></li>
+<li class="chapter" data-level="16.2.2" data-path="concepts-of-spline-interpolations.html"><a href="concepts-of-spline-interpolations.html#matrix-representation-of-quadratic-spline-problem"><i class="fa fa-check"></i><b>16.2.2</b> Matrix Representation of Quadratic Spline Problem</a></li>
+<li class="chapter" data-level="16.2.3" data-path="concepts-of-spline-interpolations.html"><a href="concepts-of-spline-interpolations.html#algorithm-of-quadratic-spline"><i class="fa fa-check"></i><b>16.2.3</b> Algorithm of Quadratic Spline</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="cubic-spline-interpolation.html"><a href="cubic-spline-interpolation.html"><i class="fa fa-check"></i><b>17</b> Cubic Spline Interpolation</a>
+<ul>
+<li class="chapter" data-level="17.1" data-path="cubic-spline-interpolation.html"><a href="cubic-spline-interpolation.html#cubic-splines"><i class="fa fa-check"></i><b>17.1</b> Cubic Splines</a>
+<ul>
+<li class="chapter" data-level="17.1.1" data-path="cubic-spline-interpolation.html"><a href="cubic-spline-interpolation.html#formulation-of-cubic-spline"><i class="fa fa-check"></i><b>17.1.1</b> Formulation of Cubic Spline</a></li>
+<li class="chapter" data-level="17.1.2" data-path="cubic-spline-interpolation.html"><a href="cubic-spline-interpolation.html#construction-of-cubic-splines"><i class="fa fa-check"></i><b>17.1.2</b> Construction of Cubic Splines</a></li>
+<li class="chapter" data-level="17.1.3" data-path="cubic-spline-interpolation.html"><a href="cubic-spline-interpolation.html#cubic-spline-algorithm"><i class="fa fa-check"></i><b>17.1.3</b> Cubic Spline Algorithm</a></li>
+</ul></li>
+<li class="chapter" data-level="17.2" data-path="cubic-spline-interpolation.html"><a href="cubic-spline-interpolation.html#clamped-splines"><i class="fa fa-check"></i><b>17.2</b> Clamped Splines</a></li>
+<li class="chapter" data-level="17.3" data-path="cubic-spline-interpolation.html"><a href="cubic-spline-interpolation.html#error-analysis-7"><i class="fa fa-check"></i><b>17.3</b> Error Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="newton-method-for-nonlinear-system-and-optimization.html"><a href="newton-method-for-nonlinear-system-and-optimization.html"><i class="fa fa-check"></i><b>18</b> Newton Method for Nonlinear System and Optimization</a>
+<ul>
+<li class="chapter" data-level="18.1" data-path="newton-method-for-nonlinear-system-and-optimization.html"><a href="newton-method-for-nonlinear-system-and-optimization.html#multivariate-taylor-expansion"><i class="fa fa-check"></i><b>18.1</b> Multivariate Taylor Expansion</a></li>
+<li class="chapter" data-level="18.2" data-path="newton-method-for-nonlinear-system-and-optimization.html"><a href="newton-method-for-nonlinear-system-and-optimization.html#newton-method-for-nonlinear-systems"><i class="fa fa-check"></i><b>18.2</b> Newton Method for Nonlinear Systems</a>
+<ul>
+<li class="chapter" data-level="18.2.1" data-path="newton-method-for-nonlinear-system-and-optimization.html"><a href="newton-method-for-nonlinear-system-and-optimization.html#system-of-two-nonlinear-equations"><i class="fa fa-check"></i><b>18.2.1</b> System of Two Nonlinear Equations</a></li>
+<li class="chapter" data-level="18.2.2" data-path="newton-method-for-nonlinear-system-and-optimization.html"><a href="newton-method-for-nonlinear-system-and-optimization.html#newton-algorithm"><i class="fa fa-check"></i><b>18.2.2</b> Newton Algorithm</a></li>
+</ul></li>
+<li class="chapter" data-level="18.3" data-path="newton-method-for-nonlinear-system-and-optimization.html"><a href="newton-method-for-nonlinear-system-and-optimization.html#optimization"><i class="fa fa-check"></i><b>18.3</b> Optimization</a></li>
+<li class="chapter" data-level="18.4" data-path="newton-method-for-nonlinear-system-and-optimization.html"><a href="newton-method-for-nonlinear-system-and-optimization.html#a-case-study"><i class="fa fa-check"></i><b>18.4</b> A Case Study</a></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html"><i class="fa fa-check"></i><b>19</b> Numerical Integration I</a>
+<ul>
+<li class="chapter" data-level="19.1" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html#numerical-approximation-of-derivatives"><i class="fa fa-check"></i><b>19.1</b> Numerical Approximation of Derivatives</a></li>
+<li class="chapter" data-level="19.2" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html#trapezoid-method"><i class="fa fa-check"></i><b>19.2</b> Trapezoid Method</a>
+<ul>
+<li class="chapter" data-level="19.2.1" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html#formulation-of-trapezoid-method"><i class="fa fa-check"></i><b>19.2.1</b> Formulation of Trapezoid Method</a></li>
+<li class="chapter" data-level="19.2.2" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html#error-analysis-8"><i class="fa fa-check"></i><b>19.2.2</b> Error Analysis</a></li>
+<li class="chapter" data-level="19.2.3" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html#composite-trapezoid-method-and-error-analysis"><i class="fa fa-check"></i><b>19.2.3</b> Composite Trapezoid Method and Error Analysis</a></li>
+<li class="chapter" data-level="19.2.4" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html#trapezoid-algorithm"><i class="fa fa-check"></i><b>19.2.4</b> Trapezoid Algorithm</a></li>
+</ul></li>
+<li class="chapter" data-level="19.3" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html#simpsons-one-third-rule"><i class="fa fa-check"></i><b>19.3</b> Simpson’s One-third Rule</a>
+<ul>
+<li class="chapter" data-level="19.3.1" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html#derivation-of-simpsons-rule"><i class="fa fa-check"></i><b>19.3.1</b> Derivation of Simpson’s Rule</a></li>
+<li class="chapter" data-level="19.3.2" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html#explicit-function-on-x_i-1-x_i1"><i class="fa fa-check"></i><b>19.3.2</b> Explicit Function on <span class="math inline">\([x_{i-1}, x_{i+1}]\)</span></a></li>
+<li class="chapter" data-level="19.3.3" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html#the-composite-simpsons-rule"><i class="fa fa-check"></i><b>19.3.3</b> The Composite Simpsons’ Rule</a></li>
+<li class="chapter" data-level="19.3.4" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html#error-analysis-9"><i class="fa fa-check"></i><b>19.3.4</b> Error Analysis</a></li>
+<li class="chapter" data-level="19.3.5" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html#algorithm-of-simpsons-rule"><i class="fa fa-check"></i><b>19.3.5</b> Algorithm of Simpson’s Rule</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html"><i class="fa fa-check"></i><b>20</b> Romberg Integration and Gaussian Quadratures</a>
+<ul>
+<li class="chapter" data-level="20.1" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#richardson-extrapolation"><i class="fa fa-check"></i><b>20.1</b> Richardson Extrapolation</a>
+<ul>
+<li class="chapter" data-level="20.1.1" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#the-logic-of-the-richardson-method"><i class="fa fa-check"></i><b>20.1.1</b> The Logic of the Richardson Method</a></li>
+<li class="chapter" data-level="20.1.2" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#algorithm-of-richardson-method"><i class="fa fa-check"></i><b>20.1.2</b> Algorithm of Richardson Method</a></li>
+<li class="chapter" data-level="20.1.3" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#higher-order-extrapolation"><i class="fa fa-check"></i><b>20.1.3</b> Higher Order Extrapolation</a></li>
+<li class="chapter" data-level="20.1.4" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#algorithm-and-code"><i class="fa fa-check"></i><b>20.1.4</b> Algorithm and Code</a></li>
+</ul></li>
+<li class="chapter" data-level="20.2" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#romberg-integration"><i class="fa fa-check"></i><b>20.2</b> Romberg Integration</a>
+<ul>
+<li class="chapter" data-level="20.2.1" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#approximation-formula-and-error-analysis"><i class="fa fa-check"></i><b>20.2.1</b> Approximation formula and Error Analysis</a></li>
+<li class="chapter" data-level="20.2.2" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#romberg-algorithm"><i class="fa fa-check"></i><b>20.2.2</b> Romberg Algorithm</a></li>
+<li class="chapter" data-level="20.2.3" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#r-code"><i class="fa fa-check"></i><b>20.2.3</b> R Code</a></li>
+</ul></li>
+<li class="chapter" data-level="20.3" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#gaussian-quadrature"><i class="fa fa-check"></i><b>20.3</b> Gaussian Quadrature</a>
+<ul>
+<li class="chapter" data-level="20.3.1" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#two-point-gauss-legendre-formula"><i class="fa fa-check"></i><b>20.3.1</b> Two-point Gauss Legendre Formula</a></li>
+<li class="chapter" data-level="20.3.2" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#general-gauss-legendre-formula"><i class="fa fa-check"></i><b>20.3.2</b> General Gauss Legendre Formula</a></li>
+<li class="chapter" data-level="20.3.3" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#r-code-1"><i class="fa fa-check"></i><b>20.3.3</b> R Code</a></li>
+</ul></li>
+<li class="chapter" data-level="20.4" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#remarks"><i class="fa fa-check"></i><b>20.4</b> Remarks</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">MAT325 E-Pack: Numerical Analysis</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="basics-of-data-representation-and-error-analysis" class="section level1 hasAnchor" number="4">
+<h1><span class="header-section-number">Topic 4</span> Basics of Data Representation and Error Analysis<a href="basics-of-data-representation-and-error-analysis.html#basics-of-data-representation-and-error-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>This note introduces briefly the concepts of floating point and the basics of error analysis. Before presenting these concepts, we introduce some computer architecture concepts from computer science.</p>
+<p><strong>Bit</strong> is the fundamental unit of memory inside a computer, which is short for <font color = "red"><strong> binary digit</strong></font>. <strong>Each bit</strong> of data corresponds to a ‘0’ or ‘1’.</p>
+<p>The bit is the smallest unit of data that a computer processes, but a single bit are too small to represent much data.</p>
+<p><font color = "red"><strong>The smallest practical unit for expressing information is the byte, which is made up of eight bits</strong></font>.</p>
+<p><strong>A single byte</strong> consists of <strong>eight bits</strong>. That is, a single byte can represent 256 (<span class="math inline">\(=2^8\)</span>) combinations of data.</p>
+<div id="data-representation" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> Data Representation<a href="basics-of-data-representation-and-error-analysis.html#data-representation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Data is a broad concept. All recorded information is called data. We briefly describe how data is represented and stored in computer systems. In this numerical analysis class, we focus on how numbers are represented and stored in computers.</p>
+<div id="number-systems" class="section level3 hasAnchor" number="4.1.1">
+<h3><span class="header-section-number">4.1.1</span> Number Systems<a href="basics-of-data-representation-and-error-analysis.html#number-systems" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We use a decimal system (base 10) for counting and computations. Computers use binary (base 2) number systems, as they are made from binary digital components (known as transistors) operating in two states - on (encoded as <span class="math inline">\(1\)</span>) and off (encoded as <span class="math inline">\(0\)</span>). In computing, the hexadecimal (base 16) or octal (base 8) number systems are also used as a compact form for representing binary numbers. Next, we briefly outline decimal, binary, and hexadecimal number systems. Every representation has three components: <font color = "red"> <strong>digits</strong>, <strong>base</strong>, and <strong>exponent</strong></font>.</p>
+<div id="decimal-base-10-system" class="section level4 hasAnchor" number="4.1.1.1">
+<h4><span class="header-section-number">4.1.1.1</span> Decimal (Base 10) System<a href="basics-of-data-representation-and-error-analysis.html#decimal-base-10-system" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>The decimal number system has ten symbols: <span class="math inline">\(0, 1, 2, 3, 4, 5, 6, 7, 8\)</span>, and <span class="math inline">\(9\)</span>, called <strong>digits</strong>. It uses positional notation. That is, the least-significant digit (right-most digit) is of the order of <span class="math inline">\(10^0\)</span> (units or ones), the second right-most digit is of the order of <span class="math inline">\(10^1\)</span> (tens), the third right-most digit is of the order of <span class="math inline">\(10^2\)</span> (hundreds), and so on. The exponents of the base are called <strong>positional numbers</strong>.</p>
+<p><br />
+</p>
+<p><strong>Example 1</strong>: The base 10 representation of integer 182736 is given the following form <span class="math display">\[
+182736 = 1\times 10^5 + 8\times 10^4 + 2\times 10^3 + 7\times 10^2 + 3\times 10^1 + 6\times 10^0.
+\]</span> The following figure explains the above representation.</p>
+<p><img src="img02/w02-base10Rep.png" width="85%" style="display: block; margin: auto;" /></p>
+<p>To avoid confusion, we use <span class="math inline">\(182736D\)</span> or <span class="math inline">\(182736_{10}\)</span> to denote <span class="math inline">\(182736\)</span> to be a decimal number in case multiple number systems are used at the same time.</p>
+<p><br />
+</p>
+</div>
+<div id="binary-base-2-system" class="section level4 hasAnchor" number="4.1.1.2">
+<h4><span class="header-section-number">4.1.1.2</span> Binary (base 2) System<a href="basics-of-data-representation-and-error-analysis.html#binary-base-2-system" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>The binary number system is used by all computers. The binary number system is a base-2 number system, therefore there are two valid digits: 0 and 1. The binary number system has two symbols: 0 and 1, called bits. It is also a positional notation.</p>
+<p><strong>Example 2</strong>: Write the base 2 representation of binary integer 101010B.</p>
+<p><strong>Solution</strong> The base 2 representation is given in the following. <span class="math display">\[
+101010B = 1\times 2^5 + 0\times 2^4 + 1\times 2^3 + 0\times 2^2 + 1\times 2^1 + 0\times 2^0
+\]</span></p>
+<p>where suffix <span class="math inline">\(B\)</span> denotes the binary number. The following figure explains the above representation.</p>
+<p><img src="img02/w02-base2Rep.png" width="35%" style="display: block; margin: auto;" /></p>
+<p><br />
+</p>
+</div>
+<div id="conversion-between-number-systems" class="section level4 hasAnchor" number="4.1.1.3">
+<h4><span class="header-section-number">4.1.1.3</span> Conversion Between Number Systems<a href="basics-of-data-representation-and-error-analysis.html#conversion-between-number-systems" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Computers use the binary system to store numbers. How to convert a number from one system to the other? The following examples illustrate the idea of conversion.</p>
+<p><strong>Example 3</strong> Convert 12045D to a binary number.</p>
+<p><strong>Solution</strong>: All we need to so is to represent 205D in a power series with base 2 in the following <span class="math display">\[
+205D = 2^7D + 2^6D + 2^3D + 2^2D + 1D  
+\]</span> <span class="math display">\[
+= 1 \times 2^7D + 1\times 2^6D +0\times 2^5D + 0\times 2^4D + 1\times 2^3D + 1\times 2^2D + 0\times 2^1D + 1\times 2^0D = 11001101B
+\]</span><br />
+</p>
+<p><strong>Example 4</strong>: Convert 101011B into a decimal system.</p>
+<p><strong>Solution</strong>: Use the same idea in the previous example to complete the conversion. <span class="math display">\[
+101011B = 1\times 2^5D + 0\times 2^4D + 1\times 2^3D + 0\times 2^2D + 1\times 2^1D + 1\times 2^0
+\]</span> <span class="math display">\[
+=32D + 0D + 8D + 0D + 2D + 1D = 43D.
+\]</span></p>
+<p><br />
+</p>
+<p><strong>Example 5</strong>: Express 3.25D (floating value) into a binary (floating) value.</p>
+<p><strong>Solution</strong>: We represent the integral and decimal parts into binary numbers respectively.</p>
+<ul>
+<li><p><strong>Integral part</strong>: <span class="math inline">\(3_{10} = (1\times 2^1 + 1\times 2^0)_{10} = (11)_2\)</span>.</p></li>
+<li><p><strong>Decimal part</strong>: <span class="math inline">\(.25_{10} = (0\times 2^{-1} + 1\times 2^{-2} = (.01)_2\)</span>.</p></li>
+</ul>
+<p>Therefore, <span class="math inline">\(3.25_{10} = 11.01_2\)</span>.</p>
+<p><br />
+</p>
+<p><strong>Comment</strong>: converting the fractional part to binary (base 2 representation) is a little cumbersome. The following is a programmatically convenient tabular algorithm:</p>
+<p><img src="img02/w02-TabularConversionBase2Fraction.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><br />
+</p>
+<p><strong>Example 6</strong> Express 21.36D (decimal representation) into a binary (representation) value.</p>
+<p><strong>Solution</strong>: We still convert the integral and fraction parts separately.</p>
+<ul>
+<li><p><strong>Integral Part</strong>: <span class="math inline">\(21 = 1\times 2^4 + 0\times 2^3 + 1\times 2^2 + 0\times 2^1 + 1 \times 2^0 = (10101)_2\)</span>.</p></li>
+<li><p><strong>Fractional Part</strong>: The binary conversion of <span class="math inline">\(0.36\)</span> is based on the following table.</p></li>
+</ul>
+<p><img src="img02/w02-TabularRecursiveConversionBase2Fraction.png" width="95%" style="display: block; margin: auto;" /></p>
+<p>From the table we have <span class="math display">\[
+0.36_{10} = (\overbrace{01011100001010001111}^\text{20 digits} \cdots\overbrace{ 01011100001010001111}^\text{20 digits} \cdots)_2
+\]</span> That is, the resultant binary number has infinite digits because the sequence of digits (<span class="math inline">\(01011100001010001111\)</span>) will repeat infinitely many times.</p>
+<p>Therefore, <span class="math inline">\(21.36_{10} = 10101.\overline{01011100001010001111}_2\)</span>.</p>
+<p><strong>Remark</strong>: This examples shows that <span class="math inline">\(0.36\)</span> has infinite representations in binary. The bits go on forever; no matter how many of those bits you store in a computer, you will never end up with the binary equivalent of decimal <span class="math inline">\(0.36\)</span>.</p>
+</div>
+<div id="scientific-notation" class="section level4 hasAnchor" number="4.1.1.4">
+<h4><span class="header-section-number">4.1.1.4</span> Scientific Notation<a href="basics-of-data-representation-and-error-analysis.html#scientific-notation" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>We have outlined the base-10 and base-2 representation of given numbers. We also use <strong>scientific notation</strong> in base-10 representation.</p>
+<p><strong>Example 7</strong>: Write the scientific notation of <span class="math inline">\(21.36_{10}\)</span> and its binary representation (see the second part of example 6).</p>
+<p><strong>Solution</strong>: The scientific notation of <span class="math inline">\(21.36_{10}\)</span> denoted by <span class="math inline">\(21.36 = 2.136\times 10^{1}\)</span> or written as <span class="math inline">\(2.136E1\)</span>. In binary representation, <span class="math inline">\(21.36_{10} = 10101.\overline{01011100001010001111}_2 = 1.0101\overline{01011100001010001111}_2\times 2^4\)</span></p>
+</div>
+</div>
+</div>
+<div id="how-data-is-stored-in-computer-memory" class="section level2 hasAnchor" number="4.2">
+<h2><span class="header-section-number">4.2</span> How data is stored in computer memory<a href="basics-of-data-representation-and-error-analysis.html#how-data-is-stored-in-computer-memory" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Human beings use decimal (base 10) and duodecimal (base 12) number systems for counting and measurements (probably because we have 10 fingers and two big toes). Computers use binary (base 2) number systems, as they are made from binary digital components (known as transistors) operating in two states - <strong>on</strong> and <strong>off</strong>.</p>
+<p><img src="img02/w02-Realworld-Computer-Data.png" width="65%" style="display: block; margin: auto;" /></p>
+<p>We will not go into details about how all kinds of data are stored in a computer. But it is necessary to have some conceptual understanding of how numbers are stored in a computer so that we will better understand various sources of errors.</p>
+<p>Computer memory is the collection of many groups that contain a certain number of bits. As mentioned earlier,</p>
+<ul>
+<li><p>a collection of 8 bits is called a byte, and</p></li>
+<li><p>a collection of 4 bytes, or 32 bits, is called a word.</p></li>
+</ul>
+<p>Each individual data value in a data set is usually stored using one or more bytes of memory, but at the lowest level, any data stored on a computer is just a large collection of bits. The following is an illustrative example that explains how a number is stored using a 32-bit layout (also called <strong>bit string</strong>) memory.</p>
+<p><img src="img02/w02-ExampleMemoryUnit.png" width="85%" style="display: block; margin: auto;" /></p>
+<div id="how-integers-are-stored-in-memory" class="section level3 hasAnchor" number="4.2.1">
+<h3><span class="header-section-number">4.2.1</span> How integers are stored in memory?<a href="basics-of-data-representation-and-error-analysis.html#how-integers-are-stored-in-memory" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The most computer system uses 32-bit (or 64-bit) layout to store integers. The previous figure is a 32-bit string layout. The binary integer stored is <span class="math display">\[
+(\overbrace{010101010101010101010101010101010101}^\text{32 digits})_2 = (2^{30}+2^{28}+2^{26} + \cdots + 2^2 + 2^0)_{10} = 1431655765_{10}
+\]</span> If we store only unsigned integers, the biggest integer we store in the 32-bit layout is <span class="math inline">\(2^{32} - 1 = 4294967295\)</span>. The smallest integer is 0. If we consider both positive and positive integers, the use one bit (utmost left-hand side of the bit string) to denote the sign of the integer (0 indicates positive and 1 indicates negative). Then the smallest and the biggest integers that can be stored are <span class="math inline">\(-2^{31} -1 = - 2147483647\)</span> and <span class="math inline">\(2^{31} -1 = + 2147483647\)</span>.</p>
+<p><br />
+</p>
+</div>
+<div id="floating-point-numbers" class="section level3 hasAnchor" number="4.2.2">
+<h3><span class="header-section-number">4.2.2</span> Floating-point Numbers<a href="basics-of-data-representation-and-error-analysis.html#floating-point-numbers" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We first describe the concepts of real numbers and floating-point numbers.</p>
+<ul>
+<li><p><strong>Floating-point numbers</strong> are any numbers with a decimal point in them. For example, 3.14159 is a floating-point number.</p></li>
+<li><p><strong>A real number</strong> is the “analog” version of a floating-point number – It <strong>has infinite precision</strong> and <strong>is continuous</strong>.</p></li>
+<li><p>The <strong>difference</strong> between <em>reals</em> and <em>floating-point numbers</em> is that the latter has limited precision – it really depends on the abilities of the computer. <strong>Floating-point numbers are essentially approximations of real numbers</strong>.</p></li>
+</ul>
+<p><strong>Example 8</strong>: Let’s binary representation and floating-point representation of real number <span class="math inline">\(0.1_{10}\)</span>.</p>
+<p><strong>Answer</strong>: Using the same method used in <strong>example 7</strong> to represent <span class="math inline">\(0.1_{10}\)</span>, we have <span class="math display">\[
+0.1_{10} = 0.0\underbrace{\overline{0011}_2}_\text{4 digits}
+\]</span> It has infinite representation in binary representation. When it is stored in a computer system, only finite binary digits are used due to the precision of the computer.</p>
+<p><strong>Example 9</strong>: Find the difference <span class="math inline">\(3_{10}\times0.1_{10} - 0.3_{10}\)</span>.</p>
+<p><strong>Answer</strong>: The difference is 0 if calculated manually. We have shown that <span class="math inline">\(0.1_{10}\)</span> has an infinite binary representation. However, <span class="math inline">\(0.3_{10} = (0.01001100110)_2\)</span>. When calculating the above difference in a computer, it will give a non-zero number. The result from <strong>R</strong> in the following</p>
+<div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb131-1"><a href="basics-of-data-representation-and-error-analysis.html#cb131-1" tabindex="-1"></a><span class="dv">3</span><span class="sc">*</span><span class="fl">0.1</span> <span class="sc">-</span> <span class="fl">0.3</span></span></code></pre></div>
+<pre><code>## [1] 5.551115e-17</code></pre>
+</div>
+<div id="how-floating-point-numbers-are-stored-in-memory" class="section level3 hasAnchor" number="4.2.3">
+<h3><span class="header-section-number">4.2.3</span> How Floating-point Numbers Are Stored in Memory?<a href="basics-of-data-representation-and-error-analysis.html#how-floating-point-numbers-are-stored-in-memory" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>IEEE 754-1985 represents numbers in binary, providing definitions for four levels of precision, of which the two most commonly used are single (32-bit) and double precision (64-bit) layouts.</p>
+<p><img src="img02/w02-32bit64bitPattern.png" width="85%" style="display: block; margin: auto;" /></p>
+<p>The equation for converting a 32-bit pattern into a floating point number is given by</p>
+<p><span class="math display">\[
+(-1)^S\times M \times 2^{E-127}
+\]</span> where <span class="math inline">\(S\)</span> is the value of the <em>sign bit</em>, <span class="math inline">\(M\)</span> is the value of the <em>mantissa</em> (fractional part), and <span class="math inline">\(E\)</span> is the value of component. In 32-bit layout, 23 bits are allocated to <em>mantissa</em>. The general form of <span class="math inline">\(M\)</span> is explicitly by <span class="math display">\[
+M_{10} = 1 + m_{22}2^{-1} + m_{21}2^{-2} + m_{20}2^{-3}+\cdots +m_{1}2^{-22}
+\]</span> where <span class="math inline">\(m_i\)</span> (<span class="math inline">\(i =0, 1, 2, \cdots, 22\)</span> is either 1 or 0. Note that <span class="math inline">\(-127\)</span> in the conversion formula reflects the total number of alternatives based on the allocated 8 bits (<span class="math inline">\(2^8 -1 = 127\)</span>).</p>
+<p>The examples given below show how <span class="math inline">\(\pm 10.75_{10}\)</span> are stored in a 32-bit layout system.</p>
+<p><img src="img02/w02-32bitPattern.png" width="95%" style="display: block; margin: auto;" /></p>
+<p>Of the 64 bits used to store a double precision number, bits 0 through 51 are the <em>mantissa</em>, bits 52 through 62 are the <em>exponent</em>, and bit 63 is the <em>sign</em> bit.</p>
+<p><strong>The main take-away is that storing real number to a computer system involves potential rounding error (due to approximation)!</strong></p>
+</div>
+<div id="basic-types-errors-in-error-analysis" class="section level3 hasAnchor" number="4.2.4">
+<h3><span class="header-section-number">4.2.4</span> Basic Types Errors in Error Analysis<a href="basics-of-data-representation-and-error-analysis.html#basic-types-errors-in-error-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Let <span class="math inline">\(P\)</span> is the true value and <span class="math inline">\(P^*\)</span> an approximated value. Three types of errors will be used from time to time throughout the semester.</p>
+<ul>
+<li><p>The <strong>actual error</strong> is defined to be <span class="math inline">\(P-P^*\)</span>.</p></li>
+<li><p>The <strong>absolute error</strong> is defined to be <span class="math inline">\(|P-P^*|\)</span></p></li>
+<li><p>The <strong>relative error</strong> is defined to be <span class="math inline">\(|P-P^*|/P\)</span>, <span class="math inline">\(p \ne 0\)</span>. The relative errors are frequently used in error analysis throughout this semester.</p></li>
+<li><p><strong>Significant digit</strong>:</p></li>
+</ul>
+<p>The number <span class="math inline">\(P^*\)</span> is said to approximate <span class="math inline">\(P\)</span> to <span class="math inline">\(t\)</span> <strong>significant digits</strong> if <span class="math inline">\(t\)</span> is the largest non-negative number such that <span class="math display">\[
+\frac{|P-P^*|}{P} &lt; 1.23\times 10^{-t}
+\]</span></p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="scientific-computing-with-r.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="error-analysis-algorithms-and-convergence.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/pengdsci/MAT325EB/edit/master/03-FloatingPointsErrorAnalysis.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["MAT325EB.pdf", "MAT325EB.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

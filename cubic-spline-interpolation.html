@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Topic 17 Cubic Spline Interpolation | MAT325 E-Pack: Numerical Analysis</title>
+  <meta name="description" content="The output format for this example is bookdown::gitbook." />
+  <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Topic 17 Cubic Spline Interpolation | MAT325 E-Pack: Numerical Analysis" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="The output format for this example is bookdown::gitbook." />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Topic 17 Cubic Spline Interpolation | MAT325 E-Pack: Numerical Analysis" />
+  
+  <meta name="twitter:description" content="The output format for this example is bookdown::gitbook." />
+  
+
+<meta name="author" content="Cheng Peng" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="concepts-of-spline-interpolations.html"/>
+<link rel="next" href="newton-method-for-nonlinear-system-and-optimization.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<center><li><a href="./"><font color = "darkred"><b>MAT 325 E-Coursepack: Numerical Analysis</b></font></a><br><font color = "navy">Cheng Peng</font></li></center>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="calculus-review.html"><a href="calculus-review.html"><i class="fa fa-check"></i><b>2</b> Calculus Review</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="calculus-review.html"><a href="calculus-review.html#limits-and-continuity"><i class="fa fa-check"></i><b>2.1</b> Limits and Continuity</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="calculus-review.html"><a href="calculus-review.html#limits"><i class="fa fa-check"></i><b>2.1.1</b> Limits</a></li>
+<li class="chapter" data-level="2.1.2" data-path="calculus-review.html"><a href="calculus-review.html#continuity"><i class="fa fa-check"></i><b>2.1.2</b> Continuity</a></li>
+<li class="chapter" data-level="2.1.3" data-path="calculus-review.html"><a href="calculus-review.html#convergence-of-a-sequence"><i class="fa fa-check"></i><b>2.1.3</b> Convergence of A Sequence</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="calculus-review.html"><a href="calculus-review.html#differentiation"><i class="fa fa-check"></i><b>2.2</b> Differentiation</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="calculus-review.html"><a href="calculus-review.html#definition"><i class="fa fa-check"></i><b>2.2.1</b> Definition</a></li>
+<li class="chapter" data-level="2.2.2" data-path="calculus-review.html"><a href="calculus-review.html#properties"><i class="fa fa-check"></i><b>2.2.2</b> Properties</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="calculus-review.html"><a href="calculus-review.html#integration"><i class="fa fa-check"></i><b>2.3</b> Integration</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="calculus-review.html"><a href="calculus-review.html#series-vs-sequence"><i class="fa fa-check"></i><b>2.3.1</b> Series vs Sequence</a></li>
+<li class="chapter" data-level="2.3.2" data-path="calculus-review.html"><a href="calculus-review.html#definition-of-definite-integral"><i class="fa fa-check"></i><b>2.3.2</b> Definition of Definite Integral</a></li>
+<li class="chapter" data-level="2.3.3" data-path="calculus-review.html"><a href="calculus-review.html#taylor-expansion"><i class="fa fa-check"></i><b>2.3.3</b> Taylor Expansion</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html"><i class="fa fa-check"></i><b>3</b> Scientific Computing with R</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#vectors-and-matrices"><i class="fa fa-check"></i><b>3.1</b> Vectors and Matrices</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#vectors"><i class="fa fa-check"></i><b>3.1.1</b> Vectors</a></li>
+<li class="chapter" data-level="3.1.2" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#matrices"><i class="fa fa-check"></i><b>3.1.2</b> Matrices</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#built-in-mathematical-functions-and-operators"><i class="fa fa-check"></i><b>3.2</b> Built-in Mathematical Functions and Operators</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#arithmetic-operators"><i class="fa fa-check"></i><b>3.2.1</b> Arithmetic Operators</a></li>
+<li class="chapter" data-level="3.2.2" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#basic-mathematical-functions"><i class="fa fa-check"></i><b>3.2.2</b> Basic Mathematical Functions</a></li>
+<li class="chapter" data-level="3.2.3" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#trigonometry"><i class="fa fa-check"></i><b>3.2.3</b> Trigonometry</a></li>
+<li class="chapter" data-level="3.2.4" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#linear-algebra"><i class="fa fa-check"></i><b>3.2.4</b> Linear Algebra</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#graphic-functions-in-base-r"><i class="fa fa-check"></i><b>3.3</b> Graphic Functions in Base R</a></li>
+<li class="chapter" data-level="3.4" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#rounding-and-related-functions"><i class="fa fa-check"></i><b>3.4</b> Rounding and Related Functions</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#round"><i class="fa fa-check"></i><b>3.4.1</b> round()</a></li>
+<li class="chapter" data-level="3.4.2" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#controlling-number-of-displayed-digits"><i class="fa fa-check"></i><b>3.4.2</b> Controlling Number of Displayed Digits</a></li>
+<li class="chapter" data-level="3.4.3" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#signif"><i class="fa fa-check"></i><b>3.4.3</b> <code>Signif()</code></a></li>
+<li class="chapter" data-level="3.4.4" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#floor-and-ceiling"><i class="fa fa-check"></i><b>3.4.4</b> <code>floor()</code> and <code>ceiling()</code></a></li>
+<li class="chapter" data-level="3.4.5" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#trunc"><i class="fa fa-check"></i><b>3.4.5</b> <code>trunc()</code></a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#control-statements"><i class="fa fa-check"></i><b>3.5</b> Control Statements</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#conditional-statements"><i class="fa fa-check"></i><b>3.5.1</b> Conditional Statements</a></li>
+<li class="chapter" data-level="3.5.2" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#loops-in-r"><i class="fa fa-check"></i><b>3.5.2</b> Loops in R</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#numerical-example"><i class="fa fa-check"></i><b>3.6</b> Numerical Example</a>
+<ul>
+<li class="chapter" data-level="3.6.1" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#version-1"><i class="fa fa-check"></i><b>3.6.1</b> VERSION 1</a></li>
+<li class="chapter" data-level="3.6.2" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#version-2"><i class="fa fa-check"></i><b>3.6.2</b> Version 2</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#user-defined-functions"><i class="fa fa-check"></i><b>3.7</b> User Defined Functions</a>
+<ul>
+<li class="chapter" data-level="3.7.1" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#writing-r-functions-for-root-finding-methods"><i class="fa fa-check"></i><b>3.7.1</b> Writing R Functions for Root-finding Methods</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="basics-of-data-representation-and-error-analysis.html"><a href="basics-of-data-representation-and-error-analysis.html"><i class="fa fa-check"></i><b>4</b> Basics of Data Representation and Error Analysis</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="basics-of-data-representation-and-error-analysis.html"><a href="basics-of-data-representation-and-error-analysis.html#data-representation"><i class="fa fa-check"></i><b>4.1</b> Data Representation</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="basics-of-data-representation-and-error-analysis.html"><a href="basics-of-data-representation-and-error-analysis.html#number-systems"><i class="fa fa-check"></i><b>4.1.1</b> Number Systems</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="basics-of-data-representation-and-error-analysis.html"><a href="basics-of-data-representation-and-error-analysis.html#how-data-is-stored-in-computer-memory"><i class="fa fa-check"></i><b>4.2</b> How data is stored in computer memory</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="basics-of-data-representation-and-error-analysis.html"><a href="basics-of-data-representation-and-error-analysis.html#how-integers-are-stored-in-memory"><i class="fa fa-check"></i><b>4.2.1</b> How integers are stored in memory?</a></li>
+<li class="chapter" data-level="4.2.2" data-path="basics-of-data-representation-and-error-analysis.html"><a href="basics-of-data-representation-and-error-analysis.html#floating-point-numbers"><i class="fa fa-check"></i><b>4.2.2</b> Floating-point Numbers</a></li>
+<li class="chapter" data-level="4.2.3" data-path="basics-of-data-representation-and-error-analysis.html"><a href="basics-of-data-representation-and-error-analysis.html#how-floating-point-numbers-are-stored-in-memory"><i class="fa fa-check"></i><b>4.2.3</b> How Floating-point Numbers Are Stored in Memory?</a></li>
+<li class="chapter" data-level="4.2.4" data-path="basics-of-data-representation-and-error-analysis.html"><a href="basics-of-data-representation-and-error-analysis.html#basic-types-errors-in-error-analysis"><i class="fa fa-check"></i><b>4.2.4</b> Basic Types Errors in Error Analysis</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="error-analysis-algorithms-and-convergence.html"><a href="error-analysis-algorithms-and-convergence.html"><i class="fa fa-check"></i><b>5</b> Error Analysis, Algorithms and Convergence</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="error-analysis-algorithms-and-convergence.html"><a href="error-analysis-algorithms-and-convergence.html#error-analysis"><i class="fa fa-check"></i><b>5.1</b> Error Analysis</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="error-analysis-algorithms-and-convergence.html"><a href="error-analysis-algorithms-and-convergence.html#understanding-numerical-error"><i class="fa fa-check"></i><b>5.1.1</b> Understanding Numerical Error</a></li>
+<li class="chapter" data-level="5.1.2" data-path="error-analysis-algorithms-and-convergence.html"><a href="error-analysis-algorithms-and-convergence.html#error-classification"><i class="fa fa-check"></i><b>5.1.2</b> Error Classification</a></li>
+<li class="chapter" data-level="5.1.3" data-path="error-analysis-algorithms-and-convergence.html"><a href="error-analysis-algorithms-and-convergence.html#approximation-significant-digits-figures"><i class="fa fa-check"></i><b>5.1.3</b> Approximation Significant Digits (Figures)</a></li>
+<li class="chapter" data-level="5.1.4" data-path="error-analysis-algorithms-and-convergence.html"><a href="error-analysis-algorithms-and-convergence.html#nested-arithmetic"><i class="fa fa-check"></i><b>5.1.4</b> Nested Arithmetic</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="error-analysis-algorithms-and-convergence.html"><a href="error-analysis-algorithms-and-convergence.html#algorithms-and-convergence"><i class="fa fa-check"></i><b>5.2</b> Algorithms and Convergence</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="error-analysis-algorithms-and-convergence.html"><a href="error-analysis-algorithms-and-convergence.html#algorithm-and-psuedo-code"><i class="fa fa-check"></i><b>5.2.1</b> Algorithm and Psuedo-code</a></li>
+<li class="chapter" data-level="5.2.2" data-path="error-analysis-algorithms-and-convergence.html"><a href="error-analysis-algorithms-and-convergence.html#rules-of-pseudo-code"><i class="fa fa-check"></i><b>5.2.2</b> Rules of Pseudo-code</a></li>
+<li class="chapter" data-level="5.2.3" data-path="error-analysis-algorithms-and-convergence.html"><a href="error-analysis-algorithms-and-convergence.html#stability-of-algorithms"><i class="fa fa-check"></i><b>5.2.3</b> Stability of Algorithms</a></li>
+<li class="chapter" data-level="5.2.4" data-path="error-analysis-algorithms-and-convergence.html"><a href="error-analysis-algorithms-and-convergence.html#rates-of-convergence"><i class="fa fa-check"></i><b>5.2.4</b> Rates of Convergence</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="bisection-method.html"><a href="bisection-method.html"><i class="fa fa-check"></i><b>6</b> Bisection Method</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="bisection-method.html"><a href="bisection-method.html#the-question"><i class="fa fa-check"></i><b>6.1</b> The Question</a></li>
+<li class="chapter" data-level="6.2" data-path="bisection-method.html"><a href="bisection-method.html#bisection-method-1"><i class="fa fa-check"></i><b>6.2</b> Bisection Method</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="bisection-method.html"><a href="bisection-method.html#the-logic-of-bisection-method"><i class="fa fa-check"></i><b>6.2.1</b> The Logic of Bisection Method</a></li>
+<li class="chapter" data-level="6.2.2" data-path="bisection-method.html"><a href="bisection-method.html#bisection-algorithm"><i class="fa fa-check"></i><b>6.2.2</b> Bisection Algorithm</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="bisection-method.html"><a href="bisection-method.html#error-analysis-1"><i class="fa fa-check"></i><b>6.3</b> Error Analysis</a></li>
+<li class="chapter" data-level="6.4" data-path="bisection-method.html"><a href="bisection-method.html#numerical-examples."><i class="fa fa-check"></i><b>6.4</b> Numerical Examples.</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="fixed-point-method.html"><a href="fixed-point-method.html"><i class="fa fa-check"></i><b>7</b> Fixed Point Method</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="fixed-point-method.html"><a href="fixed-point-method.html#some-theories-of-the-fixed-point-method"><i class="fa fa-check"></i><b>7.1</b> Some Theories of the Fixed Point Method</a></li>
+<li class="chapter" data-level="7.2" data-path="fixed-point-method.html"><a href="fixed-point-method.html#fixed-point-iteration"><i class="fa fa-check"></i><b>7.2</b> Fixed Point Iteration</a></li>
+<li class="chapter" data-level="7.3" data-path="fixed-point-method.html"><a href="fixed-point-method.html#error-analysis-2"><i class="fa fa-check"></i><b>7.3</b> Error Analysis</a></li>
+<li class="chapter" data-level="7.4" data-path="fixed-point-method.html"><a href="fixed-point-method.html#numerical-example-1"><i class="fa fa-check"></i><b>7.4</b> Numerical Example</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="newtons-method.html"><a href="newtons-method.html"><i class="fa fa-check"></i><b>8</b> Newton’s Method</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="newtons-method.html"><a href="newtons-method.html#notations-big-o-and-little-o"><i class="fa fa-check"></i><b>8.1</b> Notations: Big O and Little o</a></li>
+<li class="chapter" data-level="8.2" data-path="newtons-method.html"><a href="newtons-method.html#foundations-of-newton-method"><i class="fa fa-check"></i><b>8.2</b> Foundations of Newton Method</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="newtons-method.html"><a href="newtons-method.html#the-algorithmic-logic"><i class="fa fa-check"></i><b>8.2.1</b> The Algorithmic Logic</a></li>
+<li class="chapter" data-level="8.2.2" data-path="newtons-method.html"><a href="newtons-method.html#initial-starting-value-matters"><i class="fa fa-check"></i><b>8.2.2</b> Initial Starting Value Matters</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="newtons-method.html"><a href="newtons-method.html#algorithm-and-pseudo-code"><i class="fa fa-check"></i><b>8.3</b> Algorithm and Pseudo-code</a></li>
+<li class="chapter" data-level="8.4" data-path="newtons-method.html"><a href="newtons-method.html#error-analysis-3"><i class="fa fa-check"></i><b>8.4</b> Error Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="secant-method.html"><a href="secant-method.html"><i class="fa fa-check"></i><b>9</b> Secant Method</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="secant-method.html"><a href="secant-method.html#secant-method-1"><i class="fa fa-check"></i><b>9.1</b> Secant Method</a></li>
+<li class="chapter" data-level="9.2" data-path="secant-method.html"><a href="secant-method.html#secant-algorithm-and-implementation"><i class="fa fa-check"></i><b>9.2</b> Secant Algorithm and Implementation</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="secant-method.html"><a href="secant-method.html#implementation-with-r"><i class="fa fa-check"></i><b>9.2.1</b> Implementation with R</a></li>
+<li class="chapter" data-level="9.2.2" data-path="secant-method.html"><a href="secant-method.html#numerical-examples"><i class="fa fa-check"></i><b>9.2.2</b> Numerical Examples</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="secant-method.html"><a href="secant-method.html#error-analysis-4"><i class="fa fa-check"></i><b>9.3</b> Error Analysis</a></li>
+<li class="chapter" data-level="9.4" data-path="secant-method.html"><a href="secant-method.html#false-position-method"><i class="fa fa-check"></i><b>9.4</b> False Position Method</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html"><i class="fa fa-check"></i><b>10</b> Lagrange Interpolation</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html#concepts-of-interpolation-method"><i class="fa fa-check"></i><b>10.1</b> Concepts of Interpolation Method</a>
+<ul>
+<li class="chapter" data-level="10.1.1" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html#data-fitting-interpolation"><i class="fa fa-check"></i><b>10.1.1</b> Data-fitting / Interpolation:</a></li>
+<li class="chapter" data-level="10.1.2" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html#functional-equation-curve-approximation"><i class="fa fa-check"></i><b>10.1.2</b> Functional Equation (Curve Approximation)</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html#the-lagrange-interpolation"><i class="fa fa-check"></i><b>10.2</b> The Lagrange Interpolation</a>
+<ul>
+<li class="chapter" data-level="10.2.1" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html#linear-lagrange-interpolation"><i class="fa fa-check"></i><b>10.2.1</b> Linear Lagrange Interpolation</a></li>
+<li class="chapter" data-level="10.2.2" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html#quadratic-lagrange-interpolation"><i class="fa fa-check"></i><b>10.2.2</b> Quadratic Lagrange Interpolation</a></li>
+<li class="chapter" data-level="10.2.3" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html#general-lagrange-interpolation"><i class="fa fa-check"></i><b>10.2.3</b> General Lagrange Interpolation</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html#lagrange-algorithm-and-implementation"><i class="fa fa-check"></i><b>10.3</b> Lagrange Algorithm and Implementation</a>
+<ul>
+<li class="chapter" data-level="10.3.1" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html#pseudo-code"><i class="fa fa-check"></i><b>10.3.1</b> Pseudo-code</a></li>
+<li class="chapter" data-level="10.3.2" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html#r-function-with-scalar-input"><i class="fa fa-check"></i><b>10.3.2</b> R Function with Scalar Input</a></li>
+<li class="chapter" data-level="10.3.3" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html#r-function-with-vector-input"><i class="fa fa-check"></i><b>10.3.3</b> R Function with Vector Input</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html#error-analysis-5"><i class="fa fa-check"></i><b>10.4</b> Error Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="newton-interpolation.html"><a href="newton-interpolation.html"><i class="fa fa-check"></i><b>11</b> Newton Interpolation</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="newton-interpolation.html"><a href="newton-interpolation.html#some-definitions"><i class="fa fa-check"></i><b>11.1</b> Some Definitions</a>
+<ul>
+<li class="chapter" data-level="11.1.1" data-path="newton-interpolation.html"><a href="newton-interpolation.html#definitions"><i class="fa fa-check"></i><b>11.1.1</b> Definitions</a></li>
+<li class="chapter" data-level="11.1.2" data-path="newton-interpolation.html"><a href="newton-interpolation.html#calculation-of-divided-difference"><i class="fa fa-check"></i><b>11.1.2</b> Calculation of Divided Difference</a></li>
+<li class="chapter" data-level="11.1.3" data-path="newton-interpolation.html"><a href="newton-interpolation.html#algorithm-of-calculating-divided-differences"><i class="fa fa-check"></i><b>11.1.3</b> Algorithm of Calculating Divided Differences</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="newton-interpolation.html"><a href="newton-interpolation.html#newton-interpolation-polynomial"><i class="fa fa-check"></i><b>11.2</b> Newton Interpolation Polynomial</a>
+<ul>
+<li class="chapter" data-level="11.2.1" data-path="newton-interpolation.html"><a href="newton-interpolation.html#definition-of-newton-interpolation"><i class="fa fa-check"></i><b>11.2.1</b> Definition of Newton Interpolation</a></li>
+<li class="chapter" data-level="11.2.2" data-path="newton-interpolation.html"><a href="newton-interpolation.html#newton-interpolation-algorithm"><i class="fa fa-check"></i><b>11.2.2</b> Newton Interpolation Algorithm</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="newton-interpolation.html"><a href="newton-interpolation.html#error-analysis-6"><i class="fa fa-check"></i><b>11.3</b> Error Analysis</a></li>
+<li class="chapter" data-level="11.4" data-path="newton-interpolation.html"><a href="newton-interpolation.html#some-remarks-of-newton-interpolation"><i class="fa fa-check"></i><b>11.4</b> Some Remarks of Newton Interpolation</a></li>
+<li class="chapter" data-level="11.5" data-path="newton-interpolation.html"><a href="newton-interpolation.html#implicit-loops-in-r-programming"><i class="fa fa-check"></i><b>11.5</b> Implicit Loops in R Programming</a>
+<ul>
+<li class="chapter" data-level="11.5.1" data-path="newton-interpolation.html"><a href="newton-interpolation.html#implicit-in-r-primitive-functions"><i class="fa fa-check"></i><b>11.5.1</b> Implicit in R Primitive Functions</a></li>
+<li class="chapter" data-level="11.5.2" data-path="newton-interpolation.html"><a href="newton-interpolation.html#some-vectorized-primitive-functions"><i class="fa fa-check"></i><b>11.5.2</b> Some Vectorized Primitive Functions</a></li>
+<li class="chapter" data-level="11.5.3" data-path="newton-interpolation.html"><a href="newton-interpolation.html#divided-difference-variants"><i class="fa fa-check"></i><b>11.5.3</b> Divided Difference Variants</a></li>
+<li class="chapter" data-level="11.5.4" data-path="newton-interpolation.html"><a href="newton-interpolation.html#vectorizing-newtoninterp"><i class="fa fa-check"></i><b>11.5.4</b> Vectorizing <strong>NewtonInterp()</strong></a></li>
+<li class="chapter" data-level="11.5.5" data-path="newton-interpolation.html"><a href="newton-interpolation.html#code-efficiency-with-implivit-loops"><i class="fa fa-check"></i><b>11.5.5</b> Code Efficiency with Implivit Loops</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="gauss-elimination-method.html"><a href="gauss-elimination-method.html"><i class="fa fa-check"></i><b>12</b> Gauss Elimination Method</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="gauss-elimination-method.html"><a href="gauss-elimination-method.html#naive-gaussian-elimination-methods"><i class="fa fa-check"></i><b>12.1</b> Naive Gaussian Elimination Methods</a></li>
+<li class="chapter" data-level="12.2" data-path="gauss-elimination-method.html"><a href="gauss-elimination-method.html#gaussian-elimination-algorithm"><i class="fa fa-check"></i><b>12.2</b> Gaussian Elimination Algorithm</a></li>
+<li class="chapter" data-level="12.3" data-path="gauss-elimination-method.html"><a href="gauss-elimination-method.html#gauss-jordan-elimination-optional"><i class="fa fa-check"></i><b>12.3</b> Gauss-Jordan Elimination (<code>Optional</code>)</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="determinant-and-inversion-of-matrices.html"><a href="determinant-and-inversion-of-matrices.html"><i class="fa fa-check"></i><b>13</b> Determinant and Inversion of Matrices</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="determinant-and-inversion-of-matrices.html"><a href="determinant-and-inversion-of-matrices.html#concepts-of-matrix-a-review"><i class="fa fa-check"></i><b>13.1</b> Concepts of Matrix: A Review</a>
+<ul>
+<li class="chapter" data-level="13.1.1" data-path="determinant-and-inversion-of-matrices.html"><a href="determinant-and-inversion-of-matrices.html#definitions-of-some-special-matrices"><i class="fa fa-check"></i><b>13.1.1</b> Definitions of Some Special Matrices</a></li>
+<li class="chapter" data-level="13.1.2" data-path="determinant-and-inversion-of-matrices.html"><a href="determinant-and-inversion-of-matrices.html#binary-operations"><i class="fa fa-check"></i><b>13.1.2</b> Binary Operations</a></li>
+<li class="chapter" data-level="13.1.3" data-path="determinant-and-inversion-of-matrices.html"><a href="determinant-and-inversion-of-matrices.html#unary-operations"><i class="fa fa-check"></i><b>13.1.3</b> Unary Operations</a></li>
+</ul></li>
+<li class="chapter" data-level="13.2" data-path="determinant-and-inversion-of-matrices.html"><a href="determinant-and-inversion-of-matrices.html#determinant-of-a-square-matrix"><i class="fa fa-check"></i><b>13.2</b> Determinant of a Square Matrix</a></li>
+<li class="chapter" data-level="13.3" data-path="determinant-and-inversion-of-matrices.html"><a href="determinant-and-inversion-of-matrices.html#matrix-inversion"><i class="fa fa-check"></i><b>13.3</b> Matrix Inversion</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="matrix-factorization.html"><a href="matrix-factorization.html"><i class="fa fa-check"></i><b>14</b> Matrix Factorization</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="matrix-factorization.html"><a href="matrix-factorization.html#elementary-and-permutation-matrices"><i class="fa fa-check"></i><b>14.1</b> Elementary and Permutation Matrices</a></li>
+<li class="chapter" data-level="14.2" data-path="matrix-factorization.html"><a href="matrix-factorization.html#lu-factorization-algorithm"><i class="fa fa-check"></i><b>14.2</b> LU Factorization Algorithm</a>
+<ul>
+<li class="chapter" data-level="14.2.1" data-path="matrix-factorization.html"><a href="matrix-factorization.html#row-operations-with-row-swapping"><i class="fa fa-check"></i><b>14.2.1</b> Row Operations with Row Swapping</a></li>
+<li class="chapter" data-level="14.2.2" data-path="matrix-factorization.html"><a href="matrix-factorization.html#row-operations-with-row-swapping-1"><i class="fa fa-check"></i><b>14.2.2</b> Row Operations with Row-swapping</a></li>
+<li class="chapter" data-level="14.2.3" data-path="matrix-factorization.html"><a href="matrix-factorization.html#lu-algorithm"><i class="fa fa-check"></i><b>14.2.3</b> LU ALgorithm</a></li>
+</ul></li>
+<li class="chapter" data-level="14.3" data-path="matrix-factorization.html"><a href="matrix-factorization.html#benefit-of-lu-factorization"><i class="fa fa-check"></i><b>14.3</b> Benefit of LU Factorization</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="least-square-approximation.html"><a href="least-square-approximation.html"><i class="fa fa-check"></i><b>15</b> Least Square Approximation</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="least-square-approximation.html"><a href="least-square-approximation.html#concepts-of-least-square-approximation"><i class="fa fa-check"></i><b>15.1</b> Concepts of Least Square Approximation</a></li>
+<li class="chapter" data-level="15.2" data-path="least-square-approximation.html"><a href="least-square-approximation.html#approximating-one-variable-linear-function"><i class="fa fa-check"></i><b>15.2</b> Approximating One-variable Linear Function</a></li>
+<li class="chapter" data-level="15.3" data-path="least-square-approximation.html"><a href="least-square-approximation.html#approximating-multiple-variable-linear-function"><i class="fa fa-check"></i><b>15.3</b> Approximating Multiple-variable Linear Function</a>
+<ul>
+<li class="chapter" data-level="15.3.1" data-path="least-square-approximation.html"><a href="least-square-approximation.html#an-extension-of-the-height-example"><i class="fa fa-check"></i><b>15.3.1</b> An Extension of the Height Example</a></li>
+<li class="chapter" data-level="15.3.2" data-path="least-square-approximation.html"><a href="least-square-approximation.html#approximating-general-multi-variables-linear-functions"><i class="fa fa-check"></i><b>15.3.2</b> Approximating General Multi-variables Linear Functions</a></li>
+</ul></li>
+<li class="chapter" data-level="15.4" data-path="least-square-approximation.html"><a href="least-square-approximation.html#approximating-one-variable-polynomial-function"><i class="fa fa-check"></i><b>15.4</b> Approximating One-variable Polynomial Function</a>
+<ul>
+<li class="chapter" data-level="15.4.1" data-path="least-square-approximation.html"><a href="least-square-approximation.html#approximating-quadratic-function"><i class="fa fa-check"></i><b>15.4.1</b> Approximating Quadratic Function</a></li>
+<li class="chapter" data-level="15.4.2" data-path="least-square-approximation.html"><a href="least-square-approximation.html#approximating-general-polynomial-functions"><i class="fa fa-check"></i><b>15.4.2</b> Approximating General Polynomial Functions</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="concepts-of-spline-interpolations.html"><a href="concepts-of-spline-interpolations.html"><i class="fa fa-check"></i><b>16</b> Concepts of Spline Interpolations</a>
+<ul>
+<li class="chapter" data-level="16.1" data-path="concepts-of-spline-interpolations.html"><a href="concepts-of-spline-interpolations.html#linear-splines"><i class="fa fa-check"></i><b>16.1</b> Linear Splines</a></li>
+<li class="chapter" data-level="16.2" data-path="concepts-of-spline-interpolations.html"><a href="concepts-of-spline-interpolations.html#quadratic-spline-interpolation"><i class="fa fa-check"></i><b>16.2</b> Quadratic Spline Interpolation</a>
+<ul>
+<li class="chapter" data-level="16.2.1" data-path="concepts-of-spline-interpolations.html"><a href="concepts-of-spline-interpolations.html#formulation-of-quadratic-spline"><i class="fa fa-check"></i><b>16.2.1</b> Formulation of Quadratic Spline</a></li>
+<li class="chapter" data-level="16.2.2" data-path="concepts-of-spline-interpolations.html"><a href="concepts-of-spline-interpolations.html#matrix-representation-of-quadratic-spline-problem"><i class="fa fa-check"></i><b>16.2.2</b> Matrix Representation of Quadratic Spline Problem</a></li>
+<li class="chapter" data-level="16.2.3" data-path="concepts-of-spline-interpolations.html"><a href="concepts-of-spline-interpolations.html#algorithm-of-quadratic-spline"><i class="fa fa-check"></i><b>16.2.3</b> Algorithm of Quadratic Spline</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="cubic-spline-interpolation.html"><a href="cubic-spline-interpolation.html"><i class="fa fa-check"></i><b>17</b> Cubic Spline Interpolation</a>
+<ul>
+<li class="chapter" data-level="17.1" data-path="cubic-spline-interpolation.html"><a href="cubic-spline-interpolation.html#cubic-splines"><i class="fa fa-check"></i><b>17.1</b> Cubic Splines</a>
+<ul>
+<li class="chapter" data-level="17.1.1" data-path="cubic-spline-interpolation.html"><a href="cubic-spline-interpolation.html#formulation-of-cubic-spline"><i class="fa fa-check"></i><b>17.1.1</b> Formulation of Cubic Spline</a></li>
+<li class="chapter" data-level="17.1.2" data-path="cubic-spline-interpolation.html"><a href="cubic-spline-interpolation.html#construction-of-cubic-splines"><i class="fa fa-check"></i><b>17.1.2</b> Construction of Cubic Splines</a></li>
+<li class="chapter" data-level="17.1.3" data-path="cubic-spline-interpolation.html"><a href="cubic-spline-interpolation.html#cubic-spline-algorithm"><i class="fa fa-check"></i><b>17.1.3</b> Cubic Spline Algorithm</a></li>
+</ul></li>
+<li class="chapter" data-level="17.2" data-path="cubic-spline-interpolation.html"><a href="cubic-spline-interpolation.html#clamped-splines"><i class="fa fa-check"></i><b>17.2</b> Clamped Splines</a></li>
+<li class="chapter" data-level="17.3" data-path="cubic-spline-interpolation.html"><a href="cubic-spline-interpolation.html#error-analysis-7"><i class="fa fa-check"></i><b>17.3</b> Error Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="newton-method-for-nonlinear-system-and-optimization.html"><a href="newton-method-for-nonlinear-system-and-optimization.html"><i class="fa fa-check"></i><b>18</b> Newton Method for Nonlinear System and Optimization</a>
+<ul>
+<li class="chapter" data-level="18.1" data-path="newton-method-for-nonlinear-system-and-optimization.html"><a href="newton-method-for-nonlinear-system-and-optimization.html#multivariate-taylor-expansion"><i class="fa fa-check"></i><b>18.1</b> Multivariate Taylor Expansion</a></li>
+<li class="chapter" data-level="18.2" data-path="newton-method-for-nonlinear-system-and-optimization.html"><a href="newton-method-for-nonlinear-system-and-optimization.html#newton-method-for-nonlinear-systems"><i class="fa fa-check"></i><b>18.2</b> Newton Method for Nonlinear Systems</a>
+<ul>
+<li class="chapter" data-level="18.2.1" data-path="newton-method-for-nonlinear-system-and-optimization.html"><a href="newton-method-for-nonlinear-system-and-optimization.html#system-of-two-nonlinear-equations"><i class="fa fa-check"></i><b>18.2.1</b> System of Two Nonlinear Equations</a></li>
+<li class="chapter" data-level="18.2.2" data-path="newton-method-for-nonlinear-system-and-optimization.html"><a href="newton-method-for-nonlinear-system-and-optimization.html#newton-algorithm"><i class="fa fa-check"></i><b>18.2.2</b> Newton Algorithm</a></li>
+</ul></li>
+<li class="chapter" data-level="18.3" data-path="newton-method-for-nonlinear-system-and-optimization.html"><a href="newton-method-for-nonlinear-system-and-optimization.html#optimization"><i class="fa fa-check"></i><b>18.3</b> Optimization</a></li>
+<li class="chapter" data-level="18.4" data-path="newton-method-for-nonlinear-system-and-optimization.html"><a href="newton-method-for-nonlinear-system-and-optimization.html#a-case-study"><i class="fa fa-check"></i><b>18.4</b> A Case Study</a></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html"><i class="fa fa-check"></i><b>19</b> Numerical Integration I</a>
+<ul>
+<li class="chapter" data-level="19.1" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html#numerical-approximation-of-derivatives"><i class="fa fa-check"></i><b>19.1</b> Numerical Approximation of Derivatives</a></li>
+<li class="chapter" data-level="19.2" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html#trapezoid-method"><i class="fa fa-check"></i><b>19.2</b> Trapezoid Method</a>
+<ul>
+<li class="chapter" data-level="19.2.1" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html#formulation-of-trapezoid-method"><i class="fa fa-check"></i><b>19.2.1</b> Formulation of Trapezoid Method</a></li>
+<li class="chapter" data-level="19.2.2" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html#error-analysis-8"><i class="fa fa-check"></i><b>19.2.2</b> Error Analysis</a></li>
+<li class="chapter" data-level="19.2.3" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html#composite-trapezoid-method-and-error-analysis"><i class="fa fa-check"></i><b>19.2.3</b> Composite Trapezoid Method and Error Analysis</a></li>
+<li class="chapter" data-level="19.2.4" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html#trapezoid-algorithm"><i class="fa fa-check"></i><b>19.2.4</b> Trapezoid Algorithm</a></li>
+</ul></li>
+<li class="chapter" data-level="19.3" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html#simpsons-one-third-rule"><i class="fa fa-check"></i><b>19.3</b> Simpson’s One-third Rule</a>
+<ul>
+<li class="chapter" data-level="19.3.1" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html#derivation-of-simpsons-rule"><i class="fa fa-check"></i><b>19.3.1</b> Derivation of Simpson’s Rule</a></li>
+<li class="chapter" data-level="19.3.2" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html#explicit-function-on-x_i-1-x_i1"><i class="fa fa-check"></i><b>19.3.2</b> Explicit Function on <span class="math inline">\([x_{i-1}, x_{i+1}]\)</span></a></li>
+<li class="chapter" data-level="19.3.3" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html#the-composite-simpsons-rule"><i class="fa fa-check"></i><b>19.3.3</b> The Composite Simpsons’ Rule</a></li>
+<li class="chapter" data-level="19.3.4" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html#error-analysis-9"><i class="fa fa-check"></i><b>19.3.4</b> Error Analysis</a></li>
+<li class="chapter" data-level="19.3.5" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html#algorithm-of-simpsons-rule"><i class="fa fa-check"></i><b>19.3.5</b> Algorithm of Simpson’s Rule</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html"><i class="fa fa-check"></i><b>20</b> Romberg Integration and Gaussian Quadratures</a>
+<ul>
+<li class="chapter" data-level="20.1" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#richardson-extrapolation"><i class="fa fa-check"></i><b>20.1</b> Richardson Extrapolation</a>
+<ul>
+<li class="chapter" data-level="20.1.1" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#the-logic-of-the-richardson-method"><i class="fa fa-check"></i><b>20.1.1</b> The Logic of the Richardson Method</a></li>
+<li class="chapter" data-level="20.1.2" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#algorithm-of-richardson-method"><i class="fa fa-check"></i><b>20.1.2</b> Algorithm of Richardson Method</a></li>
+<li class="chapter" data-level="20.1.3" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#higher-order-extrapolation"><i class="fa fa-check"></i><b>20.1.3</b> Higher Order Extrapolation</a></li>
+<li class="chapter" data-level="20.1.4" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#algorithm-and-code"><i class="fa fa-check"></i><b>20.1.4</b> Algorithm and Code</a></li>
+</ul></li>
+<li class="chapter" data-level="20.2" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#romberg-integration"><i class="fa fa-check"></i><b>20.2</b> Romberg Integration</a>
+<ul>
+<li class="chapter" data-level="20.2.1" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#approximation-formula-and-error-analysis"><i class="fa fa-check"></i><b>20.2.1</b> Approximation formula and Error Analysis</a></li>
+<li class="chapter" data-level="20.2.2" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#romberg-algorithm"><i class="fa fa-check"></i><b>20.2.2</b> Romberg Algorithm</a></li>
+<li class="chapter" data-level="20.2.3" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#r-code"><i class="fa fa-check"></i><b>20.2.3</b> R Code</a></li>
+</ul></li>
+<li class="chapter" data-level="20.3" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#gaussian-quadrature"><i class="fa fa-check"></i><b>20.3</b> Gaussian Quadrature</a>
+<ul>
+<li class="chapter" data-level="20.3.1" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#two-point-gauss-legendre-formula"><i class="fa fa-check"></i><b>20.3.1</b> Two-point Gauss Legendre Formula</a></li>
+<li class="chapter" data-level="20.3.2" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#general-gauss-legendre-formula"><i class="fa fa-check"></i><b>20.3.2</b> General Gauss Legendre Formula</a></li>
+<li class="chapter" data-level="20.3.3" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#r-code-1"><i class="fa fa-check"></i><b>20.3.3</b> R Code</a></li>
+</ul></li>
+<li class="chapter" data-level="20.4" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#remarks"><i class="fa fa-check"></i><b>20.4</b> Remarks</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">MAT325 E-Pack: Numerical Analysis</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="cubic-spline-interpolation" class="section level1 hasAnchor" number="17">
+<h1><span class="header-section-number">Topic 17</span> Cubic Spline Interpolation<a href="cubic-spline-interpolation.html#cubic-spline-interpolation" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>As we have seen from the previous note on linear and quadratic spline interpolation, splines are functions that are piece-wise polynomials. The coefficients of the polynomial differ from interval to interval, but the order of the polynomial is the same. An essential feature of splines is that function is continuous - i.e. has no breaks on the boundaries between two adjacent intervals. That is, they create smooth curves out of irregular data points.</p>
+<p>In this note, we use the same idea to discuss cubic spline interpolation.</p>
+<p><br />
+</p>
+<div id="cubic-splines" class="section level2 hasAnchor" number="17.1">
+<h2><span class="header-section-number">17.1</span> Cubic Splines<a href="cubic-spline-interpolation.html#cubic-splines" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>A cubic spline is a piece-wise cubic polynomial function. We will use the same logical process to develop the algorithm to find the cubic polynomials based on given knots.</p>
+<p><br />
+<img src="img11/w11-LinearQuadraticSplineDemo.png" width="85%" style="display: block; margin: auto;" /><br />
+</p>
+<div id="formulation-of-cubic-spline" class="section level3 hasAnchor" number="17.1.1">
+<h3><span class="header-section-number">17.1.1</span> Formulation of Cubic Spline<a href="cubic-spline-interpolation.html#formulation-of-cubic-spline" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Suppose that we want to approximate <span class="math inline">\(y = f(x)\)</span> by cubic spline function <span class="math inline">\(S(x)\)</span>. For a sampled set of points on the curve of <span class="math inline">\(f(x)\)</span>: <span class="math inline">\(\{(x_0, y_0). (x_1, y_1), (x_2, y_2), \cdots, (x_n, y_n) \}\)</span>.</p>
+<p><img src="img11/13-cubicSplineDemo.png" width="55%" style="display: block; margin: auto;" /></p>
+<p>Assume further that <span class="math inline">\(x_0 &lt; x_1 &lt;x_2 &lt; \cdots &lt;x_n\)</span>. On each interval <span class="math inline">\([x_0, x_1), [x_1, x_2), \cdots, [x_{n-1}, x_n]\)</span>, <span class="math inline">\(S(x)\)</span> is given by a different cubic polynomial. Let <span class="math inline">\(S_i(x)\)</span> be the cubic polynomial that represents <span class="math inline">\(S(x)\)</span> on <span class="math inline">\([x_i, x_{i+1}]\)</span>. Thus</p>
+<p><img src="img11/12-cubicSplineFun.png" width="25%" style="display: block; margin: auto;" /></p>
+<p>Where <font color = "red"><b></p>
+<p><span class="math display">\[\color{red}
+S_j(x) = a_j + b_j (x - x_j ) + c_j (x - x_j )^2 + d_j (x - x_j)^3
+\]</span> </b></font></p>
+<p>for <span class="math inline">\(j = 0, 1, \cdots, n-1\)</span>. There are <span class="math inline">\(4n\)</span> unknowns to be determined subject to the following conditions:</p>
+<p><strong> Condition 1</strong>: <span class="math inline">\(S(x_j) = f(x_j)\)</span> for each <span class="math inline">\(j = 0, 1,\cdots,n\)</span>; <em> (<span class="math inline">\(n+1\)</span> equations)</em></p>
+<p><strong> Condition 2</strong>: <span class="math inline">\(S_{j+1}(x_{j+1}) = S_j(x_{j+1})\)</span> for each <span class="math inline">\(j = 0, 1,\cdots,n-2\)</span>; <em> (<span class="math inline">\(n-1\)</span> equations)</em></p>
+<p><strong> Condition 3</strong>: <span class="math inline">\(S^\prime_{j+1}(x_{j+1}) = S^\prime_j(x_{j+1})\)</span> for each <span class="math inline">\(j = 0, 1,\cdots,n-2\)</span>; <em>(<span class="math inline">\(n-1\)</span> equations)</em></p>
+<p><strong> Condition 4</strong>: <span class="math inline">\(S^{\prime\prime}_{j+1}(x_{j+1}) = S^{\prime\prime}_j(x_{j+1})\)</span> for each <span class="math inline">\(j = 0, 1,\cdots,n-2\)</span>; <em> (<span class="math inline">\(n-1\)</span> equations)</em></p>
+<p><strong> Condition 5</strong>: One of the following boundary conditions:</p>
+<ol style="list-style-type: lower-alpha">
+<li><p><span class="math inline">\(S^{\prime\prime}(x_0) = S^{\prime\prime}(x_n) = 0\)</span> <span class="math inline">\(\Rightarrow\)</span> <strong>Natural Spline</strong>. <em> ( <span class="math inline">\(2\)</span> equations)</em></p></li>
+<li><p><span class="math inline">\(S^\prime(x_0) = f^\prime(x_0)\)</span> and <span class="math inline">\(S^\prime(x_n) = f^\prime(x_n)\)</span> <span class="math inline">\(\Rightarrow\)</span> <strong>Clamped Spline</strong>. <font color = "blue"><em> Remark: since <span class="math inline">\(f(x)\)</span> is unknown, we need to provide the two slopes according to the trend of the pattern of the scatter plot of the data.</em></font> <em> ( <span class="math inline">\(2\)</span> equations)</em></p></li>
+</ol>
+<p><br />
+</p>
+<p><strong>Example 1</strong>. Calculate <strong> Cubic Natural Splines</strong> based on given data <span class="math inline">\(\{(1, 5), (2, 11), (4, 8)\}\)</span> are sampled from an unknown function <span class="math inline">\(y = f(x)\)</span>. Find the approximated values of <span class="math inline">\(f(1.5)\)</span> and <span class="math inline">\(f^\prime(2)\)</span> based on the cubic smoothing spline.</p>
+<p><strong>Solution</strong>: Let <span class="math inline">\(S_0(x) = a_0 + b_0(x-1) + c_0(x-1)^2 + d_0(x-1)^3\)</span> be the spline function on interval [<span class="math inline">\(1, 2\)</span>) and <span class="math inline">\(S_1(x) = a_1 + b_1(x-2) + c_1(x-2)^2 + d_1(x-2)^3\)</span> be the spline function on interval [<span class="math inline">\(2, 4\)</span>). We need the following 8 equations to determine the two cubic spline functions.</p>
+<ul>
+<li><p>The two splines pass individual points yielding</p>
+<ol style="list-style-type: decimal">
+<li><p><span class="math inline">\(a_0 = 5\)</span></p></li>
+<li><p><span class="math inline">\(a_0 + b_0 + c_0 + d_0 = 11\)</span></p></li>
+<li><p><span class="math inline">\(a_1 = 11\)</span></p></li>
+<li><p><span class="math inline">\(a_1 + 2b_1 + 4c_1 + 8d_1 = 8\)</span></p></li>
+</ol></li>
+<li><p>First order smoothness: <span class="math inline">\(b_0 + 2c_0(x-1) +3d_0(x-1)^2 = b_1 + 2c_1(x-2) +3d_1(x-2)^2\)</span></p>
+<ol start="5" style="list-style-type: decimal">
+<li><span class="math inline">\(b_0 +2c_0 + 3d_0= b_1\)</span></li>
+</ol></li>
+<li><p>Second order smoothness: <span class="math inline">\(2c_0 +6d_0(x-1) = 2c_1 +6d_1(x-2)\)</span></p>
+<ol start="6" style="list-style-type: decimal">
+<li><span class="math inline">\(2c_0 +6d_0= 2c_1\)</span></li>
+</ol></li>
+<li><p>Boundary Conditions (natural spline):</p>
+<ol start="7" style="list-style-type: decimal">
+<li><p><span class="math inline">\(d_0 = 0\)</span></p></li>
+<li><p><span class="math inline">\(d_1 = 0\)</span></p></li>
+</ol></li>
+</ul>
+<p>We obtain the following system of equations</p>
+<p><span class="math display">\[
+\begin{cases}
+1a_0 + 0b_0 +0c_0 +0d_0 + 0a_1 + 0b_1 + 0c_1 +0d_1 = 5  \\
+1a_0 + 1b_0 +1c_0 +1d_0 + 0a_1 + 0b_1 + 0c_1 +0d_1 = 11 \\
+0a_0 + 0b_0 +0c_0 +0d_0 + 1a_1 + 0b_1 + 0c_1 +0d_1 = 11  \\
+0a_0 + 0b_0 +0c_0 +0d_0 + 1a_1 + 2b_1 + 4c_1 +8d_1 = 8  \\
+0a_0 + 1b_0 +2c_0 +3d_0 + 0a_1 - 1b_1 + 0c_1 +0d_1 = 0  \\
+0a_0 + 0b_0 +1c_0 +3d_0 + 0a_1 + 0b_1 - 1c_1 +0d_1 = 0  \\
+0a_0 + 0b_0 +0c_0 +1d_0 + 0a_1 + 0b_1 + 0c_1 +0d_1 = 0  \\
+0a_0 + 0b_0 +0c_0 +0d_0 + 0a_1 + 0b_1 + 0c_1 +1d_1 = 0  
+\end{cases}
+\]</span></p>
+<p>The matrix representation of the above system is given by</p>
+<p><span class="math display">\[
+\begin{bmatrix}
+1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+1 &amp; 1 &amp; 1 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 2 &amp; 4 &amp; 8 \\
+0 &amp; 1 &amp; 2 &amp; 3 &amp; 0 &amp; -1 &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; 1 &amp; 3 &amp; 0 &amp; 0 &amp; -1 &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 01 &amp; 0 &amp; 1
+\end{bmatrix} \times \left[ \begin{array}{c} a_0 \\b_0\\c_0\\d_0 \\ a_1\\b_1\\c_1\\d_1 \end{array} \right] =\left[ \begin{array}{c} 5 \\ 11\\11\\8\\0\\0\\0\\0 \end{array} \right]
+\]</span></p>
+<p>The solution to the equation is</p>
+<p><span class="math display">\[
+\left[ \begin{array}{c} a_0 \\b_0\\c_0\\d_0 \\ a_1\\b_1\\c_1\\d_1 \end{array} \right] =  \begin{bmatrix}
+1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+1 &amp; 1 &amp; 1 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 2 &amp; 4 &amp; 8 \\
+0 &amp; 1 &amp; 2 &amp; 3 &amp; 0 &amp; -1 &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; 1 &amp; 3 &amp; 0 &amp; 0 &amp; -1 &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 01 &amp; 0 &amp; 1  
+\end{bmatrix}^{-1}\times \left[ \begin{array}{c} 5 \\ 11\\11\\8\\0\\0\\0\\0 \end{array} \right]
+=\left[ \begin{array}{c} 5 \\ 13.5\\-7.5\\0\\11\\13.5\\-7.5\\0 \end{array} \right].
+\]</span></p>
+<p>We use R to solve the above equation.</p>
+<p>Thais, <span class="math inline">\((a_0,b_0,c_0,d_0,a_1,b_1,c_1,d_1) = (5, 8.5, -2.5, 0, 11, 3.5, -2.5, 0)\)</span>. Therefore, the two resulting cubic spline functions (reduce to quadratic functions due to the choice of the natural spline) are</p>
+<p><span class="math display">\[
+S(x)=
+    \begin{cases}
+        5 + 8.5(x-1) -2.5(x-1)^2  &amp; \text{ for } x\in[1, 2)\\
+        11 + 3.5(x-2) -2.5(x-2)^2  &amp; \text{ for } x\in[2, 4].
+    \end{cases}
+\]</span></p>
+<p>Therefore, <span class="math inline">\(f(1.5) \approx S_0(1.5) = 5 + 8.5\times 0.5 -2.5\times 0.5^2 = 8.625\)</span>. <span class="math inline">\(f^\prime(2) = S^\prime_0(2) = S^\prime_1(2) = [11 + 3.5(x-2) -2.5(x-2)^2]^\prime = 3.5\)</span>.</p>
+<p><img src="img11/14-cubicNaturalSplineCurveR.png" width="45%" style="display: block; margin: auto;" /></p>
+<p><br />
+</p>
+<p><strong>Example 2</strong>: Calculate <strong> Cubic Clamped Splines</strong> based on given data points <span class="math inline">\(\{(0,1), (2,2), (5,0), (8,0)\}\)</span> are sampled from an unknown function <span class="math inline">\(y = f(x)\)</span>.</p>
+<p><br />
+<strong>Solution (sketch)</strong>: We choose the slopes of the starting and ending points of <span class="math inline">\(f(x)\)</span> to be 2 and 1 respectively. <font color = "red"><em> For convenience, we denote individual segments to have form <span class="math inline">\(f_i(x) = a_i +b_ix + c_ix^2 + d_ix^3\)</span></em></font>. Using the same set of conditions, we list the resulting equations of the coefficients of the four cubic polynomials according to each spline function in the following.</p>
+<p><img src="img11/14-ClumedSplineExample5-eqs.png" width="75%" style="display: block; margin: auto;" /></p>
+<p>Rewriting the above system of equations in the matrix form, we have
+<img src="img11/15-ClumedSplineExample5-MatrixEqs.png" width="65%" style="display: block; margin: auto;" /></p>
+<p>The solution of the above system equations is <span class="math inline">\((a_0, b_0, c_0, d_0, a_1, b_1, c_1, d_1,a_2, b_2, c_2, d_2,) =\)</span> (1, 2, -1.0395, 0.1447, 1.9201, 0.6199, -0.3494, 0.0297, 0.7018, 1.3509, -0.4956, 0.0395). Therefore, the cubic spline function is given explicitly by</p>
+<p><span class="math display">\[
+S(x)=
+    \begin{cases}
+        1 + 2x-1.0339x^2+0.1447x^3  &amp; \text{ for } x\in[0, 2);\\
+        1.9201+0.6199x-0.3494x^2+0.0297x^3   &amp; \text{ for } x\in[2, 5);\\
+        0.7018+1.3509x-0.4956x^2+0.0395x^3  &amp; \text{ for } x\in[5, 8] .
+    \end{cases}
+\]</span></p>
+<p><img src="img11/16-clumpedSplineCurve.png" width="45%" style="display: block; margin: auto;" /></p>
+<p><br />
+</p>
+</div>
+<div id="construction-of-cubic-splines" class="section level3 hasAnchor" number="17.1.2">
+<h3><span class="header-section-number">17.1.2</span> Construction of Cubic Splines<a href="cubic-spline-interpolation.html#construction-of-cubic-splines" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><br />
+</p>
+<p><font color="blue" size = 4><strong>CUBIC SPLINE FUNCTION: <span class="math inline">\(S_j(x) = a_j + b_j(x-x_j) + c_j(x-x_j)^2 + d_j(x-x_j)^3\)</span></strong></font></p>
+<p><br />
+<font color = "blue" size =4><strong>OBJECTIVE: Find Coefficients: <span class="math inline">\((a_i, b_i, c_i, d_i)\)</span>!</strong></font><br />
+</p>
+<p><br />
+</p>
+<p>Let <span class="math inline">\(h_j = x_{j+1} - x_j\)</span>. Since there are <span class="math inline">\(4n\)</span> unknowns that need to be determined from the data, we need to set up <span class="math inline">\(4n\)</span> equations as follows:</p>
+<ol style="list-style-type: decimal">
+<li><p>From <strong>condition 1</strong>: <span class="math inline">\(S_j(x_j) = y_j\)</span> gives <span class="math inline">\(n\)</span> equations: <span class="math inline">\(a_j = f(x_j) = y_j\)</span> for <span class="math inline">\(j = 0, 1, 2,\cdots, n\)</span>.</p></li>
+<li><p>From <strong>Condition 2</strong>: <span class="math inline">\(S_{j+1}(x_{j+1}) = S_j(x_{j+1})\)</span> gives <span class="math inline">\(n-1\)</span> equations: <span class="math inline">\(a_{j+1} = a_j + b_jh_j + c_jh_j^2 + d_jh_j^3\)</span> for <span class="math inline">\(j = 0, 1, 2,\cdots, n-2\)</span>.</p></li>
+<li><p>From <strong>condition 3</strong>: Note that <span class="math inline">\(S^\prime_j (x) = b_j + 2c_j (x - x_j ) + 3d_j(x - x_j)^2\)</span>. The condition <span class="math inline">\(S_{j+1}^\prime(x_{j+1}) = S_j^\prime(x_j)\)</span> gives <span class="math inline">\(n - 1\)</span> equations: <span class="math inline">\(b_{j+1} = b_j + 2c_jh_j + 3d_jh_j^2\)</span> for <span class="math inline">\(j = 0, 1, 2, \cdots, n-2\)</span>.</p></li>
+<li><p>From <strong>condition 4</strong>, <span class="math inline">\(S^{\prime\prime}_j (x) = 2c_j + 6d_j(x - x_j)\)</span>: The condition <span class="math inline">\(S_{j+1}^{\prime\prime}(x_{j+1}) = S_{j+1}^{\prime\prime}(x_{j})\)</span> gives <span class="math inline">\(n-1\)</span> equations: <span class="math inline">\(c_{j+1} = c_j + 3d_jh_j\)</span> for <span class="math inline">\(j = 0, 1, 2, \cdots, n-2\)</span>.</p></li>
+<li><p><strong>Boundary conditions</strong>:</p>
+<ol style="list-style-type: lower-alpha">
+<li><p><span class="math inline">\(c_0 = c_n = 0\)</span></p></li>
+<li><p><span class="math inline">\(S^\prime_n (b) = f^\prime(b) = b_n\)</span> gives <span class="math inline">\(h_{n-1}(c_{n-1}+ 2c_n)= 3f^\prime (b) -3(a_n- a_{n-1})/h_{n-1}\)</span> while <span class="math inline">\(S^\prime_0(a) = f^\prime (a) = b_0\)</span> gives the following equatione <span class="math inline">\(h_0(2c_0 + c_1) = 3(a_1- a_0)/h_0-3f^\prime (a)\)</span>.</p></li>
+</ol></li>
+</ol>
+<p><br />
+</p>
+<p>Instead of solving the system of <span class="math inline">\(3n\)</span> equations based on the given <span class="math inline">\(n+1\)</span> knots <span class="math inline">\(\{(x_0,y_0), (x_1, y_1), \cdots, (x_n, y_n) \}\)</span>, we next simplify the original system to reduce it to a relatively small system. to summarize what we obtained earlier, we list the following <span class="math inline">\(3n-2\)</span> equations</p>
+<p><strong>A.</strong> <span class="math inline">\(a_{j+1} = a_j + b_jh_j + c_jh_j^2 + d_jh_j^3 ~~\text{for}~~ j = 0, 1, 2, \cdots, n.\)</span></p>
+<p><strong>B.</strong> <span class="math inline">\(b_{j+1} = b_j + 2c_jh_j + 3d_jh_j^2 ~~\text{for}~~ j = 0, 1, 2, \cdots, n-1.\)</span></p>
+<p><strong>C.</strong> <span class="math inline">\(c_{j+1} = c_j + 3d_jh_j ~~\text{for}~~ j = 0, 1, 2, \cdots, n-1.\)</span></p>
+<p>Note that <span class="math inline">\(a_j\)</span> and <span class="math inline">\(h_j\)</span> are known. Solve for <span class="math inline">\(d_j\)</span> from (C), we have <span class="math inline">\(d_j = (c_{j+1} - c_j)/(3h_j)\)</span>. Plug <span class="math inline">\(d_j\)</span> into (A) and (B), and we have</p>
+<p><strong>D.</strong> <span class="math inline">\(a_{j+1}= a_j + b_jh_j + h^2_j(2c_j + c_{j+1})/3\)</span>.</p>
+<p><strong>E.</strong> <span class="math inline">\(b_{j+1} = b_j + h_j (c_j + c_{j+1})\)</span></p>
+<p>We can similarly solve <span class="math inline">\(b_j\)</span> from (D) to get</p>
+<p><strong>F.</strong> <span class="math inline">\(b_j =(a_{j+1} - a_j )/h_j - h_j(2c_j + c_{j+1})/3 ~~ \text{for}~~ j = 0, 1, 2, \cdots, n-1\)</span>.</p>
+<p>which implies</p>
+<p><strong>G.</strong> <span class="math inline">\(b_{j-1} =(a_j - a_{j-1} )/h_{j-1} - h_{j-1}(2c_{j-1} + c_j)/3 ~~\text{for}~~ j = 1, 2, \cdots, n-1\)</span>.</p>
+<p>We re-write (re-index) (E) as follows</p>
+<p><strong>H.</strong> <span class="math inline">\(b_j = b_{j-1} + h_{j-1} (c_{j-1} + c_j) ~~\text{for}~~ j = 1 ,2 ,3 ,\cdots, n-1.\)</span> (see the change of the index).</p>
+<p>We substitute <span class="math inline">\(b_{j-1}\)</span> and <span class="math inline">\(b_j\)</span> in (H) with the ones in (F) and (G) and obtain</p>
+<p><strong>I.</strong> <span class="math inline">\((a_{j+1} - a_j )/h_j -h_j(2c_j + c_{j+1})/3 =(a_j - a_{j-1} )/h_{j-1} -h_{j-1}(2c_{j-1} + c_j)/3 + h_{j-1} (c_{j-1} + c_j)\)</span> for <span class="math inline">\(j = 1, 2, \cdots, n-1\)</span>, where <span class="math inline">\(c_j\)</span> (<span class="math inline">\(j=1,2,…,n-1\)</span>) are unknowns.</p>
+<p>Finally, we end up with a linear system that involves unknowns <span class="math inline">\(c_1, c_2, \cdots, c_{n-2}\)</span> in the following standard form.</p>
+<p><strong>J.</strong>: <font color = "red" size = 4><strong><span class="math inline">\(h_{j-1}c_{j-1}+2c_j (h_{j-1}+h_j )+h_jc_{j+1} =3(a_{j+1}-a_j )/h_j-3(a_j -a_{j-1})/h_{j-1}\)</span></strong></font> for <font color = "blue" size =4><strong><span class="math inline">\(j = 1, 2, …, n-2\)</span>.</strong></font></p>
+<p>We next use the boundary condition <strong>a)</strong> to add two equations <span class="math inline">\(c_0 = c_{n-1} = 0\)</span> to (<strong>J</strong>). The resulting cubic spline is called the <font color = "red" size = 4> <strong> NATURAL CUBIC SPLINE.</strong></font></p>
+<p>The coefficient matrix of the system along with the two boundary conditions is given by</p>
+<p><span class="math display">\[
+A = \left[
+\begin{array}{ccccccccc}
+1 &amp; 0 &amp;  0 &amp; 0 &amp; \cdots &amp; 0 &amp; 0 &amp; 0\\
+h_0 &amp; 2(h_0+h_1) &amp;  h_1 &amp; 0 &amp; \cdots &amp; 0 &amp; 0 &amp; 0\\
+0 &amp; h_1 &amp; 2(h_1+h_2) &amp;  h_2  &amp; \cdots &amp; 0 &amp; 0 &amp; 0\\
+\vdots &amp; \vdots &amp;  \vdots &amp; \vdots &amp; \ddots &amp; \vdots &amp; \vdots &amp; \vdots\\
+0 &amp; 0 &amp; 0 &amp;  0  &amp; \cdots &amp; h_{n-2}&amp; 2(h_{n-2}+h_{n-1}) &amp; h_{n-1}\\
+0 &amp;  0 &amp; 0 &amp; 0 &amp;  \cdots &amp; 0 &amp; 0 &amp; 1
+\end{array}
+\right]
+\]</span></p>
+<p>Since every row of <span class="math inline">\(A\)</span> has three non-zero elements (except for the first and the last rows), <span class="math inline">\(S\)</span> is also called <font color = "red" size = 4><strong>tridiagonal matrix</strong></font>.</p>
+<p><br />
+</p>
+<p><strong>Definition</strong> A <font color = "blue"><strong>diagonally dominant matrix</strong></font> is the square matrix whose absolute value of the diagonal element is <strong>greater than or equal to</strong> the sum of the absolute value of corresponding off-diagonal elements.</p>
+<p><br />
+</p>
+<p><strong>Definition</strong> A <font color = "blue"><strong> Strictly diagonally dominant matrix</strong></font> is the square matrix whose absolute value of the diagonal element is <strong>strictly greater than</strong> the sum of the absolute value of corresponding off-diagonal elements.</p>
+<p><br />
+</p>
+<p><strong>Theorem 1</strong> A strictly diagonally dominant complex matrix is non-singular.</p>
+<p><strong>Proof</strong>: One can use the concept of eigen theory and proof-by-contradiction to prove this theorem. The proof will not be given in this note.</p>
+<p><br />
+</p>
+<p><strong>Theorem 2</strong>: If <span class="math inline">\(f\)</span> is defined at <span class="math inline">\(a = x_0 &lt; x_1 &lt; \cdots &lt; x_n = b\)</span>, then <span class="math inline">\(f\)</span> has a unique natural cubic spline interpolated function <span class="math inline">\(S(x)\)</span>.</p>
+<p>Note that <span class="math inline">\(A\)</span> is strictly diagonally dominant. Therefore, <span class="math inline">\(A\)</span> is invertible. Therefore, there is a unique solution to the system. Therefore, the natural cubic spline function is unique.</p>
+<p><br />
+</p>
+<p>The resulting matrix of the equation based on <strong>(J)</strong> and the two boundary conditions of natural cubic spline is given by</p>
+<p><span class="math display">\[
+A
+\left[
+\begin{array}{c}
+c_1 \\
+c_2 \\
+c_3 \\
+\vdots\\
+c_{n-1}\\
+c_n
+\end{array}
+\right]
+~~=~~
+\left[
+\begin{array}{c}
+0 \\
+3(a_2-a_1)/h_1 - 3(a_1-a_0)/h_0 \\
+3(a_3-a_2)/h_2 - 3(a_2-a_1)/h_1 \\
+\vdots\\
+3(a_n-a_{n-1})/h_{n-1} - 3(a_{n-1}-a_{n-2})/h_{n-2} \\
+0
+\end{array}
+\right]
+\]</span></p>
+<p>Using <strong>theorem 2</strong>, there is a unique solution</p>
+<p><span class="math display">\[
+\left[
+\begin{array}{c}
+c_0 \\
+c_2 \\
+\vdots\\
+c_{n-2} \\
+c_{n-1}
+\end{array}
+\right]
+~~=~~
+A^{-1}\left[
+\begin{array}{c}
+0 \\
+3(a_2-a_1)/h_1 - 3(a_1-a_0)/h_0 \\
+3(a_3-a_2)/h_2 - 3(a_2-a_1)/h_1 \\
+\vdots\\
+3(a_n-a_{n-1})/h_{n-1} - 3(a_{n-1}-a_{n-2})/h_{n-2} \\
+0
+\end{array}
+\right]
+\]</span></p>
+</div>
+<div id="cubic-spline-algorithm" class="section level3 hasAnchor" number="17.1.3">
+<h3><span class="header-section-number">17.1.3</span> Cubic Spline Algorithm<a href="cubic-spline-interpolation.html#cubic-spline-algorithm" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Three key steps are needed in developing the algorithm.</p>
+<ol style="list-style-type: decimal">
+<li><p>Find the solution of equation (<strong>J</strong>) to find <span class="math inline">\(c(c_0, c_1, \cdots, c_{n-1})\)</span>.</p></li>
+<li><p>Using the backward substitution to find <span class="math inline">\(b_i\)</span> and <span class="math inline">\(d_i\)</span> (<span class="math inline">\(i = 0, 1, \cdots, n-1\)</span>)</p></li>
+</ol>
+<p>Because of multiple steps in simplification, the pseudo-code looks more complex than earlier algorithms.</p>
+<p><br />
+</p>
+<p><strong>Pseudo-code:</strong></p>
+<pre><code>INPUT:   x        (x-coordinated of given knots)
+         y        (y-coordinates of given knots)
+         x.new    (new x-values for prediction)
+OUTPUT:  coefficients
+         y.new
+STEP 1:  initialization
+         A        (nxn zero matrix for solving c_i)
+         Y        (nx1 zero matrix in the matrix equation J)
+         n        (number of knots)
+         m        (number of x.new)
+         h = diff of adjacent input X
+         aa       (coef of C-spline function)
+         bb
+         cc
+         dd
+STEP 2:  FOR i =2 TO (n-1) DO:
+            A[i,(i-1):(i+1)] = (h[i-1], 2*(h[i-1]+h[i]), h[i])
+            Y[i] = 3*(y[i+1]-y[i])/h[i] - 3*(y[i]-y[i-1])/h[i-1]
+         ENDFOR
+STEP 3:  Solve for cc  (coefficient of C-spline polynomials)
+STEP 4:  aa = y
+STEP 5:  FOR j = 1 TO (n-1) DO:
+            dd[j] = (cc[i+1]-cc[i])/(3*h[i])
+            bb[j] = (aa[i+1]-aa[i])/h[i] - h[i]*(2*cc[i] + cc[i+1])/3
+         ENDFOR
+STEP 6:  FOR k = 1 TO m DO:
+            IF  (x[s] &lt;= x.new[k] &lt; x[s+1]) DO:
+              y.new[k] = aa[i]+ bb[i]*(x.new[j] - x[i]) + cc[i]*(x.new[j] - x[i])^2 + dd[i]*(x.new[j] - x[i])^3
+            ENDIF
+         ENDFOR
+STEP 7: RETURN y.new and C-spline coefficients</code></pre>
+<p><br />
+</p>
+<p><strong>R Code</strong></p>
+<div class="sourceCode" id="cb274"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb274-1"><a href="cubic-spline-interpolation.html#cb274-1" tabindex="-1"></a><span class="do">###</span></span>
+<span id="cb274-2"><a href="cubic-spline-interpolation.html#cb274-2" tabindex="-1"></a>Natural.CSpline <span class="ot">=</span> <span class="cf">function</span>(x, </span>
+<span id="cb274-3"><a href="cubic-spline-interpolation.html#cb274-3" tabindex="-1"></a>                           y, </span>
+<span id="cb274-4"><a href="cubic-spline-interpolation.html#cb274-4" tabindex="-1"></a>                           x.new){</span>
+<span id="cb274-5"><a href="cubic-spline-interpolation.html#cb274-5" tabindex="-1"></a>  n <span class="ot">=</span> <span class="fu">length</span>(x)</span>
+<span id="cb274-6"><a href="cubic-spline-interpolation.html#cb274-6" tabindex="-1"></a>  m <span class="ot">=</span> <span class="fu">length</span>(x.new)</span>
+<span id="cb274-7"><a href="cubic-spline-interpolation.html#cb274-7" tabindex="-1"></a>  h <span class="ot">=</span> xvec[<span class="sc">-</span><span class="dv">1</span>] <span class="sc">-</span> xvec[<span class="sc">-</span>n]</span>
+<span id="cb274-8"><a href="cubic-spline-interpolation.html#cb274-8" tabindex="-1"></a>  A <span class="ot">=</span> <span class="fu">matrix</span>(<span class="fu">rep</span>(<span class="dv">0</span>,(n)<span class="sc">^</span><span class="dv">2</span>), <span class="at">ncol=</span>n)</span>
+<span id="cb274-9"><a href="cubic-spline-interpolation.html#cb274-9" tabindex="-1"></a>  Y <span class="ot">=</span> <span class="fu">rep</span>(<span class="dv">0</span>,n)</span>
+<span id="cb274-10"><a href="cubic-spline-interpolation.html#cb274-10" tabindex="-1"></a>  y.new <span class="ot">=</span> <span class="cn">NULL</span></span>
+<span id="cb274-11"><a href="cubic-spline-interpolation.html#cb274-11" tabindex="-1"></a>  Y[<span class="fu">c</span>(<span class="dv">1</span>,n)] <span class="ot">=</span> <span class="dv">0</span></span>
+<span id="cb274-12"><a href="cubic-spline-interpolation.html#cb274-12" tabindex="-1"></a>  A[<span class="dv">1</span>,<span class="dv">1</span>] <span class="ot">=</span> <span class="dv">1</span></span>
+<span id="cb274-13"><a href="cubic-spline-interpolation.html#cb274-13" tabindex="-1"></a>  A[n,n] <span class="ot">=</span> <span class="dv">1</span></span>
+<span id="cb274-14"><a href="cubic-spline-interpolation.html#cb274-14" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span>(n<span class="dv">-1</span>)){</span>
+<span id="cb274-15"><a href="cubic-spline-interpolation.html#cb274-15" tabindex="-1"></a>     A[i,(i<span class="dv">-1</span>)<span class="sc">:</span>(i<span class="sc">+</span><span class="dv">1</span>)] <span class="ot">=</span> <span class="fu">c</span>(h[i<span class="dv">-1</span>], <span class="dv">2</span><span class="sc">*</span>(h[i<span class="dv">-1</span>]<span class="sc">+</span>h[i]), h[i])</span>
+<span id="cb274-16"><a href="cubic-spline-interpolation.html#cb274-16" tabindex="-1"></a>     Y[i] <span class="ot">=</span><span class="dv">3</span><span class="sc">*</span>(y[i<span class="sc">+</span><span class="dv">1</span>]<span class="sc">-</span>y[i])<span class="sc">/</span>h[i]<span class="sc">-</span><span class="dv">3</span><span class="sc">*</span>(y[i]<span class="sc">-</span>y[i<span class="dv">-1</span>])<span class="sc">/</span>h[i<span class="dv">-1</span>]</span>
+<span id="cb274-17"><a href="cubic-spline-interpolation.html#cb274-17" tabindex="-1"></a>  }</span>
+<span id="cb274-18"><a href="cubic-spline-interpolation.html#cb274-18" tabindex="-1"></a>  cc <span class="ot">=</span> <span class="fu">as.vector</span>(<span class="fu">solve</span>(A)<span class="sc">%*%</span>Y)</span>
+<span id="cb274-19"><a href="cubic-spline-interpolation.html#cb274-19" tabindex="-1"></a>  aa <span class="ot">=</span> y                <span class="co"># input y values</span></span>
+<span id="cb274-20"><a href="cubic-spline-interpolation.html#cb274-20" tabindex="-1"></a>  ID <span class="ot">=</span> <span class="dv">1</span><span class="sc">:</span>(n<span class="dv">-1</span>)</span>
+<span id="cb274-21"><a href="cubic-spline-interpolation.html#cb274-21" tabindex="-1"></a>  bb <span class="ot">=</span> dd <span class="ot">=</span> <span class="cn">NULL</span></span>
+<span id="cb274-22"><a href="cubic-spline-interpolation.html#cb274-22" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>(n<span class="dv">-1</span>)){</span>
+<span id="cb274-23"><a href="cubic-spline-interpolation.html#cb274-23" tabindex="-1"></a>    dd[i] <span class="ot">=</span> (cc[i<span class="sc">+</span><span class="dv">1</span>] <span class="sc">-</span> cc[i])<span class="sc">/</span>(<span class="dv">3</span><span class="sc">*</span>h[i])</span>
+<span id="cb274-24"><a href="cubic-spline-interpolation.html#cb274-24" tabindex="-1"></a>    bb[i] <span class="ot">=</span> (aa[i<span class="sc">+</span><span class="dv">1</span>] <span class="sc">-</span> aa[i])<span class="sc">/</span>h[i] <span class="sc">-</span> h[i]<span class="sc">*</span>(<span class="dv">2</span><span class="sc">*</span>cc[i] <span class="sc">+</span> cc[i<span class="sc">+</span><span class="dv">1</span>])<span class="sc">/</span><span class="dv">3</span></span>
+<span id="cb274-25"><a href="cubic-spline-interpolation.html#cb274-25" tabindex="-1"></a>  }</span>
+<span id="cb274-26"><a href="cubic-spline-interpolation.html#cb274-26" tabindex="-1"></a>  cc <span class="ot">=</span> cc[<span class="sc">-</span>n]</span>
+<span id="cb274-27"><a href="cubic-spline-interpolation.html#cb274-27" tabindex="-1"></a>  aa <span class="ot">=</span> aa[<span class="sc">-</span>n]</span>
+<span id="cb274-28"><a href="cubic-spline-interpolation.html#cb274-28" tabindex="-1"></a>  coef <span class="ot">=</span> <span class="fu">cbind</span>(<span class="at">ID =</span> ID, <span class="at">aa =</span> aa, <span class="at">bb =</span> bb, <span class="at">cc =</span> cc, <span class="at">dd =</span> dd)</span>
+<span id="cb274-29"><a href="cubic-spline-interpolation.html#cb274-29" tabindex="-1"></a>  <span class="co">#predicted value</span></span>
+<span id="cb274-30"><a href="cubic-spline-interpolation.html#cb274-30" tabindex="-1"></a>  dS <span class="ot">=</span> <span class="cn">NULL</span>                       <span class="co"># derivative of the C-spline.</span></span>
+<span id="cb274-31"><a href="cubic-spline-interpolation.html#cb274-31" tabindex="-1"></a>  <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(x.new)){</span>
+<span id="cb274-32"><a href="cubic-spline-interpolation.html#cb274-32" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n){</span>
+<span id="cb274-33"><a href="cubic-spline-interpolation.html#cb274-33" tabindex="-1"></a>    <span class="cf">if</span> (x.new[j]<span class="sc">&lt;=</span> x[i]){</span>
+<span id="cb274-34"><a href="cubic-spline-interpolation.html#cb274-34" tabindex="-1"></a>       <span class="cf">next</span></span>
+<span id="cb274-35"><a href="cubic-spline-interpolation.html#cb274-35" tabindex="-1"></a>      }</span>
+<span id="cb274-36"><a href="cubic-spline-interpolation.html#cb274-36" tabindex="-1"></a>     y.new[j] <span class="ot">=</span> aa[i] <span class="sc">+</span> bb[i]<span class="sc">*</span>(x.new[j] <span class="sc">-</span> x[i]) <span class="sc">+</span> cc[i]<span class="sc">*</span>(x.new[j] <span class="sc">-</span> x[i])<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> dd[i]<span class="sc">*</span>(x.new[j] <span class="sc">-</span> x[i])<span class="sc">^</span><span class="dv">3</span></span>
+<span id="cb274-37"><a href="cubic-spline-interpolation.html#cb274-37" tabindex="-1"></a>     dS[j] <span class="ot">=</span> bb[i] <span class="sc">+</span> <span class="dv">2</span><span class="sc">*</span>cc[i]<span class="sc">*</span>(x.new[j] <span class="sc">-</span> x[i]) <span class="sc">+</span><span class="dv">3</span><span class="sc">*</span> dd[i]<span class="sc">*</span>(x.new[j] <span class="sc">-</span> x[i])<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb274-38"><a href="cubic-spline-interpolation.html#cb274-38" tabindex="-1"></a>   }</span>
+<span id="cb274-39"><a href="cubic-spline-interpolation.html#cb274-39" tabindex="-1"></a>  }</span>
+<span id="cb274-40"><a href="cubic-spline-interpolation.html#cb274-40" tabindex="-1"></a> <span class="fu">list</span>(<span class="at">coef =</span> coef, <span class="at">y.new =</span> y.new, <span class="at">d.S =</span> dS)</span>
+<span id="cb274-41"><a href="cubic-spline-interpolation.html#cb274-41" tabindex="-1"></a>}</span></code></pre></div>
+<p><br />
+</p>
+<p><strong>Example 3</strong>: Approximate <span class="math inline">\(f(x) = \log(e^x+2)\)</span> using nodes <span class="math inline">\(x = -1. -0.5, 0, 0.5\)</span>.</p>
+<div class="sourceCode" id="cb275"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb275-1"><a href="cubic-spline-interpolation.html#cb275-1" tabindex="-1"></a>xvec<span class="ot">=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="sc">-</span><span class="fl">0.5</span>,<span class="dv">0</span>,<span class="fl">0.5</span>)</span>
+<span id="cb275-2"><a href="cubic-spline-interpolation.html#cb275-2" tabindex="-1"></a>yvec<span class="ot">=</span><span class="fu">log</span>(<span class="fu">exp</span>(xvec)<span class="sc">+</span><span class="dv">2</span>)</span>
+<span id="cb275-3"><a href="cubic-spline-interpolation.html#cb275-3" tabindex="-1"></a><span class="do">###</span></span>
+<span id="cb275-4"><a href="cubic-spline-interpolation.html#cb275-4" tabindex="-1"></a><span class="fu">Natural.CSpline</span>(<span class="at">x =</span> xvec, <span class="at">y =</span> yvec, <span class="at">x.new =</span> <span class="fl">0.25</span>)</span></code></pre></div>
+<pre><code>## $coef
+##      ID        aa        bb         cc          dd
+## [1,]  1 0.8619948 0.1756378 0.00000000  0.06565087
+## [2,]  2 0.9580201 0.2248760 0.09847631  0.02828097
+## [3,]  3 1.0986123 0.3445630 0.14089776 -0.09393184
+## 
+## $y.new
+## [1] 1.192091
+## 
+## $d.S
+## [1] 0.3973997</code></pre>
+<p><br />
+</p>
+<p><strong>Example 4</strong> (Example 2 of the textbook, page 150): Use the data points <span class="math inline">\((0, 1), (1, e), (2, e^2)\)</span>, and <span class="math inline">\((3, e^3)\)</span> to form a natural spline <span class="math inline">\(S(x)\)</span> that approximates <span class="math inline">\(f(x) = e^x\)</span>.</p>
+<div class="sourceCode" id="cb277"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb277-1"><a href="cubic-spline-interpolation.html#cb277-1" tabindex="-1"></a>xvec<span class="ot">=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)</span>
+<span id="cb277-2"><a href="cubic-spline-interpolation.html#cb277-2" tabindex="-1"></a>yvec<span class="ot">=</span><span class="fu">exp</span>(xvec)</span>
+<span id="cb277-3"><a href="cubic-spline-interpolation.html#cb277-3" tabindex="-1"></a>x.new <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="fl">1.5</span>, <span class="dv">2</span>)</span>
+<span id="cb277-4"><a href="cubic-spline-interpolation.html#cb277-4" tabindex="-1"></a><span class="do">###</span></span>
+<span id="cb277-5"><a href="cubic-spline-interpolation.html#cb277-5" tabindex="-1"></a><span class="fu">Natural.CSpline</span>(<span class="at">x =</span> xvec, <span class="at">y =</span> yvec, <span class="at">x.new =</span> x.new)</span></code></pre></div>
+<pre><code>## $coef
+##      ID       aa       bb        cc         dd
+## [1,]  1 1.000000 1.465998 0.0000000  0.2522842
+## [2,]  2 2.718282 2.222850 0.7568526  1.6910714
+## [3,]  3 7.389056 8.809770 5.8300668 -1.9433556
+## 
+## $y.new
+## [1] 2.718282 4.230304 7.389056
+## 
+## $d.S
+## [1] 2.222850 4.248006 8.809770</code></pre>
+<p><br />
+</p>
+</div>
+</div>
+<div id="clamped-splines" class="section level2 hasAnchor" number="17.2">
+<h2><span class="header-section-number">17.2</span> Clamped Splines<a href="cubic-spline-interpolation.html#clamped-splines" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The only difference between natural splines and clamped splines is the use of boundary conditions. In the natural cubic spline, the boundary conditions are <span class="math inline">\(c_0 -c_{n-1} = 0\)</span>.</p>
+<p>The clamped splines use the (clamped) boundary conditions: <span class="math inline">\(S^\prime(x_0) = f^\prime(x_0\)</span> and <span class="math inline">\(S^\prime(x_n) = f^\prime(x_n)\)</span>.</p>
+<p>We will not develop an R function to implement the clamped cubic spline interpolation. Both R and MATLAB have built-in functions to perform clamped cubic spline interpolation.</p>
+<p><br />
+</p>
+</div>
+<div id="error-analysis-7" class="section level2 hasAnchor" number="17.3">
+<h2><span class="header-section-number">17.3</span> Error Analysis<a href="cubic-spline-interpolation.html#error-analysis-7" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><strong>Theorem</strong>: Let <span class="math inline">\(f \in C^4[a,b]\)</span> with <span class="math inline">\(\text{max}_{ a\le x \le b} |f^{(4)}(x)| = M\)</span>. If <span class="math inline">\(S\)</span> is the unique clamped cubic spline interpolant to <span class="math inline">\(f\)</span> with respect to nodes <span class="math inline">\(a = x_0 &lt; x_1 &lt; \cdots &lt; x_n = b\)</span>, then for all <span class="math inline">\(x \in [a, b]\)</span>,</p>
+<p><span class="math display">\[
+|f(x) - S(x)| \le \frac{5M \cdot \text{max}_{0 \le x \le n-1} |x_{j+1} - x_j|^4}{384}
+\]</span></p>
+<p>Using the above theorem, we can find the error bound of the clamped cubic spline.</p>
+<p>The error bound of the natural spline is dependent on the 4-th order derivative of <span class="math inline">\(f(x)\)</span>. It is more complicated than that of the clamped cubic spline. We will not introduce this in this course.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="concepts-of-spline-interpolations.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="newton-method-for-nonlinear-system-and-optimization.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/pengdsci/MAT325EB/edit/master/16-CubicSmoothingSpline.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["MAT325EB.pdf", "MAT325EB.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

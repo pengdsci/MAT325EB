@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Topic 13 Determinant and Inversion of Matrices | MAT325 E-Pack: Numerical Analysis</title>
+  <meta name="description" content="The output format for this example is bookdown::gitbook." />
+  <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Topic 13 Determinant and Inversion of Matrices | MAT325 E-Pack: Numerical Analysis" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="The output format for this example is bookdown::gitbook." />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Topic 13 Determinant and Inversion of Matrices | MAT325 E-Pack: Numerical Analysis" />
+  
+  <meta name="twitter:description" content="The output format for this example is bookdown::gitbook." />
+  
+
+<meta name="author" content="Cheng Peng" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="gauss-elimination-method.html"/>
+<link rel="next" href="matrix-factorization.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<center><li><a href="./"><font color = "darkred"><b>MAT 325 E-Coursepack: Numerical Analysis</b></font></a><br><font color = "navy">Cheng Peng</font></li></center>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="calculus-review.html"><a href="calculus-review.html"><i class="fa fa-check"></i><b>2</b> Calculus Review</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="calculus-review.html"><a href="calculus-review.html#limits-and-continuity"><i class="fa fa-check"></i><b>2.1</b> Limits and Continuity</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="calculus-review.html"><a href="calculus-review.html#limits"><i class="fa fa-check"></i><b>2.1.1</b> Limits</a></li>
+<li class="chapter" data-level="2.1.2" data-path="calculus-review.html"><a href="calculus-review.html#continuity"><i class="fa fa-check"></i><b>2.1.2</b> Continuity</a></li>
+<li class="chapter" data-level="2.1.3" data-path="calculus-review.html"><a href="calculus-review.html#convergence-of-a-sequence"><i class="fa fa-check"></i><b>2.1.3</b> Convergence of A Sequence</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="calculus-review.html"><a href="calculus-review.html#differentiation"><i class="fa fa-check"></i><b>2.2</b> Differentiation</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="calculus-review.html"><a href="calculus-review.html#definition"><i class="fa fa-check"></i><b>2.2.1</b> Definition</a></li>
+<li class="chapter" data-level="2.2.2" data-path="calculus-review.html"><a href="calculus-review.html#properties"><i class="fa fa-check"></i><b>2.2.2</b> Properties</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="calculus-review.html"><a href="calculus-review.html#integration"><i class="fa fa-check"></i><b>2.3</b> Integration</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="calculus-review.html"><a href="calculus-review.html#series-vs-sequence"><i class="fa fa-check"></i><b>2.3.1</b> Series vs Sequence</a></li>
+<li class="chapter" data-level="2.3.2" data-path="calculus-review.html"><a href="calculus-review.html#definition-of-definite-integral"><i class="fa fa-check"></i><b>2.3.2</b> Definition of Definite Integral</a></li>
+<li class="chapter" data-level="2.3.3" data-path="calculus-review.html"><a href="calculus-review.html#taylor-expansion"><i class="fa fa-check"></i><b>2.3.3</b> Taylor Expansion</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html"><i class="fa fa-check"></i><b>3</b> Scientific Computing with R</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#vectors-and-matrices"><i class="fa fa-check"></i><b>3.1</b> Vectors and Matrices</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#vectors"><i class="fa fa-check"></i><b>3.1.1</b> Vectors</a></li>
+<li class="chapter" data-level="3.1.2" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#matrices"><i class="fa fa-check"></i><b>3.1.2</b> Matrices</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#built-in-mathematical-functions-and-operators"><i class="fa fa-check"></i><b>3.2</b> Built-in Mathematical Functions and Operators</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#arithmetic-operators"><i class="fa fa-check"></i><b>3.2.1</b> Arithmetic Operators</a></li>
+<li class="chapter" data-level="3.2.2" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#basic-mathematical-functions"><i class="fa fa-check"></i><b>3.2.2</b> Basic Mathematical Functions</a></li>
+<li class="chapter" data-level="3.2.3" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#trigonometry"><i class="fa fa-check"></i><b>3.2.3</b> Trigonometry</a></li>
+<li class="chapter" data-level="3.2.4" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#linear-algebra"><i class="fa fa-check"></i><b>3.2.4</b> Linear Algebra</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#graphic-functions-in-base-r"><i class="fa fa-check"></i><b>3.3</b> Graphic Functions in Base R</a></li>
+<li class="chapter" data-level="3.4" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#rounding-and-related-functions"><i class="fa fa-check"></i><b>3.4</b> Rounding and Related Functions</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#round"><i class="fa fa-check"></i><b>3.4.1</b> round()</a></li>
+<li class="chapter" data-level="3.4.2" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#controlling-number-of-displayed-digits"><i class="fa fa-check"></i><b>3.4.2</b> Controlling Number of Displayed Digits</a></li>
+<li class="chapter" data-level="3.4.3" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#signif"><i class="fa fa-check"></i><b>3.4.3</b> <code>Signif()</code></a></li>
+<li class="chapter" data-level="3.4.4" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#floor-and-ceiling"><i class="fa fa-check"></i><b>3.4.4</b> <code>floor()</code> and <code>ceiling()</code></a></li>
+<li class="chapter" data-level="3.4.5" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#trunc"><i class="fa fa-check"></i><b>3.4.5</b> <code>trunc()</code></a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#control-statements"><i class="fa fa-check"></i><b>3.5</b> Control Statements</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#conditional-statements"><i class="fa fa-check"></i><b>3.5.1</b> Conditional Statements</a></li>
+<li class="chapter" data-level="3.5.2" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#loops-in-r"><i class="fa fa-check"></i><b>3.5.2</b> Loops in R</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#numerical-example"><i class="fa fa-check"></i><b>3.6</b> Numerical Example</a>
+<ul>
+<li class="chapter" data-level="3.6.1" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#version-1"><i class="fa fa-check"></i><b>3.6.1</b> VERSION 1</a></li>
+<li class="chapter" data-level="3.6.2" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#version-2"><i class="fa fa-check"></i><b>3.6.2</b> Version 2</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#user-defined-functions"><i class="fa fa-check"></i><b>3.7</b> User Defined Functions</a>
+<ul>
+<li class="chapter" data-level="3.7.1" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#writing-r-functions-for-root-finding-methods"><i class="fa fa-check"></i><b>3.7.1</b> Writing R Functions for Root-finding Methods</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="basics-of-data-representation-and-error-analysis.html"><a href="basics-of-data-representation-and-error-analysis.html"><i class="fa fa-check"></i><b>4</b> Basics of Data Representation and Error Analysis</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="basics-of-data-representation-and-error-analysis.html"><a href="basics-of-data-representation-and-error-analysis.html#data-representation"><i class="fa fa-check"></i><b>4.1</b> Data Representation</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="basics-of-data-representation-and-error-analysis.html"><a href="basics-of-data-representation-and-error-analysis.html#number-systems"><i class="fa fa-check"></i><b>4.1.1</b> Number Systems</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="basics-of-data-representation-and-error-analysis.html"><a href="basics-of-data-representation-and-error-analysis.html#how-data-is-stored-in-computer-memory"><i class="fa fa-check"></i><b>4.2</b> How data is stored in computer memory</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="basics-of-data-representation-and-error-analysis.html"><a href="basics-of-data-representation-and-error-analysis.html#how-integers-are-stored-in-memory"><i class="fa fa-check"></i><b>4.2.1</b> How integers are stored in memory?</a></li>
+<li class="chapter" data-level="4.2.2" data-path="basics-of-data-representation-and-error-analysis.html"><a href="basics-of-data-representation-and-error-analysis.html#floating-point-numbers"><i class="fa fa-check"></i><b>4.2.2</b> Floating-point Numbers</a></li>
+<li class="chapter" data-level="4.2.3" data-path="basics-of-data-representation-and-error-analysis.html"><a href="basics-of-data-representation-and-error-analysis.html#how-floating-point-numbers-are-stored-in-memory"><i class="fa fa-check"></i><b>4.2.3</b> How Floating-point Numbers Are Stored in Memory?</a></li>
+<li class="chapter" data-level="4.2.4" data-path="basics-of-data-representation-and-error-analysis.html"><a href="basics-of-data-representation-and-error-analysis.html#basic-types-errors-in-error-analysis"><i class="fa fa-check"></i><b>4.2.4</b> Basic Types Errors in Error Analysis</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="error-analysis-algorithms-and-convergence.html"><a href="error-analysis-algorithms-and-convergence.html"><i class="fa fa-check"></i><b>5</b> Error Analysis, Algorithms and Convergence</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="error-analysis-algorithms-and-convergence.html"><a href="error-analysis-algorithms-and-convergence.html#error-analysis"><i class="fa fa-check"></i><b>5.1</b> Error Analysis</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="error-analysis-algorithms-and-convergence.html"><a href="error-analysis-algorithms-and-convergence.html#understanding-numerical-error"><i class="fa fa-check"></i><b>5.1.1</b> Understanding Numerical Error</a></li>
+<li class="chapter" data-level="5.1.2" data-path="error-analysis-algorithms-and-convergence.html"><a href="error-analysis-algorithms-and-convergence.html#error-classification"><i class="fa fa-check"></i><b>5.1.2</b> Error Classification</a></li>
+<li class="chapter" data-level="5.1.3" data-path="error-analysis-algorithms-and-convergence.html"><a href="error-analysis-algorithms-and-convergence.html#approximation-significant-digits-figures"><i class="fa fa-check"></i><b>5.1.3</b> Approximation Significant Digits (Figures)</a></li>
+<li class="chapter" data-level="5.1.4" data-path="error-analysis-algorithms-and-convergence.html"><a href="error-analysis-algorithms-and-convergence.html#nested-arithmetic"><i class="fa fa-check"></i><b>5.1.4</b> Nested Arithmetic</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="error-analysis-algorithms-and-convergence.html"><a href="error-analysis-algorithms-and-convergence.html#algorithms-and-convergence"><i class="fa fa-check"></i><b>5.2</b> Algorithms and Convergence</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="error-analysis-algorithms-and-convergence.html"><a href="error-analysis-algorithms-and-convergence.html#algorithm-and-psuedo-code"><i class="fa fa-check"></i><b>5.2.1</b> Algorithm and Psuedo-code</a></li>
+<li class="chapter" data-level="5.2.2" data-path="error-analysis-algorithms-and-convergence.html"><a href="error-analysis-algorithms-and-convergence.html#rules-of-pseudo-code"><i class="fa fa-check"></i><b>5.2.2</b> Rules of Pseudo-code</a></li>
+<li class="chapter" data-level="5.2.3" data-path="error-analysis-algorithms-and-convergence.html"><a href="error-analysis-algorithms-and-convergence.html#stability-of-algorithms"><i class="fa fa-check"></i><b>5.2.3</b> Stability of Algorithms</a></li>
+<li class="chapter" data-level="5.2.4" data-path="error-analysis-algorithms-and-convergence.html"><a href="error-analysis-algorithms-and-convergence.html#rates-of-convergence"><i class="fa fa-check"></i><b>5.2.4</b> Rates of Convergence</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="bisection-method.html"><a href="bisection-method.html"><i class="fa fa-check"></i><b>6</b> Bisection Method</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="bisection-method.html"><a href="bisection-method.html#the-question"><i class="fa fa-check"></i><b>6.1</b> The Question</a></li>
+<li class="chapter" data-level="6.2" data-path="bisection-method.html"><a href="bisection-method.html#bisection-method-1"><i class="fa fa-check"></i><b>6.2</b> Bisection Method</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="bisection-method.html"><a href="bisection-method.html#the-logic-of-bisection-method"><i class="fa fa-check"></i><b>6.2.1</b> The Logic of Bisection Method</a></li>
+<li class="chapter" data-level="6.2.2" data-path="bisection-method.html"><a href="bisection-method.html#bisection-algorithm"><i class="fa fa-check"></i><b>6.2.2</b> Bisection Algorithm</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="bisection-method.html"><a href="bisection-method.html#error-analysis-1"><i class="fa fa-check"></i><b>6.3</b> Error Analysis</a></li>
+<li class="chapter" data-level="6.4" data-path="bisection-method.html"><a href="bisection-method.html#numerical-examples."><i class="fa fa-check"></i><b>6.4</b> Numerical Examples.</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="fixed-point-method.html"><a href="fixed-point-method.html"><i class="fa fa-check"></i><b>7</b> Fixed Point Method</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="fixed-point-method.html"><a href="fixed-point-method.html#some-theories-of-the-fixed-point-method"><i class="fa fa-check"></i><b>7.1</b> Some Theories of the Fixed Point Method</a></li>
+<li class="chapter" data-level="7.2" data-path="fixed-point-method.html"><a href="fixed-point-method.html#fixed-point-iteration"><i class="fa fa-check"></i><b>7.2</b> Fixed Point Iteration</a></li>
+<li class="chapter" data-level="7.3" data-path="fixed-point-method.html"><a href="fixed-point-method.html#error-analysis-2"><i class="fa fa-check"></i><b>7.3</b> Error Analysis</a></li>
+<li class="chapter" data-level="7.4" data-path="fixed-point-method.html"><a href="fixed-point-method.html#numerical-example-1"><i class="fa fa-check"></i><b>7.4</b> Numerical Example</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="newtons-method.html"><a href="newtons-method.html"><i class="fa fa-check"></i><b>8</b> Newton’s Method</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="newtons-method.html"><a href="newtons-method.html#notations-big-o-and-little-o"><i class="fa fa-check"></i><b>8.1</b> Notations: Big O and Little o</a></li>
+<li class="chapter" data-level="8.2" data-path="newtons-method.html"><a href="newtons-method.html#foundations-of-newton-method"><i class="fa fa-check"></i><b>8.2</b> Foundations of Newton Method</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="newtons-method.html"><a href="newtons-method.html#the-algorithmic-logic"><i class="fa fa-check"></i><b>8.2.1</b> The Algorithmic Logic</a></li>
+<li class="chapter" data-level="8.2.2" data-path="newtons-method.html"><a href="newtons-method.html#initial-starting-value-matters"><i class="fa fa-check"></i><b>8.2.2</b> Initial Starting Value Matters</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="newtons-method.html"><a href="newtons-method.html#algorithm-and-pseudo-code"><i class="fa fa-check"></i><b>8.3</b> Algorithm and Pseudo-code</a></li>
+<li class="chapter" data-level="8.4" data-path="newtons-method.html"><a href="newtons-method.html#error-analysis-3"><i class="fa fa-check"></i><b>8.4</b> Error Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="secant-method.html"><a href="secant-method.html"><i class="fa fa-check"></i><b>9</b> Secant Method</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="secant-method.html"><a href="secant-method.html#secant-method-1"><i class="fa fa-check"></i><b>9.1</b> Secant Method</a></li>
+<li class="chapter" data-level="9.2" data-path="secant-method.html"><a href="secant-method.html#secant-algorithm-and-implementation"><i class="fa fa-check"></i><b>9.2</b> Secant Algorithm and Implementation</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="secant-method.html"><a href="secant-method.html#implementation-with-r"><i class="fa fa-check"></i><b>9.2.1</b> Implementation with R</a></li>
+<li class="chapter" data-level="9.2.2" data-path="secant-method.html"><a href="secant-method.html#numerical-examples"><i class="fa fa-check"></i><b>9.2.2</b> Numerical Examples</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="secant-method.html"><a href="secant-method.html#error-analysis-4"><i class="fa fa-check"></i><b>9.3</b> Error Analysis</a></li>
+<li class="chapter" data-level="9.4" data-path="secant-method.html"><a href="secant-method.html#false-position-method"><i class="fa fa-check"></i><b>9.4</b> False Position Method</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html"><i class="fa fa-check"></i><b>10</b> Lagrange Interpolation</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html#concepts-of-interpolation-method"><i class="fa fa-check"></i><b>10.1</b> Concepts of Interpolation Method</a>
+<ul>
+<li class="chapter" data-level="10.1.1" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html#data-fitting-interpolation"><i class="fa fa-check"></i><b>10.1.1</b> Data-fitting / Interpolation:</a></li>
+<li class="chapter" data-level="10.1.2" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html#functional-equation-curve-approximation"><i class="fa fa-check"></i><b>10.1.2</b> Functional Equation (Curve Approximation)</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html#the-lagrange-interpolation"><i class="fa fa-check"></i><b>10.2</b> The Lagrange Interpolation</a>
+<ul>
+<li class="chapter" data-level="10.2.1" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html#linear-lagrange-interpolation"><i class="fa fa-check"></i><b>10.2.1</b> Linear Lagrange Interpolation</a></li>
+<li class="chapter" data-level="10.2.2" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html#quadratic-lagrange-interpolation"><i class="fa fa-check"></i><b>10.2.2</b> Quadratic Lagrange Interpolation</a></li>
+<li class="chapter" data-level="10.2.3" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html#general-lagrange-interpolation"><i class="fa fa-check"></i><b>10.2.3</b> General Lagrange Interpolation</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html#lagrange-algorithm-and-implementation"><i class="fa fa-check"></i><b>10.3</b> Lagrange Algorithm and Implementation</a>
+<ul>
+<li class="chapter" data-level="10.3.1" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html#pseudo-code"><i class="fa fa-check"></i><b>10.3.1</b> Pseudo-code</a></li>
+<li class="chapter" data-level="10.3.2" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html#r-function-with-scalar-input"><i class="fa fa-check"></i><b>10.3.2</b> R Function with Scalar Input</a></li>
+<li class="chapter" data-level="10.3.3" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html#r-function-with-vector-input"><i class="fa fa-check"></i><b>10.3.3</b> R Function with Vector Input</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html#error-analysis-5"><i class="fa fa-check"></i><b>10.4</b> Error Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="newton-interpolation.html"><a href="newton-interpolation.html"><i class="fa fa-check"></i><b>11</b> Newton Interpolation</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="newton-interpolation.html"><a href="newton-interpolation.html#some-definitions"><i class="fa fa-check"></i><b>11.1</b> Some Definitions</a>
+<ul>
+<li class="chapter" data-level="11.1.1" data-path="newton-interpolation.html"><a href="newton-interpolation.html#definitions"><i class="fa fa-check"></i><b>11.1.1</b> Definitions</a></li>
+<li class="chapter" data-level="11.1.2" data-path="newton-interpolation.html"><a href="newton-interpolation.html#calculation-of-divided-difference"><i class="fa fa-check"></i><b>11.1.2</b> Calculation of Divided Difference</a></li>
+<li class="chapter" data-level="11.1.3" data-path="newton-interpolation.html"><a href="newton-interpolation.html#algorithm-of-calculating-divided-differences"><i class="fa fa-check"></i><b>11.1.3</b> Algorithm of Calculating Divided Differences</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="newton-interpolation.html"><a href="newton-interpolation.html#newton-interpolation-polynomial"><i class="fa fa-check"></i><b>11.2</b> Newton Interpolation Polynomial</a>
+<ul>
+<li class="chapter" data-level="11.2.1" data-path="newton-interpolation.html"><a href="newton-interpolation.html#definition-of-newton-interpolation"><i class="fa fa-check"></i><b>11.2.1</b> Definition of Newton Interpolation</a></li>
+<li class="chapter" data-level="11.2.2" data-path="newton-interpolation.html"><a href="newton-interpolation.html#newton-interpolation-algorithm"><i class="fa fa-check"></i><b>11.2.2</b> Newton Interpolation Algorithm</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="newton-interpolation.html"><a href="newton-interpolation.html#error-analysis-6"><i class="fa fa-check"></i><b>11.3</b> Error Analysis</a></li>
+<li class="chapter" data-level="11.4" data-path="newton-interpolation.html"><a href="newton-interpolation.html#some-remarks-of-newton-interpolation"><i class="fa fa-check"></i><b>11.4</b> Some Remarks of Newton Interpolation</a></li>
+<li class="chapter" data-level="11.5" data-path="newton-interpolation.html"><a href="newton-interpolation.html#implicit-loops-in-r-programming"><i class="fa fa-check"></i><b>11.5</b> Implicit Loops in R Programming</a>
+<ul>
+<li class="chapter" data-level="11.5.1" data-path="newton-interpolation.html"><a href="newton-interpolation.html#implicit-in-r-primitive-functions"><i class="fa fa-check"></i><b>11.5.1</b> Implicit in R Primitive Functions</a></li>
+<li class="chapter" data-level="11.5.2" data-path="newton-interpolation.html"><a href="newton-interpolation.html#some-vectorized-primitive-functions"><i class="fa fa-check"></i><b>11.5.2</b> Some Vectorized Primitive Functions</a></li>
+<li class="chapter" data-level="11.5.3" data-path="newton-interpolation.html"><a href="newton-interpolation.html#divided-difference-variants"><i class="fa fa-check"></i><b>11.5.3</b> Divided Difference Variants</a></li>
+<li class="chapter" data-level="11.5.4" data-path="newton-interpolation.html"><a href="newton-interpolation.html#vectorizing-newtoninterp"><i class="fa fa-check"></i><b>11.5.4</b> Vectorizing <strong>NewtonInterp()</strong></a></li>
+<li class="chapter" data-level="11.5.5" data-path="newton-interpolation.html"><a href="newton-interpolation.html#code-efficiency-with-implivit-loops"><i class="fa fa-check"></i><b>11.5.5</b> Code Efficiency with Implivit Loops</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="gauss-elimination-method.html"><a href="gauss-elimination-method.html"><i class="fa fa-check"></i><b>12</b> Gauss Elimination Method</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="gauss-elimination-method.html"><a href="gauss-elimination-method.html#naive-gaussian-elimination-methods"><i class="fa fa-check"></i><b>12.1</b> Naive Gaussian Elimination Methods</a></li>
+<li class="chapter" data-level="12.2" data-path="gauss-elimination-method.html"><a href="gauss-elimination-method.html#gaussian-elimination-algorithm"><i class="fa fa-check"></i><b>12.2</b> Gaussian Elimination Algorithm</a></li>
+<li class="chapter" data-level="12.3" data-path="gauss-elimination-method.html"><a href="gauss-elimination-method.html#gauss-jordan-elimination-optional"><i class="fa fa-check"></i><b>12.3</b> Gauss-Jordan Elimination (<code>Optional</code>)</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="determinant-and-inversion-of-matrices.html"><a href="determinant-and-inversion-of-matrices.html"><i class="fa fa-check"></i><b>13</b> Determinant and Inversion of Matrices</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="determinant-and-inversion-of-matrices.html"><a href="determinant-and-inversion-of-matrices.html#concepts-of-matrix-a-review"><i class="fa fa-check"></i><b>13.1</b> Concepts of Matrix: A Review</a>
+<ul>
+<li class="chapter" data-level="13.1.1" data-path="determinant-and-inversion-of-matrices.html"><a href="determinant-and-inversion-of-matrices.html#definitions-of-some-special-matrices"><i class="fa fa-check"></i><b>13.1.1</b> Definitions of Some Special Matrices</a></li>
+<li class="chapter" data-level="13.1.2" data-path="determinant-and-inversion-of-matrices.html"><a href="determinant-and-inversion-of-matrices.html#binary-operations"><i class="fa fa-check"></i><b>13.1.2</b> Binary Operations</a></li>
+<li class="chapter" data-level="13.1.3" data-path="determinant-and-inversion-of-matrices.html"><a href="determinant-and-inversion-of-matrices.html#unary-operations"><i class="fa fa-check"></i><b>13.1.3</b> Unary Operations</a></li>
+</ul></li>
+<li class="chapter" data-level="13.2" data-path="determinant-and-inversion-of-matrices.html"><a href="determinant-and-inversion-of-matrices.html#determinant-of-a-square-matrix"><i class="fa fa-check"></i><b>13.2</b> Determinant of a Square Matrix</a></li>
+<li class="chapter" data-level="13.3" data-path="determinant-and-inversion-of-matrices.html"><a href="determinant-and-inversion-of-matrices.html#matrix-inversion"><i class="fa fa-check"></i><b>13.3</b> Matrix Inversion</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="matrix-factorization.html"><a href="matrix-factorization.html"><i class="fa fa-check"></i><b>14</b> Matrix Factorization</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="matrix-factorization.html"><a href="matrix-factorization.html#elementary-and-permutation-matrices"><i class="fa fa-check"></i><b>14.1</b> Elementary and Permutation Matrices</a></li>
+<li class="chapter" data-level="14.2" data-path="matrix-factorization.html"><a href="matrix-factorization.html#lu-factorization-algorithm"><i class="fa fa-check"></i><b>14.2</b> LU Factorization Algorithm</a>
+<ul>
+<li class="chapter" data-level="14.2.1" data-path="matrix-factorization.html"><a href="matrix-factorization.html#row-operations-with-row-swapping"><i class="fa fa-check"></i><b>14.2.1</b> Row Operations with Row Swapping</a></li>
+<li class="chapter" data-level="14.2.2" data-path="matrix-factorization.html"><a href="matrix-factorization.html#row-operations-with-row-swapping-1"><i class="fa fa-check"></i><b>14.2.2</b> Row Operations with Row-swapping</a></li>
+<li class="chapter" data-level="14.2.3" data-path="matrix-factorization.html"><a href="matrix-factorization.html#lu-algorithm"><i class="fa fa-check"></i><b>14.2.3</b> LU ALgorithm</a></li>
+</ul></li>
+<li class="chapter" data-level="14.3" data-path="matrix-factorization.html"><a href="matrix-factorization.html#benefit-of-lu-factorization"><i class="fa fa-check"></i><b>14.3</b> Benefit of LU Factorization</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="least-square-approximation.html"><a href="least-square-approximation.html"><i class="fa fa-check"></i><b>15</b> Least Square Approximation</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="least-square-approximation.html"><a href="least-square-approximation.html#concepts-of-least-square-approximation"><i class="fa fa-check"></i><b>15.1</b> Concepts of Least Square Approximation</a></li>
+<li class="chapter" data-level="15.2" data-path="least-square-approximation.html"><a href="least-square-approximation.html#approximating-one-variable-linear-function"><i class="fa fa-check"></i><b>15.2</b> Approximating One-variable Linear Function</a></li>
+<li class="chapter" data-level="15.3" data-path="least-square-approximation.html"><a href="least-square-approximation.html#approximating-multiple-variable-linear-function"><i class="fa fa-check"></i><b>15.3</b> Approximating Multiple-variable Linear Function</a>
+<ul>
+<li class="chapter" data-level="15.3.1" data-path="least-square-approximation.html"><a href="least-square-approximation.html#an-extension-of-the-height-example"><i class="fa fa-check"></i><b>15.3.1</b> An Extension of the Height Example</a></li>
+<li class="chapter" data-level="15.3.2" data-path="least-square-approximation.html"><a href="least-square-approximation.html#approximating-general-multi-variables-linear-functions"><i class="fa fa-check"></i><b>15.3.2</b> Approximating General Multi-variables Linear Functions</a></li>
+</ul></li>
+<li class="chapter" data-level="15.4" data-path="least-square-approximation.html"><a href="least-square-approximation.html#approximating-one-variable-polynomial-function"><i class="fa fa-check"></i><b>15.4</b> Approximating One-variable Polynomial Function</a>
+<ul>
+<li class="chapter" data-level="15.4.1" data-path="least-square-approximation.html"><a href="least-square-approximation.html#approximating-quadratic-function"><i class="fa fa-check"></i><b>15.4.1</b> Approximating Quadratic Function</a></li>
+<li class="chapter" data-level="15.4.2" data-path="least-square-approximation.html"><a href="least-square-approximation.html#approximating-general-polynomial-functions"><i class="fa fa-check"></i><b>15.4.2</b> Approximating General Polynomial Functions</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="concepts-of-spline-interpolations.html"><a href="concepts-of-spline-interpolations.html"><i class="fa fa-check"></i><b>16</b> Concepts of Spline Interpolations</a>
+<ul>
+<li class="chapter" data-level="16.1" data-path="concepts-of-spline-interpolations.html"><a href="concepts-of-spline-interpolations.html#linear-splines"><i class="fa fa-check"></i><b>16.1</b> Linear Splines</a></li>
+<li class="chapter" data-level="16.2" data-path="concepts-of-spline-interpolations.html"><a href="concepts-of-spline-interpolations.html#quadratic-spline-interpolation"><i class="fa fa-check"></i><b>16.2</b> Quadratic Spline Interpolation</a>
+<ul>
+<li class="chapter" data-level="16.2.1" data-path="concepts-of-spline-interpolations.html"><a href="concepts-of-spline-interpolations.html#formulation-of-quadratic-spline"><i class="fa fa-check"></i><b>16.2.1</b> Formulation of Quadratic Spline</a></li>
+<li class="chapter" data-level="16.2.2" data-path="concepts-of-spline-interpolations.html"><a href="concepts-of-spline-interpolations.html#matrix-representation-of-quadratic-spline-problem"><i class="fa fa-check"></i><b>16.2.2</b> Matrix Representation of Quadratic Spline Problem</a></li>
+<li class="chapter" data-level="16.2.3" data-path="concepts-of-spline-interpolations.html"><a href="concepts-of-spline-interpolations.html#algorithm-of-quadratic-spline"><i class="fa fa-check"></i><b>16.2.3</b> Algorithm of Quadratic Spline</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="cubic-spline-interpolation.html"><a href="cubic-spline-interpolation.html"><i class="fa fa-check"></i><b>17</b> Cubic Spline Interpolation</a>
+<ul>
+<li class="chapter" data-level="17.1" data-path="cubic-spline-interpolation.html"><a href="cubic-spline-interpolation.html#cubic-splines"><i class="fa fa-check"></i><b>17.1</b> Cubic Splines</a>
+<ul>
+<li class="chapter" data-level="17.1.1" data-path="cubic-spline-interpolation.html"><a href="cubic-spline-interpolation.html#formulation-of-cubic-spline"><i class="fa fa-check"></i><b>17.1.1</b> Formulation of Cubic Spline</a></li>
+<li class="chapter" data-level="17.1.2" data-path="cubic-spline-interpolation.html"><a href="cubic-spline-interpolation.html#construction-of-cubic-splines"><i class="fa fa-check"></i><b>17.1.2</b> Construction of Cubic Splines</a></li>
+<li class="chapter" data-level="17.1.3" data-path="cubic-spline-interpolation.html"><a href="cubic-spline-interpolation.html#cubic-spline-algorithm"><i class="fa fa-check"></i><b>17.1.3</b> Cubic Spline Algorithm</a></li>
+</ul></li>
+<li class="chapter" data-level="17.2" data-path="cubic-spline-interpolation.html"><a href="cubic-spline-interpolation.html#clamped-splines"><i class="fa fa-check"></i><b>17.2</b> Clamped Splines</a></li>
+<li class="chapter" data-level="17.3" data-path="cubic-spline-interpolation.html"><a href="cubic-spline-interpolation.html#error-analysis-7"><i class="fa fa-check"></i><b>17.3</b> Error Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="newton-method-for-nonlinear-system-and-optimization.html"><a href="newton-method-for-nonlinear-system-and-optimization.html"><i class="fa fa-check"></i><b>18</b> Newton Method for Nonlinear System and Optimization</a>
+<ul>
+<li class="chapter" data-level="18.1" data-path="newton-method-for-nonlinear-system-and-optimization.html"><a href="newton-method-for-nonlinear-system-and-optimization.html#multivariate-taylor-expansion"><i class="fa fa-check"></i><b>18.1</b> Multivariate Taylor Expansion</a></li>
+<li class="chapter" data-level="18.2" data-path="newton-method-for-nonlinear-system-and-optimization.html"><a href="newton-method-for-nonlinear-system-and-optimization.html#newton-method-for-nonlinear-systems"><i class="fa fa-check"></i><b>18.2</b> Newton Method for Nonlinear Systems</a>
+<ul>
+<li class="chapter" data-level="18.2.1" data-path="newton-method-for-nonlinear-system-and-optimization.html"><a href="newton-method-for-nonlinear-system-and-optimization.html#system-of-two-nonlinear-equations"><i class="fa fa-check"></i><b>18.2.1</b> System of Two Nonlinear Equations</a></li>
+<li class="chapter" data-level="18.2.2" data-path="newton-method-for-nonlinear-system-and-optimization.html"><a href="newton-method-for-nonlinear-system-and-optimization.html#newton-algorithm"><i class="fa fa-check"></i><b>18.2.2</b> Newton Algorithm</a></li>
+</ul></li>
+<li class="chapter" data-level="18.3" data-path="newton-method-for-nonlinear-system-and-optimization.html"><a href="newton-method-for-nonlinear-system-and-optimization.html#optimization"><i class="fa fa-check"></i><b>18.3</b> Optimization</a></li>
+<li class="chapter" data-level="18.4" data-path="newton-method-for-nonlinear-system-and-optimization.html"><a href="newton-method-for-nonlinear-system-and-optimization.html#a-case-study"><i class="fa fa-check"></i><b>18.4</b> A Case Study</a></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html"><i class="fa fa-check"></i><b>19</b> Numerical Integration I</a>
+<ul>
+<li class="chapter" data-level="19.1" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html#numerical-approximation-of-derivatives"><i class="fa fa-check"></i><b>19.1</b> Numerical Approximation of Derivatives</a></li>
+<li class="chapter" data-level="19.2" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html#trapezoid-method"><i class="fa fa-check"></i><b>19.2</b> Trapezoid Method</a>
+<ul>
+<li class="chapter" data-level="19.2.1" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html#formulation-of-trapezoid-method"><i class="fa fa-check"></i><b>19.2.1</b> Formulation of Trapezoid Method</a></li>
+<li class="chapter" data-level="19.2.2" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html#error-analysis-8"><i class="fa fa-check"></i><b>19.2.2</b> Error Analysis</a></li>
+<li class="chapter" data-level="19.2.3" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html#composite-trapezoid-method-and-error-analysis"><i class="fa fa-check"></i><b>19.2.3</b> Composite Trapezoid Method and Error Analysis</a></li>
+<li class="chapter" data-level="19.2.4" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html#trapezoid-algorithm"><i class="fa fa-check"></i><b>19.2.4</b> Trapezoid Algorithm</a></li>
+</ul></li>
+<li class="chapter" data-level="19.3" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html#simpsons-one-third-rule"><i class="fa fa-check"></i><b>19.3</b> Simpson’s One-third Rule</a>
+<ul>
+<li class="chapter" data-level="19.3.1" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html#derivation-of-simpsons-rule"><i class="fa fa-check"></i><b>19.3.1</b> Derivation of Simpson’s Rule</a></li>
+<li class="chapter" data-level="19.3.2" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html#explicit-function-on-x_i-1-x_i1"><i class="fa fa-check"></i><b>19.3.2</b> Explicit Function on <span class="math inline">\([x_{i-1}, x_{i+1}]\)</span></a></li>
+<li class="chapter" data-level="19.3.3" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html#the-composite-simpsons-rule"><i class="fa fa-check"></i><b>19.3.3</b> The Composite Simpsons’ Rule</a></li>
+<li class="chapter" data-level="19.3.4" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html#error-analysis-9"><i class="fa fa-check"></i><b>19.3.4</b> Error Analysis</a></li>
+<li class="chapter" data-level="19.3.5" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html#algorithm-of-simpsons-rule"><i class="fa fa-check"></i><b>19.3.5</b> Algorithm of Simpson’s Rule</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html"><i class="fa fa-check"></i><b>20</b> Romberg Integration and Gaussian Quadratures</a>
+<ul>
+<li class="chapter" data-level="20.1" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#richardson-extrapolation"><i class="fa fa-check"></i><b>20.1</b> Richardson Extrapolation</a>
+<ul>
+<li class="chapter" data-level="20.1.1" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#the-logic-of-the-richardson-method"><i class="fa fa-check"></i><b>20.1.1</b> The Logic of the Richardson Method</a></li>
+<li class="chapter" data-level="20.1.2" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#algorithm-of-richardson-method"><i class="fa fa-check"></i><b>20.1.2</b> Algorithm of Richardson Method</a></li>
+<li class="chapter" data-level="20.1.3" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#higher-order-extrapolation"><i class="fa fa-check"></i><b>20.1.3</b> Higher Order Extrapolation</a></li>
+<li class="chapter" data-level="20.1.4" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#algorithm-and-code"><i class="fa fa-check"></i><b>20.1.4</b> Algorithm and Code</a></li>
+</ul></li>
+<li class="chapter" data-level="20.2" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#romberg-integration"><i class="fa fa-check"></i><b>20.2</b> Romberg Integration</a>
+<ul>
+<li class="chapter" data-level="20.2.1" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#approximation-formula-and-error-analysis"><i class="fa fa-check"></i><b>20.2.1</b> Approximation formula and Error Analysis</a></li>
+<li class="chapter" data-level="20.2.2" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#romberg-algorithm"><i class="fa fa-check"></i><b>20.2.2</b> Romberg Algorithm</a></li>
+<li class="chapter" data-level="20.2.3" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#r-code"><i class="fa fa-check"></i><b>20.2.3</b> R Code</a></li>
+</ul></li>
+<li class="chapter" data-level="20.3" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#gaussian-quadrature"><i class="fa fa-check"></i><b>20.3</b> Gaussian Quadrature</a>
+<ul>
+<li class="chapter" data-level="20.3.1" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#two-point-gauss-legendre-formula"><i class="fa fa-check"></i><b>20.3.1</b> Two-point Gauss Legendre Formula</a></li>
+<li class="chapter" data-level="20.3.2" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#general-gauss-legendre-formula"><i class="fa fa-check"></i><b>20.3.2</b> General Gauss Legendre Formula</a></li>
+<li class="chapter" data-level="20.3.3" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#r-code-1"><i class="fa fa-check"></i><b>20.3.3</b> R Code</a></li>
+</ul></li>
+<li class="chapter" data-level="20.4" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#remarks"><i class="fa fa-check"></i><b>20.4</b> Remarks</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">MAT325 E-Pack: Numerical Analysis</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="determinant-and-inversion-of-matrices" class="section level1 hasAnchor" number="13">
+<h1><span class="header-section-number">Topic 13</span> Determinant and Inversion of Matrices<a href="determinant-and-inversion-of-matrices.html#determinant-and-inversion-of-matrices" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>We have introduced the Gaussian elimination method to solve the linear system of equations. This note focuses on the algorithm for finding the inverse of square matrices and then use the algorithm to solve matrix equations,</p>
+<div id="concepts-of-matrix-a-review" class="section level2 hasAnchor" number="13.1">
+<h2><span class="header-section-number">13.1</span> Concepts of Matrix: A Review<a href="determinant-and-inversion-of-matrices.html#concepts-of-matrix-a-review" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>We first define some special matrices and then review the basic properties of matrices.</p>
+<div id="definitions-of-some-special-matrices" class="section level3 hasAnchor" number="13.1.1">
+<h3><span class="header-section-number">13.1.1</span> Definitions of Some Special Matrices<a href="determinant-and-inversion-of-matrices.html#definitions-of-some-special-matrices" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>A general form of a <span class="math inline">\(n\times m\)</span> matrix is given by</p>
+<p><span class="math display">\[
+A_{n\times m} = \left[\begin{array}{ccccc}
+a_{11} &amp; a_{12} &amp; \cdots &amp; a_{1m}  \\
+a_{21} &amp; a_{22} &amp; \cdots &amp; a_{2m}  \\
+\vdots &amp; \vdots &amp; \vdots &amp; \vdots  \\
+a_{n-1,1} &amp; a_{n-1.2} &amp; \cdots &amp; a_{n-1,m}  \\
+a_{n1} &amp; a_{n2} &amp; \cdots &amp; a_{nm}  
+\end{array}
+\right]
+\]</span></p>
+<p>That <span class="math inline">\(n\)</span> rows and <span class="math inline">\(m\)</span> columns. If <span class="math inline">\(n = m\)</span>, the corresponding matrix is called the <strong>square matrix</strong>. If all off-diagonal elements of a square matrix are equal to zero, the square matrix is called <strong>diagonal matrix</strong></p>
+<p><span class="math display">\[
+D_{n\times n} = \left[\begin{array}{ccccc}
+a_{11} &amp; 0 &amp; \cdots &amp; 0  \\
+0 &amp; a_{22} &amp; \cdots &amp; 0  \\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots  \\
+0 &amp; 0&amp; \cdots &amp; a_{nn}  
+\end{array}
+\right]
+\]</span>
+A very important special diagonal matrix with all diagonal elements being 1 is called <strong>identity matrix</strong> and has the following form</p>
+<p><span class="math display">\[
+I_{n\times n} = \left[\begin{array}{ccccc}
+1 &amp; 0 &amp; \cdots &amp; 0  \\
+0 &amp; 1 &amp; \cdots &amp; 0  \\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots  \\
+0 &amp; 0&amp; \cdots &amp; 1  
+\end{array}
+\right]
+\]</span></p>
+<p>The following square matrix is called a symmetric matrix</p>
+<p><span class="math display">\[
+A_{n\times n} = \left[\begin{array}{ccccc}
+a_{11} &amp; a_{12} &amp; \cdots &amp; a_{1n}  \\
+a_{12} &amp; a_{22} &amp; \cdots &amp; a_{2n}  \\
+\vdots &amp; \vdots &amp; \vdots &amp; \vdots  \\
+a_{1,n-1} &amp; a_{2,n-1} &amp; \cdots &amp; a_{n,n-1}  \\
+a_{1n} &amp; a_{2n} &amp; \cdots &amp; a_{nn}  
+\end{array}
+\right]
+\]</span>
+A square matrix is called lower triangular if all the entries above the main diagonal are zero. Similarly, a square matrix is called upper triangular if all the entries below the main diagonal are zero. S and T represent lower and upper triangular matrices respectively.</p>
+<p><span class="math display">\[
+S_{n\times n} = \left[\begin{array}{ccccc}
+a_{11} &amp; a_{12} &amp; \cdots &amp; a_{1n}  \\
+0 &amp; a_{22} &amp; \cdots &amp; a_{2n}  \\
+\vdots &amp; \vdots &amp; \vdots &amp; \vdots  \\
+0 &amp; 0 &amp; \cdots &amp; a_{nn}  
+\end{array}
+\right]
+~
+~
+\text{and}
+~
+~
+T_{n\times n} = \left[\begin{array}{ccccc}
+b_{11} &amp; 0 &amp; \cdots &amp; 0  \\
+b_{21} &amp; b_{22} &amp; \cdots &amp; 0  \\
+\vdots &amp; \vdots &amp; \vdots &amp; 0  \\
+b_{n1} &amp; b_{n2} &amp; \cdots &amp; b_{nn}  
+\end{array}
+\right]
+\]</span></p>
+<p><br />
+</p>
+</div>
+<div id="binary-operations" class="section level3 hasAnchor" number="13.1.2">
+<h3><span class="header-section-number">13.1.2</span> Binary Operations<a href="determinant-and-inversion-of-matrices.html#binary-operations" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We perform matrix addition and subtraction, the two matrices must have the same dimensions.</p>
+<p><br />
+</p>
+<p><strong>Addition and Subtraction</strong></p>
+<p>Let</p>
+<p><span class="math display">\[
+A_{n\times m} = \left[\begin{array}{ccccc}
+a_{11} &amp; a_{12} &amp; \cdots &amp; a_{1m}  \\
+a_{21} &amp; a_{22} &amp; \cdots &amp; a_{2m}  \\
+\vdots &amp; \vdots &amp; \vdots &amp; \vdots  \\
+a_{n-1,1} &amp; a_{n-1.2} &amp; \cdots &amp; a_{n-1,m}  \\
+a_{n1} &amp; a_{n2} &amp; \cdots &amp; a_{nm}  
+\end{array}
+\right]
+~
+~
+\text{and}
+~
+~
+B_{n\times m} = \left[\begin{array}{ccccc}
+b_{11} &amp; b_{12} &amp; \cdots &amp; b_{1m}  \\
+b_{21} &amp; b_{22} &amp; \cdots &amp; b_{2m}  \\
+\vdots &amp; \vdots &amp; \vdots &amp; \vdots  \\
+b_{n-1,1} &amp; b_{n-1.2} &amp; \cdots &amp; b_{n-1,m}  \\
+b_{n1} &amp; b_{n2} &amp; \cdots &amp; b_{nm}  
+\end{array}
+\right]
+\]</span></p>
+<p><span class="math display">\[
+A_{n\times m}\pm B_{n\times m} = \left[\begin{array}{ccccc}
+a_{11}\pm b_{11} &amp; a_{12}\pm b_{12} &amp; \cdots &amp; a_{1m}\pm b_{1m}  \\
+a_{21}\pm b_{21} &amp; a_{21}\pm b_{22} &amp; \cdots &amp; a_{21}\pm b_{2m}  \\
+\vdots &amp; \vdots &amp; \vdots &amp; \vdots  \\
+a_{n-1,1}\pm b_{n-1,1} &amp; a_{n-1,1}\pm b_{n-1.2} &amp; \cdots &amp; a_{n-1,1}\pm b_{n-1,m}  \\
+a_{n1}\pm b_{n1} &amp; a_{n1}\pm b_{n2} &amp; \cdots &amp; a_{nm}\pm b_{nm}  
+\end{array}
+\right]
+\]</span><br />
+</p>
+<p><strong>Multiplication</strong></p>
+<p>When multiplying two matrices, the two matrices must be compatible. That is the number of <strong>columns</strong> of the first (left) matrix MUST be equal to the number of <strong>rows</strong> in the second (right) matrix. To illustrate this compatibility, we define</p>
+<p><span class="math display">\[
+C_{p\times q} = \left[\begin{array}{ccccc}
+c_{11} &amp; c_{12} &amp; \cdots &amp; c_{1q}  \\
+c_{21} &amp; c_{22} &amp; \cdots &amp; c_{2q}  \\
+\vdots &amp; \vdots &amp; \vdots &amp; \vdots  \\
+c_{p-1,1} &amp; c_{p-1,2} &amp; \cdots &amp; c_{p-1,m}  \\
+c_{p1} &amp; c_{p2} &amp; \cdots &amp; c_{pq}  
+\end{array}
+\right]
+~
+~
+\text{and}
+~
+~
+D_{q\times k} = \left[\begin{array}{ccccc}
+d_{11} &amp; d_{12} &amp; \cdots &amp; d_{1k}  \\
+d_{21} &amp; d_{22} &amp; \cdots &amp; d_{2k}  \\
+\vdots &amp; \vdots &amp; \vdots &amp; \vdots  \\
+d_{q-1,1} &amp; d_{q-1.2} &amp; \cdots &amp; d_{q-1kk}  \\
+d_{q1} &amp; d_{q2} &amp; \cdots &amp; d_{qk}  
+\end{array}
+\right]
+\]</span></p>
+<p>The product of the above two matrices is defined to be</p>
+<p><span class="math display">\[
+M_{p\times k} = \left[\begin{array}{ccccc}
+c_{11}\times d_{11} + c_{12}\times d_{21} + \cdots + c_{1q}\times d_{q1}  &amp; \cdots &amp; c_{11}\times d_{1k} + c_{12}\times d_{2k} + \cdots + c_{1q}\times d_{qk} \\
+c_{21}\times d_{11} + c_{22}\times d_{21} + \cdots + c_{2q}\times d_{q1}  &amp; \cdots &amp; c_{21}\times d_{1k} + c_{22}\times d_{2k} + \cdots + c_{2q}\times d_{qk} \\
+\vdots &amp; \vdots &amp; \vdots  \\
+c_{p-1,1}\times d_{11} + c_{p-1,2}\times d_{21} + \cdots + c_{p-1,q}\times d_{q1}  &amp; \cdots &amp; c_{p-1,1}\times d_{1k} + c_{p-1,2}\times d_{2k} + \cdots + c_{p-1,q}\times d_{qk}  \\
+c_{p1}\times d_{11} + c_{p2}\times d_{21} + \cdots + c_{pq}\times d_{q1}  &amp; \cdots &amp; c_{p1}\times d_{1k} + c_{p2}\times d_{2k} + \cdots + c_{pq}\times d_{qk}  
+\end{array}
+\right]
+\]</span></p>
+<p>In general, multiplication is NOT commutative. That is, <span class="math inline">\(A\times B \ne B\times A\)</span>.</p>
+<p><strong>Example 1</strong>: Define
+<span class="math display">\[
+C_{3\times 4} = \left[\begin{array}{ccccc}
+1&amp; 2 &amp; 3 &amp; 4  \\
+4 &amp; 3 &amp; 2 &amp; 1 \\
+1 &amp; 3 &amp; 5 &amp; 2  
+\end{array}
+\right]
+~
+~
+\text{and}
+~
+~
+D_{4\times 3} = \left[\begin{array}{ccccc}
+2 &amp; 1 &amp; 4   \\
+3 &amp; 2 &amp; 2  \\
+0 &amp; 1 &amp; 3  \\
+1 &amp; 2 &amp; 5
+\end{array}
+\right]
+\]</span>
+Then
+<span class="math display">\[
+C_{3\times 4} \times D_{4\times 3} = \left[\begin{array}{ccccc}
+1&amp; 2 &amp; 3 &amp; 4  \\
+4 &amp; 3 &amp; 2 &amp; 1 \\
+1 &amp; 3 &amp; 5 &amp; 2  
+\end{array}
+\right]
+\times
+\left[\begin{array}{ccccc}
+2 &amp; 1 &amp; 4   \\
+3 &amp; 2 &amp; 2  \\
+0 &amp; 1 &amp; 3  \\
+1 &amp; 2 &amp; 5
+\end{array}
+\right]
+~
+=
+~
+\left[\begin{array}{ccccc}
+12 &amp; 16 &amp; 37   \\
+18 &amp; 14 &amp; 33  \\
+13 &amp; 16 &amp; 35  \\
+\end{array}
+\right].
+\]</span>
+However,</p>
+<p><span class="math display">\[
+D_{4\times 3} \times C_{3\times 4} =
+\left[\begin{array}{ccccc}
+2 &amp; 1 &amp; 4   \\
+3 &amp; 2 &amp; 2  \\
+0 &amp; 1 &amp; 3  \\
+1 &amp; 2 &amp; 5
+\end{array}
+\right]
+\times
+\left[\begin{array}{ccccc}
+1&amp; 2 &amp; 3 &amp; 4  \\
+4 &amp; 3 &amp; 2 &amp; 1 \\
+1 &amp; 3 &amp; 5 &amp; 2  
+\end{array}
+\right]
+~
+=
+~
+\left[\begin{array}{ccccc}
+10 &amp; 19 &amp; 28 &amp; 17 \\
+13 &amp; 18 &amp; 23 &amp; 18\\
+7 &amp; 12 &amp; 17 &amp; 7\\
+14 &amp; 23 &amp; 32 &amp; 16
+\end{array}
+\right].
+\]</span></p>
+<p><br />
+</p>
+<p><strong>Division</strong> is not defined in matrix algebra. For example, Even with two square matrices <span class="math inline">\(P_{nn}\)</span> and <span class="math inline">\(Q_{nn}\)</span>, <span class="math inline">\(P \div Q\)</span> is NOT defined! The concept of the inverse of a square matrix is analogous to the concept of the reciprocal of a number. The detail of the inverse matrix will be discussed in the subsequent sections.</p>
+<p><br />
+</p>
+</div>
+<div id="unary-operations" class="section level3 hasAnchor" number="13.1.3">
+<h3><span class="header-section-number">13.1.3</span> Unary Operations<a href="determinant-and-inversion-of-matrices.html#unary-operations" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Addition, subtraction, and multiplication involve two matrices. Next look at some unary operations in matrix algebra.</p>
+<p><strong>Transpose</strong>. The matrix that is resulting from a given matrix B after changing or reversing its rows to columns and columns to rows is called the transpose of a matrix B. For example,</p>
+<p><span class="math display">\[
+D_{3\times 4} = \left[\begin{array}{ccccc}
+1&amp; 2 &amp; 3 &amp; 4  \\
+4 &amp; 3 &amp; 2 &amp; 1 \\
+1 &amp; 3 &amp; 5 &amp; 2  
+\end{array}
+\right]
+~
+~
+\text{and}
+~
+~
+D^T_{4\times 3} = \left[\begin{array}{ccccc}
+1 &amp; 4 &amp; 1   \\
+2 &amp; 3 &amp; 3  \\
+3 &amp; 2 &amp; 5  \\
+4 &amp; 1 &amp; 2
+\end{array}
+\right]
+\]</span></p>
+<p>Note that <strong>transpose</strong> is defined for any matrices (square or non-square) matrices.</p>
+<p><strong>Trace of A Matrix</strong>: The trace is the sum of all diagonal elements of a <strong>square matrix</strong>.</p>
+<p><span class="math display">\[
+A_{n\times n} = \left[\begin{array}{ccccc}
+a_{11} &amp; a_{12} &amp; \cdots &amp; a_{1n}  \\
+a_{21} &amp; a_{22} &amp; \cdots &amp; a_{2n}  \\
+\vdots &amp; \vdots &amp; \vdots &amp; \vdots  \\
+a_{n-1,1} &amp; a_{n-1.2} &amp; \cdots &amp; a_{n-1,n}  \\
+a_{n1} &amp; a_{n2} &amp; \cdots &amp; a_{nn}  
+\end{array}
+\right],
+~
+~
+\text{then}
+~
+~
+\text{Trace}(A_{n\times n}) = \sum_{i=1}^n a_{ii}
+\]</span></p>
+</div>
+</div>
+<div id="determinant-of-a-square-matrix" class="section level2 hasAnchor" number="13.2">
+<h2><span class="header-section-number">13.2</span> Determinant of a Square Matrix<a href="determinant-and-inversion-of-matrices.html#determinant-of-a-square-matrix" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The determinant of a matrix is the scalar value or number calculated using a square matrix. The calculation of a general square matrix is not straightforward, an iterative algorithm is needed. We will not introduce these algorithms in this class. But for triangular matrices, we can use the mathematical induction method to show the following theorem</p>
+<p><br />
+</p>
+<p><strong>Theorem</strong>: Let <span class="math inline">\(T_n\)</span> be an upper triangular matrix of order <span class="math inline">\(n\)</span>.</p>
+<p><span class="math display">\[
+T_{n} = \left[\begin{array}{ccccc}
+a_{11} &amp; a_{12} &amp; \cdots &amp; a_{1n}  \\
+0 &amp; a_{22} &amp; \cdots &amp; a_{2n}  \\
+\vdots &amp; \vdots &amp; \vdots &amp; \vdots  \\
+0 &amp; 0 &amp; \cdots &amp; a_{nn}  
+\end{array}
+\right]
+\]</span></p>
+<p>Let <span class="math inline">\(\text{det}(T_n)\)</span> be the determinant of <span class="math inline">\(T_n\)</span>. Then <span class="math inline">\(\text{det}(T_n)\)</span> is equal to the product of all the diagonal elements of <span class="math inline">\(T_n\)</span>. That is</p>
+<p><span class="math display">\[
+\text{det}(T_n)=\sum_{i=1}^n a_{ii}.
+\]</span></p>
+<p><strong>Sketch of Proof</strong>: We use mathematical induction to prove this theorem.</p>
+<ol style="list-style-type: decimal">
+<li><p>The determinant is <span class="math inline">\(a_{11}\)</span>, which is clearly also the diagonal element. That is, <span class="math inline">\(\text{det}(T_1) = a_{11}\)</span>. This establishes the induction basis.</p></li>
+<li><p>Assume that <span class="math inline">\(\text{det}(T_k) = \sum_{i=1}^k a_{ii}\)</span> for
+<span class="math display">\[
+T_{k} = \left[\begin{array}{ccccc}
+a_{11} &amp; a_{12} &amp; \cdots &amp; a_{1k}  \\
+0 &amp; a_{22} &amp; \cdots &amp; a_{2k}  \\
+\vdots &amp; \vdots &amp; \vdots &amp; \vdots  \\
+0 &amp; 0 &amp; \cdots &amp; a_{kk}  
+\end{array}
+\right].
+\]</span></p></li>
+</ol>
+<p>We now consider</p>
+<p><span class="math display">\[
+T_{k+1} = \left[\begin{array}{ccccc}
+a_{11} &amp; a_{12} &amp; \cdots &amp; a_{1k} &amp; a_{1,k+1} \\
+0 &amp; a_{22} &amp; \cdots &amp; a_{2k}  &amp; a_{2,k+1} \\
+\vdots &amp; \vdots &amp; \vdots &amp; \vdots &amp; \vdots \\
+0 &amp; 0 &amp; \cdots &amp; a_{kk}  &amp; a_{k,k+1} \\
+0 &amp; 0 &amp; \cdots &amp; 0  &amp; a_{k+1,k+1}
+\end{array}
+\right].
+\]</span></p>
+<p>Expanding above matrix by the <span class="math inline">\((k+1)\)</span>-th row, we have</p>
+<p><span class="math display">\[
+T_{k+1} = \left[\begin{array}{ccccc}
+a_{11} &amp; a_{12} &amp; \cdots &amp; a_{1k} &amp; a_{1,k+1} \\
+0 &amp; a_{22} &amp; \cdots &amp; a_{2k}  &amp; a_{2,k+1} \\
+\vdots &amp; \vdots &amp; \vdots &amp; \vdots &amp; \vdots \\
+0 &amp; 0 &amp; \cdots &amp; a_{nk}  &amp; a_{k,k+1} \\
+0 &amp; 0 &amp; \cdots &amp; 0  &amp; a_{k+1,k+1}
+\end{array}
+\right]
+~
+=
+~
+a_{k+1, k+1}\times \left[\begin{array}{ccccc}
+a_{11} &amp; a_{12} &amp; \cdots &amp; a_{1k}  \\
+0 &amp; a_{22} &amp; \cdots &amp; a_{2k}  \\
+\vdots &amp; \vdots &amp; \vdots &amp; \vdots  \\
+0 &amp; 0 &amp; \cdots &amp; a_{kk}  
+\end{array}
+\right].
+\]</span></p>
+<p>Therefore,
+<span class="math display">\[
+\text{det}(T_{k+1}) = \text{det}(a_{k+1,k+1}T_k) = a_{k+1, k+1} \text{det}(T_k) = a_{k+1, k+1}\sum_{i=1}^k a_{ii} = \sum_{i=1}^{k+1} a_{ii}.
+\]</span></p>
+<p>This completes the proof.</p>
+<p><br />
+</p>
+<p>We have introduced the Gaussian elimination algorithm that can be used for the triangulation of a square matrix. Therefore, we can use the R function we developed earlier to find the determinant of square matrices.</p>
+<div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb236-1"><a href="determinant-and-inversion-of-matrices.html#cb236-1" tabindex="-1"></a>DET <span class="ot">=</span> <span class="cf">function</span>(A){</span>
+<span id="cb236-2"><a href="determinant-and-inversion-of-matrices.html#cb236-2" tabindex="-1"></a>  <span class="co"># Input A: Must be a square matrix</span></span>
+<span id="cb236-3"><a href="determinant-and-inversion-of-matrices.html#cb236-3" tabindex="-1"></a>  A0 <span class="ot">=</span> A        </span>
+<span id="cb236-4"><a href="determinant-and-inversion-of-matrices.html#cb236-4" tabindex="-1"></a>  n <span class="ot">=</span> <span class="fu">dim</span>(A0)[<span class="dv">1</span>]                <span class="co"># number of rows</span></span>
+<span id="cb236-5"><a href="determinant-and-inversion-of-matrices.html#cb236-5" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>(n<span class="dv">-1</span>)){            <span class="co"># iterator fo pivot element A0[i,i]</span></span>
+<span id="cb236-6"><a href="determinant-and-inversion-of-matrices.html#cb236-6" tabindex="-1"></a>                                <span class="co"># i = 1, 2, ..., n-1</span></span>
+<span id="cb236-7"><a href="determinant-and-inversion-of-matrices.html#cb236-7" tabindex="-1"></a>      <span class="co">#~~~~~~~~~~~~~~~~~~~~~   Make the function robust  ~~~~~~~~~~~~~~~~~~~~~~~~~#</span></span>
+<span id="cb236-8"><a href="determinant-and-inversion-of-matrices.html#cb236-8" tabindex="-1"></a>      <span class="cf">if</span>(A0[i,i] <span class="sc">==</span> <span class="dv">0</span>){</span>
+<span id="cb236-9"><a href="determinant-and-inversion-of-matrices.html#cb236-9" tabindex="-1"></a>          non<span class="fl">.0</span> <span class="ot">=</span> <span class="fu">which</span>(A0[,i] <span class="sc">!=</span> <span class="dv">0</span>)</span>
+<span id="cb236-10"><a href="determinant-and-inversion-of-matrices.html#cb236-10" tabindex="-1"></a>              <span class="co">#cat(&quot;\n\n i =&quot;,i, &quot;, non.0 =&quot;, non.0,&quot;. (i+1):n =&quot;, (i+1):n, &quot;.&quot;)</span></span>
+<span id="cb236-11"><a href="determinant-and-inversion-of-matrices.html#cb236-11" tabindex="-1"></a>              id <span class="ot">=</span> <span class="fu">intersect</span>(non<span class="fl">.0</span>, (i<span class="sc">+</span><span class="dv">1</span>)<span class="sc">:</span>n)[<span class="dv">1</span>] <span class="co"># which() equiv to find() in MATLAB</span></span>
+<span id="cb236-12"><a href="determinant-and-inversion-of-matrices.html#cb236-12" tabindex="-1"></a>              <span class="cf">if</span>(<span class="sc">!</span><span class="fu">is.na</span>(id)){</span>
+<span id="cb236-13"><a href="determinant-and-inversion-of-matrices.html#cb236-13" tabindex="-1"></a>              tempi <span class="ot">=</span> A0[i,]                    <span class="co"># put the i-th row in a place-holder</span></span>
+<span id="cb236-14"><a href="determinant-and-inversion-of-matrices.html#cb236-14" tabindex="-1"></a>              A0[i,] <span class="ot">=</span> A0[id,]                  <span class="co"># row swapping</span></span>
+<span id="cb236-15"><a href="determinant-and-inversion-of-matrices.html#cb236-15" tabindex="-1"></a>              A0[id,] <span class="ot">=</span> tempi    </span>
+<span id="cb236-16"><a href="determinant-and-inversion-of-matrices.html#cb236-16" tabindex="-1"></a>            }</span>
+<span id="cb236-17"><a href="determinant-and-inversion-of-matrices.html#cb236-17" tabindex="-1"></a>      }</span>
+<span id="cb236-18"><a href="determinant-and-inversion-of-matrices.html#cb236-18" tabindex="-1"></a>      <span class="co">#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#</span></span>
+<span id="cb236-19"><a href="determinant-and-inversion-of-matrices.html#cb236-19" tabindex="-1"></a>       <span class="cf">if</span>(A0[i,i] <span class="sc">!=</span> <span class="dv">0</span>){    <span class="co"># A0[i,i] is in the denominator of recursive equation</span></span>
+<span id="cb236-20"><a href="determinant-and-inversion-of-matrices.html#cb236-20" tabindex="-1"></a>          <span class="cf">for</span>(j <span class="cf">in</span> (i<span class="sc">+</span><span class="dv">1</span>)<span class="sc">:</span>n){  <span class="co"># to make the augmented matrix in the row echelon form</span></span>
+<span id="cb236-21"><a href="determinant-and-inversion-of-matrices.html#cb236-21" tabindex="-1"></a>             <span class="co">#cat(&quot;\n\n j =&quot;,j,&quot;.&quot;)</span></span>
+<span id="cb236-22"><a href="determinant-and-inversion-of-matrices.html#cb236-22" tabindex="-1"></a>             A0[j,] <span class="ot">=</span> A0[j,] <span class="sc">-</span> (A0[j,i]<span class="sc">/</span>A0[i,i])<span class="sc">*</span>A0[i,]</span>
+<span id="cb236-23"><a href="determinant-and-inversion-of-matrices.html#cb236-23" tabindex="-1"></a>           }</span>
+<span id="cb236-24"><a href="determinant-and-inversion-of-matrices.html#cb236-24" tabindex="-1"></a>        }</span>
+<span id="cb236-25"><a href="determinant-and-inversion-of-matrices.html#cb236-25" tabindex="-1"></a>      }</span>
+<span id="cb236-26"><a href="determinant-and-inversion-of-matrices.html#cb236-26" tabindex="-1"></a>     DET <span class="ot">=</span> <span class="fu">prod</span>(<span class="fu">diag</span>(A0))    <span class="co"># prod() - vectorized multiplication, diag() extracts a[i,i]</span></span>
+<span id="cb236-27"><a href="determinant-and-inversion-of-matrices.html#cb236-27" tabindex="-1"></a>     <span class="cf">if</span>(<span class="fu">dim</span>(A)[<span class="dv">1</span>] <span class="sc">!=</span> <span class="fu">dim</span>(A)[<span class="dv">2</span>]) {</span>
+<span id="cb236-28"><a href="determinant-and-inversion-of-matrices.html#cb236-28" tabindex="-1"></a>        <span class="fu">cat</span>(<span class="st">&quot;</span><span class="sc">\n\n</span><span class="st">Need a square matrix!&quot;</span>)</span>
+<span id="cb236-29"><a href="determinant-and-inversion-of-matrices.html#cb236-29" tabindex="-1"></a>      } <span class="cf">else</span>{</span>
+<span id="cb236-30"><a href="determinant-and-inversion-of-matrices.html#cb236-30" tabindex="-1"></a>       <span class="fu">list</span>(<span class="at">Triangular.Metrix =</span> <span class="fu">round</span>(A0,<span class="dv">4</span>), <span class="at">Determinant =</span> <span class="fu">round</span>(DET,<span class="dv">4</span>))</span>
+<span id="cb236-31"><a href="determinant-and-inversion-of-matrices.html#cb236-31" tabindex="-1"></a>      }</span>
+<span id="cb236-32"><a href="determinant-and-inversion-of-matrices.html#cb236-32" tabindex="-1"></a> }</span></code></pre></div>
+<p><strong>Example 3</strong>. Let</p>
+<p><span class="math display">\[
+A = \left[\begin{array}{cccc}
+1 &amp; 9 &amp; 8 &amp; 7 \\
+3 &amp; 8 &amp; 3 &amp; 8\\
+7 &amp; 2 &amp; 7 &amp; 7\\
+4 &amp; 3 &amp; 2 &amp; 6
+\end{array}
+\right].
+\]</span></p>
+<p>The determinant of A can be calculated using R in the following</p>
+<div class="sourceCode" id="cb237"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb237-1"><a href="determinant-and-inversion-of-matrices.html#cb237-1" tabindex="-1"></a>A <span class="ot">=</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">9</span>,<span class="dv">8</span>,<span class="dv">7</span>,<span class="dv">3</span>,<span class="dv">8</span>,<span class="dv">3</span>,<span class="dv">8</span>,<span class="dv">7</span>,<span class="dv">2</span>,<span class="dv">7</span>,<span class="dv">7</span>,<span class="dv">4</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">6</span>), <span class="at">ncol =</span> <span class="dv">4</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb237-2"><a href="determinant-and-inversion-of-matrices.html#cb237-2" tabindex="-1"></a><span class="fu">DET</span>(A)</span></code></pre></div>
+<pre><code>## $Triangular.Metrix
+##      [,1] [,2]     [,3]     [,4]
+## [1,]    1    9   8.0000   7.0000
+## [2,]    0  -19 -21.0000 -13.0000
+## [3,]    0    0  18.4211  -0.2632
+## [4,]    0    0   0.0000   0.6714
+## 
+## $Determinant
+## [1] -235</code></pre>
+<p>The determinant <span class="math inline">\(det(A) = -235\)</span>.</p>
+<p><strong>Example 4</strong>: Let
+<span class="math display">\[
+C_{3\times 4} = \left[\begin{array}{cccc}
+1&amp; 2 &amp; 3 &amp; 4  \\
+4 &amp; 3 &amp; 2 &amp; 1 \\
+1 &amp; 3 &amp; 5 &amp; 2  
+\end{array}
+\right]
+\]</span></p>
+<div class="sourceCode" id="cb239"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb239-1"><a href="determinant-and-inversion-of-matrices.html#cb239-1" tabindex="-1"></a>C<span class="ot">=</span><span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">5</span>,<span class="dv">2</span>), <span class="at">ncol =</span> <span class="dv">4</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb239-2"><a href="determinant-and-inversion-of-matrices.html#cb239-2" tabindex="-1"></a><span class="fu">DET</span>(C)</span></code></pre></div>
+<pre><code>## 
+## 
+## Need a square matrix!</code></pre>
+<p><br />
+</p>
+</div>
+<div id="matrix-inversion" class="section level2 hasAnchor" number="13.3">
+<h2><span class="header-section-number">13.3</span> Matrix Inversion<a href="determinant-and-inversion-of-matrices.html#matrix-inversion" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><strong>Inverse of a square matrix</strong> Let <span class="math inline">\(A\)</span> be a square matrix of order <span class="math inline">\(n \times n\)</span> and let <span class="math inline">\(I_n\)</span> be an identity matrix of same order. If there exists a square matrix <span class="math inline">\(B\)</span>, such that <span class="math inline">\(AB = BA = I\)</span>, then the matrix <span class="math inline">\(A\)</span> is said to be invertible. The matrix <span class="math inline">\(B\)</span> is called inverse of <span class="math inline">\(A\)</span>, that is denoted by <span class="math inline">\(A^{-1}\)</span>.</p>
+<p>We can use the Gauss-Jordan algorithm to find the inverse of a square matrix if the inverse exists.</p>
+<p><strong>Example 5</strong> Find the inverse of the following matrix
+<span class="math display">\[
+A = \left[\begin{array}{cccc}
+1 &amp; 3 &amp; 3    \\
+1 &amp; 4 &amp; 3  \\
+2 &amp; 7 &amp; 7  \\
+\end{array}
+\right].
+\]</span>
+<strong>Solution</strong>: We perform the forward and backward eliminations in the following</p>
+<p><img src="img08/w08-matrixInversion.png" width="99%" style="display: block; margin: auto;" /></p>
+<p>Therefore,
+<span class="math display">\[
+A^{-1} = \left[\begin{array}{cccc}
+7 &amp; 0 &amp; -3    \\
+-1 &amp; 1 &amp; 0  \\
+-1 &amp; -1 &amp; 1  \\
+\end{array}
+\right].
+\]</span></p>
+<p>The algorithm is based on the extended augmented matrix. The following is an outline of the algorithm.</p>
+<p>Let the following square matrix be invertible.</p>
+<p><span class="math display">\[
+A_{n\times n} = \left[\begin{array}{cccc}
+a_{11} &amp; a_{12} &amp; \cdots &amp; a_{1n}  \\
+a_{12} &amp; a_{22} &amp; \cdots &amp; a_{2n}  \\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots  \\
+a_{1n} &amp; a_{2n} &amp; \cdots &amp; a_{nn}  
+\end{array}
+\right]
+\]</span></p>
+<p>The extended augmented matrix is
+<span class="math display">\[
+AM_{n,2n} = \left[\begin{array}{cccccccccc}
+a_{11} &amp; a_{12} &amp; \cdots &amp; a_{1n} &amp; \text{|} &amp; 1 &amp; 0 &amp; \cdots &amp; 0 \\
+a_{21} &amp; a_{22} &amp; \cdots &amp; a_{2n}  &amp; \text{|} &amp; 0 &amp; 1 &amp; \cdots &amp; 0 \\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots &amp; \text{|} &amp; \vdots &amp; \vdots &amp; \ddots &amp; 0 \\
+a_{n1} &amp; a_{n2} &amp; \cdots &amp; a_{nn}  &amp; \text{|} &amp; 0 &amp; 0 &amp; \cdots &amp; 1
+\end{array}
+\right]_{n\times 2n}.
+\]</span></p>
+<p>We can use Gauss-Jordan row operations to turn the above extended augmented matrix into the following form</p>
+<p><span class="math display">\[
+IM_{n,2n} = \left[\begin{array}{ccccccccc}
+1 &amp; 0 &amp; \cdots &amp; 0&amp; \text{|} &amp; w_{11} &amp; w_{12} &amp; \cdots &amp; w_{1n} \\
+0 &amp; 1 &amp; \cdots &amp; 0 &amp; \text{|} &amp; w_{21} &amp; w_{22} &amp; \cdots &amp; w_{2n}  \\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots &amp; \text{|} &amp; \vdots &amp; \vdots &amp; \ddots &amp; 0 \\
+0 &amp; 0 &amp; \cdots &amp; 1  &amp; \text{|} &amp;  w_{n1} &amp; w_{n2} &amp; \cdots &amp; w_{nn}
+\end{array}
+\right]_{n\times 2n}.
+\]</span></p>
+<p>Then the inverse of A is given by</p>
+<p><span class="math display">\[
+A^{-1} = \left[\begin{array}{ccccc}
+w_{11} &amp; w_{12} &amp; \cdots &amp; w_{1n} \\
+w_{21} &amp; w_{22} &amp; \cdots &amp; w_{2n}  \\
+\vdots &amp; \vdots &amp; \ddots &amp; 0 \\
+w_{n1} &amp; w_{n2} &amp; \cdots &amp; w_{nn}
+\end{array}
+\right]_{n\times 2n}.
+\]</span></p>
+<p>We can modify the <code>Gauss.Jordan()</code> in the previous note to get the following function to calculate the inverse matrix.</p>
+<div class="sourceCode" id="cb241"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb241-1"><a href="determinant-and-inversion-of-matrices.html#cb241-1" tabindex="-1"></a>M.inv <span class="ot">=</span> <span class="cf">function</span>(A){</span>
+<span id="cb241-2"><a href="determinant-and-inversion-of-matrices.html#cb241-2" tabindex="-1"></a>  <span class="co"># Input A: Must be a square matrix</span></span>
+<span id="cb241-3"><a href="determinant-and-inversion-of-matrices.html#cb241-3" tabindex="-1"></a>  n <span class="ot">=</span> <span class="fu">dim</span>(A)[<span class="dv">1</span>]                <span class="co"># number of rows</span></span>
+<span id="cb241-4"><a href="determinant-and-inversion-of-matrices.html#cb241-4" tabindex="-1"></a>  A0 <span class="ot">=</span> <span class="fu">cbind</span>(A, <span class="fu">diag</span>(<span class="fu">rep</span>(<span class="dv">1</span>,n)))        </span>
+<span id="cb241-5"><a href="determinant-and-inversion-of-matrices.html#cb241-5" tabindex="-1"></a>  <span class="do">##</span></span>
+<span id="cb241-6"><a href="determinant-and-inversion-of-matrices.html#cb241-6" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>(n<span class="dv">-1</span>)){   <span class="co"># iterator fo pivot element A0[i,i], i &lt; n.</span></span>
+<span id="cb241-7"><a href="determinant-and-inversion-of-matrices.html#cb241-7" tabindex="-1"></a>      <span class="co">#~~~~~~~~~~~~~~~~~~~~~   Make the function robust  ~~~~~~~~~~~~~~~~~~~~~~~~~#</span></span>
+<span id="cb241-8"><a href="determinant-and-inversion-of-matrices.html#cb241-8" tabindex="-1"></a>      <span class="cf">if</span>(A0[i,i] <span class="sc">==</span> <span class="dv">0</span>){</span>
+<span id="cb241-9"><a href="determinant-and-inversion-of-matrices.html#cb241-9" tabindex="-1"></a>          non<span class="fl">.0</span> <span class="ot">=</span> <span class="fu">which</span>(A0[,i] <span class="sc">!=</span> <span class="dv">0</span>)</span>
+<span id="cb241-10"><a href="determinant-and-inversion-of-matrices.html#cb241-10" tabindex="-1"></a>              <span class="co">#cat(&quot;\n\n i =&quot;,i, &quot;, non.0 =&quot;, non.0,&quot;. (i+1):n =&quot;, (i+1):n, &quot;.&quot;)</span></span>
+<span id="cb241-11"><a href="determinant-and-inversion-of-matrices.html#cb241-11" tabindex="-1"></a>              id <span class="ot">=</span> <span class="fu">intersect</span>(non<span class="fl">.0</span>, (i<span class="sc">+</span><span class="dv">1</span>)<span class="sc">:</span>n)[<span class="dv">1</span>] <span class="co"># which() equiv to find() in MATLAB</span></span>
+<span id="cb241-12"><a href="determinant-and-inversion-of-matrices.html#cb241-12" tabindex="-1"></a>              <span class="cf">if</span>(<span class="sc">!</span><span class="fu">is.na</span>(id)){</span>
+<span id="cb241-13"><a href="determinant-and-inversion-of-matrices.html#cb241-13" tabindex="-1"></a>              tempi <span class="ot">=</span> A0[i,]                    <span class="co"># put the i-th row in a place-holder</span></span>
+<span id="cb241-14"><a href="determinant-and-inversion-of-matrices.html#cb241-14" tabindex="-1"></a>              A0[i,] <span class="ot">=</span> A0[id,]                  <span class="co"># row swapping</span></span>
+<span id="cb241-15"><a href="determinant-and-inversion-of-matrices.html#cb241-15" tabindex="-1"></a>              A0[id,] <span class="ot">=</span> tempi    </span>
+<span id="cb241-16"><a href="determinant-and-inversion-of-matrices.html#cb241-16" tabindex="-1"></a>            }</span>
+<span id="cb241-17"><a href="determinant-and-inversion-of-matrices.html#cb241-17" tabindex="-1"></a>        }</span>
+<span id="cb241-18"><a href="determinant-and-inversion-of-matrices.html#cb241-18" tabindex="-1"></a>      <span class="co">#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#</span></span>
+<span id="cb241-19"><a href="determinant-and-inversion-of-matrices.html#cb241-19" tabindex="-1"></a>       <span class="cf">if</span>(A0[i,i] <span class="sc">!=</span> <span class="dv">0</span>){    <span class="co"># A0[i,i] is in the denominator of recursive equation</span></span>
+<span id="cb241-20"><a href="determinant-and-inversion-of-matrices.html#cb241-20" tabindex="-1"></a>          <span class="cf">for</span>(j <span class="cf">in</span> (i<span class="sc">+</span><span class="dv">1</span>)<span class="sc">:</span>n){  <span class="co"># to make the augmented matrix in the row echelon form</span></span>
+<span id="cb241-21"><a href="determinant-and-inversion-of-matrices.html#cb241-21" tabindex="-1"></a>             <span class="co">#cat(&quot;\n\n j =&quot;,j,&quot;.&quot;)</span></span>
+<span id="cb241-22"><a href="determinant-and-inversion-of-matrices.html#cb241-22" tabindex="-1"></a>             A0[j,] <span class="ot">=</span> A0[j,] <span class="sc">-</span> (A0[j,i]<span class="sc">/</span>A0[i,i])<span class="sc">*</span>A0[i,]</span>
+<span id="cb241-23"><a href="determinant-and-inversion-of-matrices.html#cb241-23" tabindex="-1"></a>           }</span>
+<span id="cb241-24"><a href="determinant-and-inversion-of-matrices.html#cb241-24" tabindex="-1"></a>        }</span>
+<span id="cb241-25"><a href="determinant-and-inversion-of-matrices.html#cb241-25" tabindex="-1"></a>    }</span>
+<span id="cb241-26"><a href="determinant-and-inversion-of-matrices.html#cb241-26" tabindex="-1"></a>    A1<span class="ot">=</span>A0  </span>
+<span id="cb241-27"><a href="determinant-and-inversion-of-matrices.html#cb241-27" tabindex="-1"></a>    n <span class="ot">=</span> <span class="fu">length</span>(A1[,<span class="dv">1</span>])</span>
+<span id="cb241-28"><a href="determinant-and-inversion-of-matrices.html#cb241-28" tabindex="-1"></a>    id<span class="fl">.0</span> <span class="ot">=</span> <span class="fu">rep</span>(<span class="dv">1</span>,n)                     <span class="co"># indicator of zero A[i,i]</span></span>
+<span id="cb241-29"><a href="determinant-and-inversion-of-matrices.html#cb241-29" tabindex="-1"></a>    <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n){</span>
+<span id="cb241-30"><a href="determinant-and-inversion-of-matrices.html#cb241-30" tabindex="-1"></a>          <span class="cf">if</span>(A1[i,i] <span class="sc">==</span> <span class="dv">0</span>) id<span class="fl">.0</span>[i] <span class="ot">=</span> <span class="dv">0</span></span>
+<span id="cb241-31"><a href="determinant-and-inversion-of-matrices.html#cb241-31" tabindex="-1"></a>        }</span>
+<span id="cb241-32"><a href="determinant-and-inversion-of-matrices.html#cb241-32" tabindex="-1"></a>    <span class="cf">if</span>(<span class="fu">sum</span>(id<span class="fl">.0</span>) <span class="sc">==</span> n){                        <span class="co"># A[i,i] != 0</span></span>
+<span id="cb241-33"><a href="determinant-and-inversion-of-matrices.html#cb241-33" tabindex="-1"></a>             <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n){</span>
+<span id="cb241-34"><a href="determinant-and-inversion-of-matrices.html#cb241-34" tabindex="-1"></a>                    A1[i,] <span class="ot">=</span> A1[i,] <span class="sc">/</span>A1[i,i]   <span class="co"># Divide each row by A1[i,i] </span></span>
+<span id="cb241-35"><a href="determinant-and-inversion-of-matrices.html#cb241-35" tabindex="-1"></a>                   }                           <span class="co"># so that new A1[i,i] = 1.</span></span>
+<span id="cb241-36"><a href="determinant-and-inversion-of-matrices.html#cb241-36" tabindex="-1"></a>             k <span class="ot">=</span> n</span>
+<span id="cb241-37"><a href="determinant-and-inversion-of-matrices.html#cb241-37" tabindex="-1"></a>            A2 <span class="ot">=</span> A1[k<span class="sc">:</span><span class="dv">1</span>, <span class="fu">c</span>(k<span class="sc">:</span><span class="dv">1</span>,(n<span class="sc">+</span><span class="dv">1</span>)<span class="sc">:</span>(<span class="dv">2</span><span class="sc">*</span>n))]     <span class="co"># re-arrange rows and columns</span></span>
+<span id="cb241-38"><a href="determinant-and-inversion-of-matrices.html#cb241-38" tabindex="-1"></a>           <span class="co">#_______________________________________________________________##</span></span>
+<span id="cb241-39"><a href="determinant-and-inversion-of-matrices.html#cb241-39" tabindex="-1"></a>             <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>(n<span class="dv">-1</span>)){</span>
+<span id="cb241-40"><a href="determinant-and-inversion-of-matrices.html#cb241-40" tabindex="-1"></a>                  <span class="cf">if</span>(A2[i,i] <span class="sc">!=</span> <span class="dv">0</span>){    <span class="co"># A0[i,i] is in the denominator of recursive equation</span></span>
+<span id="cb241-41"><a href="determinant-and-inversion-of-matrices.html#cb241-41" tabindex="-1"></a>                  <span class="cf">for</span>(j <span class="cf">in</span> (i<span class="sc">+</span><span class="dv">1</span>)<span class="sc">:</span>n){  <span class="co"># to make the augmented matrix in the row echelon form</span></span>
+<span id="cb241-42"><a href="determinant-and-inversion-of-matrices.html#cb241-42" tabindex="-1"></a>                       A2[j,] <span class="ot">=</span> A2[j,] <span class="sc">-</span> (A2[j,i]<span class="sc">/</span>A2[i,i])<span class="sc">*</span>A2[i,]</span>
+<span id="cb241-43"><a href="determinant-and-inversion-of-matrices.html#cb241-43" tabindex="-1"></a>                       }</span>
+<span id="cb241-44"><a href="determinant-and-inversion-of-matrices.html#cb241-44" tabindex="-1"></a>                  }</span>
+<span id="cb241-45"><a href="determinant-and-inversion-of-matrices.html#cb241-45" tabindex="-1"></a>               }</span>
+<span id="cb241-46"><a href="determinant-and-inversion-of-matrices.html#cb241-46" tabindex="-1"></a>           <span class="co">#--------------------------------------------------------------##</span></span>
+<span id="cb241-47"><a href="determinant-and-inversion-of-matrices.html#cb241-47" tabindex="-1"></a>             A4 <span class="ot">=</span> A2[k<span class="sc">:</span><span class="dv">1</span>, <span class="fu">c</span>(k<span class="sc">:</span><span class="dv">1</span>,(n<span class="sc">+</span><span class="dv">1</span>)<span class="sc">:</span>(<span class="dv">2</span><span class="sc">*</span>n))]     <span class="co"># backward re-arrangement</span></span>
+<span id="cb241-48"><a href="determinant-and-inversion-of-matrices.html#cb241-48" tabindex="-1"></a>             <span class="fu">round</span>(A4[, (n<span class="sc">+</span><span class="dv">1</span>)<span class="sc">:</span>(<span class="dv">2</span><span class="sc">*</span>n)],<span class="dv">7</span>)</span>
+<span id="cb241-49"><a href="determinant-and-inversion-of-matrices.html#cb241-49" tabindex="-1"></a>           } <span class="cf">else</span> <span class="cf">if</span>(<span class="fu">dim</span>(A)[<span class="dv">1</span>] <span class="sc">!=</span> <span class="fu">dim</span>(A)[<span class="dv">2</span>]){</span>
+<span id="cb241-50"><a href="determinant-and-inversion-of-matrices.html#cb241-50" tabindex="-1"></a>               <span class="fu">cat</span>(<span class="st">&quot;</span><span class="sc">\n\n</span><span class="st">A square matrix is needed!&quot;</span>)</span>
+<span id="cb241-51"><a href="determinant-and-inversion-of-matrices.html#cb241-51" tabindex="-1"></a>           }<span class="cf">else</span> {<span class="co"># if exists A[i,i] =0</span></span>
+<span id="cb241-52"><a href="determinant-and-inversion-of-matrices.html#cb241-52" tabindex="-1"></a>             <span class="fu">cat</span>(<span class="st">&quot;The matrix is singular&quot;</span>)</span>
+<span id="cb241-53"><a href="determinant-and-inversion-of-matrices.html#cb241-53" tabindex="-1"></a>          }</span>
+<span id="cb241-54"><a href="determinant-and-inversion-of-matrices.html#cb241-54" tabindex="-1"></a> }</span></code></pre></div>
+<p><strong>Example 6</strong> (continuation of example 3) Let</p>
+<p><span class="math display">\[
+A = \left[\begin{array}{cccc}
+1 &amp; 9 &amp; 8 &amp; 7 \\
+3 &amp; 8 &amp; 3 &amp; 8\\
+7 &amp; 2 &amp; 7 &amp; 7\\
+4 &amp; 3 &amp; 2 &amp; 6
+\end{array}
+\right].
+\]</span></p>
+<p>The determinant of <span class="math inline">\(A\)</span> can be calculated using R in the following</p>
+<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb242-1"><a href="determinant-and-inversion-of-matrices.html#cb242-1" tabindex="-1"></a>A <span class="ot">=</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">9</span>,<span class="dv">8</span>,<span class="dv">7</span>,<span class="dv">3</span>,<span class="dv">8</span>,<span class="dv">3</span>,<span class="dv">8</span>,<span class="dv">7</span>,<span class="dv">2</span>,<span class="dv">7</span>,<span class="dv">7</span>,<span class="dv">4</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">6</span>), <span class="at">ncol =</span> <span class="dv">4</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb242-2"><a href="determinant-and-inversion-of-matrices.html#cb242-2" tabindex="-1"></a><span class="fu">M.inv</span>(A)   </span></code></pre></div>
+<pre><code>##            [,1]       [,2]       [,3]       [,4]
+## [1,] -0.4893617  0.8723404  0.5319149 -1.2127660
+## [2,] -0.2978723  0.7744681  0.3063830 -1.0425532
+## [3,]  0.1489362 -0.1872340  0.0468085  0.0212766
+## [4,]  0.4255319 -0.9063830 -0.5234043  1.4893617</code></pre>
+<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb244-1"><a href="determinant-and-inversion-of-matrices.html#cb244-1" tabindex="-1"></a><span class="fu">solve</span>(A)   <span class="co"># calling internal function solve() for comparison!</span></span></code></pre></div>
+<pre><code>##            [,1]       [,2]        [,3]       [,4]
+## [1,] -0.4893617  0.8723404  0.53191489 -1.2127660
+## [2,] -0.2978723  0.7744681  0.30638298 -1.0425532
+## [3,]  0.1489362 -0.1872340  0.04680851  0.0212766
+## [4,]  0.4255319 -0.9063830 -0.52340426  1.4893617</code></pre>
+<p><strong>Example 7</strong> (continuation of example 4)</p>
+<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb246-1"><a href="determinant-and-inversion-of-matrices.html#cb246-1" tabindex="-1"></a>C<span class="ot">=</span><span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">5</span>,<span class="dv">2</span>), <span class="at">ncol =</span> <span class="dv">4</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb246-2"><a href="determinant-and-inversion-of-matrices.html#cb246-2" tabindex="-1"></a><span class="fu">M.inv</span>(C)</span></code></pre></div>
+<pre><code>## 
+## 
+## A square matrix is needed!</code></pre>
+<p><strong>Example 8</strong> (continuation of example 5) Find the inverse of the following matrix
+<span class="math display">\[
+A = \left[\begin{array}{cccc}
+1 &amp; 3 &amp; 3    \\
+1 &amp; 4 &amp; 3  \\
+2 &amp; 7 &amp; 7  \\
+\end{array}
+\right].
+\]</span></p>
+<div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb248-1"><a href="determinant-and-inversion-of-matrices.html#cb248-1" tabindex="-1"></a>A<span class="ot">=</span><span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">1</span>,<span class="dv">4</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">7</span>,<span class="dv">7</span>), <span class="at">ncol =</span> <span class="dv">3</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb248-2"><a href="determinant-and-inversion-of-matrices.html#cb248-2" tabindex="-1"></a><span class="fu">M.inv</span>(A)</span></code></pre></div>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    7    0   -3
+## [2,]   -1    1    0
+## [3,]   -1   -1    1</code></pre>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="gauss-elimination-method.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="matrix-factorization.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/pengdsci/MAT325EB/edit/master/12-MatrixInversion.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["MAT325EB.pdf", "MAT325EB.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

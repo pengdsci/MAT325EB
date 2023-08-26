@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Topic 2 Calculus Review | MAT325 E-Pack: Numerical Analysis</title>
+  <meta name="description" content="The output format for this example is bookdown::gitbook." />
+  <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Topic 2 Calculus Review | MAT325 E-Pack: Numerical Analysis" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="The output format for this example is bookdown::gitbook." />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Topic 2 Calculus Review | MAT325 E-Pack: Numerical Analysis" />
+  
+  <meta name="twitter:description" content="The output format for this example is bookdown::gitbook." />
+  
+
+<meta name="author" content="Cheng Peng" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="index.html"/>
+<link rel="next" href="scientific-computing-with-r.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<center><li><a href="./"><font color = "darkred"><b>MAT 325 E-Coursepack: Numerical Analysis</b></font></a><br><font color = "navy">Cheng Peng</font></li></center>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="calculus-review.html"><a href="calculus-review.html"><i class="fa fa-check"></i><b>2</b> Calculus Review</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="calculus-review.html"><a href="calculus-review.html#limits-and-continuity"><i class="fa fa-check"></i><b>2.1</b> Limits and Continuity</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="calculus-review.html"><a href="calculus-review.html#limits"><i class="fa fa-check"></i><b>2.1.1</b> Limits</a></li>
+<li class="chapter" data-level="2.1.2" data-path="calculus-review.html"><a href="calculus-review.html#continuity"><i class="fa fa-check"></i><b>2.1.2</b> Continuity</a></li>
+<li class="chapter" data-level="2.1.3" data-path="calculus-review.html"><a href="calculus-review.html#convergence-of-a-sequence"><i class="fa fa-check"></i><b>2.1.3</b> Convergence of A Sequence</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="calculus-review.html"><a href="calculus-review.html#differentiation"><i class="fa fa-check"></i><b>2.2</b> Differentiation</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="calculus-review.html"><a href="calculus-review.html#definition"><i class="fa fa-check"></i><b>2.2.1</b> Definition</a></li>
+<li class="chapter" data-level="2.2.2" data-path="calculus-review.html"><a href="calculus-review.html#properties"><i class="fa fa-check"></i><b>2.2.2</b> Properties</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="calculus-review.html"><a href="calculus-review.html#integration"><i class="fa fa-check"></i><b>2.3</b> Integration</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="calculus-review.html"><a href="calculus-review.html#series-vs-sequence"><i class="fa fa-check"></i><b>2.3.1</b> Series vs Sequence</a></li>
+<li class="chapter" data-level="2.3.2" data-path="calculus-review.html"><a href="calculus-review.html#definition-of-definite-integral"><i class="fa fa-check"></i><b>2.3.2</b> Definition of Definite Integral</a></li>
+<li class="chapter" data-level="2.3.3" data-path="calculus-review.html"><a href="calculus-review.html#taylor-expansion"><i class="fa fa-check"></i><b>2.3.3</b> Taylor Expansion</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html"><i class="fa fa-check"></i><b>3</b> Scientific Computing with R</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#vectors-and-matrices"><i class="fa fa-check"></i><b>3.1</b> Vectors and Matrices</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#vectors"><i class="fa fa-check"></i><b>3.1.1</b> Vectors</a></li>
+<li class="chapter" data-level="3.1.2" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#matrices"><i class="fa fa-check"></i><b>3.1.2</b> Matrices</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#built-in-mathematical-functions-and-operators"><i class="fa fa-check"></i><b>3.2</b> Built-in Mathematical Functions and Operators</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#arithmetic-operators"><i class="fa fa-check"></i><b>3.2.1</b> Arithmetic Operators</a></li>
+<li class="chapter" data-level="3.2.2" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#basic-mathematical-functions"><i class="fa fa-check"></i><b>3.2.2</b> Basic Mathematical Functions</a></li>
+<li class="chapter" data-level="3.2.3" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#trigonometry"><i class="fa fa-check"></i><b>3.2.3</b> Trigonometry</a></li>
+<li class="chapter" data-level="3.2.4" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#linear-algebra"><i class="fa fa-check"></i><b>3.2.4</b> Linear Algebra</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#graphic-functions-in-base-r"><i class="fa fa-check"></i><b>3.3</b> Graphic Functions in Base R</a></li>
+<li class="chapter" data-level="3.4" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#rounding-and-related-functions"><i class="fa fa-check"></i><b>3.4</b> Rounding and Related Functions</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#round"><i class="fa fa-check"></i><b>3.4.1</b> round()</a></li>
+<li class="chapter" data-level="3.4.2" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#controlling-number-of-displayed-digits"><i class="fa fa-check"></i><b>3.4.2</b> Controlling Number of Displayed Digits</a></li>
+<li class="chapter" data-level="3.4.3" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#signif"><i class="fa fa-check"></i><b>3.4.3</b> <code>Signif()</code></a></li>
+<li class="chapter" data-level="3.4.4" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#floor-and-ceiling"><i class="fa fa-check"></i><b>3.4.4</b> <code>floor()</code> and <code>ceiling()</code></a></li>
+<li class="chapter" data-level="3.4.5" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#trunc"><i class="fa fa-check"></i><b>3.4.5</b> <code>trunc()</code></a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#control-statements"><i class="fa fa-check"></i><b>3.5</b> Control Statements</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#conditional-statements"><i class="fa fa-check"></i><b>3.5.1</b> Conditional Statements</a></li>
+<li class="chapter" data-level="3.5.2" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#loops-in-r"><i class="fa fa-check"></i><b>3.5.2</b> Loops in R</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#numerical-example"><i class="fa fa-check"></i><b>3.6</b> Numerical Example</a>
+<ul>
+<li class="chapter" data-level="3.6.1" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#version-1"><i class="fa fa-check"></i><b>3.6.1</b> VERSION 1</a></li>
+<li class="chapter" data-level="3.6.2" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#version-2"><i class="fa fa-check"></i><b>3.6.2</b> Version 2</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#user-defined-functions"><i class="fa fa-check"></i><b>3.7</b> User Defined Functions</a>
+<ul>
+<li class="chapter" data-level="3.7.1" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#writing-r-functions-for-root-finding-methods"><i class="fa fa-check"></i><b>3.7.1</b> Writing R Functions for Root-finding Methods</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="basics-of-data-representation-and-error-analysis.html"><a href="basics-of-data-representation-and-error-analysis.html"><i class="fa fa-check"></i><b>4</b> Basics of Data Representation and Error Analysis</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="basics-of-data-representation-and-error-analysis.html"><a href="basics-of-data-representation-and-error-analysis.html#data-representation"><i class="fa fa-check"></i><b>4.1</b> Data Representation</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="basics-of-data-representation-and-error-analysis.html"><a href="basics-of-data-representation-and-error-analysis.html#number-systems"><i class="fa fa-check"></i><b>4.1.1</b> Number Systems</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="basics-of-data-representation-and-error-analysis.html"><a href="basics-of-data-representation-and-error-analysis.html#how-data-is-stored-in-computer-memory"><i class="fa fa-check"></i><b>4.2</b> How data is stored in computer memory</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="basics-of-data-representation-and-error-analysis.html"><a href="basics-of-data-representation-and-error-analysis.html#how-integers-are-stored-in-memory"><i class="fa fa-check"></i><b>4.2.1</b> How integers are stored in memory?</a></li>
+<li class="chapter" data-level="4.2.2" data-path="basics-of-data-representation-and-error-analysis.html"><a href="basics-of-data-representation-and-error-analysis.html#floating-point-numbers"><i class="fa fa-check"></i><b>4.2.2</b> Floating-point Numbers</a></li>
+<li class="chapter" data-level="4.2.3" data-path="basics-of-data-representation-and-error-analysis.html"><a href="basics-of-data-representation-and-error-analysis.html#how-floating-point-numbers-are-stored-in-memory"><i class="fa fa-check"></i><b>4.2.3</b> How Floating-point Numbers Are Stored in Memory?</a></li>
+<li class="chapter" data-level="4.2.4" data-path="basics-of-data-representation-and-error-analysis.html"><a href="basics-of-data-representation-and-error-analysis.html#basic-types-errors-in-error-analysis"><i class="fa fa-check"></i><b>4.2.4</b> Basic Types Errors in Error Analysis</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="error-analysis-algorithms-and-convergence.html"><a href="error-analysis-algorithms-and-convergence.html"><i class="fa fa-check"></i><b>5</b> Error Analysis, Algorithms and Convergence</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="error-analysis-algorithms-and-convergence.html"><a href="error-analysis-algorithms-and-convergence.html#error-analysis"><i class="fa fa-check"></i><b>5.1</b> Error Analysis</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="error-analysis-algorithms-and-convergence.html"><a href="error-analysis-algorithms-and-convergence.html#understanding-numerical-error"><i class="fa fa-check"></i><b>5.1.1</b> Understanding Numerical Error</a></li>
+<li class="chapter" data-level="5.1.2" data-path="error-analysis-algorithms-and-convergence.html"><a href="error-analysis-algorithms-and-convergence.html#error-classification"><i class="fa fa-check"></i><b>5.1.2</b> Error Classification</a></li>
+<li class="chapter" data-level="5.1.3" data-path="error-analysis-algorithms-and-convergence.html"><a href="error-analysis-algorithms-and-convergence.html#approximation-significant-digits-figures"><i class="fa fa-check"></i><b>5.1.3</b> Approximation Significant Digits (Figures)</a></li>
+<li class="chapter" data-level="5.1.4" data-path="error-analysis-algorithms-and-convergence.html"><a href="error-analysis-algorithms-and-convergence.html#nested-arithmetic"><i class="fa fa-check"></i><b>5.1.4</b> Nested Arithmetic</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="error-analysis-algorithms-and-convergence.html"><a href="error-analysis-algorithms-and-convergence.html#algorithms-and-convergence"><i class="fa fa-check"></i><b>5.2</b> Algorithms and Convergence</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="error-analysis-algorithms-and-convergence.html"><a href="error-analysis-algorithms-and-convergence.html#algorithm-and-psuedo-code"><i class="fa fa-check"></i><b>5.2.1</b> Algorithm and Psuedo-code</a></li>
+<li class="chapter" data-level="5.2.2" data-path="error-analysis-algorithms-and-convergence.html"><a href="error-analysis-algorithms-and-convergence.html#rules-of-pseudo-code"><i class="fa fa-check"></i><b>5.2.2</b> Rules of Pseudo-code</a></li>
+<li class="chapter" data-level="5.2.3" data-path="error-analysis-algorithms-and-convergence.html"><a href="error-analysis-algorithms-and-convergence.html#stability-of-algorithms"><i class="fa fa-check"></i><b>5.2.3</b> Stability of Algorithms</a></li>
+<li class="chapter" data-level="5.2.4" data-path="error-analysis-algorithms-and-convergence.html"><a href="error-analysis-algorithms-and-convergence.html#rates-of-convergence"><i class="fa fa-check"></i><b>5.2.4</b> Rates of Convergence</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="bisection-method.html"><a href="bisection-method.html"><i class="fa fa-check"></i><b>6</b> Bisection Method</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="bisection-method.html"><a href="bisection-method.html#the-question"><i class="fa fa-check"></i><b>6.1</b> The Question</a></li>
+<li class="chapter" data-level="6.2" data-path="bisection-method.html"><a href="bisection-method.html#bisection-method-1"><i class="fa fa-check"></i><b>6.2</b> Bisection Method</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="bisection-method.html"><a href="bisection-method.html#the-logic-of-bisection-method"><i class="fa fa-check"></i><b>6.2.1</b> The Logic of Bisection Method</a></li>
+<li class="chapter" data-level="6.2.2" data-path="bisection-method.html"><a href="bisection-method.html#bisection-algorithm"><i class="fa fa-check"></i><b>6.2.2</b> Bisection Algorithm</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="bisection-method.html"><a href="bisection-method.html#error-analysis-1"><i class="fa fa-check"></i><b>6.3</b> Error Analysis</a></li>
+<li class="chapter" data-level="6.4" data-path="bisection-method.html"><a href="bisection-method.html#numerical-examples."><i class="fa fa-check"></i><b>6.4</b> Numerical Examples.</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="fixed-point-method.html"><a href="fixed-point-method.html"><i class="fa fa-check"></i><b>7</b> Fixed Point Method</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="fixed-point-method.html"><a href="fixed-point-method.html#some-theories-of-the-fixed-point-method"><i class="fa fa-check"></i><b>7.1</b> Some Theories of the Fixed Point Method</a></li>
+<li class="chapter" data-level="7.2" data-path="fixed-point-method.html"><a href="fixed-point-method.html#fixed-point-iteration"><i class="fa fa-check"></i><b>7.2</b> Fixed Point Iteration</a></li>
+<li class="chapter" data-level="7.3" data-path="fixed-point-method.html"><a href="fixed-point-method.html#error-analysis-2"><i class="fa fa-check"></i><b>7.3</b> Error Analysis</a></li>
+<li class="chapter" data-level="7.4" data-path="fixed-point-method.html"><a href="fixed-point-method.html#numerical-example-1"><i class="fa fa-check"></i><b>7.4</b> Numerical Example</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="newtons-method.html"><a href="newtons-method.html"><i class="fa fa-check"></i><b>8</b> Newton’s Method</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="newtons-method.html"><a href="newtons-method.html#notations-big-o-and-little-o"><i class="fa fa-check"></i><b>8.1</b> Notations: Big O and Little o</a></li>
+<li class="chapter" data-level="8.2" data-path="newtons-method.html"><a href="newtons-method.html#foundations-of-newton-method"><i class="fa fa-check"></i><b>8.2</b> Foundations of Newton Method</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="newtons-method.html"><a href="newtons-method.html#the-algorithmic-logic"><i class="fa fa-check"></i><b>8.2.1</b> The Algorithmic Logic</a></li>
+<li class="chapter" data-level="8.2.2" data-path="newtons-method.html"><a href="newtons-method.html#initial-starting-value-matters"><i class="fa fa-check"></i><b>8.2.2</b> Initial Starting Value Matters</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="newtons-method.html"><a href="newtons-method.html#algorithm-and-pseudo-code"><i class="fa fa-check"></i><b>8.3</b> Algorithm and Pseudo-code</a></li>
+<li class="chapter" data-level="8.4" data-path="newtons-method.html"><a href="newtons-method.html#error-analysis-3"><i class="fa fa-check"></i><b>8.4</b> Error Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="secant-method.html"><a href="secant-method.html"><i class="fa fa-check"></i><b>9</b> Secant Method</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="secant-method.html"><a href="secant-method.html#secant-method-1"><i class="fa fa-check"></i><b>9.1</b> Secant Method</a></li>
+<li class="chapter" data-level="9.2" data-path="secant-method.html"><a href="secant-method.html#secant-algorithm-and-implementation"><i class="fa fa-check"></i><b>9.2</b> Secant Algorithm and Implementation</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="secant-method.html"><a href="secant-method.html#implementation-with-r"><i class="fa fa-check"></i><b>9.2.1</b> Implementation with R</a></li>
+<li class="chapter" data-level="9.2.2" data-path="secant-method.html"><a href="secant-method.html#numerical-examples"><i class="fa fa-check"></i><b>9.2.2</b> Numerical Examples</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="secant-method.html"><a href="secant-method.html#error-analysis-4"><i class="fa fa-check"></i><b>9.3</b> Error Analysis</a></li>
+<li class="chapter" data-level="9.4" data-path="secant-method.html"><a href="secant-method.html#false-position-method"><i class="fa fa-check"></i><b>9.4</b> False Position Method</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html"><i class="fa fa-check"></i><b>10</b> Lagrange Interpolation</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html#concepts-of-interpolation-method"><i class="fa fa-check"></i><b>10.1</b> Concepts of Interpolation Method</a>
+<ul>
+<li class="chapter" data-level="10.1.1" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html#data-fitting-interpolation"><i class="fa fa-check"></i><b>10.1.1</b> Data-fitting / Interpolation:</a></li>
+<li class="chapter" data-level="10.1.2" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html#functional-equation-curve-approximation"><i class="fa fa-check"></i><b>10.1.2</b> Functional Equation (Curve Approximation)</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html#the-lagrange-interpolation"><i class="fa fa-check"></i><b>10.2</b> The Lagrange Interpolation</a>
+<ul>
+<li class="chapter" data-level="10.2.1" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html#linear-lagrange-interpolation"><i class="fa fa-check"></i><b>10.2.1</b> Linear Lagrange Interpolation</a></li>
+<li class="chapter" data-level="10.2.2" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html#quadratic-lagrange-interpolation"><i class="fa fa-check"></i><b>10.2.2</b> Quadratic Lagrange Interpolation</a></li>
+<li class="chapter" data-level="10.2.3" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html#general-lagrange-interpolation"><i class="fa fa-check"></i><b>10.2.3</b> General Lagrange Interpolation</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html#lagrange-algorithm-and-implementation"><i class="fa fa-check"></i><b>10.3</b> Lagrange Algorithm and Implementation</a>
+<ul>
+<li class="chapter" data-level="10.3.1" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html#pseudo-code"><i class="fa fa-check"></i><b>10.3.1</b> Pseudo-code</a></li>
+<li class="chapter" data-level="10.3.2" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html#r-function-with-scalar-input"><i class="fa fa-check"></i><b>10.3.2</b> R Function with Scalar Input</a></li>
+<li class="chapter" data-level="10.3.3" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html#r-function-with-vector-input"><i class="fa fa-check"></i><b>10.3.3</b> R Function with Vector Input</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html#error-analysis-5"><i class="fa fa-check"></i><b>10.4</b> Error Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="newton-interpolation.html"><a href="newton-interpolation.html"><i class="fa fa-check"></i><b>11</b> Newton Interpolation</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="newton-interpolation.html"><a href="newton-interpolation.html#some-definitions"><i class="fa fa-check"></i><b>11.1</b> Some Definitions</a>
+<ul>
+<li class="chapter" data-level="11.1.1" data-path="newton-interpolation.html"><a href="newton-interpolation.html#definitions"><i class="fa fa-check"></i><b>11.1.1</b> Definitions</a></li>
+<li class="chapter" data-level="11.1.2" data-path="newton-interpolation.html"><a href="newton-interpolation.html#calculation-of-divided-difference"><i class="fa fa-check"></i><b>11.1.2</b> Calculation of Divided Difference</a></li>
+<li class="chapter" data-level="11.1.3" data-path="newton-interpolation.html"><a href="newton-interpolation.html#algorithm-of-calculating-divided-differences"><i class="fa fa-check"></i><b>11.1.3</b> Algorithm of Calculating Divided Differences</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="newton-interpolation.html"><a href="newton-interpolation.html#newton-interpolation-polynomial"><i class="fa fa-check"></i><b>11.2</b> Newton Interpolation Polynomial</a>
+<ul>
+<li class="chapter" data-level="11.2.1" data-path="newton-interpolation.html"><a href="newton-interpolation.html#definition-of-newton-interpolation"><i class="fa fa-check"></i><b>11.2.1</b> Definition of Newton Interpolation</a></li>
+<li class="chapter" data-level="11.2.2" data-path="newton-interpolation.html"><a href="newton-interpolation.html#newton-interpolation-algorithm"><i class="fa fa-check"></i><b>11.2.2</b> Newton Interpolation Algorithm</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="newton-interpolation.html"><a href="newton-interpolation.html#error-analysis-6"><i class="fa fa-check"></i><b>11.3</b> Error Analysis</a></li>
+<li class="chapter" data-level="11.4" data-path="newton-interpolation.html"><a href="newton-interpolation.html#some-remarks-of-newton-interpolation"><i class="fa fa-check"></i><b>11.4</b> Some Remarks of Newton Interpolation</a></li>
+<li class="chapter" data-level="11.5" data-path="newton-interpolation.html"><a href="newton-interpolation.html#implicit-loops-in-r-programming"><i class="fa fa-check"></i><b>11.5</b> Implicit Loops in R Programming</a>
+<ul>
+<li class="chapter" data-level="11.5.1" data-path="newton-interpolation.html"><a href="newton-interpolation.html#implicit-in-r-primitive-functions"><i class="fa fa-check"></i><b>11.5.1</b> Implicit in R Primitive Functions</a></li>
+<li class="chapter" data-level="11.5.2" data-path="newton-interpolation.html"><a href="newton-interpolation.html#some-vectorized-primitive-functions"><i class="fa fa-check"></i><b>11.5.2</b> Some Vectorized Primitive Functions</a></li>
+<li class="chapter" data-level="11.5.3" data-path="newton-interpolation.html"><a href="newton-interpolation.html#divided-difference-variants"><i class="fa fa-check"></i><b>11.5.3</b> Divided Difference Variants</a></li>
+<li class="chapter" data-level="11.5.4" data-path="newton-interpolation.html"><a href="newton-interpolation.html#vectorizing-newtoninterp"><i class="fa fa-check"></i><b>11.5.4</b> Vectorizing <strong>NewtonInterp()</strong></a></li>
+<li class="chapter" data-level="11.5.5" data-path="newton-interpolation.html"><a href="newton-interpolation.html#code-efficiency-with-implivit-loops"><i class="fa fa-check"></i><b>11.5.5</b> Code Efficiency with Implivit Loops</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="gauss-elimination-method.html"><a href="gauss-elimination-method.html"><i class="fa fa-check"></i><b>12</b> Gauss Elimination Method</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="gauss-elimination-method.html"><a href="gauss-elimination-method.html#naive-gaussian-elimination-methods"><i class="fa fa-check"></i><b>12.1</b> Naive Gaussian Elimination Methods</a></li>
+<li class="chapter" data-level="12.2" data-path="gauss-elimination-method.html"><a href="gauss-elimination-method.html#gaussian-elimination-algorithm"><i class="fa fa-check"></i><b>12.2</b> Gaussian Elimination Algorithm</a></li>
+<li class="chapter" data-level="12.3" data-path="gauss-elimination-method.html"><a href="gauss-elimination-method.html#gauss-jordan-elimination-optional"><i class="fa fa-check"></i><b>12.3</b> Gauss-Jordan Elimination (<code>Optional</code>)</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="determinant-and-inversion-of-matrices.html"><a href="determinant-and-inversion-of-matrices.html"><i class="fa fa-check"></i><b>13</b> Determinant and Inversion of Matrices</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="determinant-and-inversion-of-matrices.html"><a href="determinant-and-inversion-of-matrices.html#concepts-of-matrix-a-review"><i class="fa fa-check"></i><b>13.1</b> Concepts of Matrix: A Review</a>
+<ul>
+<li class="chapter" data-level="13.1.1" data-path="determinant-and-inversion-of-matrices.html"><a href="determinant-and-inversion-of-matrices.html#definitions-of-some-special-matrices"><i class="fa fa-check"></i><b>13.1.1</b> Definitions of Some Special Matrices</a></li>
+<li class="chapter" data-level="13.1.2" data-path="determinant-and-inversion-of-matrices.html"><a href="determinant-and-inversion-of-matrices.html#binary-operations"><i class="fa fa-check"></i><b>13.1.2</b> Binary Operations</a></li>
+<li class="chapter" data-level="13.1.3" data-path="determinant-and-inversion-of-matrices.html"><a href="determinant-and-inversion-of-matrices.html#unary-operations"><i class="fa fa-check"></i><b>13.1.3</b> Unary Operations</a></li>
+</ul></li>
+<li class="chapter" data-level="13.2" data-path="determinant-and-inversion-of-matrices.html"><a href="determinant-and-inversion-of-matrices.html#determinant-of-a-square-matrix"><i class="fa fa-check"></i><b>13.2</b> Determinant of a Square Matrix</a></li>
+<li class="chapter" data-level="13.3" data-path="determinant-and-inversion-of-matrices.html"><a href="determinant-and-inversion-of-matrices.html#matrix-inversion"><i class="fa fa-check"></i><b>13.3</b> Matrix Inversion</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="matrix-factorization.html"><a href="matrix-factorization.html"><i class="fa fa-check"></i><b>14</b> Matrix Factorization</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="matrix-factorization.html"><a href="matrix-factorization.html#elementary-and-permutation-matrices"><i class="fa fa-check"></i><b>14.1</b> Elementary and Permutation Matrices</a></li>
+<li class="chapter" data-level="14.2" data-path="matrix-factorization.html"><a href="matrix-factorization.html#lu-factorization-algorithm"><i class="fa fa-check"></i><b>14.2</b> LU Factorization Algorithm</a>
+<ul>
+<li class="chapter" data-level="14.2.1" data-path="matrix-factorization.html"><a href="matrix-factorization.html#row-operations-with-row-swapping"><i class="fa fa-check"></i><b>14.2.1</b> Row Operations with Row Swapping</a></li>
+<li class="chapter" data-level="14.2.2" data-path="matrix-factorization.html"><a href="matrix-factorization.html#row-operations-with-row-swapping-1"><i class="fa fa-check"></i><b>14.2.2</b> Row Operations with Row-swapping</a></li>
+<li class="chapter" data-level="14.2.3" data-path="matrix-factorization.html"><a href="matrix-factorization.html#lu-algorithm"><i class="fa fa-check"></i><b>14.2.3</b> LU ALgorithm</a></li>
+</ul></li>
+<li class="chapter" data-level="14.3" data-path="matrix-factorization.html"><a href="matrix-factorization.html#benefit-of-lu-factorization"><i class="fa fa-check"></i><b>14.3</b> Benefit of LU Factorization</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="least-square-approximation.html"><a href="least-square-approximation.html"><i class="fa fa-check"></i><b>15</b> Least Square Approximation</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="least-square-approximation.html"><a href="least-square-approximation.html#concepts-of-least-square-approximation"><i class="fa fa-check"></i><b>15.1</b> Concepts of Least Square Approximation</a></li>
+<li class="chapter" data-level="15.2" data-path="least-square-approximation.html"><a href="least-square-approximation.html#approximating-one-variable-linear-function"><i class="fa fa-check"></i><b>15.2</b> Approximating One-variable Linear Function</a></li>
+<li class="chapter" data-level="15.3" data-path="least-square-approximation.html"><a href="least-square-approximation.html#approximating-multiple-variable-linear-function"><i class="fa fa-check"></i><b>15.3</b> Approximating Multiple-variable Linear Function</a>
+<ul>
+<li class="chapter" data-level="15.3.1" data-path="least-square-approximation.html"><a href="least-square-approximation.html#an-extension-of-the-height-example"><i class="fa fa-check"></i><b>15.3.1</b> An Extension of the Height Example</a></li>
+<li class="chapter" data-level="15.3.2" data-path="least-square-approximation.html"><a href="least-square-approximation.html#approximating-general-multi-variables-linear-functions"><i class="fa fa-check"></i><b>15.3.2</b> Approximating General Multi-variables Linear Functions</a></li>
+</ul></li>
+<li class="chapter" data-level="15.4" data-path="least-square-approximation.html"><a href="least-square-approximation.html#approximating-one-variable-polynomial-function"><i class="fa fa-check"></i><b>15.4</b> Approximating One-variable Polynomial Function</a>
+<ul>
+<li class="chapter" data-level="15.4.1" data-path="least-square-approximation.html"><a href="least-square-approximation.html#approximating-quadratic-function"><i class="fa fa-check"></i><b>15.4.1</b> Approximating Quadratic Function</a></li>
+<li class="chapter" data-level="15.4.2" data-path="least-square-approximation.html"><a href="least-square-approximation.html#approximating-general-polynomial-functions"><i class="fa fa-check"></i><b>15.4.2</b> Approximating General Polynomial Functions</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="concepts-of-spline-interpolations.html"><a href="concepts-of-spline-interpolations.html"><i class="fa fa-check"></i><b>16</b> Concepts of Spline Interpolations</a>
+<ul>
+<li class="chapter" data-level="16.1" data-path="concepts-of-spline-interpolations.html"><a href="concepts-of-spline-interpolations.html#linear-splines"><i class="fa fa-check"></i><b>16.1</b> Linear Splines</a></li>
+<li class="chapter" data-level="16.2" data-path="concepts-of-spline-interpolations.html"><a href="concepts-of-spline-interpolations.html#quadratic-spline-interpolation"><i class="fa fa-check"></i><b>16.2</b> Quadratic Spline Interpolation</a>
+<ul>
+<li class="chapter" data-level="16.2.1" data-path="concepts-of-spline-interpolations.html"><a href="concepts-of-spline-interpolations.html#formulation-of-quadratic-spline"><i class="fa fa-check"></i><b>16.2.1</b> Formulation of Quadratic Spline</a></li>
+<li class="chapter" data-level="16.2.2" data-path="concepts-of-spline-interpolations.html"><a href="concepts-of-spline-interpolations.html#matrix-representation-of-quadratic-spline-problem"><i class="fa fa-check"></i><b>16.2.2</b> Matrix Representation of Quadratic Spline Problem</a></li>
+<li class="chapter" data-level="16.2.3" data-path="concepts-of-spline-interpolations.html"><a href="concepts-of-spline-interpolations.html#algorithm-of-quadratic-spline"><i class="fa fa-check"></i><b>16.2.3</b> Algorithm of Quadratic Spline</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="cubic-spline-interpolation.html"><a href="cubic-spline-interpolation.html"><i class="fa fa-check"></i><b>17</b> Cubic Spline Interpolation</a>
+<ul>
+<li class="chapter" data-level="17.1" data-path="cubic-spline-interpolation.html"><a href="cubic-spline-interpolation.html#cubic-splines"><i class="fa fa-check"></i><b>17.1</b> Cubic Splines</a>
+<ul>
+<li class="chapter" data-level="17.1.1" data-path="cubic-spline-interpolation.html"><a href="cubic-spline-interpolation.html#formulation-of-cubic-spline"><i class="fa fa-check"></i><b>17.1.1</b> Formulation of Cubic Spline</a></li>
+<li class="chapter" data-level="17.1.2" data-path="cubic-spline-interpolation.html"><a href="cubic-spline-interpolation.html#construction-of-cubic-splines"><i class="fa fa-check"></i><b>17.1.2</b> Construction of Cubic Splines</a></li>
+<li class="chapter" data-level="17.1.3" data-path="cubic-spline-interpolation.html"><a href="cubic-spline-interpolation.html#cubic-spline-algorithm"><i class="fa fa-check"></i><b>17.1.3</b> Cubic Spline Algorithm</a></li>
+</ul></li>
+<li class="chapter" data-level="17.2" data-path="cubic-spline-interpolation.html"><a href="cubic-spline-interpolation.html#clamped-splines"><i class="fa fa-check"></i><b>17.2</b> Clamped Splines</a></li>
+<li class="chapter" data-level="17.3" data-path="cubic-spline-interpolation.html"><a href="cubic-spline-interpolation.html#error-analysis-7"><i class="fa fa-check"></i><b>17.3</b> Error Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="newton-method-for-nonlinear-system-and-optimization.html"><a href="newton-method-for-nonlinear-system-and-optimization.html"><i class="fa fa-check"></i><b>18</b> Newton Method for Nonlinear System and Optimization</a>
+<ul>
+<li class="chapter" data-level="18.1" data-path="newton-method-for-nonlinear-system-and-optimization.html"><a href="newton-method-for-nonlinear-system-and-optimization.html#multivariate-taylor-expansion"><i class="fa fa-check"></i><b>18.1</b> Multivariate Taylor Expansion</a></li>
+<li class="chapter" data-level="18.2" data-path="newton-method-for-nonlinear-system-and-optimization.html"><a href="newton-method-for-nonlinear-system-and-optimization.html#newton-method-for-nonlinear-systems"><i class="fa fa-check"></i><b>18.2</b> Newton Method for Nonlinear Systems</a>
+<ul>
+<li class="chapter" data-level="18.2.1" data-path="newton-method-for-nonlinear-system-and-optimization.html"><a href="newton-method-for-nonlinear-system-and-optimization.html#system-of-two-nonlinear-equations"><i class="fa fa-check"></i><b>18.2.1</b> System of Two Nonlinear Equations</a></li>
+<li class="chapter" data-level="18.2.2" data-path="newton-method-for-nonlinear-system-and-optimization.html"><a href="newton-method-for-nonlinear-system-and-optimization.html#newton-algorithm"><i class="fa fa-check"></i><b>18.2.2</b> Newton Algorithm</a></li>
+</ul></li>
+<li class="chapter" data-level="18.3" data-path="newton-method-for-nonlinear-system-and-optimization.html"><a href="newton-method-for-nonlinear-system-and-optimization.html#optimization"><i class="fa fa-check"></i><b>18.3</b> Optimization</a></li>
+<li class="chapter" data-level="18.4" data-path="newton-method-for-nonlinear-system-and-optimization.html"><a href="newton-method-for-nonlinear-system-and-optimization.html#a-case-study"><i class="fa fa-check"></i><b>18.4</b> A Case Study</a></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html"><i class="fa fa-check"></i><b>19</b> Numerical Integration I</a>
+<ul>
+<li class="chapter" data-level="19.1" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html#numerical-approximation-of-derivatives"><i class="fa fa-check"></i><b>19.1</b> Numerical Approximation of Derivatives</a></li>
+<li class="chapter" data-level="19.2" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html#trapezoid-method"><i class="fa fa-check"></i><b>19.2</b> Trapezoid Method</a>
+<ul>
+<li class="chapter" data-level="19.2.1" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html#formulation-of-trapezoid-method"><i class="fa fa-check"></i><b>19.2.1</b> Formulation of Trapezoid Method</a></li>
+<li class="chapter" data-level="19.2.2" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html#error-analysis-8"><i class="fa fa-check"></i><b>19.2.2</b> Error Analysis</a></li>
+<li class="chapter" data-level="19.2.3" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html#composite-trapezoid-method-and-error-analysis"><i class="fa fa-check"></i><b>19.2.3</b> Composite Trapezoid Method and Error Analysis</a></li>
+<li class="chapter" data-level="19.2.4" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html#trapezoid-algorithm"><i class="fa fa-check"></i><b>19.2.4</b> Trapezoid Algorithm</a></li>
+</ul></li>
+<li class="chapter" data-level="19.3" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html#simpsons-one-third-rule"><i class="fa fa-check"></i><b>19.3</b> Simpson’s One-third Rule</a>
+<ul>
+<li class="chapter" data-level="19.3.1" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html#derivation-of-simpsons-rule"><i class="fa fa-check"></i><b>19.3.1</b> Derivation of Simpson’s Rule</a></li>
+<li class="chapter" data-level="19.3.2" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html#explicit-function-on-x_i-1-x_i1"><i class="fa fa-check"></i><b>19.3.2</b> Explicit Function on <span class="math inline">\([x_{i-1}, x_{i+1}]\)</span></a></li>
+<li class="chapter" data-level="19.3.3" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html#the-composite-simpsons-rule"><i class="fa fa-check"></i><b>19.3.3</b> The Composite Simpsons’ Rule</a></li>
+<li class="chapter" data-level="19.3.4" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html#error-analysis-9"><i class="fa fa-check"></i><b>19.3.4</b> Error Analysis</a></li>
+<li class="chapter" data-level="19.3.5" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html#algorithm-of-simpsons-rule"><i class="fa fa-check"></i><b>19.3.5</b> Algorithm of Simpson’s Rule</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html"><i class="fa fa-check"></i><b>20</b> Romberg Integration and Gaussian Quadratures</a>
+<ul>
+<li class="chapter" data-level="20.1" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#richardson-extrapolation"><i class="fa fa-check"></i><b>20.1</b> Richardson Extrapolation</a>
+<ul>
+<li class="chapter" data-level="20.1.1" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#the-logic-of-the-richardson-method"><i class="fa fa-check"></i><b>20.1.1</b> The Logic of the Richardson Method</a></li>
+<li class="chapter" data-level="20.1.2" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#algorithm-of-richardson-method"><i class="fa fa-check"></i><b>20.1.2</b> Algorithm of Richardson Method</a></li>
+<li class="chapter" data-level="20.1.3" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#higher-order-extrapolation"><i class="fa fa-check"></i><b>20.1.3</b> Higher Order Extrapolation</a></li>
+<li class="chapter" data-level="20.1.4" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#algorithm-and-code"><i class="fa fa-check"></i><b>20.1.4</b> Algorithm and Code</a></li>
+</ul></li>
+<li class="chapter" data-level="20.2" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#romberg-integration"><i class="fa fa-check"></i><b>20.2</b> Romberg Integration</a>
+<ul>
+<li class="chapter" data-level="20.2.1" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#approximation-formula-and-error-analysis"><i class="fa fa-check"></i><b>20.2.1</b> Approximation formula and Error Analysis</a></li>
+<li class="chapter" data-level="20.2.2" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#romberg-algorithm"><i class="fa fa-check"></i><b>20.2.2</b> Romberg Algorithm</a></li>
+<li class="chapter" data-level="20.2.3" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#r-code"><i class="fa fa-check"></i><b>20.2.3</b> R Code</a></li>
+</ul></li>
+<li class="chapter" data-level="20.3" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#gaussian-quadrature"><i class="fa fa-check"></i><b>20.3</b> Gaussian Quadrature</a>
+<ul>
+<li class="chapter" data-level="20.3.1" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#two-point-gauss-legendre-formula"><i class="fa fa-check"></i><b>20.3.1</b> Two-point Gauss Legendre Formula</a></li>
+<li class="chapter" data-level="20.3.2" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#general-gauss-legendre-formula"><i class="fa fa-check"></i><b>20.3.2</b> General Gauss Legendre Formula</a></li>
+<li class="chapter" data-level="20.3.3" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#r-code-1"><i class="fa fa-check"></i><b>20.3.3</b> R Code</a></li>
+</ul></li>
+<li class="chapter" data-level="20.4" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#remarks"><i class="fa fa-check"></i><b>20.4</b> Remarks</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">MAT325 E-Pack: Numerical Analysis</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="calculus-review" class="section level1 hasAnchor" number="2">
+<h1><span class="header-section-number">Topic 2</span> Calculus Review<a href="calculus-review.html#calculus-review" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>This note reviews the basics of Calculus which will be used throughout the semester. We will not derive or prove anything in this note.</p>
+<div id="limits-and-continuity" class="section level2 hasAnchor" number="2.1">
+<h2><span class="header-section-number">2.1</span> Limits and Continuity<a href="calculus-review.html#limits-and-continuity" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The concept of continuity of function is defined based on the concept of the limit of a function at a given point. They are core concepts in numerical analysis. We use <span class="math inline">\(\epsilon\text{-}\delta\)</span> language to summarize the limits and continuity. We only use single-variable functions to describe these concepts.</p>
+<div id="limits" class="section level3 hasAnchor" number="2.1.1">
+<h3><span class="header-section-number">2.1.1</span> Limits<a href="calculus-review.html#limits" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><img src="img01/w01-LimitDef.png" width="75%" style="display: block; margin: auto auto auto 0;" /></p>
+<p>This definition can be graphically explained in the following figure</p>
+<p><img src="img01/w01-LimitDefCurve.png" width="75%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="continuity" class="section level3 hasAnchor" number="2.1.2">
+<h3><span class="header-section-number">2.1.2</span> Continuity<a href="calculus-review.html#continuity" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The continuity of a function is defined based on the concept of limit.</p>
+<p><strong>Definition</strong>: Let <span class="math inline">\(f\)</span> be a function defined on a set <span class="math inline">\(X\)</span> of real numbers and <span class="math inline">\(x_0 \in X\)</span>. Then <span class="math inline">\(f\)</span> is continuous
+at <span class="math inline">\(x_0\)</span> if
+<span class="math display">\[
+\lim_{x\to x_0}f (x) = f (x_0).
+\]</span>
+The function <span class="math inline">\(f\)</span> is continuous on the set <span class="math inline">\(X\)</span> if it is continuous at each number in <span class="math inline">\(X\)</span>.</p>
+</div>
+<div id="convergence-of-a-sequence" class="section level3 hasAnchor" number="2.1.3">
+<h3><span class="header-section-number">2.1.3</span> Convergence of A Sequence<a href="calculus-review.html#convergence-of-a-sequence" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Convergence is one of the fundamental concepts in numerical analysis which is related to the limit of a sequence of real or complex numbers. In numerical analysis, the order of convergence and the rate of convergence of a convergent sequence are quantities that represent how quickly the sequence approaches its limit.</p>
+<p><strong>Definition</strong>: Let <span class="math inline">\(\{x_n\}^\infty_{n=1}\)</span> be an infinite sequence of real numbers. This sequence has the <strong>limit x (converges to x)</strong> if, for any <span class="math inline">\(\epsilon &gt; 0\)</span> there exists a positive integer <span class="math inline">\(N(\epsilon)\)</span> such that <span class="math inline">\(|x_n-x|&lt;\epsilon\)</span>, whenever <span class="math inline">\(n &gt; N(\epsilon)\)</span>. The notation
+<span class="math display">\[
+\lim_{n \to\infty}x_n = x, \text{ or } x_n \to x \text{ as } n\to \infty,
+\]</span>
+means that the sequence <span class="math inline">\(\{x_n\}^\infty_{n=1}\)</span> converges to <span class="math inline">\(x\)</span>.</p>
+<p><strong>Definition</strong>: If <span class="math inline">\(f\)</span> is a function defined on a set <span class="math inline">\(X\)</span> of real numbers and <span class="math inline">\(x_0 \in X\)</span>, then the following statements are equivalent:</p>
+<ol style="list-style-type: lower-alpha">
+<li><p><span class="math inline">\(f\)</span> is continuous at <span class="math inline">\(x_0\)</span>;</p></li>
+<li><p>If <span class="math inline">\(\{x_n\}^\infty_{n=1}\)</span> is any sequence in <span class="math inline">\(X\)</span> converging to <span class="math inline">\(x_0\)</span>, then <span class="math inline">\(lim_{n\to \infty} f (x_n) = f (x_0)\)</span>.</p></li>
+</ol>
+<p><em>Remark</em>: The values of above sequences in <span class="math inline">\(X\)</span> could be from both sides of <span class="math inline">\(x_0\)</span>.</p>
+<p><img src="img01/w01Note1-1-Comvergence.gif" width="65%" style="display: block; margin: auto;" /></p>
+<p><br />
+</p>
+</div>
+</div>
+<div id="differentiation" class="section level2 hasAnchor" number="2.2">
+<h2><span class="header-section-number">2.2</span> Differentiation<a href="calculus-review.html#differentiation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In numerical analysis, many numerical algorithms are based on the assumption that the curve of the underlying function is continuous and <strong>smooth</strong> over an interval. The smoothness of a curve is characterized by the concept of differentiation.</p>
+<div id="definition" class="section level3 hasAnchor" number="2.2.1">
+<h3><span class="header-section-number">2.2.1</span> Definition<a href="calculus-review.html#definition" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>(Average) Rate of Change</strong>: The rate of change of a function <span class="math inline">\(f(x)\)</span> over interval <span class="math inline">\([x, x+\Delta x]\)</span> is defined to be
+<span class="math display">\[
+\frac{f(x+\Delta x) - f(x)}{\Delta}
+\]</span></p>
+<p>Geometrically, the average rate of change of <span class="math inline">\(f(x)\)</span> over the interval is the slope of the secant line that passes through the two points on the curve corresponding to the two ending values of the interval.</p>
+<p><strong>Definition</strong>: Let <span class="math inline">\(f\)</span> be a function defined in an open interval containing <span class="math inline">\(x_0\)</span>. The function f is differentiable at <span class="math inline">\(x_0\)</span> if
+<span class="math display">\[
+f^\prime(x_0) = \lim_{x\to x_0}\frac{f (x)-f (x_0)}{x-x_0}
+\]</span></p>
+<p>exists. The number <span class="math inline">\(f(x_0)\)</span> is called the derivative of <span class="math inline">\(f\)</span> at <span class="math inline">\(x_0\)</span>. A function that has a derivative at each number in a set <span class="math inline">\(X\)</span> is differentiable on <span class="math inline">\(X\)</span>.</p>
+<p><img src="img01/w01-Derivative.png" width="75%" style="display: block; margin: auto;" /></p>
+<p>We will assume that you are proficient in using all rules of derivatives. Particularly, the power and chain rules.</p>
+</div>
+<div id="properties" class="section level3 hasAnchor" number="2.2.2">
+<h3><span class="header-section-number">2.2.2</span> Properties<a href="calculus-review.html#properties" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Some of the properties and existence theorems will be used in developing numerical algorithms for optimization.</p>
+<p><strong>Rolle’s Theorem</strong>: Suppose <span class="math inline">\(f \in C[a, b]\)</span> (continuous) and <span class="math inline">\(f\)</span> is differentiable on <span class="math inline">\((a, b)\)</span>. If <span class="math inline">\(f (a) = f (b)\)</span>, then a number <span class="math inline">\(c\)</span> in <span class="math inline">\((a, b)\)</span> exists with <span class="math inline">\(f(c) = 0\)</span>.</p>
+<p><img src="img01/w01-RolleTheorem.png" width="75%" style="display: block; margin: auto;" /></p>
+<p>The following mean value theorem is a generalization of Rolle’s Theorem.</p>
+<p><strong>Mean Value Theorem</strong>: If <span class="math inline">\(f \in C[a, b]\)</span> and f is differentiable on <span class="math inline">\((a, b)\)</span>, then a number <span class="math inline">\(c\)</span> in <span class="math inline">\((a, b)\)</span> exists with
+<span class="math display">\[
+\frac{f(b) - f(a)}{b - a}.
+\]</span>
+We can visualize the mean value theorem in the following figure.</p>
+<p><img src="img01/w01-MeanValue.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><strong>Extreme Value Theorem</strong>: If <span class="math inline">\(f \in C[a, b]\)</span>, then <span class="math inline">\(c_1, c_2 \in [a, b]\)</span> exist with <span class="math inline">\(f (c_1) \le f (x) \le f (c_2)\)</span>, for all <span class="math inline">\(x \in [a, b]\)</span>. In addition, if <span class="math inline">\(f\)</span> is differentiable on <span class="math inline">\((a, b)\)</span>, then the numbers <span class="math inline">\(c_1\)</span> and <span class="math inline">\(c_2\)</span> occur either at the endpoints of <span class="math inline">\([a, b]\)</span> or where <span class="math inline">\(f\)</span> is zero.</p>
+<p><img src="img01/w01-ExtremeValue.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><strong>Example 1</strong>: Use a computer program to find the absolute minimum and absolute maximum values of
+<span class="math display">\[
+f (x) = 5 \cos (2x) - 2x \sin (2x)
+\]</span>
+on the intervals <span class="math inline">\([1, 2]\)</span> and <span class="math inline">\([0.5, 1]\)</span>, respectively.</p>
+<p><strong>Solution</strong>: We could free online graphing tools such as <em>WolframAlpha</em> (<a href="https://www.wolframalpha.com/" class="uri">https://www.wolframalpha.com/</a>) to sketch the function. We will use <strong>R</strong> to plot the function.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="calculus-review.html#cb2-1" tabindex="-1"></a>x<span class="ot">=</span><span class="fu">seq</span>(<span class="dv">0</span>, <span class="fl">2.5</span>, <span class="at">by =</span> <span class="fl">0.01</span>)</span>
+<span id="cb2-2"><a href="calculus-review.html#cb2-2" tabindex="-1"></a>y<span class="ot">=</span><span class="dv">5</span><span class="sc">*</span><span class="fu">cos</span>(<span class="dv">2</span><span class="sc">*</span>x) <span class="sc">-</span> <span class="dv">2</span><span class="sc">*</span>x<span class="sc">*</span><span class="fu">sin</span>(<span class="dv">2</span><span class="sc">*</span>x)</span>
+<span id="cb2-3"><a href="calculus-review.html#cb2-3" tabindex="-1"></a><span class="fu">plot</span>(x,y, <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">lwd=</span><span class="dv">2</span>, <span class="at">col=</span><span class="st">&quot;navy&quot;</span>, <span class="at">bty=</span><span class="st">&quot;n&quot;</span>)</span>
+<span id="cb2-4"><a href="calculus-review.html#cb2-4" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span><span class="dv">0</span>, <span class="at">lty=</span><span class="dv">2</span>, <span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span>
+<span id="cb2-5"><a href="calculus-review.html#cb2-5" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v=</span><span class="fu">c</span>(<span class="fl">0.5</span>, <span class="dv">1</span>, <span class="dv">2</span>), <span class="at">lty=</span><span class="dv">4</span>, <span class="at">col=</span><span class="st">&quot;skyblue&quot;</span>)</span></code></pre></div>
+<p><img src="MAT325EB_files/figure-html/unnamed-chunk-10-1.png" width="384" style="display: block; margin: auto;" /></p>
+<p>(a). We can see from the above figure that, the absolute maximum on <span class="math inline">\([1, 2]\)</span> is <span class="math inline">\(f(2) = 5\cos(2\times 2) - 2\times 2 \sin(2\times 2) = -0.2410081\)</span> (see the following code)</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="calculus-review.html#cb3-1" tabindex="-1"></a><span class="dv">5</span><span class="sc">*</span><span class="fu">cos</span>(<span class="dv">4</span>) <span class="sc">-</span> <span class="dv">4</span><span class="sc">*</span><span class="fu">sin</span>(<span class="dv">4</span>)</span></code></pre></div>
+<pre><code>## [1] -0.24100812</code></pre>
+<p>The absolute minimum is the solution to <span class="math inline">\(f^\prime(x) = 0\)</span>. That is, we need to solve equation <span class="math inline">\(-10\sin(2x) - 2\sin(2x) - 4x\cos(2x) = 0\)</span> that is equivalent to <span class="math inline">\(\tan(2x) = x/3\)</span>. This is a nonlinear equation. There is no closed form of the solution. We will introduce various methods to find the root of this equation. For now, we simply call an R function to find the root.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="calculus-review.html#cb5-1" tabindex="-1"></a>fn <span class="ot">=</span> <span class="cf">function</span>(x) <span class="fu">tan</span>(<span class="dv">2</span><span class="sc">*</span>x)<span class="sc">+</span>x<span class="sc">/</span><span class="dv">3</span>  <span class="co"># define the function </span></span>
+<span id="cb5-2"><a href="calculus-review.html#cb5-2" tabindex="-1"></a>root <span class="ot">=</span> <span class="fu">nleqslv</span>(<span class="fl">1.5</span>, fn)<span class="sc">$</span>x      <span class="co"># the first list $x in the output is the root</span></span>
+<span id="cb5-3"><a href="calculus-review.html#cb5-3" tabindex="-1"></a>f.min <span class="ot">=</span> <span class="dv">5</span><span class="sc">*</span><span class="fu">cos</span>(<span class="dv">2</span><span class="sc">*</span>root) <span class="sc">-</span> <span class="dv">2</span><span class="sc">*</span>root<span class="sc">*</span><span class="fu">sin</span>(<span class="dv">2</span><span class="sc">*</span>root)  <span class="co"># finding the absolute minimum</span></span>
+<span id="cb5-4"><a href="calculus-review.html#cb5-4" tabindex="-1"></a><span class="fu">list</span>(<span class="at">root =</span> root, <span class="at">abs.min =</span> f.min)</span></code></pre></div>
+<pre><code>## $root
+## [1] 1.3582299
+## 
+## $abs.min
+## [1] -5.6753013</code></pre>
+<p>Therefore, the absolute minimum is <span class="math inline">\(f(1.35823-5.675301) = -5.675301\)</span>.</p>
+<p>(2). Since the function is strictly decreasing on <span class="math inline">\([0.5, 1]\)</span>, to find the absolute minimum and maximum of the function on <span class="math inline">\([0.5, 1]\)</span>, we simply evaluate the function at <span class="math inline">\(x = 0.5\)</span> and <span class="math inline">\(x = 1\)</span> (see the following code).</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="calculus-review.html#cb7-1" tabindex="-1"></a><span class="fu">list</span>(<span class="at">abs.max =</span> <span class="dv">5</span><span class="sc">*</span><span class="fu">cos</span>(<span class="dv">2</span><span class="sc">*</span><span class="fl">0.5</span>) <span class="sc">-</span> <span class="dv">2</span><span class="sc">*</span><span class="fl">0.5</span><span class="sc">*</span><span class="fu">sin</span>(<span class="dv">2</span><span class="sc">*</span><span class="fl">0.5</span>),</span>
+<span id="cb7-2"><a href="calculus-review.html#cb7-2" tabindex="-1"></a>     <span class="at">abs.min =</span> <span class="dv">5</span><span class="sc">*</span><span class="fu">cos</span>(<span class="dv">2</span><span class="sc">*</span><span class="dv">1</span>) <span class="sc">-</span> <span class="dv">2</span><span class="sc">*</span><span class="dv">1</span><span class="sc">*</span><span class="fu">sin</span>(<span class="dv">2</span><span class="sc">*</span><span class="dv">1</span>))</span></code></pre></div>
+<pre><code>## $abs.max
+## [1] 1.8600405
+## 
+## $abs.min
+## [1] -3.899329</code></pre>
+<p>Therefore, the absolute minimum is <span class="math inline">\(f(1) = -3.899329\)</span> and the absolute maximum <span class="math inline">\(f(0.5) = 1.860041\)</span>.</p>
+<p><strong>Intermediate Value Theorem</strong>: If <span class="math inline">\(f \in C[a, b]\)</span> and <span class="math inline">\(K\)</span> is any number between <span class="math inline">\(f (a)\)</span> and <span class="math inline">\(f (b)\)</span>, then there exists a number <span class="math inline">\(c\)</span> in <span class="math inline">\((a, b)\)</span> for which <span class="math inline">\(f (c) = K\)</span>.</p>
+<p>The results in intuitive from the following figure.</p>
+<p><img src="img01/w01-IntermediateValThm.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><br />
+</p>
+<p><strong>Example 2</strong>: Show that <span class="math inline">\(x^5 - 2x^3 + 3x^2 - 1 = 0\)</span> has a solution in the interval <span class="math inline">\([0, 1]\)</span>.</p>
+<p><strong>Solution</strong>: We want to prove the <em>existence</em> of a solution in <span class="math inline">\([0, 1]\)</span>. We first sketch the function in the following.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="calculus-review.html#cb9-1" tabindex="-1"></a>x <span class="ot">=</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="fl">0.5</span>, <span class="fl">1.5</span>, <span class="at">by =</span><span class="fl">0.01</span>)</span>
+<span id="cb9-2"><a href="calculus-review.html#cb9-2" tabindex="-1"></a>y <span class="ot">=</span> x<span class="sc">^</span><span class="dv">5-2</span><span class="sc">*</span>x<span class="sc">^</span><span class="dv">3</span> <span class="sc">+</span> <span class="dv">3</span><span class="sc">*</span>x<span class="sc">^</span><span class="dv">2-1</span></span>
+<span id="cb9-3"><a href="calculus-review.html#cb9-3" tabindex="-1"></a><span class="fu">plot</span>(x,y, <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">lwd=</span><span class="dv">2</span>, <span class="at">col=</span><span class="st">&quot;blue&quot;</span>, <span class="at">bty=</span><span class="st">&quot;n&quot;</span>)</span>
+<span id="cb9-4"><a href="calculus-review.html#cb9-4" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="st">&quot;purple&quot;</span>)</span>
+<span id="cb9-5"><a href="calculus-review.html#cb9-5" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span><span class="dv">0</span>, <span class="at">lty =</span> <span class="dv">4</span>, <span class="at">col=</span><span class="st">&quot;darkred&quot;</span>)</span></code></pre></div>
+<p><img src="MAT325EB_files/figure-html/unnamed-chunk-15-1.png" width="384" style="display: block; margin: auto;" /></p>
+<p>After inspecting the curve, choose <span class="math inline">\(a = 0\)</span> and <span class="math inline">\(b = 1\)</span> and then use the intermediate value theorem. Note that <span class="math inline">\(f(0) = -1\)</span> and <span class="math inline">\(f(1) = 1\)</span>. Therefore, <span class="math inline">\(f(x) = 0\)</span> has a solution in <span class="math inline">\([0,1]\)</span>.</p>
+<p><strong>Remark</strong>: The intermediate value theorem states that the existence of <em>at least one solution</em> in interval <span class="math inline">\([a, b]\)</span>.</p>
+</div>
+</div>
+<div id="integration" class="section level2 hasAnchor" number="2.3">
+<h2><span class="header-section-number">2.3</span> Integration<a href="calculus-review.html#integration" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Numerical integration is one of the major topics in numerical analysis. We focus on the definite integral of the single variable function.</p>
+<div id="series-vs-sequence" class="section level3 hasAnchor" number="2.3.1">
+<h3><span class="header-section-number">2.3.1</span> Series vs Sequence<a href="calculus-review.html#series-vs-sequence" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>A <strong>sequence</strong> is an arrangement of any objects or a set of numbers in a particular order followed by some rule. If <span class="math inline">\(a_1, a_2, a_3, a_4,\cdots\)</span>, denote the terms of a sequence, then <span class="math inline">\(1,2,3,4, \cdots\)</span> denotes the position of the term. A sequence can be defined based on the number of terms i.e. either finite sequence or infinite sequence.</p>
+<p>If <span class="math inline">\(a_1, a_2, a_3, a_4,\cdots\)</span> is a sequence, then the corresponding <strong>series</strong> is given by <span class="math inline">\(S_n = a_1+a_2+a_3 + \cdots + a_n\)</span> for <span class="math inline">\(n = 1, 2, \cdots,\)</span>. If <span class="math inline">\(\lim_{n \to \infty} s_n = A\)</span> (<span class="math inline">\(A\)</span> is finite), then we call series <span class="math inline">\(s_n\)</span> converges to <span class="math inline">\(A\)</span>.</p>
+</div>
+<div id="definition-of-definite-integral" class="section level3 hasAnchor" number="2.3.2">
+<h3><span class="header-section-number">2.3.2</span> Definition of Definite Integral<a href="calculus-review.html#definition-of-definite-integral" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>Riemann Integral</strong>: The Riemann integral of the function <span class="math inline">\(f\)</span> on the interval <span class="math inline">\([a, b]\)</span> is the following limit,
+provided it exists:
+<span class="math display">\[
+\int_a^bf(x) dx = \lim_{\max \Delta x_i \to 0} \sum_{i=1}^n f(z_i)\Delta x_i,
+\]</span>
+where the numbers <span class="math inline">\(x_0, x_1, \cdots , x_n\)</span> satisfy <span class="math inline">\(a = x_0 \le x_1 \le \cdots \le x_n = b\)</span>, where <span class="math inline">\(x_i = x_i - x_{i-1}\)</span>, for each <span class="math inline">\(i = 1, 2, \cdots, n\)</span>, and <span class="math inline">\(z_i\)</span> is arbitrarily chosen in the interval <span class="math inline">\([x_{i-1}, x_i]\)</span>.</p>
+<p><strong>Remark1</strong>: The above Riemann integral involves two concepts</p>
+<ol style="list-style-type: decimal">
+<li><p><strong>Partition of an interval</strong>: <span class="math inline">\(a = x_0 \le x_1 \le \cdots \le x_n = b\)</span> is also called a partition of interval <span class="math inline">\([a,b]\)</span>.</p></li>
+<li><p><span class="math inline">\(D_n = \sum_{i=1}^n f(z_i)\Delta x_i\)</span> is so called Darboux sum.</p></li>
+</ol>
+<p>In practice, we take a simple <strong>equally spaced partition</strong> to evaluate the Riemann integral. To be specific, use the partition such that <span class="math inline">\(x_i = a + i(b-a)/n\)</span>. With this equally-spaced partition, the Riemann integral has the following simple form
+<span class="math display">\[
+\int_a^b f(x) dx = \lim_{n \to \infty}\frac{b-a}{n}\sum_{i=1}^nf(x_i),
+\]</span>
+The geometric display of the Darboux in the above expression is given below
+<img src="img01/w01-DarbouxSum.png" width="75%" style="display: block; margin: auto;" /></p>
+<p>The area of the orange rectangle is the i-th term in the Darboux sum.</p>
+<p>The following animated graph shows the process of approximating the integral by the Darboux sum.</p>
+<p><img src="img01/w01-GIFRiemannSum.gif" width="65%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="taylor-expansion" class="section level3 hasAnchor" number="2.3.3">
+<h3><span class="header-section-number">2.3.3</span> Taylor Expansion<a href="calculus-review.html#taylor-expansion" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Since polynomial functions are relatively easier to handle in mathematics. If we want to study the <em>local</em> behavior of a complicated function (algebraically), we could use a polynomial to approximate the function locally. The Taylor series is one such polynomial that is used frequently in practice.</p>
+<p><strong>Taylos’s Theroem</strong>: Suppose <span class="math inline">\(f \in C^n[a,b]\)</span>, that <span class="math inline">\(f^{(n+1)}\)</span> exists on <span class="math inline">\([a,b]\)</span>, and <span class="math inline">\(x_0 \in [a,b]\)</span>. For every <span class="math inline">\(x \in [a,b]\)</span>, there exists a number <span class="math inline">\(\xi(x)\)</span> between <span class="math inline">\(x_0\)</span> and <span class="math inline">\(x\)</span> with</p>
+<p><span class="math display">\[
+f(x) = P_n(x) + R_n(x),
+\]</span>
+where
+<span class="math display">\[
+P(x) = f(x_0) + f^\prime(x_0)(x - x_0)+\frac{f^{\prime\prime}(x_0)}{2!}(x-x_0)^2+\cdots+\frac{f^{(n)}(x_0)}{n!}(x-x_0)^n
+\]</span>
+<span class="math display">\[
+=\sum_{k=0}^n\frac{f^{(k)}(x_0)}{k!}(x-x_0)^k.
+\]</span>
+and
+<span class="math display">\[
+R_n(x) = \frac{f^{(n+1)}(\xi(x))}{(n+1)!}(x-x_0)^{n+1}.
+\]</span></p>
+<p>Here <span class="math inline">\(P_n(x)\)</span> is called the <strong>nth Taylor polynomial</strong> for f about <span class="math inline">\(x_0\)</span>, and <span class="math inline">\(R_n(x)\)</span> is called the <strong>remainder term (or truncation error)</strong> associated with <span class="math inline">\(P_n(x)\)</span>.</p>
+<p>When <span class="math inline">\(x_0 = 0\)</span>, the Taylor polynomial is called <strong>Maclaurin polynomial</strong>.</p>
+<p>The following animated graph shows the process of Taylor approximation to function <span class="math inline">\(f(x) =e^{-x}\sin(x)\)</span>.</p>
+<p><img src="img01/w01Note1-1-TaylorExansion02.gif" width="85%" style="display: block; margin: auto;" /></p>
+<p><br />
+</p>
+<p><strong>Example</strong>: Let <span class="math inline">\(f (x) = cos x\)</span> and <span class="math inline">\(x_0 = 0\)</span>. Determine the second Taylor polynomial for <span class="math inline">\(f\)</span> about <span class="math inline">\(x_0\)</span>.</p>
+<p><strong>Solution</strong>: We use the Taylor theorem to expand <span class="math inline">\(cos(x)\)</span> up two 2nd order
+<span class="math display">\[
+cos(x) = f(0) + f^\prime(0)x+\frac{f^{\prime\prime}(0)}{2!}x^2+\frac{f^{(\xi(x))}(0)}{3!}x^3
+\]</span>
+<span class="math display">\[
+=1 - \frac{1}{2}x^2+\frac{1}{6}x^3\sin[\xi(x)].
+\]</span>
+where <span class="math inline">\(\xi(x)\)</span> is in <span class="math inline">\([0, x]\)</span>. The following figure shows the approximation.
+<img src="img01/w01-MacclaurinExpansion.png" width="75%" style="display: block; margin: auto;" /></p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="scientific-computing-with-r.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/pengdsci/MAT325EB/edit/master/01-MAT325CalcReview.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["MAT325EB.pdf", "MAT325EB.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

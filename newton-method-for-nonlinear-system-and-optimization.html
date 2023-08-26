@@ -1,0 +1,1362 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Topic 18 Newton Method for Nonlinear System and Optimization | MAT325 E-Pack: Numerical Analysis</title>
+  <meta name="description" content="The output format for this example is bookdown::gitbook." />
+  <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Topic 18 Newton Method for Nonlinear System and Optimization | MAT325 E-Pack: Numerical Analysis" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="The output format for this example is bookdown::gitbook." />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Topic 18 Newton Method for Nonlinear System and Optimization | MAT325 E-Pack: Numerical Analysis" />
+  
+  <meta name="twitter:description" content="The output format for this example is bookdown::gitbook." />
+  
+
+<meta name="author" content="Cheng Peng" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="cubic-spline-interpolation.html"/>
+<link rel="next" href="numerical-integration-i.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<center><li><a href="./"><font color = "darkred"><b>MAT 325 E-Coursepack: Numerical Analysis</b></font></a><br><font color = "navy">Cheng Peng</font></li></center>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="calculus-review.html"><a href="calculus-review.html"><i class="fa fa-check"></i><b>2</b> Calculus Review</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="calculus-review.html"><a href="calculus-review.html#limits-and-continuity"><i class="fa fa-check"></i><b>2.1</b> Limits and Continuity</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="calculus-review.html"><a href="calculus-review.html#limits"><i class="fa fa-check"></i><b>2.1.1</b> Limits</a></li>
+<li class="chapter" data-level="2.1.2" data-path="calculus-review.html"><a href="calculus-review.html#continuity"><i class="fa fa-check"></i><b>2.1.2</b> Continuity</a></li>
+<li class="chapter" data-level="2.1.3" data-path="calculus-review.html"><a href="calculus-review.html#convergence-of-a-sequence"><i class="fa fa-check"></i><b>2.1.3</b> Convergence of A Sequence</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="calculus-review.html"><a href="calculus-review.html#differentiation"><i class="fa fa-check"></i><b>2.2</b> Differentiation</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="calculus-review.html"><a href="calculus-review.html#definition"><i class="fa fa-check"></i><b>2.2.1</b> Definition</a></li>
+<li class="chapter" data-level="2.2.2" data-path="calculus-review.html"><a href="calculus-review.html#properties"><i class="fa fa-check"></i><b>2.2.2</b> Properties</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="calculus-review.html"><a href="calculus-review.html#integration"><i class="fa fa-check"></i><b>2.3</b> Integration</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="calculus-review.html"><a href="calculus-review.html#series-vs-sequence"><i class="fa fa-check"></i><b>2.3.1</b> Series vs Sequence</a></li>
+<li class="chapter" data-level="2.3.2" data-path="calculus-review.html"><a href="calculus-review.html#definition-of-definite-integral"><i class="fa fa-check"></i><b>2.3.2</b> Definition of Definite Integral</a></li>
+<li class="chapter" data-level="2.3.3" data-path="calculus-review.html"><a href="calculus-review.html#taylor-expansion"><i class="fa fa-check"></i><b>2.3.3</b> Taylor Expansion</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html"><i class="fa fa-check"></i><b>3</b> Scientific Computing with R</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#vectors-and-matrices"><i class="fa fa-check"></i><b>3.1</b> Vectors and Matrices</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#vectors"><i class="fa fa-check"></i><b>3.1.1</b> Vectors</a></li>
+<li class="chapter" data-level="3.1.2" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#matrices"><i class="fa fa-check"></i><b>3.1.2</b> Matrices</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#built-in-mathematical-functions-and-operators"><i class="fa fa-check"></i><b>3.2</b> Built-in Mathematical Functions and Operators</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#arithmetic-operators"><i class="fa fa-check"></i><b>3.2.1</b> Arithmetic Operators</a></li>
+<li class="chapter" data-level="3.2.2" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#basic-mathematical-functions"><i class="fa fa-check"></i><b>3.2.2</b> Basic Mathematical Functions</a></li>
+<li class="chapter" data-level="3.2.3" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#trigonometry"><i class="fa fa-check"></i><b>3.2.3</b> Trigonometry</a></li>
+<li class="chapter" data-level="3.2.4" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#linear-algebra"><i class="fa fa-check"></i><b>3.2.4</b> Linear Algebra</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#graphic-functions-in-base-r"><i class="fa fa-check"></i><b>3.3</b> Graphic Functions in Base R</a></li>
+<li class="chapter" data-level="3.4" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#rounding-and-related-functions"><i class="fa fa-check"></i><b>3.4</b> Rounding and Related Functions</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#round"><i class="fa fa-check"></i><b>3.4.1</b> round()</a></li>
+<li class="chapter" data-level="3.4.2" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#controlling-number-of-displayed-digits"><i class="fa fa-check"></i><b>3.4.2</b> Controlling Number of Displayed Digits</a></li>
+<li class="chapter" data-level="3.4.3" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#signif"><i class="fa fa-check"></i><b>3.4.3</b> <code>Signif()</code></a></li>
+<li class="chapter" data-level="3.4.4" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#floor-and-ceiling"><i class="fa fa-check"></i><b>3.4.4</b> <code>floor()</code> and <code>ceiling()</code></a></li>
+<li class="chapter" data-level="3.4.5" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#trunc"><i class="fa fa-check"></i><b>3.4.5</b> <code>trunc()</code></a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#control-statements"><i class="fa fa-check"></i><b>3.5</b> Control Statements</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#conditional-statements"><i class="fa fa-check"></i><b>3.5.1</b> Conditional Statements</a></li>
+<li class="chapter" data-level="3.5.2" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#loops-in-r"><i class="fa fa-check"></i><b>3.5.2</b> Loops in R</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#numerical-example"><i class="fa fa-check"></i><b>3.6</b> Numerical Example</a>
+<ul>
+<li class="chapter" data-level="3.6.1" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#version-1"><i class="fa fa-check"></i><b>3.6.1</b> VERSION 1</a></li>
+<li class="chapter" data-level="3.6.2" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#version-2"><i class="fa fa-check"></i><b>3.6.2</b> Version 2</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#user-defined-functions"><i class="fa fa-check"></i><b>3.7</b> User Defined Functions</a>
+<ul>
+<li class="chapter" data-level="3.7.1" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#writing-r-functions-for-root-finding-methods"><i class="fa fa-check"></i><b>3.7.1</b> Writing R Functions for Root-finding Methods</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="basics-of-data-representation-and-error-analysis.html"><a href="basics-of-data-representation-and-error-analysis.html"><i class="fa fa-check"></i><b>4</b> Basics of Data Representation and Error Analysis</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="basics-of-data-representation-and-error-analysis.html"><a href="basics-of-data-representation-and-error-analysis.html#data-representation"><i class="fa fa-check"></i><b>4.1</b> Data Representation</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="basics-of-data-representation-and-error-analysis.html"><a href="basics-of-data-representation-and-error-analysis.html#number-systems"><i class="fa fa-check"></i><b>4.1.1</b> Number Systems</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="basics-of-data-representation-and-error-analysis.html"><a href="basics-of-data-representation-and-error-analysis.html#how-data-is-stored-in-computer-memory"><i class="fa fa-check"></i><b>4.2</b> How data is stored in computer memory</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="basics-of-data-representation-and-error-analysis.html"><a href="basics-of-data-representation-and-error-analysis.html#how-integers-are-stored-in-memory"><i class="fa fa-check"></i><b>4.2.1</b> How integers are stored in memory?</a></li>
+<li class="chapter" data-level="4.2.2" data-path="basics-of-data-representation-and-error-analysis.html"><a href="basics-of-data-representation-and-error-analysis.html#floating-point-numbers"><i class="fa fa-check"></i><b>4.2.2</b> Floating-point Numbers</a></li>
+<li class="chapter" data-level="4.2.3" data-path="basics-of-data-representation-and-error-analysis.html"><a href="basics-of-data-representation-and-error-analysis.html#how-floating-point-numbers-are-stored-in-memory"><i class="fa fa-check"></i><b>4.2.3</b> How Floating-point Numbers Are Stored in Memory?</a></li>
+<li class="chapter" data-level="4.2.4" data-path="basics-of-data-representation-and-error-analysis.html"><a href="basics-of-data-representation-and-error-analysis.html#basic-types-errors-in-error-analysis"><i class="fa fa-check"></i><b>4.2.4</b> Basic Types Errors in Error Analysis</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="error-analysis-algorithms-and-convergence.html"><a href="error-analysis-algorithms-and-convergence.html"><i class="fa fa-check"></i><b>5</b> Error Analysis, Algorithms and Convergence</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="error-analysis-algorithms-and-convergence.html"><a href="error-analysis-algorithms-and-convergence.html#error-analysis"><i class="fa fa-check"></i><b>5.1</b> Error Analysis</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="error-analysis-algorithms-and-convergence.html"><a href="error-analysis-algorithms-and-convergence.html#understanding-numerical-error"><i class="fa fa-check"></i><b>5.1.1</b> Understanding Numerical Error</a></li>
+<li class="chapter" data-level="5.1.2" data-path="error-analysis-algorithms-and-convergence.html"><a href="error-analysis-algorithms-and-convergence.html#error-classification"><i class="fa fa-check"></i><b>5.1.2</b> Error Classification</a></li>
+<li class="chapter" data-level="5.1.3" data-path="error-analysis-algorithms-and-convergence.html"><a href="error-analysis-algorithms-and-convergence.html#approximation-significant-digits-figures"><i class="fa fa-check"></i><b>5.1.3</b> Approximation Significant Digits (Figures)</a></li>
+<li class="chapter" data-level="5.1.4" data-path="error-analysis-algorithms-and-convergence.html"><a href="error-analysis-algorithms-and-convergence.html#nested-arithmetic"><i class="fa fa-check"></i><b>5.1.4</b> Nested Arithmetic</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="error-analysis-algorithms-and-convergence.html"><a href="error-analysis-algorithms-and-convergence.html#algorithms-and-convergence"><i class="fa fa-check"></i><b>5.2</b> Algorithms and Convergence</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="error-analysis-algorithms-and-convergence.html"><a href="error-analysis-algorithms-and-convergence.html#algorithm-and-psuedo-code"><i class="fa fa-check"></i><b>5.2.1</b> Algorithm and Psuedo-code</a></li>
+<li class="chapter" data-level="5.2.2" data-path="error-analysis-algorithms-and-convergence.html"><a href="error-analysis-algorithms-and-convergence.html#rules-of-pseudo-code"><i class="fa fa-check"></i><b>5.2.2</b> Rules of Pseudo-code</a></li>
+<li class="chapter" data-level="5.2.3" data-path="error-analysis-algorithms-and-convergence.html"><a href="error-analysis-algorithms-and-convergence.html#stability-of-algorithms"><i class="fa fa-check"></i><b>5.2.3</b> Stability of Algorithms</a></li>
+<li class="chapter" data-level="5.2.4" data-path="error-analysis-algorithms-and-convergence.html"><a href="error-analysis-algorithms-and-convergence.html#rates-of-convergence"><i class="fa fa-check"></i><b>5.2.4</b> Rates of Convergence</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="bisection-method.html"><a href="bisection-method.html"><i class="fa fa-check"></i><b>6</b> Bisection Method</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="bisection-method.html"><a href="bisection-method.html#the-question"><i class="fa fa-check"></i><b>6.1</b> The Question</a></li>
+<li class="chapter" data-level="6.2" data-path="bisection-method.html"><a href="bisection-method.html#bisection-method-1"><i class="fa fa-check"></i><b>6.2</b> Bisection Method</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="bisection-method.html"><a href="bisection-method.html#the-logic-of-bisection-method"><i class="fa fa-check"></i><b>6.2.1</b> The Logic of Bisection Method</a></li>
+<li class="chapter" data-level="6.2.2" data-path="bisection-method.html"><a href="bisection-method.html#bisection-algorithm"><i class="fa fa-check"></i><b>6.2.2</b> Bisection Algorithm</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="bisection-method.html"><a href="bisection-method.html#error-analysis-1"><i class="fa fa-check"></i><b>6.3</b> Error Analysis</a></li>
+<li class="chapter" data-level="6.4" data-path="bisection-method.html"><a href="bisection-method.html#numerical-examples."><i class="fa fa-check"></i><b>6.4</b> Numerical Examples.</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="fixed-point-method.html"><a href="fixed-point-method.html"><i class="fa fa-check"></i><b>7</b> Fixed Point Method</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="fixed-point-method.html"><a href="fixed-point-method.html#some-theories-of-the-fixed-point-method"><i class="fa fa-check"></i><b>7.1</b> Some Theories of the Fixed Point Method</a></li>
+<li class="chapter" data-level="7.2" data-path="fixed-point-method.html"><a href="fixed-point-method.html#fixed-point-iteration"><i class="fa fa-check"></i><b>7.2</b> Fixed Point Iteration</a></li>
+<li class="chapter" data-level="7.3" data-path="fixed-point-method.html"><a href="fixed-point-method.html#error-analysis-2"><i class="fa fa-check"></i><b>7.3</b> Error Analysis</a></li>
+<li class="chapter" data-level="7.4" data-path="fixed-point-method.html"><a href="fixed-point-method.html#numerical-example-1"><i class="fa fa-check"></i><b>7.4</b> Numerical Example</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="newtons-method.html"><a href="newtons-method.html"><i class="fa fa-check"></i><b>8</b> Newton’s Method</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="newtons-method.html"><a href="newtons-method.html#notations-big-o-and-little-o"><i class="fa fa-check"></i><b>8.1</b> Notations: Big O and Little o</a></li>
+<li class="chapter" data-level="8.2" data-path="newtons-method.html"><a href="newtons-method.html#foundations-of-newton-method"><i class="fa fa-check"></i><b>8.2</b> Foundations of Newton Method</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="newtons-method.html"><a href="newtons-method.html#the-algorithmic-logic"><i class="fa fa-check"></i><b>8.2.1</b> The Algorithmic Logic</a></li>
+<li class="chapter" data-level="8.2.2" data-path="newtons-method.html"><a href="newtons-method.html#initial-starting-value-matters"><i class="fa fa-check"></i><b>8.2.2</b> Initial Starting Value Matters</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="newtons-method.html"><a href="newtons-method.html#algorithm-and-pseudo-code"><i class="fa fa-check"></i><b>8.3</b> Algorithm and Pseudo-code</a></li>
+<li class="chapter" data-level="8.4" data-path="newtons-method.html"><a href="newtons-method.html#error-analysis-3"><i class="fa fa-check"></i><b>8.4</b> Error Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="secant-method.html"><a href="secant-method.html"><i class="fa fa-check"></i><b>9</b> Secant Method</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="secant-method.html"><a href="secant-method.html#secant-method-1"><i class="fa fa-check"></i><b>9.1</b> Secant Method</a></li>
+<li class="chapter" data-level="9.2" data-path="secant-method.html"><a href="secant-method.html#secant-algorithm-and-implementation"><i class="fa fa-check"></i><b>9.2</b> Secant Algorithm and Implementation</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="secant-method.html"><a href="secant-method.html#implementation-with-r"><i class="fa fa-check"></i><b>9.2.1</b> Implementation with R</a></li>
+<li class="chapter" data-level="9.2.2" data-path="secant-method.html"><a href="secant-method.html#numerical-examples"><i class="fa fa-check"></i><b>9.2.2</b> Numerical Examples</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="secant-method.html"><a href="secant-method.html#error-analysis-4"><i class="fa fa-check"></i><b>9.3</b> Error Analysis</a></li>
+<li class="chapter" data-level="9.4" data-path="secant-method.html"><a href="secant-method.html#false-position-method"><i class="fa fa-check"></i><b>9.4</b> False Position Method</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html"><i class="fa fa-check"></i><b>10</b> Lagrange Interpolation</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html#concepts-of-interpolation-method"><i class="fa fa-check"></i><b>10.1</b> Concepts of Interpolation Method</a>
+<ul>
+<li class="chapter" data-level="10.1.1" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html#data-fitting-interpolation"><i class="fa fa-check"></i><b>10.1.1</b> Data-fitting / Interpolation:</a></li>
+<li class="chapter" data-level="10.1.2" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html#functional-equation-curve-approximation"><i class="fa fa-check"></i><b>10.1.2</b> Functional Equation (Curve Approximation)</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html#the-lagrange-interpolation"><i class="fa fa-check"></i><b>10.2</b> The Lagrange Interpolation</a>
+<ul>
+<li class="chapter" data-level="10.2.1" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html#linear-lagrange-interpolation"><i class="fa fa-check"></i><b>10.2.1</b> Linear Lagrange Interpolation</a></li>
+<li class="chapter" data-level="10.2.2" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html#quadratic-lagrange-interpolation"><i class="fa fa-check"></i><b>10.2.2</b> Quadratic Lagrange Interpolation</a></li>
+<li class="chapter" data-level="10.2.3" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html#general-lagrange-interpolation"><i class="fa fa-check"></i><b>10.2.3</b> General Lagrange Interpolation</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html#lagrange-algorithm-and-implementation"><i class="fa fa-check"></i><b>10.3</b> Lagrange Algorithm and Implementation</a>
+<ul>
+<li class="chapter" data-level="10.3.1" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html#pseudo-code"><i class="fa fa-check"></i><b>10.3.1</b> Pseudo-code</a></li>
+<li class="chapter" data-level="10.3.2" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html#r-function-with-scalar-input"><i class="fa fa-check"></i><b>10.3.2</b> R Function with Scalar Input</a></li>
+<li class="chapter" data-level="10.3.3" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html#r-function-with-vector-input"><i class="fa fa-check"></i><b>10.3.3</b> R Function with Vector Input</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html#error-analysis-5"><i class="fa fa-check"></i><b>10.4</b> Error Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="newton-interpolation.html"><a href="newton-interpolation.html"><i class="fa fa-check"></i><b>11</b> Newton Interpolation</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="newton-interpolation.html"><a href="newton-interpolation.html#some-definitions"><i class="fa fa-check"></i><b>11.1</b> Some Definitions</a>
+<ul>
+<li class="chapter" data-level="11.1.1" data-path="newton-interpolation.html"><a href="newton-interpolation.html#definitions"><i class="fa fa-check"></i><b>11.1.1</b> Definitions</a></li>
+<li class="chapter" data-level="11.1.2" data-path="newton-interpolation.html"><a href="newton-interpolation.html#calculation-of-divided-difference"><i class="fa fa-check"></i><b>11.1.2</b> Calculation of Divided Difference</a></li>
+<li class="chapter" data-level="11.1.3" data-path="newton-interpolation.html"><a href="newton-interpolation.html#algorithm-of-calculating-divided-differences"><i class="fa fa-check"></i><b>11.1.3</b> Algorithm of Calculating Divided Differences</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="newton-interpolation.html"><a href="newton-interpolation.html#newton-interpolation-polynomial"><i class="fa fa-check"></i><b>11.2</b> Newton Interpolation Polynomial</a>
+<ul>
+<li class="chapter" data-level="11.2.1" data-path="newton-interpolation.html"><a href="newton-interpolation.html#definition-of-newton-interpolation"><i class="fa fa-check"></i><b>11.2.1</b> Definition of Newton Interpolation</a></li>
+<li class="chapter" data-level="11.2.2" data-path="newton-interpolation.html"><a href="newton-interpolation.html#newton-interpolation-algorithm"><i class="fa fa-check"></i><b>11.2.2</b> Newton Interpolation Algorithm</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="newton-interpolation.html"><a href="newton-interpolation.html#error-analysis-6"><i class="fa fa-check"></i><b>11.3</b> Error Analysis</a></li>
+<li class="chapter" data-level="11.4" data-path="newton-interpolation.html"><a href="newton-interpolation.html#some-remarks-of-newton-interpolation"><i class="fa fa-check"></i><b>11.4</b> Some Remarks of Newton Interpolation</a></li>
+<li class="chapter" data-level="11.5" data-path="newton-interpolation.html"><a href="newton-interpolation.html#implicit-loops-in-r-programming"><i class="fa fa-check"></i><b>11.5</b> Implicit Loops in R Programming</a>
+<ul>
+<li class="chapter" data-level="11.5.1" data-path="newton-interpolation.html"><a href="newton-interpolation.html#implicit-in-r-primitive-functions"><i class="fa fa-check"></i><b>11.5.1</b> Implicit in R Primitive Functions</a></li>
+<li class="chapter" data-level="11.5.2" data-path="newton-interpolation.html"><a href="newton-interpolation.html#some-vectorized-primitive-functions"><i class="fa fa-check"></i><b>11.5.2</b> Some Vectorized Primitive Functions</a></li>
+<li class="chapter" data-level="11.5.3" data-path="newton-interpolation.html"><a href="newton-interpolation.html#divided-difference-variants"><i class="fa fa-check"></i><b>11.5.3</b> Divided Difference Variants</a></li>
+<li class="chapter" data-level="11.5.4" data-path="newton-interpolation.html"><a href="newton-interpolation.html#vectorizing-newtoninterp"><i class="fa fa-check"></i><b>11.5.4</b> Vectorizing <strong>NewtonInterp()</strong></a></li>
+<li class="chapter" data-level="11.5.5" data-path="newton-interpolation.html"><a href="newton-interpolation.html#code-efficiency-with-implivit-loops"><i class="fa fa-check"></i><b>11.5.5</b> Code Efficiency with Implivit Loops</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="gauss-elimination-method.html"><a href="gauss-elimination-method.html"><i class="fa fa-check"></i><b>12</b> Gauss Elimination Method</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="gauss-elimination-method.html"><a href="gauss-elimination-method.html#naive-gaussian-elimination-methods"><i class="fa fa-check"></i><b>12.1</b> Naive Gaussian Elimination Methods</a></li>
+<li class="chapter" data-level="12.2" data-path="gauss-elimination-method.html"><a href="gauss-elimination-method.html#gaussian-elimination-algorithm"><i class="fa fa-check"></i><b>12.2</b> Gaussian Elimination Algorithm</a></li>
+<li class="chapter" data-level="12.3" data-path="gauss-elimination-method.html"><a href="gauss-elimination-method.html#gauss-jordan-elimination-optional"><i class="fa fa-check"></i><b>12.3</b> Gauss-Jordan Elimination (<code>Optional</code>)</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="determinant-and-inversion-of-matrices.html"><a href="determinant-and-inversion-of-matrices.html"><i class="fa fa-check"></i><b>13</b> Determinant and Inversion of Matrices</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="determinant-and-inversion-of-matrices.html"><a href="determinant-and-inversion-of-matrices.html#concepts-of-matrix-a-review"><i class="fa fa-check"></i><b>13.1</b> Concepts of Matrix: A Review</a>
+<ul>
+<li class="chapter" data-level="13.1.1" data-path="determinant-and-inversion-of-matrices.html"><a href="determinant-and-inversion-of-matrices.html#definitions-of-some-special-matrices"><i class="fa fa-check"></i><b>13.1.1</b> Definitions of Some Special Matrices</a></li>
+<li class="chapter" data-level="13.1.2" data-path="determinant-and-inversion-of-matrices.html"><a href="determinant-and-inversion-of-matrices.html#binary-operations"><i class="fa fa-check"></i><b>13.1.2</b> Binary Operations</a></li>
+<li class="chapter" data-level="13.1.3" data-path="determinant-and-inversion-of-matrices.html"><a href="determinant-and-inversion-of-matrices.html#unary-operations"><i class="fa fa-check"></i><b>13.1.3</b> Unary Operations</a></li>
+</ul></li>
+<li class="chapter" data-level="13.2" data-path="determinant-and-inversion-of-matrices.html"><a href="determinant-and-inversion-of-matrices.html#determinant-of-a-square-matrix"><i class="fa fa-check"></i><b>13.2</b> Determinant of a Square Matrix</a></li>
+<li class="chapter" data-level="13.3" data-path="determinant-and-inversion-of-matrices.html"><a href="determinant-and-inversion-of-matrices.html#matrix-inversion"><i class="fa fa-check"></i><b>13.3</b> Matrix Inversion</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="matrix-factorization.html"><a href="matrix-factorization.html"><i class="fa fa-check"></i><b>14</b> Matrix Factorization</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="matrix-factorization.html"><a href="matrix-factorization.html#elementary-and-permutation-matrices"><i class="fa fa-check"></i><b>14.1</b> Elementary and Permutation Matrices</a></li>
+<li class="chapter" data-level="14.2" data-path="matrix-factorization.html"><a href="matrix-factorization.html#lu-factorization-algorithm"><i class="fa fa-check"></i><b>14.2</b> LU Factorization Algorithm</a>
+<ul>
+<li class="chapter" data-level="14.2.1" data-path="matrix-factorization.html"><a href="matrix-factorization.html#row-operations-with-row-swapping"><i class="fa fa-check"></i><b>14.2.1</b> Row Operations with Row Swapping</a></li>
+<li class="chapter" data-level="14.2.2" data-path="matrix-factorization.html"><a href="matrix-factorization.html#row-operations-with-row-swapping-1"><i class="fa fa-check"></i><b>14.2.2</b> Row Operations with Row-swapping</a></li>
+<li class="chapter" data-level="14.2.3" data-path="matrix-factorization.html"><a href="matrix-factorization.html#lu-algorithm"><i class="fa fa-check"></i><b>14.2.3</b> LU ALgorithm</a></li>
+</ul></li>
+<li class="chapter" data-level="14.3" data-path="matrix-factorization.html"><a href="matrix-factorization.html#benefit-of-lu-factorization"><i class="fa fa-check"></i><b>14.3</b> Benefit of LU Factorization</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="least-square-approximation.html"><a href="least-square-approximation.html"><i class="fa fa-check"></i><b>15</b> Least Square Approximation</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="least-square-approximation.html"><a href="least-square-approximation.html#concepts-of-least-square-approximation"><i class="fa fa-check"></i><b>15.1</b> Concepts of Least Square Approximation</a></li>
+<li class="chapter" data-level="15.2" data-path="least-square-approximation.html"><a href="least-square-approximation.html#approximating-one-variable-linear-function"><i class="fa fa-check"></i><b>15.2</b> Approximating One-variable Linear Function</a></li>
+<li class="chapter" data-level="15.3" data-path="least-square-approximation.html"><a href="least-square-approximation.html#approximating-multiple-variable-linear-function"><i class="fa fa-check"></i><b>15.3</b> Approximating Multiple-variable Linear Function</a>
+<ul>
+<li class="chapter" data-level="15.3.1" data-path="least-square-approximation.html"><a href="least-square-approximation.html#an-extension-of-the-height-example"><i class="fa fa-check"></i><b>15.3.1</b> An Extension of the Height Example</a></li>
+<li class="chapter" data-level="15.3.2" data-path="least-square-approximation.html"><a href="least-square-approximation.html#approximating-general-multi-variables-linear-functions"><i class="fa fa-check"></i><b>15.3.2</b> Approximating General Multi-variables Linear Functions</a></li>
+</ul></li>
+<li class="chapter" data-level="15.4" data-path="least-square-approximation.html"><a href="least-square-approximation.html#approximating-one-variable-polynomial-function"><i class="fa fa-check"></i><b>15.4</b> Approximating One-variable Polynomial Function</a>
+<ul>
+<li class="chapter" data-level="15.4.1" data-path="least-square-approximation.html"><a href="least-square-approximation.html#approximating-quadratic-function"><i class="fa fa-check"></i><b>15.4.1</b> Approximating Quadratic Function</a></li>
+<li class="chapter" data-level="15.4.2" data-path="least-square-approximation.html"><a href="least-square-approximation.html#approximating-general-polynomial-functions"><i class="fa fa-check"></i><b>15.4.2</b> Approximating General Polynomial Functions</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="concepts-of-spline-interpolations.html"><a href="concepts-of-spline-interpolations.html"><i class="fa fa-check"></i><b>16</b> Concepts of Spline Interpolations</a>
+<ul>
+<li class="chapter" data-level="16.1" data-path="concepts-of-spline-interpolations.html"><a href="concepts-of-spline-interpolations.html#linear-splines"><i class="fa fa-check"></i><b>16.1</b> Linear Splines</a></li>
+<li class="chapter" data-level="16.2" data-path="concepts-of-spline-interpolations.html"><a href="concepts-of-spline-interpolations.html#quadratic-spline-interpolation"><i class="fa fa-check"></i><b>16.2</b> Quadratic Spline Interpolation</a>
+<ul>
+<li class="chapter" data-level="16.2.1" data-path="concepts-of-spline-interpolations.html"><a href="concepts-of-spline-interpolations.html#formulation-of-quadratic-spline"><i class="fa fa-check"></i><b>16.2.1</b> Formulation of Quadratic Spline</a></li>
+<li class="chapter" data-level="16.2.2" data-path="concepts-of-spline-interpolations.html"><a href="concepts-of-spline-interpolations.html#matrix-representation-of-quadratic-spline-problem"><i class="fa fa-check"></i><b>16.2.2</b> Matrix Representation of Quadratic Spline Problem</a></li>
+<li class="chapter" data-level="16.2.3" data-path="concepts-of-spline-interpolations.html"><a href="concepts-of-spline-interpolations.html#algorithm-of-quadratic-spline"><i class="fa fa-check"></i><b>16.2.3</b> Algorithm of Quadratic Spline</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="cubic-spline-interpolation.html"><a href="cubic-spline-interpolation.html"><i class="fa fa-check"></i><b>17</b> Cubic Spline Interpolation</a>
+<ul>
+<li class="chapter" data-level="17.1" data-path="cubic-spline-interpolation.html"><a href="cubic-spline-interpolation.html#cubic-splines"><i class="fa fa-check"></i><b>17.1</b> Cubic Splines</a>
+<ul>
+<li class="chapter" data-level="17.1.1" data-path="cubic-spline-interpolation.html"><a href="cubic-spline-interpolation.html#formulation-of-cubic-spline"><i class="fa fa-check"></i><b>17.1.1</b> Formulation of Cubic Spline</a></li>
+<li class="chapter" data-level="17.1.2" data-path="cubic-spline-interpolation.html"><a href="cubic-spline-interpolation.html#construction-of-cubic-splines"><i class="fa fa-check"></i><b>17.1.2</b> Construction of Cubic Splines</a></li>
+<li class="chapter" data-level="17.1.3" data-path="cubic-spline-interpolation.html"><a href="cubic-spline-interpolation.html#cubic-spline-algorithm"><i class="fa fa-check"></i><b>17.1.3</b> Cubic Spline Algorithm</a></li>
+</ul></li>
+<li class="chapter" data-level="17.2" data-path="cubic-spline-interpolation.html"><a href="cubic-spline-interpolation.html#clamped-splines"><i class="fa fa-check"></i><b>17.2</b> Clamped Splines</a></li>
+<li class="chapter" data-level="17.3" data-path="cubic-spline-interpolation.html"><a href="cubic-spline-interpolation.html#error-analysis-7"><i class="fa fa-check"></i><b>17.3</b> Error Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="newton-method-for-nonlinear-system-and-optimization.html"><a href="newton-method-for-nonlinear-system-and-optimization.html"><i class="fa fa-check"></i><b>18</b> Newton Method for Nonlinear System and Optimization</a>
+<ul>
+<li class="chapter" data-level="18.1" data-path="newton-method-for-nonlinear-system-and-optimization.html"><a href="newton-method-for-nonlinear-system-and-optimization.html#multivariate-taylor-expansion"><i class="fa fa-check"></i><b>18.1</b> Multivariate Taylor Expansion</a></li>
+<li class="chapter" data-level="18.2" data-path="newton-method-for-nonlinear-system-and-optimization.html"><a href="newton-method-for-nonlinear-system-and-optimization.html#newton-method-for-nonlinear-systems"><i class="fa fa-check"></i><b>18.2</b> Newton Method for Nonlinear Systems</a>
+<ul>
+<li class="chapter" data-level="18.2.1" data-path="newton-method-for-nonlinear-system-and-optimization.html"><a href="newton-method-for-nonlinear-system-and-optimization.html#system-of-two-nonlinear-equations"><i class="fa fa-check"></i><b>18.2.1</b> System of Two Nonlinear Equations</a></li>
+<li class="chapter" data-level="18.2.2" data-path="newton-method-for-nonlinear-system-and-optimization.html"><a href="newton-method-for-nonlinear-system-and-optimization.html#newton-algorithm"><i class="fa fa-check"></i><b>18.2.2</b> Newton Algorithm</a></li>
+</ul></li>
+<li class="chapter" data-level="18.3" data-path="newton-method-for-nonlinear-system-and-optimization.html"><a href="newton-method-for-nonlinear-system-and-optimization.html#optimization"><i class="fa fa-check"></i><b>18.3</b> Optimization</a></li>
+<li class="chapter" data-level="18.4" data-path="newton-method-for-nonlinear-system-and-optimization.html"><a href="newton-method-for-nonlinear-system-and-optimization.html#a-case-study"><i class="fa fa-check"></i><b>18.4</b> A Case Study</a></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html"><i class="fa fa-check"></i><b>19</b> Numerical Integration I</a>
+<ul>
+<li class="chapter" data-level="19.1" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html#numerical-approximation-of-derivatives"><i class="fa fa-check"></i><b>19.1</b> Numerical Approximation of Derivatives</a></li>
+<li class="chapter" data-level="19.2" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html#trapezoid-method"><i class="fa fa-check"></i><b>19.2</b> Trapezoid Method</a>
+<ul>
+<li class="chapter" data-level="19.2.1" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html#formulation-of-trapezoid-method"><i class="fa fa-check"></i><b>19.2.1</b> Formulation of Trapezoid Method</a></li>
+<li class="chapter" data-level="19.2.2" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html#error-analysis-8"><i class="fa fa-check"></i><b>19.2.2</b> Error Analysis</a></li>
+<li class="chapter" data-level="19.2.3" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html#composite-trapezoid-method-and-error-analysis"><i class="fa fa-check"></i><b>19.2.3</b> Composite Trapezoid Method and Error Analysis</a></li>
+<li class="chapter" data-level="19.2.4" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html#trapezoid-algorithm"><i class="fa fa-check"></i><b>19.2.4</b> Trapezoid Algorithm</a></li>
+</ul></li>
+<li class="chapter" data-level="19.3" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html#simpsons-one-third-rule"><i class="fa fa-check"></i><b>19.3</b> Simpson’s One-third Rule</a>
+<ul>
+<li class="chapter" data-level="19.3.1" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html#derivation-of-simpsons-rule"><i class="fa fa-check"></i><b>19.3.1</b> Derivation of Simpson’s Rule</a></li>
+<li class="chapter" data-level="19.3.2" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html#explicit-function-on-x_i-1-x_i1"><i class="fa fa-check"></i><b>19.3.2</b> Explicit Function on <span class="math inline">\([x_{i-1}, x_{i+1}]\)</span></a></li>
+<li class="chapter" data-level="19.3.3" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html#the-composite-simpsons-rule"><i class="fa fa-check"></i><b>19.3.3</b> The Composite Simpsons’ Rule</a></li>
+<li class="chapter" data-level="19.3.4" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html#error-analysis-9"><i class="fa fa-check"></i><b>19.3.4</b> Error Analysis</a></li>
+<li class="chapter" data-level="19.3.5" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html#algorithm-of-simpsons-rule"><i class="fa fa-check"></i><b>19.3.5</b> Algorithm of Simpson’s Rule</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html"><i class="fa fa-check"></i><b>20</b> Romberg Integration and Gaussian Quadratures</a>
+<ul>
+<li class="chapter" data-level="20.1" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#richardson-extrapolation"><i class="fa fa-check"></i><b>20.1</b> Richardson Extrapolation</a>
+<ul>
+<li class="chapter" data-level="20.1.1" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#the-logic-of-the-richardson-method"><i class="fa fa-check"></i><b>20.1.1</b> The Logic of the Richardson Method</a></li>
+<li class="chapter" data-level="20.1.2" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#algorithm-of-richardson-method"><i class="fa fa-check"></i><b>20.1.2</b> Algorithm of Richardson Method</a></li>
+<li class="chapter" data-level="20.1.3" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#higher-order-extrapolation"><i class="fa fa-check"></i><b>20.1.3</b> Higher Order Extrapolation</a></li>
+<li class="chapter" data-level="20.1.4" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#algorithm-and-code"><i class="fa fa-check"></i><b>20.1.4</b> Algorithm and Code</a></li>
+</ul></li>
+<li class="chapter" data-level="20.2" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#romberg-integration"><i class="fa fa-check"></i><b>20.2</b> Romberg Integration</a>
+<ul>
+<li class="chapter" data-level="20.2.1" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#approximation-formula-and-error-analysis"><i class="fa fa-check"></i><b>20.2.1</b> Approximation formula and Error Analysis</a></li>
+<li class="chapter" data-level="20.2.2" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#romberg-algorithm"><i class="fa fa-check"></i><b>20.2.2</b> Romberg Algorithm</a></li>
+<li class="chapter" data-level="20.2.3" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#r-code"><i class="fa fa-check"></i><b>20.2.3</b> R Code</a></li>
+</ul></li>
+<li class="chapter" data-level="20.3" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#gaussian-quadrature"><i class="fa fa-check"></i><b>20.3</b> Gaussian Quadrature</a>
+<ul>
+<li class="chapter" data-level="20.3.1" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#two-point-gauss-legendre-formula"><i class="fa fa-check"></i><b>20.3.1</b> Two-point Gauss Legendre Formula</a></li>
+<li class="chapter" data-level="20.3.2" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#general-gauss-legendre-formula"><i class="fa fa-check"></i><b>20.3.2</b> General Gauss Legendre Formula</a></li>
+<li class="chapter" data-level="20.3.3" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#r-code-1"><i class="fa fa-check"></i><b>20.3.3</b> R Code</a></li>
+</ul></li>
+<li class="chapter" data-level="20.4" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#remarks"><i class="fa fa-check"></i><b>20.4</b> Remarks</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">MAT325 E-Pack: Numerical Analysis</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="newton-method-for-nonlinear-system-and-optimization" class="section level1 hasAnchor" number="18">
+<h1><span class="header-section-number">Topic 18</span> Newton Method for Nonlinear System and Optimization<a href="newton-method-for-nonlinear-system-and-optimization.html#newton-method-for-nonlinear-system-and-optimization" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>We have introduced the direct methods in matrix algebra and several
+interpolation methods to approximate a univariate function with either
+an explicitly given analytic expression or with an unknown expression.
+We use matrix algebra to solve problems of least-square approximation of
+multiple-variable functions. In this note, we will introduce Newton’s
+methods to solve nonlinear system equations with applications in
+optimization.</p>
+<div id="multivariate-taylor-expansion" class="section level2 hasAnchor" number="18.1">
+<h2><span class="header-section-number">18.1</span> Multivariate Taylor Expansion<a href="newton-method-for-nonlinear-system-and-optimization.html#multivariate-taylor-expansion" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The recursive algorithm of Newton’s method for single variable nonlinear
+equations is derived based on the Taylor expansion. The method can be
+generalized to solve the system of nonlinear functions. We consider Taylor
+expansion of two-variable function <span class="math inline">\(f(x,y)\)</span> at <span class="math inline">\((x_0, y_0)\)</span>. For
+convenience</p>
+<p><span class="math display">\[
+f(x,y) = f(x_0, y_0) +  f_x(x_0,y_0)(x-x_0) + f_y(x_0,y_0)(y-y_0)
+\]</span></p>
+<p><span class="math display">\[
++ \frac{f_{x^2}(x_0,y_0)}{2!}(x-x_0)^2 + \frac{f_{y^2}(x_0,y_0)}{2!}(y-y_0)^2 + \frac{f_{xy}(x_0,y_0)}{1!1!}(x-x_0)(y-y_0)
+\]</span> <span class="math display">\[
++ \cdots + \sum_{k+m = n\\0\le k,~m\le n}\frac{f_{x^ky^m}(x_0,y_0)}{k!~m!}(x-x_0)^k(y-y_0)^m + E_n
+\]</span></p>
+<p>where</p>
+<p><span class="math display">\[
+f_{x^k}(x_0,y_0) = \frac{\partial^{k} f(x,y)}{\partial x^k}\big{|}_{x=x_0\\y=y_0}, ~~~ f_{y^k}(x_0,y_0) = \frac{\partial^k f(x,y)}{\partial y^k}\big{|}_{x=x_0\\y=y_0}, ~~~ f_{x^py^q}(x_0,y_0) = \frac{\partial^{p+q} f(x,y)}{\partial x^p \partial y^q}\big{|}_{x=x_0,\\y=y_0}.
+\]</span> and <span class="math inline">\(E_n\)</span> is the remainder term.</p>
+<p><strong>Example 1</strong>: Find the third order Taylor expansion of
+<span class="math inline">\(f(x, y) = e^{2x}\sin(3y)\)</span> about <span class="math inline">\((x_0, y_0) = (0, 0)\)</span> using the above
+formula. We first compute all partial derivatives up to order 3 at
+<span class="math inline">\((x_0, y_0)\)</span>.</p>
+<p><span class="math display">\[
+\begin{array}{ll}
+f(x, y) = e^{2x}\sin(3y)          &amp;  f(x_0, y_0) = 0          \\
+f_x(x, y) = 2e^{2x}\sin(3y)       &amp;  f_x(x_0, y_0) = 0        \\
+f_y(x, y) = 3e^{2x}\cos(3y)       &amp;  f_y(x_0, y_0) = 3        \\
+f_{x^2}(x, y) = 4e^{2x}\sin(3y)   &amp;  f_{x^2}(x_0, y_0) = 0    \\
+f_{xy}(x, y) = 6e^{2x}\cos(3y)    &amp;  f_{xy}(x_0, y_0) = 6     \\
+f_{y^2}(x, y) = -9e^{2x}\sin(3y)  &amp;  f_{y^2}(x_0, y_0) = 0    \\
+f_{x^3}(x, y) = 8e^{2x}\sin(3y)   &amp;  f_{x^3}(x_0, y_0) = 0    \\
+f_{x^2y}(x, y) = 12e^{2x}\cos(3y) &amp;  f_{x^2y}(x_0, y_0) = 12  \\
+f_{xy^2}(x, y) = -18e^{2x}\sin(3y)&amp;  f_{xy^2}(x_0, y_0) = 0   \\
+f_{y^3}(x,y) = -27e^{2x}\cos(3y)  &amp;  f_{y^3}(x_0, y_0) = -27
+\end{array}
+\]</span> Using the above formula, we have <span class="math display">\[
+e^{2x}\sin(3y) = \frac{3}{1}y + \frac{6}{1!1!}xy + \frac{12}{2!1!}x^2y -\frac{27}{3!}y^3 + E_3(x,y) \\
+~~~~=3y + 6xy + 6x^2y-4.5y^3 + E_3(x,y).
+\]</span></p>
+<p><br />
+</p>
+</div>
+<div id="newton-method-for-nonlinear-systems" class="section level2 hasAnchor" number="18.2">
+<h2><span class="header-section-number">18.2</span> Newton Method for Nonlinear Systems<a href="newton-method-for-nonlinear-system-and-optimization.html#newton-method-for-nonlinear-systems" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>To find the root of nonlinear equation <span class="math inline">\(f(x) = 0\)</span>, we assume that <span class="math inline">\(f(x)\)</span>
+is differentiable. Using Taylor’s expansion, we have</p>
+<p><span class="math display">\[
+f(x) \approx f(x_0) + f^\prime(x_0)(x-x_0) ~~~\Rightarrow ~~~ x = x_0-\frac{f(x_0)}{f^\prime(x_0)}
+\]</span></p>
+<div id="system-of-two-nonlinear-equations" class="section level3 hasAnchor" number="18.2.1">
+<h3><span class="header-section-number">18.2.1</span> System of Two Nonlinear Equations<a href="newton-method-for-nonlinear-system-and-optimization.html#system-of-two-nonlinear-equations" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Consider system</p>
+<p><span class="math display">\[
+\left\{
+\begin{array}{lcl}
+f_1(x,y) &amp; = &amp; 0 \\
+f_2(x,y) &amp; = &amp; 0
+\end{array}
+\right.
+\]</span></p>
+<p>As we did in single function equation, we take the first order
+derivative of both <span class="math inline">\(f_1(x,y)\)</span> and <span class="math inline">\(f_2(x,y)\)</span>, the do linear
+approximations to both functions</p>
+<p><span class="math display">\[
+\left\{
+\begin{array}{lcl}
+f_1(x,y) &amp; = &amp; f_1(x_0, y_0) + \frac{\partial f_1(x_0, y_0)}{\partial x}(x-x_0) + \frac{\partial f_1(x_0,y_0)}{\partial y}(y-y_0) \\
+f_2(x,y) &amp; = &amp; f_2(x_0, y_0) + \frac{\partial f_2(x_0, y_0)}{\partial x}(x-x_0) + \frac{\partial f_2(x_0,y_0)}{\partial y}(y-y_0)
+\end{array}
+\right.
+\]</span> The above system can be written in the following matrix equation</p>
+<p><span class="math display">\[
+\left[
+\begin{array}{cc}
+\frac{\partial f_1(x_0, y_0)}{\partial x} &amp; \frac{\partial f_1(x_0,y_0)}{\partial y}\\
+\frac{\partial f_2(x_0, y_0)}{\partial x} &amp; \frac{\partial f_2(x_0,y_0)}{\partial y}
+\end{array}
+\right]
+\left[
+\begin{array}{cc}
+x-x_0 \\
+y-y_0
+\end{array}
+\right]
+~=~
+-
+\left[
+\begin{array}{cc}
+f_1(x_0,y_0)\\
+f_2(x_0,y_0)
+\end{array}
+\right]
+\]</span></p>
+<p>The coefficient matrix in the above matrix equation is called <strong>Jacobian
+matrix</strong> and is denoted by <strong>J</strong>. If the inverse of <span class="math display">\[
+\mathbf{J} = \left[
+\begin{array}{cc}
+\frac{\partial f_1(x_0, y_0)}{\partial x} &amp; \frac{\partial f_1(x_0,y_0)}{\partial y}\\
+\frac{\partial f_2(x_0, y_0)}{\partial x} &amp; \frac{\partial f_2(x_0,y_0)}{\partial y}
+\end{array}
+\right]
+\]</span> exists, then</p>
+<p><span class="math display">\[
+\left[
+\begin{array}{cc}
+x-x_0 \\
+y-y_0
+\end{array}
+\right]
+~=~ -
+\left[
+\begin{array}{cc}
+\frac{\partial f_1(x_0, y_0)}{\partial x} &amp; \frac{\partial f_1(x_0,y_0)}{\partial y}\\
+\frac{\partial f_2(x_0, y_0)}{\partial x} &amp; \frac{\partial f_2(x_0,y_0)}{\partial y}
+\end{array}
+\right]^{-1}
+\left[
+\begin{array}{cc}
+f_1(x_0,y_0)\\
+f_2(x_0,y_0)
+\end{array}
+\right]
+\]</span> which can be further re-expressed as</p>
+<p><span class="math display">\[
+\left[
+\begin{array}{cc}
+x \\
+y
+\end{array}
+\right]
+~=~
+\left[
+\begin{array}{cc}
+x_0 \\
+y_0
+\end{array}
+\right]
+-
+\left[
+\begin{array}{cc}
+\frac{\partial f_1(x_0, y_0)}{\partial x} &amp; \frac{\partial f_1(x_0,y_0)}{\partial y}\\
+\frac{\partial f_2(x_0, y_0)}{\partial x} &amp; \frac{\partial f_2(x_0,y_0)}{\partial y}
+\end{array}
+\right]^{-1}
+\left[
+\begin{array}{cc}
+f_1(x_0,y_0)\\
+f_2(x_0,y_0)
+\end{array}
+\right].
+\]</span></p>
+<p>The Newton method of the above system of two nonlinear equations is
+based on the following recursive relationship</p>
+<p><span class="math display">\[
+\left[
+\begin{array}{cc}
+x_{k+1} \\
+y_{k+1}
+\end{array}
+\right]
+~=~
+\left[
+\begin{array}{cc}
+x_k \\
+y_k
+\end{array}
+\right]
+-
+\left[
+\begin{array}{cc}
+\frac{\partial f_1(x_k, y_k)}{\partial x} &amp; \frac{\partial f_1(x_k,y_k)}{\partial y}\\
+\frac{\partial f_2(x_k, y_k)}{\partial x} &amp; \frac{\partial f_2(x_k,y_k)}{\partial y}
+\end{array}
+\right]^{-1}
+\left[
+\begin{array}{cc}
+f_1(x_k,y_k)\\
+f_2(x_k,y_k)
+\end{array}
+\right].
+\]</span> Denote</p>
+<p><span class="math display">\[
+\mathbf{X}_{k+1} =\left[
+\begin{array}{cc}
+x_{k+1} \\
+y_{k+1}
+\end{array}
+\right],
+~~~~~~
+\mathbf{X}_{k} =
+\left[
+\begin{array}{cc}
+x_k \\
+y_k
+\end{array}
+\right],
+~~~~~
+\mathbf{h} = -
+\left[
+\begin{array}{cc}
+\frac{\partial f_1(x_k, y_k)}{\partial x} &amp; \frac{\partial f_1(x_k,y_k)}{\partial y}\\
+\frac{\partial f_2(x_k, y_k)}{\partial x} &amp; \frac{\partial f_2(x_k,y_k)}{\partial y}
+\end{array}
+\right]^{-1}
+\left[
+\begin{array}{cc}
+f_1(x_k,y_k)\\
+f_2(x_k,y_k)
+\end{array}
+\right].
+\]</span></p>
+<p>Then the recursive relationship is given by <span class="math display">\[
+\mathbf{X}_{k+1} = \mathbf{X}_{k} + \mathbf{h}.
+\]</span></p>
+<p><br />
+</p>
+</div>
+<div id="newton-algorithm" class="section level3 hasAnchor" number="18.2.2">
+<h3><span class="header-section-number">18.2.2</span> Newton Algorithm<a href="newton-method-for-nonlinear-system-and-optimization.html#newton-algorithm" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>With the above recursive relation, we develop the following <em>brief</em>
+pseudo-code</p>
+<pre><code> INPUT: fn,       (vector of the system of nonlinear equations)
+        J,        (Jacobian matrix based on fn)
+        ini.val,   
+        TOL, 
+        maxit 
+OUTPUT: sol, etc.        
+
+STEP 1: initialization 
+         iterator: i = 1
+         err = 1  (any number that is bigger than TOL)
+         sol      (initialize the matrix to store output information) 
+STEP 2: WHILE err &gt; TOL AND i &lt; maxit DO
+        h = inverse(J)xY
+        new.x = ini.x + h  (updating x vector)
+        ENDWHILE
+STEP 3: RETURN sol</code></pre>
+<p><strong>Example 2</strong>: Solve the following system of nonlinear equations <span class="math display">\[
+\left\{
+\begin{array}{lcl}
+x^2 + y^2 &amp; = &amp; 4 \\
+xy &amp; = &amp; 1
+\end{array}
+\right.
+\]</span> which corresponds to finding the intersection points of a circle and
+a hyperbola in the plane.</p>
+<p><strong>Solution</strong>: In order to use the Newton method, we need to find the
+Jacobian matrix. Denote <span class="math inline">\(f_1(x,y) = x^2 + y^2 -4\)</span> and
+<span class="math inline">\(f_2(x,y) = xy -1\)</span>. Then</p>
+<p><span class="math display">\[
+J(x,y) = \left[
+\begin{array}{cc}
+\frac{\partial f_1(x_k, y_k)}{\partial x} &amp; \frac{\partial f_1(x_k,y_k)}{\partial y}\\
+\frac{\partial f_2(x_k, y_k)}{\partial x} &amp; \frac{\partial f_2(x_k,y_k)}{\partial y}
+\end{array}
+\right]
+~=~
+\left[
+\begin{array}{cc}
+2x &amp; 2y\\
+y &amp; x
+\end{array}
+\right]
+\]</span></p>
+<div class="sourceCode" id="cb280"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb280-1"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb280-1" tabindex="-1"></a><span class="do">##</span></span>
+<span id="cb280-2"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb280-2" tabindex="-1"></a>fn.vec<span class="ot">=</span><span class="cf">function</span>(ini.val){</span>
+<span id="cb280-3"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb280-3" tabindex="-1"></a> x<span class="ot">=</span>ini.val[<span class="dv">1</span>]</span>
+<span id="cb280-4"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb280-4" tabindex="-1"></a> y<span class="ot">=</span>ini.val[<span class="dv">2</span>]</span>
+<span id="cb280-5"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb280-5" tabindex="-1"></a> f1 <span class="ot">=</span> x<span class="sc">^</span><span class="dv">2</span><span class="sc">+</span>y<span class="sc">^</span><span class="dv">2</span> <span class="sc">-</span><span class="dv">4</span></span>
+<span id="cb280-6"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb280-6" tabindex="-1"></a> f2 <span class="ot">=</span> x<span class="sc">*</span>y<span class="dv">-1</span></span>
+<span id="cb280-7"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb280-7" tabindex="-1"></a> <span class="fu">c</span>(f1,f2)</span>
+<span id="cb280-8"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb280-8" tabindex="-1"></a>}</span>
+<span id="cb280-9"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb280-9" tabindex="-1"></a></span>
+<span id="cb280-10"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb280-10" tabindex="-1"></a>Jacobian<span class="ot">=</span><span class="cf">function</span>(ini.val){</span>
+<span id="cb280-11"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb280-11" tabindex="-1"></a> x<span class="ot">=</span>ini.val[<span class="dv">1</span>]</span>
+<span id="cb280-12"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb280-12" tabindex="-1"></a> y<span class="ot">=</span>ini.val[<span class="dv">2</span>]</span>
+<span id="cb280-13"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb280-13" tabindex="-1"></a> f1.x <span class="ot">=</span> <span class="dv">2</span><span class="sc">*</span>x</span>
+<span id="cb280-14"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb280-14" tabindex="-1"></a> f1.y <span class="ot">=</span> <span class="dv">2</span><span class="sc">*</span>y</span>
+<span id="cb280-15"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb280-15" tabindex="-1"></a> f2.x <span class="ot">=</span> y</span>
+<span id="cb280-16"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb280-16" tabindex="-1"></a> f2.y <span class="ot">=</span> x</span>
+<span id="cb280-17"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb280-17" tabindex="-1"></a> m<span class="ot">=</span><span class="fu">matrix</span>(<span class="fu">c</span>(f1.x, f1.y, f2.x, f2.y), <span class="at">ncol=</span><span class="dv">2</span>, <span class="at">byrow=</span>T)</span>
+<span id="cb280-18"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb280-18" tabindex="-1"></a> m</span>
+<span id="cb280-19"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb280-19" tabindex="-1"></a>}</span>
+<span id="cb280-20"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb280-20" tabindex="-1"></a></span>
+<span id="cb280-21"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb280-21" tabindex="-1"></a>Newton<span class="ot">=</span><span class="cf">function</span>(fn.vec, Jacobian, ini.val, tol, <span class="at">maxit=</span><span class="dv">100</span>){</span>
+<span id="cb280-22"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb280-22" tabindex="-1"></a> x<span class="ot">=</span>ini.val[<span class="dv">1</span>]</span>
+<span id="cb280-23"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb280-23" tabindex="-1"></a> y<span class="ot">=</span>ini.val[<span class="dv">2</span>]</span>
+<span id="cb280-24"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb280-24" tabindex="-1"></a> <span class="do">### initialization</span></span>
+<span id="cb280-25"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb280-25" tabindex="-1"></a> err<span class="ot">=</span><span class="dv">1</span></span>
+<span id="cb280-26"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb280-26" tabindex="-1"></a> i <span class="ot">=</span> <span class="dv">1</span></span>
+<span id="cb280-27"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb280-27" tabindex="-1"></a> sol.mtx <span class="ot">=</span> <span class="fu">matrix</span>(<span class="dv">0</span>, <span class="at">nrow=</span>maxit, <span class="at">ncol=</span><span class="fu">length</span>(ini.val))</span>
+<span id="cb280-28"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb280-28" tabindex="-1"></a> err.vec <span class="ot">=</span> <span class="fu">rep</span>(<span class="dv">0</span>, maxit)</span>
+<span id="cb280-29"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb280-29" tabindex="-1"></a> fn.mtx <span class="ot">=</span> <span class="fu">matrix</span>(<span class="dv">0</span>, <span class="at">nrow=</span>maxit, <span class="at">ncol=</span><span class="fu">length</span>(ini.val))</span>
+<span id="cb280-30"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb280-30" tabindex="-1"></a> <span class="cf">while</span>(err <span class="sc">&gt;</span> tol  <span class="sc">&amp;&amp;</span> i <span class="sc">&lt;</span> maxit){</span>
+<span id="cb280-31"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb280-31" tabindex="-1"></a>   h <span class="ot">=</span> <span class="sc">-</span> <span class="fu">solve</span>(<span class="fu">Jacobian</span>(ini.val))<span class="sc">%*%</span><span class="fu">fn.vec</span>(ini.val)</span>
+<span id="cb280-32"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb280-32" tabindex="-1"></a>   new.val <span class="ot">=</span> ini.val <span class="sc">+</span> h </span>
+<span id="cb280-33"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb280-33" tabindex="-1"></a>   err<span class="ot">=</span><span class="fu">max</span>(<span class="fu">abs</span>(h))</span>
+<span id="cb280-34"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb280-34" tabindex="-1"></a>   <span class="do">## store intermediate outputs</span></span>
+<span id="cb280-35"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb280-35" tabindex="-1"></a>   err.vec[i] <span class="ot">=</span> err</span>
+<span id="cb280-36"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb280-36" tabindex="-1"></a>   sol.mtx[i,] <span class="ot">=</span> <span class="fu">as.vector</span>(new.val)</span>
+<span id="cb280-37"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb280-37" tabindex="-1"></a>   fn.mtx[i,] <span class="ot">=</span> <span class="fu">fn.vec</span>(new.val)</span>
+<span id="cb280-38"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb280-38" tabindex="-1"></a>   <span class="do">## updating the root and the iteration ID</span></span>
+<span id="cb280-39"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb280-39" tabindex="-1"></a>   ini.val<span class="ot">=</span>new.val</span>
+<span id="cb280-40"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb280-40" tabindex="-1"></a>   i <span class="ot">=</span> i <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb280-41"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb280-41" tabindex="-1"></a> }</span>
+<span id="cb280-42"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb280-42" tabindex="-1"></a> id <span class="ot">=</span> <span class="fu">which</span>(err.vec<span class="sc">==</span><span class="dv">0</span>)[<span class="dv">1</span>]<span class="sc">-</span><span class="dv">1</span>   <span class="co"># locate the starting rows with all zero cells</span></span>
+<span id="cb280-43"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb280-43" tabindex="-1"></a> <span class="fu">list</span>(<span class="at">solution =</span> sol.mtx[<span class="dv">1</span><span class="sc">:</span>id,], <span class="at">error =</span> err.vec[<span class="dv">1</span><span class="sc">:</span>id], <span class="at">fn.values =</span> fn.mtx[<span class="dv">1</span><span class="sc">:</span>id,])</span>
+<span id="cb280-44"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb280-44" tabindex="-1"></a>}</span>
+<span id="cb280-45"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb280-45" tabindex="-1"></a><span class="co"># function call</span></span>
+<span id="cb280-46"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb280-46" tabindex="-1"></a></span>
+<span id="cb280-47"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb280-47" tabindex="-1"></a><span class="fu">Newton</span>(fn.vec, Jacobian, <span class="at">ini.val=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="fl">1.5</span>), <span class="at">tol=</span><span class="dv">10</span><span class="sc">^</span>(<span class="sc">-</span><span class="dv">4</span>))</span></code></pre></div>
+<pre><code>## $solution
+##           [,1]     [,2]
+## [1,] 0.1000000 2.350000
+## [2,] 0.4400227 2.009467
+## [3,] 0.5137997 1.935690
+## [4,] 0.5176277 1.931862
+## [5,] 0.5176381 1.931852
+## 
+## $error
+## [1] 9.000000e-01 3.405329e-01 7.377707e-02 3.828039e-03 1.036171e-05
+## 
+## $fn.values
+##              [,1]          [,2]
+## [1,] 1.532500e+00 -7.650000e-01
+## [2,] 2.315781e-01 -1.157889e-01
+## [3,] 1.088610e-02 -5.443052e-03
+## [4,] 2.930776e-05 -1.465388e-05
+## [5,] 2.147305e-10 -1.073650e-10</code></pre>
+<p><br />
+</p>
+</div>
+</div>
+<div id="optimization" class="section level2 hasAnchor" number="18.3">
+<h2><span class="header-section-number">18.3</span> Optimization<a href="newton-method-for-nonlinear-system-and-optimization.html#optimization" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>For ease of presentation, we focus on bivariate functions. Multivariate
+functions can be treated similarly.</p>
+<div class="sourceCode" id="cb282"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb282-1"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb282-1" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_graphics</span>(<span class="st">&quot;img14/w14-optimization.png&quot;</span>)</span></code></pre></div>
+<p><img src="img14/w14-optimization.png" width="40%" style="display: block; margin: auto;" /></p>
+<p>First, we recall some of the results in Calculus. Let <span class="math inline">\(f(x,y\)</span> be a two
+variable real function. <span class="math inline">\(f(x,y\)</span> has a local maximum at <span class="math inline">\((a,b)\)</span> if
+<span class="math inline">\(f(x,y) \le f(a,b)\)</span> when <span class="math inline">\((x,y)\)</span> is in the neighborhood of <span class="math inline">\((a,b)\)</span>.
+<span class="math inline">\(f(a,b)\)</span> is the local maximum value. <span class="math inline">\(f(x,y\)</span> has a local maximum at
+<span class="math inline">\((a,b)\)</span> if <span class="math inline">\(f(x,y) \ge f(a,b)\)</span> when <span class="math inline">\((x,y)\)</span> is in the neighborhood of
+<span class="math inline">\((a,b)\)</span>. <span class="math inline">\(f(a,b)\)</span> is the local minimum value.</p>
+<p><strong>Theorem 1</strong> If <span class="math inline">\(f(x,y)\)</span> has a local maximum or minimum at <span class="math inline">\((a,b)\)</span> and
+the first order partial derivatives of <span class="math inline">\(f(x,y)\)</span> exist, the
+<span class="math inline">\(f_x(a,b) = 0\)</span> and <span class="math inline">\(f_y(a,b) = 0\)</span>.</p>
+<p><strong>Theorem 2</strong> Suppose the second order partial derivative of <span class="math inline">\(f(x,y)\)</span>
+are continuous on a disk with center <span class="math inline">\((a,b)\)</span> (i.e., the neighborhood of
+<span class="math inline">\((a,b)\)</span>), and assume that <span class="math inline">\(f_x(a,b) = 0\)</span> and <span class="math inline">\(f_y(a, b) = 0\)</span> [that is,
+<span class="math inline">\((a,b)\)</span> is a critical point of <span class="math inline">\(f(x,y)\)</span>]. Let</p>
+<p><span class="math display">\[
+D(a, b) = f_{x^2}(a,b)f_{y^2}(a,b) - [f_{xy}(a,b)]^2.
+\]</span> (a). If <span class="math inline">\(D &gt; 0\)</span> and <span class="math inline">\(f_{x^2}(a,b) &gt; 0\)</span>, then <span class="math inline">\(f(a, b)\)</span> is a local
+minimum.</p>
+<p>(b). If <span class="math inline">\(D &gt; 0\)</span> and <span class="math inline">\(f_{x^2}(a,b) &lt; 0\)</span>, then <span class="math inline">\(f(a, b)\)</span> is a local
+maximum.</p>
+<p>(c). If <span class="math inline">\(D &lt; 0\)</span> , then <span class="math inline">\(f(a, b)\)</span> is not a local minimum or maximum.</p>
+<p><br />
+</p>
+<p>Notations <span class="math inline">\(f_{x^2}(a,b), ~f_{y^2}(a,b), ~~\text{and}~~f_{xy}(a,b)\)</span> are
+specified earlier.</p>
+<p><em>Some Remarks:</em></p>
+<ul>
+<li>In case (c) the point <span class="math inline">\((a,b)\)</span> is called a <strong>saddle point</strong> of
+<span class="math inline">\(f(x,y)\)</span> and the graph of <span class="math inline">\(f(x,y)\)</span> crosses its tangent plane at
+<span class="math inline">\((a,b)\)</span>. The red point on the surface (hyperbolic paraboloid) in the
+following figure is a saddle point.</li>
+</ul>
+<div class="sourceCode" id="cb283"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb283-1"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb283-1" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_graphics</span>(<span class="st">&quot;img14/w14-saddlePoint.png&quot;</span>)</span></code></pre></div>
+<p><img src="img14/w14-saddlePoint.png" width="40%" style="display: block; margin: auto;" /></p>
+<ul>
+<li><p>If <span class="math inline">\(D=0\)</span>, the test gives no information. <span class="math inline">\(f(x,y)\)</span> could have a local
+maximum or local minimum at <span class="math inline">\((a,b)\)</span>, or (a,b) could be a saddle
+point of <span class="math inline">\(f(x,y)\)</span>.</p></li>
+<li><p>To remember the formula for <span class="math inline">\(D(a,b)\)</span>, it’s helpful to write it as a
+determinant:</p></li>
+</ul>
+<p><span class="math display">\[
+D(a,b) = \left[
+\begin{array}{cc}
+f_{x^2}(a,b) &amp; f_{xy}(a,b)\\
+f_{xy}(a,b)  &amp; f_{y^2}(a,b)
+\end{array}
+\right]
+~=~ f_{x^2}(a,b)f_{y^2}(a,b)-[f_{xy}(a,b)]^2
+\]</span></p>
+<ul>
+<li>The matrix D in the above expression is called <strong>Hessian Matrix</strong> in
+the optimization problem.</li>
+</ul>
+<p><br />
+</p>
+<p><strong>Example 3</strong>: Find the critical value of
+<span class="math inline">\(f(x,y) = 2x^3/3 + 2xy^2 - 8x - 4y + 6\)</span> and justify whether the critical
+point is a local maximum or local minimum or a saddle point.</p>
+<p><strong>Solution</strong> We first find the critical point(s) of by solving the
+following system of nonlinear equations</p>
+<p><span class="math display">\[
+\left\{
+\begin{array}{llcl}
+f_x(x,y) = 2x^2 + 2y^2 - 8 &amp; = &amp; 0\\
+f_y(x,y) = 4xy - 4 &amp; = &amp; 0
+\end{array}
+\right.
+\]</span></p>
+<p>The above system is identical to the nonlinear system in <strong>Example 2</strong>.
+We know the solution to the above system is <span class="math inline">\((a,b) = (0.5176381, 1.931852)\)</span>.
+To see whether <span class="math inline">\((0.5176381, 1.931852)\)</span> is a local extreme value or a
+saddle point, we need to know the <strong>Hessian matrix</strong></p>
+<p><span class="math display">\[
+D(x,y) = \left[
+\begin{array}{cc}
+4x &amp; 4y\\
+4y &amp; 4x
+\end{array}
+\right]
+\]</span></p>
+<p>The determinant of the Hessian matrix at <span class="math inline">\((0.5176381, 1.931852)\)</span> is</p>
+<p><span class="math display">\[
+D(0.5176381, 1.931852) = \det \left[
+\begin{array}{cc}
+4\times 0.5176381 &amp; 4\times 1.931852\\
+4\times 1.931852 &amp; 4\times 0.5176381
+\end{array}
+\right]
+~=~ 14(0.5176381^2- 1.931852^2) &lt; 0.
+\]</span></p>
+<p><br />
+</p>
+<p><strong>Example 4</strong>: Find and classify the critical points of the function
+<span class="math display">\[
+f(x,y) = 10x^2y - 5x^2 - 4y^2 - x^4 - 2y^4
+\]</span>
+Also find the highest point on the graph of <span class="math inline">\(f(x,y)\)</span>.</p>
+<p><strong>Solution</strong>: We first make a 3D</p>
+<div class="sourceCode" id="cb284"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb284-1"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb284-1" tabindex="-1"></a>FN<span class="ot">=</span><span class="cf">function</span>(x,y) <span class="dv">10</span><span class="sc">*</span>y<span class="sc">*</span>x<span class="sc">^</span><span class="dv">2-5</span><span class="sc">*</span>x<span class="sc">^</span><span class="dv">2-4</span><span class="sc">*</span>y<span class="sc">^</span><span class="dv">2</span><span class="sc">-</span>x<span class="sc">^</span><span class="dv">4-2</span><span class="sc">*</span>y<span class="sc">^</span><span class="dv">4</span></span>
+<span id="cb284-2"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb284-2" tabindex="-1"></a>x<span class="ot">=</span><span class="fu">seq</span>(<span class="sc">-</span><span class="dv">4</span>,<span class="dv">4</span>,<span class="fl">0.1</span>)</span>
+<span id="cb284-3"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb284-3" tabindex="-1"></a>y<span class="ot">=</span><span class="fu">seq</span>(<span class="sc">-</span><span class="dv">3</span>,<span class="dv">3</span>,<span class="fl">0.1</span>)</span>
+<span id="cb284-4"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb284-4" tabindex="-1"></a>z<span class="ot">=</span><span class="fu">outer</span>(x,y,FN)</span>
+<span id="cb284-5"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb284-5" tabindex="-1"></a><span class="fu">persp</span>(x, y, z, <span class="at">theta =</span> <span class="dv">180</span>, <span class="at">phi =</span> <span class="dv">30</span>, <span class="at">expand =</span> <span class="fl">0.6</span>, <span class="at">col =</span> <span class="st">&quot;lightblue&quot;</span>, <span class="at">ltheta =</span> <span class="dv">90</span>, </span>
+<span id="cb284-6"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb284-6" tabindex="-1"></a><span class="at">shade =</span> <span class="fl">0.15</span>, <span class="at">ticktype =</span> <span class="st">&quot;detailed&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;X&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Y&quot;</span>, <span class="at">zlab =</span> <span class="st">&quot;Z&quot;</span>, <span class="at">zlim =</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">10</span>,<span class="dv">8</span>)</span>
+<span id="cb284-7"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb284-7" tabindex="-1"></a>)</span></code></pre></div>
+<pre><code>## Warning in persp.default(x, y, z, theta = 180, phi = 30, expand = 0.6, col = &quot;lightblue&quot;, : 面超出框</code></pre>
+<p><img src="MAT325EB_files/figure-html/unnamed-chunk-212-1.png" width="384" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb286"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb286-1"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb286-1" tabindex="-1"></a><span class="fu">contour</span>(x,y,z, <span class="at">nlevels =</span> <span class="dv">40</span>)</span></code></pre></div>
+<p><img src="MAT325EB_files/figure-html/unnamed-chunk-213-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p>The 3D surface indicates that there are three local extrema and two saddle points on the surface. We need to choose appropriate initial values to locate the critical points and saddle points. We first take partial derivatives of the given function <span class="math inline">\(f(x,y)\)</span> and set them to zero.</p>
+<p><span class="math display">\[
+\left\{
+\begin{array}{lclcl}
+f_x(x,y) &amp; = &amp; 20xy - 10x - 4x^3 &amp; = &amp; 0\\
+f_y(x,y) &amp; = &amp; 10x^2 -8y - 8y^3 &amp; = &amp; 0
+\end{array}
+\right.
+\]</span>
+The Jacobian matrix of the above nonlinear system is given by</p>
+<p><span class="math display">\[
+\mathbf{J} = \left[
+\begin{array}{cc}
+f_{x^2}(x,y) &amp; f_{xy}(x,y) \\
+f_{xy}(x,y)  &amp; f_{y^2}(x,y)
+\end{array}
+\right]
+~=~
+\left[
+\begin{array}{cc}
+20y-12x^2 - 10 &amp; 20x \\
+20x  &amp; -24y^2 - 8
+\end{array}
+\right]
+\]</span></p>
+<p>We now use the Newton method with different initial values to find all critical values (guided by the surface in the figure).</p>
+<div class="sourceCode" id="cb287"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb287-1"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb287-1" tabindex="-1"></a>fn.vec<span class="ot">=</span><span class="cf">function</span>(ini.val){</span>
+<span id="cb287-2"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb287-2" tabindex="-1"></a> x<span class="ot">=</span>ini.val[<span class="dv">1</span>]</span>
+<span id="cb287-3"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb287-3" tabindex="-1"></a> y<span class="ot">=</span>ini.val[<span class="dv">2</span>]</span>
+<span id="cb287-4"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb287-4" tabindex="-1"></a> fx <span class="ot">=</span> <span class="dv">20</span><span class="sc">*</span>x<span class="sc">*</span>y<span class="dv">-10</span><span class="sc">*</span>x<span class="dv">-4</span><span class="sc">*</span>x<span class="sc">^</span><span class="dv">3</span></span>
+<span id="cb287-5"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb287-5" tabindex="-1"></a> fy <span class="ot">=</span> <span class="dv">10</span><span class="sc">*</span>x<span class="sc">^</span><span class="dv">2-8</span><span class="sc">*</span>y<span class="dv">-8</span><span class="sc">*</span>y<span class="sc">^</span><span class="dv">3</span></span>
+<span id="cb287-6"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb287-6" tabindex="-1"></a> <span class="fu">c</span>(fx,fy)</span>
+<span id="cb287-7"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb287-7" tabindex="-1"></a>}</span>
+<span id="cb287-8"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb287-8" tabindex="-1"></a></span>
+<span id="cb287-9"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb287-9" tabindex="-1"></a>Jacobian<span class="ot">=</span><span class="cf">function</span>(ini.val){</span>
+<span id="cb287-10"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb287-10" tabindex="-1"></a> x<span class="ot">=</span>ini.val[<span class="dv">1</span>]</span>
+<span id="cb287-11"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb287-11" tabindex="-1"></a> y<span class="ot">=</span>ini.val[<span class="dv">2</span>]</span>
+<span id="cb287-12"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb287-12" tabindex="-1"></a> fxx <span class="ot">=</span> <span class="dv">20</span><span class="sc">*</span>y<span class="dv">-10-12</span><span class="sc">*</span>x<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb287-13"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb287-13" tabindex="-1"></a> fxy <span class="ot">=</span> <span class="dv">20</span><span class="sc">*</span>x</span>
+<span id="cb287-14"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb287-14" tabindex="-1"></a> fyx <span class="ot">=</span> <span class="dv">20</span><span class="sc">*</span>x</span>
+<span id="cb287-15"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb287-15" tabindex="-1"></a> fyy <span class="ot">=</span> <span class="sc">-</span><span class="dv">8-24</span><span class="sc">*</span>y<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb287-16"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb287-16" tabindex="-1"></a> m<span class="ot">=</span><span class="fu">matrix</span>(<span class="fu">c</span>(fxx, fxy, fyx, fyy), <span class="at">ncol=</span><span class="dv">2</span>, <span class="at">byrow=</span>T)</span>
+<span id="cb287-17"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb287-17" tabindex="-1"></a> m</span>
+<span id="cb287-18"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb287-18" tabindex="-1"></a>}</span>
+<span id="cb287-19"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb287-19" tabindex="-1"></a></span>
+<span id="cb287-20"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb287-20" tabindex="-1"></a>Newton.Raphson<span class="ot">=</span><span class="cf">function</span>(fn.vec, Jacobian, ini.val, tol, <span class="at">maxit=</span><span class="dv">100</span>, <span class="at">trace =</span> <span class="cn">TRUE</span>){</span>
+<span id="cb287-21"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb287-21" tabindex="-1"></a> x<span class="ot">=</span>ini.val[<span class="dv">1</span>]</span>
+<span id="cb287-22"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb287-22" tabindex="-1"></a> y<span class="ot">=</span>ini.val[<span class="dv">2</span>]</span>
+<span id="cb287-23"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb287-23" tabindex="-1"></a> <span class="do">### initialization</span></span>
+<span id="cb287-24"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb287-24" tabindex="-1"></a> err <span class="ot">=</span> <span class="dv">1</span></span>
+<span id="cb287-25"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb287-25" tabindex="-1"></a> i <span class="ot">=</span> <span class="dv">1</span></span>
+<span id="cb287-26"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb287-26" tabindex="-1"></a> sol.mtx <span class="ot">=</span> <span class="fu">matrix</span>(<span class="dv">0</span>, <span class="at">nrow=</span>maxit, <span class="at">ncol=</span><span class="fu">length</span>(ini.val))</span>
+<span id="cb287-27"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb287-27" tabindex="-1"></a> err.vec <span class="ot">=</span> <span class="fu">rep</span>(<span class="dv">0</span>, maxit)</span>
+<span id="cb287-28"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb287-28" tabindex="-1"></a> fn.mtx <span class="ot">=</span> <span class="fu">matrix</span>(<span class="dv">0</span>, <span class="at">nrow=</span>maxit, <span class="at">ncol=</span><span class="fu">length</span>(ini.val))</span>
+<span id="cb287-29"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb287-29" tabindex="-1"></a> <span class="cf">while</span>(err <span class="sc">&gt;</span> tol  <span class="sc">&amp;&amp;</span> i <span class="sc">&lt;</span> maxit){</span>
+<span id="cb287-30"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb287-30" tabindex="-1"></a>   h <span class="ot">=</span> <span class="sc">-</span> <span class="fu">solve</span>(<span class="fu">Jacobian</span>(ini.val))<span class="sc">%*%</span><span class="fu">fn.vec</span>(ini.val)</span>
+<span id="cb287-31"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb287-31" tabindex="-1"></a>   new.val <span class="ot">=</span> ini.val <span class="sc">+</span> h </span>
+<span id="cb287-32"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb287-32" tabindex="-1"></a>   err<span class="ot">=</span><span class="fu">max</span>(<span class="fu">abs</span>(h))</span>
+<span id="cb287-33"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb287-33" tabindex="-1"></a>   <span class="do">## store intermediate outputs</span></span>
+<span id="cb287-34"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb287-34" tabindex="-1"></a>   err.vec[i] <span class="ot">=</span> err</span>
+<span id="cb287-35"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb287-35" tabindex="-1"></a>   sol.mtx[i,] <span class="ot">=</span> <span class="fu">as.vector</span>(new.val)</span>
+<span id="cb287-36"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb287-36" tabindex="-1"></a>   fn.mtx[i,] <span class="ot">=</span> <span class="fu">fn.vec</span>(new.val)</span>
+<span id="cb287-37"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb287-37" tabindex="-1"></a>   <span class="do">## updating the root and the iteration ID</span></span>
+<span id="cb287-38"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb287-38" tabindex="-1"></a>   ini.val<span class="ot">=</span>new.val</span>
+<span id="cb287-39"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb287-39" tabindex="-1"></a>   i <span class="ot">=</span> i <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb287-40"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb287-40" tabindex="-1"></a>  }</span>
+<span id="cb287-41"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb287-41" tabindex="-1"></a>  id <span class="ot">=</span> <span class="fu">which</span>(err.vec<span class="sc">==</span><span class="dv">0</span>)[<span class="dv">1</span>]<span class="sc">-</span><span class="dv">1</span>   <span class="co"># locate the starting rows with all zero cells</span></span>
+<span id="cb287-42"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb287-42" tabindex="-1"></a>  <span class="do">##  Determinant of Hessian</span></span>
+<span id="cb287-43"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb287-43" tabindex="-1"></a>  D <span class="ot">=</span> <span class="fu">det</span>(<span class="fu">Jacobian</span>(sol.mtx[id,]))</span>
+<span id="cb287-44"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb287-44" tabindex="-1"></a>  fxx <span class="ot">=</span> <span class="fu">Jacobian</span>(sol.mtx[id,])[<span class="dv">1</span>,<span class="dv">1</span>]</span>
+<span id="cb287-45"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb287-45" tabindex="-1"></a>  <span class="do">##</span></span>
+<span id="cb287-46"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb287-46" tabindex="-1"></a>  <span class="cf">if</span>(trace <span class="sc">==</span><span class="cn">TRUE</span>){</span>
+<span id="cb287-47"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb287-47" tabindex="-1"></a>      <span class="fu">list</span>(<span class="at">solution =</span> sol.mtx[<span class="dv">1</span><span class="sc">:</span>id,],  <span class="at">error =</span> err.vec[<span class="dv">1</span><span class="sc">:</span>id], <span class="at">fn.values =</span> fn.mtx[<span class="dv">1</span><span class="sc">:</span>id,])</span>
+<span id="cb287-48"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb287-48" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb287-49"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb287-49" tabindex="-1"></a>   <span class="cf">if</span>(D <span class="sc">&gt;</span> <span class="dv">0</span> <span class="sc">&amp;</span> fxx <span class="sc">&gt;</span> <span class="dv">0</span>) extreme <span class="ot">=</span> <span class="st">&quot;local minimum&quot;</span></span>
+<span id="cb287-50"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb287-50" tabindex="-1"></a>   <span class="cf">if</span>(D <span class="sc">&gt;</span> <span class="dv">0</span> <span class="sc">&amp;</span> fxx <span class="sc">&lt;</span> <span class="dv">0</span>) extreme <span class="ot">=</span> <span class="st">&quot;local maximum&quot;</span></span>
+<span id="cb287-51"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb287-51" tabindex="-1"></a>   <span class="cf">if</span>(D <span class="sc">&lt;</span> <span class="dv">0</span> ) extreme <span class="ot">=</span> <span class="st">&quot;saddle point&quot;</span></span>
+<span id="cb287-52"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb287-52" tabindex="-1"></a>   <span class="fu">list</span>(<span class="at">iterations =</span> id, <span class="at">solution =</span> sol.mtx[id,], <span class="at">D =</span> D, <span class="at">fxx =</span> fxx, <span class="at">extreme =</span> extreme, <span class="at">error =</span> err.vec[id], <span class="at">fn.values =</span> fn.mtx[id,])</span>
+<span id="cb287-53"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb287-53" tabindex="-1"></a>  }</span>
+<span id="cb287-54"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb287-54" tabindex="-1"></a> }</span></code></pre></div>
+<div class="sourceCode" id="cb288"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb288-1"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb288-1" tabindex="-1"></a><span class="fu">Newton.Raphson</span>(fn.vec, Jacobian, <span class="at">ini.val=</span><span class="fu">c</span>(<span class="fl">0.8</span>,<span class="fl">0.6</span>), <span class="at">tol=</span><span class="dv">10</span><span class="sc">^</span>(<span class="sc">-</span><span class="dv">4</span>), <span class="at">trace =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<pre><code>## $iterations
+## [1] 3
+## 
+## $solution
+## [1] 0.8566569 0.6467722
+## 
+## $D
+## [1] -187.6363
+## 
+## $fxx
+## [1] -5.870888
+## 
+## $extreme
+## [1] &quot;saddle point&quot;
+## 
+## $error
+## [1] 3.268639e-06
+## 
+## $fn.values
+## [1]  9.349321e-11 -1.186673e-10</code></pre>
+<div class="sourceCode" id="cb290"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb290-1"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb290-1" tabindex="-1"></a><span class="fu">Newton.Raphson</span>(fn.vec, Jacobian, <span class="at">ini.val=</span><span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.8</span>,<span class="fl">0.6</span>), <span class="at">tol=</span><span class="dv">10</span><span class="sc">^</span>(<span class="sc">-</span><span class="dv">4</span>), <span class="at">trace =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<pre><code>## $iterations
+## [1] 3
+## 
+## $solution
+## [1] -0.8566569  0.6467722
+## 
+## $D
+## [1] -187.6363
+## 
+## $fxx
+## [1] -5.870888
+## 
+## $extreme
+## [1] &quot;saddle point&quot;
+## 
+## $error
+## [1] 3.268639e-06
+## 
+## $fn.values
+## [1] -9.349321e-11 -1.186673e-10</code></pre>
+<div class="sourceCode" id="cb292"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb292-1"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb292-1" tabindex="-1"></a><span class="fu">Newton.Raphson</span>(fn.vec, Jacobian, <span class="at">ini.val=</span><span class="fu">c</span>(<span class="fl">0.1</span>,<span class="fl">0.2</span>), <span class="at">tol=</span><span class="dv">10</span><span class="sc">^</span>(<span class="sc">-</span><span class="dv">4</span>), <span class="at">trace =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<pre><code>## $iterations
+## [1] 4
+## 
+## $solution
+## [1] -4.419185e-11 -1.840406e-10
+## 
+## $D
+## [1] 80
+## 
+## $fxx
+## [1] -10
+## 
+## $extreme
+## [1] &quot;local maximum&quot;
+## 
+## $error
+## [1] 1.213394e-05
+## 
+## $fn.values
+## [1] 4.419185e-10 1.472325e-09</code></pre>
+<div class="sourceCode" id="cb294"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb294-1"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb294-1" tabindex="-1"></a><span class="fu">Newton.Raphson</span>(fn.vec, Jacobian, <span class="at">ini.val=</span><span class="fu">c</span>(<span class="sc">-</span><span class="fl">2.8</span>,<span class="fl">1.6</span>), <span class="at">tol=</span><span class="dv">10</span><span class="sc">^</span>(<span class="sc">-</span><span class="dv">4</span>), <span class="at">trace =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<pre><code>## $iterations
+## [1] 5
+## 
+## $solution
+## [1] -2.644224  1.898384
+## 
+## $D
+## [1] 2488.717
+## 
+## $fxx
+## [1] -55.93538
+## 
+## $extreme
+## [1] &quot;local maximum&quot;
+## 
+## $error
+## [1] 7.298599e-07
+## 
+## $fn.values
+## [1]  8.540724e-12 -9.613643e-12</code></pre>
+<div class="sourceCode" id="cb296"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb296-1"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb296-1" tabindex="-1"></a><span class="fu">Newton.Raphson</span>(fn.vec, Jacobian, <span class="at">ini.val=</span><span class="fu">c</span>(<span class="sc">-</span><span class="fl">2.8</span>,<span class="fl">1.6</span>), <span class="at">tol=</span><span class="dv">10</span><span class="sc">^</span>(<span class="sc">-</span><span class="dv">4</span>), <span class="at">trace =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<pre><code>## $iterations
+## [1] 5
+## 
+## $solution
+## [1] -2.644224  1.898384
+## 
+## $D
+## [1] 2488.717
+## 
+## $fxx
+## [1] -55.93538
+## 
+## $extreme
+## [1] &quot;local maximum&quot;
+## 
+## $error
+## [1] 7.298599e-07
+## 
+## $fn.values
+## [1]  8.540724e-12 -9.613643e-12</code></pre>
+<p><br />
+</p>
+</div>
+<div id="a-case-study" class="section level2 hasAnchor" number="18.4">
+<h2><span class="header-section-number">18.4</span> A Case Study<a href="newton-method-for-nonlinear-system-and-optimization.html#a-case-study" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Many studies indicated that body mass index (BMI) is a more powerful risk factor for diabetes than genetics. The objective of this case study is to explore the association between BMI and diabetes. Studies show that the probability of diabetes and MBI have the following relationship.
+<span class="math display">\[
+\text{Prob}(\text{diabetes}) = \frac{e^{\alpha_0 + \alpha_1 BMI}}{1 + e^{\alpha_0 + \alpha_1 BMI}}
+\]</span>
+Let <span class="math inline">\(x\)</span> be the measurement BMI and <span class="math inline">\(y\)</span> be the status of diabetes that is numerically encoded as</p>
+<p><span class="math display">\[
+y = \left\{
+\begin{array}{ll}
+1 &amp; \text{if the diabetes test result is positive},\\
+0 &amp; \text{if the diabetes test result is negative}.
+\end{array}
+\right.
+\]</span>
+For a given set of historical observations (i.e., nodes) <span class="math inline">\(\{(x_1,y_1), (x_2, y_2), \cdots, (x_n, y_n)\}\)</span>. Using the theory of likelihood, we can approximate unknowns <span class="math inline">\(\alpha_0\)</span> and <span class="math inline">\(\alpha_1\)</span> by <strong>maximizing</strong> the following logarithmic likelihood function defined based on the given data points</p>
+<p><span class="math display">\[
+\mathbf{LL}(\alpha_0, \alpha_1) = -\sum_{i=1}^n\ln[1+e^{\alpha_0 + \alpha_1 x_i}]+ \sum_{i=1}^ny_i(\alpha_0 + \alpha_1 x_i)
+\]</span>
+To find the critical values, we set up the following nonlinear system of equations</p>
+<p><span class="math display">\[
+\frac{\partial LL}{\partial \alpha_0} = -\sum_{i=1}^n \frac{e^{\alpha_0+\alpha_1x_i}}{1+e^{\alpha_0+\alpha_1x_i}}+\sum_{i=1}^ny_i = 0
+\]</span>
+<span class="math display">\[
+\frac{\partial LL}{\partial \alpha_1} = -\sum_{i=1}^n \frac{e^{\alpha_0+\alpha_1x_i}}{1+e^{\alpha_0+\alpha_1x_i}}x_i+\sum_{i=1}^nx_iy_i = 0
+\]</span></p>
+<p>The Jacobian matrix of the above system is
+<span class="math display">\[
+\mathbf{J} = \left[
+\begin{array}{cc}
+\frac{\partial^2 LL}{\partial \alpha_0^2} &amp; \frac{\partial^2 LL}{\partial \alpha_0\alpha_1} \\
+\frac{\partial^2 LL}{\partial \alpha_0\alpha_1} &amp; \frac{\partial^2 LL}{\partial \alpha_1^2}
+\end{array}
+\right]
+\]</span>
+where
+<span class="math display">\[
+\frac{\partial^2 LL}{\partial \alpha_0^2} = -\sum_{i=1}^n \frac{e^{\alpha_0+\alpha_1x_i}}{[1+e^{\alpha_0+\alpha_1x_i}]^2},
+~~~
+\frac{\partial^2 LL}{\partial \alpha_0\alpha_1} = -\sum_{i=1}^n \frac{x_ie^{\alpha_0+\alpha_1x_i}}{[1+e^{\alpha_0+\alpha_1x_i}]^2},
+~~~
+\frac{\partial^2 LL}{\partial \alpha_1^2} = -\sum_{i=1}^n \frac{x_i^2e^{\alpha_0+\alpha_1x_i}}{[1+e^{\alpha_0+\alpha_1x_i}]^2},
+\]</span></p>
+<p>The Newton recursive formula is given by</p>
+<p><span class="math display">\[
+\left[
+\begin{array}{c}
+\alpha_0^{(k+1)}\\
+\alpha_1^{(k+1)}
+\end{array}
+\right]
+~=~
+\left[
+\begin{array}{c}
+\alpha_0^{(k)}\\
+\alpha_1^{(k)}
+\end{array}
+\right]
+~-~
+\left[
+\begin{array}{cc}
+\frac{\partial^2 LL(\alpha_0^{(k)},\alpha_1^{(k)})}{\partial \alpha_0^2} &amp; \frac{\partial^2 LL(\alpha_0^{(k)},\alpha_1^{(k)})}{\partial \alpha_0\alpha_1} \\
+\frac{\partial^2 LL(\alpha_0^{(k)},\alpha_1^{(k)})}{\partial \alpha_0\alpha_1} &amp; \frac{\partial^2 LL(\alpha_0^{(k)},\alpha_1^{(k)})}{\partial \alpha_1^2}
+\end{array}
+\right]^{-1}
+~
+\left[
+\begin{array}{c}
+\frac{\partial LL(\alpha_0^{(k)},\alpha_1^{(k)})}{\partial \alpha_1}\\
+\frac{\partial LL(\alpha_0^{(k)},\alpha_1^{(k)})}{\partial \alpha_1}
+\end{array}
+\right]
+\]</span>
+Note <span class="math inline">\(\mathbf{J}\)</span> is the Jacobian matrix of (the vector of) the two nonlinear functions in the derived systems of nonlinear equations. It is also the Hessian matrix of the log-likelihood function.</p>
+<p>Next, we write an R function to return the Jacobian matrix and the vector of the values of the two gradients of <span class="math inline">\(\mathbf{LL}(\alpha_0, \alpha_1)\)</span>.</p>
+<div class="sourceCode" id="cb298"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb298-1"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb298-1" tabindex="-1"></a>JH <span class="ot">=</span> <span class="cf">function</span>(x, y, a0, a1){</span>
+<span id="cb298-2"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb298-2" tabindex="-1"></a>  <span class="co"># x = x-coordinates</span></span>
+<span id="cb298-3"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb298-3" tabindex="-1"></a>  <span class="co"># y = y-coordinates</span></span>
+<span id="cb298-4"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb298-4" tabindex="-1"></a>  <span class="co"># a0 = alpha_0, a1 = alpha_1</span></span>
+<span id="cb298-5"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb298-5" tabindex="-1"></a>  E <span class="ot">=</span> <span class="fu">exp</span>(a0<span class="sc">+</span>a1<span class="sc">*</span>x)</span>
+<span id="cb298-6"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb298-6" tabindex="-1"></a>  L0 <span class="ot">=</span> <span class="sc">-</span><span class="fu">sum</span>(E<span class="sc">/</span>(<span class="dv">1</span><span class="sc">+</span>E)) <span class="sc">+</span> <span class="fu">sum</span>(y)</span>
+<span id="cb298-7"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb298-7" tabindex="-1"></a>  L1 <span class="ot">=</span> <span class="sc">-</span><span class="fu">sum</span>(x<span class="sc">*</span>E<span class="sc">/</span>(<span class="dv">1</span><span class="sc">+</span>E)) <span class="sc">+</span> <span class="fu">sum</span>(x<span class="sc">*</span>y)</span>
+<span id="cb298-8"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb298-8" tabindex="-1"></a>  L00 <span class="ot">=</span> <span class="sc">-</span><span class="fu">sum</span>(E<span class="sc">/</span>(<span class="dv">1</span><span class="sc">+</span>E)<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb298-9"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb298-9" tabindex="-1"></a>  L01 <span class="ot">=</span> <span class="sc">-</span><span class="fu">sum</span>(x<span class="sc">*</span>E<span class="sc">/</span>(<span class="dv">1</span><span class="sc">+</span>E)<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb298-10"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb298-10" tabindex="-1"></a>  L10 <span class="ot">=</span> L01</span>
+<span id="cb298-11"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb298-11" tabindex="-1"></a>  L11 <span class="ot">=</span>  <span class="sc">-</span><span class="fu">sum</span>(x<span class="sc">^</span><span class="dv">2</span><span class="sc">*</span>E<span class="sc">/</span>(<span class="dv">1</span><span class="sc">+</span>E)<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb298-12"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb298-12" tabindex="-1"></a>  LV <span class="ot">=</span> <span class="fu">c</span>(L0, L1)</span>
+<span id="cb298-13"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb298-13" tabindex="-1"></a>  J <span class="ot">=</span> <span class="fu">matrix</span>(<span class="fu">c</span>(L00, L01, L10, L11), <span class="at">ncol =</span><span class="dv">2</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb298-14"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb298-14" tabindex="-1"></a>  <span class="fu">list</span>(<span class="at">LV =</span> LV, <span class="at">Jacob =</span> J)</span>
+<span id="cb298-15"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb298-15" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb299"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb299-1"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb299-1" tabindex="-1"></a>Newton.Alg<span class="ot">=</span><span class="cf">function</span>(x, y, ini.val, tol, <span class="at">maxit=</span><span class="dv">100</span>, <span class="at">trace =</span> <span class="cn">TRUE</span>){</span>
+<span id="cb299-2"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb299-2" tabindex="-1"></a> <span class="do">### initialization</span></span>
+<span id="cb299-3"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb299-3" tabindex="-1"></a> err <span class="ot">=</span> <span class="dv">1</span></span>
+<span id="cb299-4"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb299-4" tabindex="-1"></a> i <span class="ot">=</span> <span class="dv">1</span></span>
+<span id="cb299-5"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb299-5" tabindex="-1"></a> sol.mtx <span class="ot">=</span> <span class="fu">matrix</span>(<span class="dv">0</span>, <span class="at">nrow=</span>maxit, <span class="at">ncol=</span><span class="fu">length</span>(ini.val))</span>
+<span id="cb299-6"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb299-6" tabindex="-1"></a> err.vec <span class="ot">=</span> <span class="fu">rep</span>(<span class="dv">0</span>, maxit)</span>
+<span id="cb299-7"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb299-7" tabindex="-1"></a> fn.mtx <span class="ot">=</span> <span class="fu">matrix</span>(<span class="dv">0</span>, <span class="at">nrow=</span>maxit, <span class="at">ncol=</span><span class="fu">length</span>(ini.val))</span>
+<span id="cb299-8"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb299-8" tabindex="-1"></a> <span class="cf">while</span>(err <span class="sc">&gt;</span> tol  <span class="sc">&amp;&amp;</span> i <span class="sc">&lt;</span> maxit){</span>
+<span id="cb299-9"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb299-9" tabindex="-1"></a> <span class="do">### initialization</span></span>
+<span id="cb299-10"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb299-10" tabindex="-1"></a>   JnFun <span class="ot">=</span> <span class="fu">JH</span>(x, y, <span class="at">a0 =</span> ini.val[<span class="dv">1</span>],<span class="at">a1 =</span> ini.val[<span class="dv">2</span>])</span>
+<span id="cb299-11"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb299-11" tabindex="-1"></a>   JMatrix <span class="ot">=</span> JnFun<span class="sc">$</span>Jacob</span>
+<span id="cb299-12"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb299-12" tabindex="-1"></a>   fn.vec <span class="ot">=</span> JnFun<span class="sc">$</span>LV</span>
+<span id="cb299-13"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb299-13" tabindex="-1"></a>   <span class="cf">if</span>(<span class="fu">det</span>(JMatrix) <span class="sc">==</span> <span class="dv">0</span>){</span>
+<span id="cb299-14"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb299-14" tabindex="-1"></a>     <span class="fu">cat</span>(<span class="st">&quot;</span><span class="sc">\n\n</span><span class="st"> The Hessian matrix is singular!&quot;</span>)</span>
+<span id="cb299-15"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb299-15" tabindex="-1"></a>     <span class="cf">break</span></span>
+<span id="cb299-16"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb299-16" tabindex="-1"></a>   }</span>
+<span id="cb299-17"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb299-17" tabindex="-1"></a>   h <span class="ot">=</span> <span class="sc">-</span> <span class="fu">solve</span>(JMatrix)<span class="sc">%*%</span>fn.vec</span>
+<span id="cb299-18"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb299-18" tabindex="-1"></a>   new.val <span class="ot">=</span> ini.val <span class="sc">+</span> h </span>
+<span id="cb299-19"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb299-19" tabindex="-1"></a>   err<span class="ot">=</span><span class="fu">max</span>(<span class="fu">abs</span>(h))</span>
+<span id="cb299-20"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb299-20" tabindex="-1"></a>   <span class="do">## store intermediate outputs</span></span>
+<span id="cb299-21"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb299-21" tabindex="-1"></a>   err.vec[i] <span class="ot">=</span> err</span>
+<span id="cb299-22"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb299-22" tabindex="-1"></a>   sol.mtx[i,] <span class="ot">=</span> <span class="fu">as.vector</span>(new.val)</span>
+<span id="cb299-23"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb299-23" tabindex="-1"></a>   fn.mtx[i,] <span class="ot">=</span> <span class="fu">JH</span>(x, y, <span class="at">a0 =</span> ini.val[<span class="dv">1</span>],<span class="at">a1 =</span> ini.val[<span class="dv">2</span>])<span class="sc">$</span>LV</span>
+<span id="cb299-24"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb299-24" tabindex="-1"></a>   <span class="do">## updating the root and the iteration ID</span></span>
+<span id="cb299-25"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb299-25" tabindex="-1"></a>   ini.val<span class="ot">=</span>new.val</span>
+<span id="cb299-26"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb299-26" tabindex="-1"></a>   i <span class="ot">=</span> i <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb299-27"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb299-27" tabindex="-1"></a>  }</span>
+<span id="cb299-28"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb299-28" tabindex="-1"></a>  id <span class="ot">=</span> <span class="fu">which</span>(err.vec<span class="sc">==</span><span class="dv">0</span>)[<span class="dv">1</span>]<span class="sc">-</span><span class="dv">1</span>   <span class="co"># locate the starting rows with all zero cells</span></span>
+<span id="cb299-29"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb299-29" tabindex="-1"></a>  <span class="do">##  Determinant of Hessian</span></span>
+<span id="cb299-30"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb299-30" tabindex="-1"></a>  SOL <span class="ot">=</span> sol.mtx[id,]</span>
+<span id="cb299-31"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb299-31" tabindex="-1"></a>  D <span class="ot">=</span> <span class="fu">det</span>(<span class="fu">JH</span>(x, y, <span class="at">a0 =</span> SOL[<span class="dv">1</span>], <span class="at">a1 =</span> SOL[<span class="dv">2</span>])<span class="sc">$</span>Jacob)</span>
+<span id="cb299-32"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb299-32" tabindex="-1"></a>  <span class="co">#D = det(Jacobian(sol.mtx[id,]))</span></span>
+<span id="cb299-33"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb299-33" tabindex="-1"></a>  fxx <span class="ot">=</span> (<span class="fu">JH</span>(x, y, <span class="at">a0 =</span> SOL[<span class="dv">1</span>], <span class="at">a1 =</span> SOL[<span class="dv">2</span>])<span class="sc">$</span>Jacob)[<span class="dv">1</span>,<span class="dv">1</span>]</span>
+<span id="cb299-34"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb299-34" tabindex="-1"></a>  <span class="do">##</span></span>
+<span id="cb299-35"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb299-35" tabindex="-1"></a>  <span class="cf">if</span>(trace <span class="sc">==</span><span class="cn">TRUE</span>){</span>
+<span id="cb299-36"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb299-36" tabindex="-1"></a>      <span class="fu">list</span>(<span class="at">solution =</span> sol.mtx[<span class="dv">1</span><span class="sc">:</span>id,],  <span class="at">error =</span> err.vec[<span class="dv">1</span><span class="sc">:</span>id], <span class="at">fn.values =</span> fn.mtx[<span class="dv">1</span><span class="sc">:</span>id,])</span>
+<span id="cb299-37"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb299-37" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb299-38"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb299-38" tabindex="-1"></a>   <span class="cf">if</span>(D <span class="sc">&gt;</span> <span class="dv">0</span> <span class="sc">&amp;</span> fxx <span class="sc">&gt;</span> <span class="dv">0</span>) extreme <span class="ot">=</span> <span class="st">&quot;local minimum&quot;</span></span>
+<span id="cb299-39"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb299-39" tabindex="-1"></a>   <span class="cf">if</span>(D <span class="sc">&gt;</span> <span class="dv">0</span> <span class="sc">&amp;</span> fxx <span class="sc">&lt;</span> <span class="dv">0</span>) extreme <span class="ot">=</span> <span class="st">&quot;local maximum&quot;</span></span>
+<span id="cb299-40"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb299-40" tabindex="-1"></a>   <span class="cf">if</span>(D <span class="sc">&lt;</span> <span class="dv">0</span> ) extreme <span class="ot">=</span> <span class="st">&quot;saddle point&quot;</span></span>
+<span id="cb299-41"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb299-41" tabindex="-1"></a>   <span class="fu">list</span>(<span class="at">iterations =</span> id, <span class="at">solution =</span> sol.mtx[id,], </span>
+<span id="cb299-42"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb299-42" tabindex="-1"></a>        <span class="at">D =</span> D, </span>
+<span id="cb299-43"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb299-43" tabindex="-1"></a>        <span class="at">fxx =</span> fxx, </span>
+<span id="cb299-44"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb299-44" tabindex="-1"></a>        <span class="at">extreme =</span> extreme, </span>
+<span id="cb299-45"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb299-45" tabindex="-1"></a>        <span class="at">error =</span> err.vec[id], </span>
+<span id="cb299-46"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb299-46" tabindex="-1"></a>        <span class="at">fn.values =</span> fn.mtx[id,])</span>
+<span id="cb299-47"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb299-47" tabindex="-1"></a>  }</span>
+<span id="cb299-48"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb299-48" tabindex="-1"></a> }</span></code></pre></div>
+<p>Next, we use diabetes data to illustrate the above predictive algorithm. The data is originally from the National Institute of Diabetes and Digestive and Kidney Diseases. The objective of collecting the data is to diagnostically <strong>predict whether or not a patient has diabetes</strong>, based on certain diagnostic measurements included in the data. Several constraints were placed on the selection of these instances from a larger database. In particular, all patients here are females at least 21 years old of <em>Pima Indian heritage</em>.</p>
+<p>A portion of the above data with missing components removed is stored in the GitHub repository of this course: <a href="https://raw.githubusercontent.com/pengdsci/MAT325/main/w12/diabetes.csv" class="uri">https://raw.githubusercontent.com/pengdsci/MAT325/main/w12/diabetes.csv</a></p>
+<p><br />
+</p>
+<p>We only use one of the potential risk factors, BMI, to make a prediction. We use</p>
+<div class="sourceCode" id="cb300"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb300-1"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb300-1" tabindex="-1"></a>diabetes <span class="ot">=</span> <span class="fu">read.csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/pengdsci/MAT325/main/w12/diabetes.csv&quot;</span>)</span>
+<span id="cb300-2"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb300-2" tabindex="-1"></a>diabeticStatus <span class="ot">=</span> diabetes<span class="sc">$</span>Outcome      <span class="co"># y-variable: 1 = diabetes, 0 = no-diabetes</span></span>
+<span id="cb300-3"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb300-3" tabindex="-1"></a>BMI <span class="ot">=</span> diabetes<span class="sc">$</span>BMI                     <span class="co"># x-variable (risk factor)</span></span>
+<span id="cb300-4"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb300-4" tabindex="-1"></a><span class="co">#glm(diabeticStatus ~ BMI, family = binomial(link = logit))</span></span>
+<span id="cb300-5"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb300-5" tabindex="-1"></a><span class="fu">Newton.Alg</span>(<span class="at">x=</span>BMI, <span class="at">y=</span>diabeticStatus, <span class="at">ini.val=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">6</span>, .<span class="dv">2</span>), <span class="at">tol =</span> <span class="dv">10</span><span class="sc">^</span>(<span class="sc">-</span><span class="dv">8</span>), <span class="at">maxit=</span><span class="dv">100</span>, <span class="at">trace =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<pre><code>## $iterations
+## [1] 7
+## 
+## $solution
+## [1] -3.60614324  0.08632952
+## 
+## $D
+## [1] 276736.4
+## 
+## $fxx
+## [1] -80.481
+## 
+## $extreme
+## [1] &quot;local maximum&quot;
+## 
+## $error
+## [1] 1.009945e-10
+## 
+## $fn.values
+## [1] -5.07498e-10 -7.73980e-09</code></pre>
+<p>The potential challenge of using Newton’s method is to find the initial value so that the algorithm converges to the solution to the system of the nonlinear equations or the optimization problem.</p>
+<p>Recall that the practical question is to predict diabetes diagnostically with given risk factors. This case study involves only one factor - BMI. With the above result of the Newton method, we have the predictive model in the following form</p>
+<p><span class="math display">\[
+\text{P[Y = diabetes]} = \frac{e^{-3.6061 + 0.0863\times BMI}}{1 + e^{-3.6061 + 0.0863\times BMI}}.
+\]</span></p>
+<p>The above function predicts the probability of being diabetic with a given BMI measurement. For example, if someone’s BMI is 30, the probability of getting diabetes is</p>
+<p><span class="math display">\[
+\text{P[Y = diabetes]} = \frac{e^{-3.6061 + 0.0863\times 30}}{1 + e^{-3.6061 + 0.0863\times 30}} \approx 0.2656
+\]</span></p>
+<div class="sourceCode" id="cb302"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb302-1"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb302-1" tabindex="-1"></a>bmi<span class="ot">=</span><span class="fu">seq</span>(<span class="dv">18</span>,<span class="dv">45</span>, <span class="at">length =</span> <span class="dv">50</span>)</span>
+<span id="cb302-2"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb302-2" tabindex="-1"></a>E <span class="ot">=</span> <span class="fu">exp</span>(<span class="sc">-</span><span class="fl">3.6061</span> <span class="sc">+</span> <span class="fl">0.0863</span><span class="sc">*</span>bmi)</span>
+<span id="cb302-3"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb302-3" tabindex="-1"></a>Prob.diabetes <span class="ot">=</span> E<span class="sc">/</span>(<span class="dv">1</span> <span class="sc">+</span> E)</span>
+<span id="cb302-4"><a href="newton-method-for-nonlinear-system-and-optimization.html#cb302-4" tabindex="-1"></a><span class="fu">plot</span>(bmi, Prob.diabetes, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, <span class="at">lwd=</span><span class="dv">2</span>, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
+<p><img src="MAT325EB_files/figure-html/unnamed-chunk-223-1.png" width="480" style="display: block; margin: auto;" /></p>
+<p>The above figure shows that the chance of getting diabetes increases as BMI increases.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="cubic-spline-interpolation.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="numerical-integration-i.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/pengdsci/MAT325EB/edit/master/17-NewtonMethod4MultivaribleNonlinerEq.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["MAT325EB.pdf", "MAT325EB.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

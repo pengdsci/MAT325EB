@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Topic 12 Gauss Elimination Method | MAT325 E-Pack: Numerical Analysis</title>
+  <meta name="description" content="The output format for this example is bookdown::gitbook." />
+  <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Topic 12 Gauss Elimination Method | MAT325 E-Pack: Numerical Analysis" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="The output format for this example is bookdown::gitbook." />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Topic 12 Gauss Elimination Method | MAT325 E-Pack: Numerical Analysis" />
+  
+  <meta name="twitter:description" content="The output format for this example is bookdown::gitbook." />
+  
+
+<meta name="author" content="Cheng Peng" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="newton-interpolation.html"/>
+<link rel="next" href="determinant-and-inversion-of-matrices.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<center><li><a href="./"><font color = "darkred"><b>MAT 325 E-Coursepack: Numerical Analysis</b></font></a><br><font color = "navy">Cheng Peng</font></li></center>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="calculus-review.html"><a href="calculus-review.html"><i class="fa fa-check"></i><b>2</b> Calculus Review</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="calculus-review.html"><a href="calculus-review.html#limits-and-continuity"><i class="fa fa-check"></i><b>2.1</b> Limits and Continuity</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="calculus-review.html"><a href="calculus-review.html#limits"><i class="fa fa-check"></i><b>2.1.1</b> Limits</a></li>
+<li class="chapter" data-level="2.1.2" data-path="calculus-review.html"><a href="calculus-review.html#continuity"><i class="fa fa-check"></i><b>2.1.2</b> Continuity</a></li>
+<li class="chapter" data-level="2.1.3" data-path="calculus-review.html"><a href="calculus-review.html#convergence-of-a-sequence"><i class="fa fa-check"></i><b>2.1.3</b> Convergence of A Sequence</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="calculus-review.html"><a href="calculus-review.html#differentiation"><i class="fa fa-check"></i><b>2.2</b> Differentiation</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="calculus-review.html"><a href="calculus-review.html#definition"><i class="fa fa-check"></i><b>2.2.1</b> Definition</a></li>
+<li class="chapter" data-level="2.2.2" data-path="calculus-review.html"><a href="calculus-review.html#properties"><i class="fa fa-check"></i><b>2.2.2</b> Properties</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="calculus-review.html"><a href="calculus-review.html#integration"><i class="fa fa-check"></i><b>2.3</b> Integration</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="calculus-review.html"><a href="calculus-review.html#series-vs-sequence"><i class="fa fa-check"></i><b>2.3.1</b> Series vs Sequence</a></li>
+<li class="chapter" data-level="2.3.2" data-path="calculus-review.html"><a href="calculus-review.html#definition-of-definite-integral"><i class="fa fa-check"></i><b>2.3.2</b> Definition of Definite Integral</a></li>
+<li class="chapter" data-level="2.3.3" data-path="calculus-review.html"><a href="calculus-review.html#taylor-expansion"><i class="fa fa-check"></i><b>2.3.3</b> Taylor Expansion</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html"><i class="fa fa-check"></i><b>3</b> Scientific Computing with R</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#vectors-and-matrices"><i class="fa fa-check"></i><b>3.1</b> Vectors and Matrices</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#vectors"><i class="fa fa-check"></i><b>3.1.1</b> Vectors</a></li>
+<li class="chapter" data-level="3.1.2" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#matrices"><i class="fa fa-check"></i><b>3.1.2</b> Matrices</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#built-in-mathematical-functions-and-operators"><i class="fa fa-check"></i><b>3.2</b> Built-in Mathematical Functions and Operators</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#arithmetic-operators"><i class="fa fa-check"></i><b>3.2.1</b> Arithmetic Operators</a></li>
+<li class="chapter" data-level="3.2.2" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#basic-mathematical-functions"><i class="fa fa-check"></i><b>3.2.2</b> Basic Mathematical Functions</a></li>
+<li class="chapter" data-level="3.2.3" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#trigonometry"><i class="fa fa-check"></i><b>3.2.3</b> Trigonometry</a></li>
+<li class="chapter" data-level="3.2.4" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#linear-algebra"><i class="fa fa-check"></i><b>3.2.4</b> Linear Algebra</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#graphic-functions-in-base-r"><i class="fa fa-check"></i><b>3.3</b> Graphic Functions in Base R</a></li>
+<li class="chapter" data-level="3.4" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#rounding-and-related-functions"><i class="fa fa-check"></i><b>3.4</b> Rounding and Related Functions</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#round"><i class="fa fa-check"></i><b>3.4.1</b> round()</a></li>
+<li class="chapter" data-level="3.4.2" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#controlling-number-of-displayed-digits"><i class="fa fa-check"></i><b>3.4.2</b> Controlling Number of Displayed Digits</a></li>
+<li class="chapter" data-level="3.4.3" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#signif"><i class="fa fa-check"></i><b>3.4.3</b> <code>Signif()</code></a></li>
+<li class="chapter" data-level="3.4.4" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#floor-and-ceiling"><i class="fa fa-check"></i><b>3.4.4</b> <code>floor()</code> and <code>ceiling()</code></a></li>
+<li class="chapter" data-level="3.4.5" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#trunc"><i class="fa fa-check"></i><b>3.4.5</b> <code>trunc()</code></a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#control-statements"><i class="fa fa-check"></i><b>3.5</b> Control Statements</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#conditional-statements"><i class="fa fa-check"></i><b>3.5.1</b> Conditional Statements</a></li>
+<li class="chapter" data-level="3.5.2" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#loops-in-r"><i class="fa fa-check"></i><b>3.5.2</b> Loops in R</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#numerical-example"><i class="fa fa-check"></i><b>3.6</b> Numerical Example</a>
+<ul>
+<li class="chapter" data-level="3.6.1" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#version-1"><i class="fa fa-check"></i><b>3.6.1</b> VERSION 1</a></li>
+<li class="chapter" data-level="3.6.2" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#version-2"><i class="fa fa-check"></i><b>3.6.2</b> Version 2</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#user-defined-functions"><i class="fa fa-check"></i><b>3.7</b> User Defined Functions</a>
+<ul>
+<li class="chapter" data-level="3.7.1" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#writing-r-functions-for-root-finding-methods"><i class="fa fa-check"></i><b>3.7.1</b> Writing R Functions for Root-finding Methods</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="basics-of-data-representation-and-error-analysis.html"><a href="basics-of-data-representation-and-error-analysis.html"><i class="fa fa-check"></i><b>4</b> Basics of Data Representation and Error Analysis</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="basics-of-data-representation-and-error-analysis.html"><a href="basics-of-data-representation-and-error-analysis.html#data-representation"><i class="fa fa-check"></i><b>4.1</b> Data Representation</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="basics-of-data-representation-and-error-analysis.html"><a href="basics-of-data-representation-and-error-analysis.html#number-systems"><i class="fa fa-check"></i><b>4.1.1</b> Number Systems</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="basics-of-data-representation-and-error-analysis.html"><a href="basics-of-data-representation-and-error-analysis.html#how-data-is-stored-in-computer-memory"><i class="fa fa-check"></i><b>4.2</b> How data is stored in computer memory</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="basics-of-data-representation-and-error-analysis.html"><a href="basics-of-data-representation-and-error-analysis.html#how-integers-are-stored-in-memory"><i class="fa fa-check"></i><b>4.2.1</b> How integers are stored in memory?</a></li>
+<li class="chapter" data-level="4.2.2" data-path="basics-of-data-representation-and-error-analysis.html"><a href="basics-of-data-representation-and-error-analysis.html#floating-point-numbers"><i class="fa fa-check"></i><b>4.2.2</b> Floating-point Numbers</a></li>
+<li class="chapter" data-level="4.2.3" data-path="basics-of-data-representation-and-error-analysis.html"><a href="basics-of-data-representation-and-error-analysis.html#how-floating-point-numbers-are-stored-in-memory"><i class="fa fa-check"></i><b>4.2.3</b> How Floating-point Numbers Are Stored in Memory?</a></li>
+<li class="chapter" data-level="4.2.4" data-path="basics-of-data-representation-and-error-analysis.html"><a href="basics-of-data-representation-and-error-analysis.html#basic-types-errors-in-error-analysis"><i class="fa fa-check"></i><b>4.2.4</b> Basic Types Errors in Error Analysis</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="error-analysis-algorithms-and-convergence.html"><a href="error-analysis-algorithms-and-convergence.html"><i class="fa fa-check"></i><b>5</b> Error Analysis, Algorithms and Convergence</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="error-analysis-algorithms-and-convergence.html"><a href="error-analysis-algorithms-and-convergence.html#error-analysis"><i class="fa fa-check"></i><b>5.1</b> Error Analysis</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="error-analysis-algorithms-and-convergence.html"><a href="error-analysis-algorithms-and-convergence.html#understanding-numerical-error"><i class="fa fa-check"></i><b>5.1.1</b> Understanding Numerical Error</a></li>
+<li class="chapter" data-level="5.1.2" data-path="error-analysis-algorithms-and-convergence.html"><a href="error-analysis-algorithms-and-convergence.html#error-classification"><i class="fa fa-check"></i><b>5.1.2</b> Error Classification</a></li>
+<li class="chapter" data-level="5.1.3" data-path="error-analysis-algorithms-and-convergence.html"><a href="error-analysis-algorithms-and-convergence.html#approximation-significant-digits-figures"><i class="fa fa-check"></i><b>5.1.3</b> Approximation Significant Digits (Figures)</a></li>
+<li class="chapter" data-level="5.1.4" data-path="error-analysis-algorithms-and-convergence.html"><a href="error-analysis-algorithms-and-convergence.html#nested-arithmetic"><i class="fa fa-check"></i><b>5.1.4</b> Nested Arithmetic</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="error-analysis-algorithms-and-convergence.html"><a href="error-analysis-algorithms-and-convergence.html#algorithms-and-convergence"><i class="fa fa-check"></i><b>5.2</b> Algorithms and Convergence</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="error-analysis-algorithms-and-convergence.html"><a href="error-analysis-algorithms-and-convergence.html#algorithm-and-psuedo-code"><i class="fa fa-check"></i><b>5.2.1</b> Algorithm and Psuedo-code</a></li>
+<li class="chapter" data-level="5.2.2" data-path="error-analysis-algorithms-and-convergence.html"><a href="error-analysis-algorithms-and-convergence.html#rules-of-pseudo-code"><i class="fa fa-check"></i><b>5.2.2</b> Rules of Pseudo-code</a></li>
+<li class="chapter" data-level="5.2.3" data-path="error-analysis-algorithms-and-convergence.html"><a href="error-analysis-algorithms-and-convergence.html#stability-of-algorithms"><i class="fa fa-check"></i><b>5.2.3</b> Stability of Algorithms</a></li>
+<li class="chapter" data-level="5.2.4" data-path="error-analysis-algorithms-and-convergence.html"><a href="error-analysis-algorithms-and-convergence.html#rates-of-convergence"><i class="fa fa-check"></i><b>5.2.4</b> Rates of Convergence</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="bisection-method.html"><a href="bisection-method.html"><i class="fa fa-check"></i><b>6</b> Bisection Method</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="bisection-method.html"><a href="bisection-method.html#the-question"><i class="fa fa-check"></i><b>6.1</b> The Question</a></li>
+<li class="chapter" data-level="6.2" data-path="bisection-method.html"><a href="bisection-method.html#bisection-method-1"><i class="fa fa-check"></i><b>6.2</b> Bisection Method</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="bisection-method.html"><a href="bisection-method.html#the-logic-of-bisection-method"><i class="fa fa-check"></i><b>6.2.1</b> The Logic of Bisection Method</a></li>
+<li class="chapter" data-level="6.2.2" data-path="bisection-method.html"><a href="bisection-method.html#bisection-algorithm"><i class="fa fa-check"></i><b>6.2.2</b> Bisection Algorithm</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="bisection-method.html"><a href="bisection-method.html#error-analysis-1"><i class="fa fa-check"></i><b>6.3</b> Error Analysis</a></li>
+<li class="chapter" data-level="6.4" data-path="bisection-method.html"><a href="bisection-method.html#numerical-examples."><i class="fa fa-check"></i><b>6.4</b> Numerical Examples.</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="fixed-point-method.html"><a href="fixed-point-method.html"><i class="fa fa-check"></i><b>7</b> Fixed Point Method</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="fixed-point-method.html"><a href="fixed-point-method.html#some-theories-of-the-fixed-point-method"><i class="fa fa-check"></i><b>7.1</b> Some Theories of the Fixed Point Method</a></li>
+<li class="chapter" data-level="7.2" data-path="fixed-point-method.html"><a href="fixed-point-method.html#fixed-point-iteration"><i class="fa fa-check"></i><b>7.2</b> Fixed Point Iteration</a></li>
+<li class="chapter" data-level="7.3" data-path="fixed-point-method.html"><a href="fixed-point-method.html#error-analysis-2"><i class="fa fa-check"></i><b>7.3</b> Error Analysis</a></li>
+<li class="chapter" data-level="7.4" data-path="fixed-point-method.html"><a href="fixed-point-method.html#numerical-example-1"><i class="fa fa-check"></i><b>7.4</b> Numerical Example</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="newtons-method.html"><a href="newtons-method.html"><i class="fa fa-check"></i><b>8</b> Newton’s Method</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="newtons-method.html"><a href="newtons-method.html#notations-big-o-and-little-o"><i class="fa fa-check"></i><b>8.1</b> Notations: Big O and Little o</a></li>
+<li class="chapter" data-level="8.2" data-path="newtons-method.html"><a href="newtons-method.html#foundations-of-newton-method"><i class="fa fa-check"></i><b>8.2</b> Foundations of Newton Method</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="newtons-method.html"><a href="newtons-method.html#the-algorithmic-logic"><i class="fa fa-check"></i><b>8.2.1</b> The Algorithmic Logic</a></li>
+<li class="chapter" data-level="8.2.2" data-path="newtons-method.html"><a href="newtons-method.html#initial-starting-value-matters"><i class="fa fa-check"></i><b>8.2.2</b> Initial Starting Value Matters</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="newtons-method.html"><a href="newtons-method.html#algorithm-and-pseudo-code"><i class="fa fa-check"></i><b>8.3</b> Algorithm and Pseudo-code</a></li>
+<li class="chapter" data-level="8.4" data-path="newtons-method.html"><a href="newtons-method.html#error-analysis-3"><i class="fa fa-check"></i><b>8.4</b> Error Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="secant-method.html"><a href="secant-method.html"><i class="fa fa-check"></i><b>9</b> Secant Method</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="secant-method.html"><a href="secant-method.html#secant-method-1"><i class="fa fa-check"></i><b>9.1</b> Secant Method</a></li>
+<li class="chapter" data-level="9.2" data-path="secant-method.html"><a href="secant-method.html#secant-algorithm-and-implementation"><i class="fa fa-check"></i><b>9.2</b> Secant Algorithm and Implementation</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="secant-method.html"><a href="secant-method.html#implementation-with-r"><i class="fa fa-check"></i><b>9.2.1</b> Implementation with R</a></li>
+<li class="chapter" data-level="9.2.2" data-path="secant-method.html"><a href="secant-method.html#numerical-examples"><i class="fa fa-check"></i><b>9.2.2</b> Numerical Examples</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="secant-method.html"><a href="secant-method.html#error-analysis-4"><i class="fa fa-check"></i><b>9.3</b> Error Analysis</a></li>
+<li class="chapter" data-level="9.4" data-path="secant-method.html"><a href="secant-method.html#false-position-method"><i class="fa fa-check"></i><b>9.4</b> False Position Method</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html"><i class="fa fa-check"></i><b>10</b> Lagrange Interpolation</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html#concepts-of-interpolation-method"><i class="fa fa-check"></i><b>10.1</b> Concepts of Interpolation Method</a>
+<ul>
+<li class="chapter" data-level="10.1.1" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html#data-fitting-interpolation"><i class="fa fa-check"></i><b>10.1.1</b> Data-fitting / Interpolation:</a></li>
+<li class="chapter" data-level="10.1.2" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html#functional-equation-curve-approximation"><i class="fa fa-check"></i><b>10.1.2</b> Functional Equation (Curve Approximation)</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html#the-lagrange-interpolation"><i class="fa fa-check"></i><b>10.2</b> The Lagrange Interpolation</a>
+<ul>
+<li class="chapter" data-level="10.2.1" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html#linear-lagrange-interpolation"><i class="fa fa-check"></i><b>10.2.1</b> Linear Lagrange Interpolation</a></li>
+<li class="chapter" data-level="10.2.2" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html#quadratic-lagrange-interpolation"><i class="fa fa-check"></i><b>10.2.2</b> Quadratic Lagrange Interpolation</a></li>
+<li class="chapter" data-level="10.2.3" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html#general-lagrange-interpolation"><i class="fa fa-check"></i><b>10.2.3</b> General Lagrange Interpolation</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html#lagrange-algorithm-and-implementation"><i class="fa fa-check"></i><b>10.3</b> Lagrange Algorithm and Implementation</a>
+<ul>
+<li class="chapter" data-level="10.3.1" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html#pseudo-code"><i class="fa fa-check"></i><b>10.3.1</b> Pseudo-code</a></li>
+<li class="chapter" data-level="10.3.2" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html#r-function-with-scalar-input"><i class="fa fa-check"></i><b>10.3.2</b> R Function with Scalar Input</a></li>
+<li class="chapter" data-level="10.3.3" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html#r-function-with-vector-input"><i class="fa fa-check"></i><b>10.3.3</b> R Function with Vector Input</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html#error-analysis-5"><i class="fa fa-check"></i><b>10.4</b> Error Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="newton-interpolation.html"><a href="newton-interpolation.html"><i class="fa fa-check"></i><b>11</b> Newton Interpolation</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="newton-interpolation.html"><a href="newton-interpolation.html#some-definitions"><i class="fa fa-check"></i><b>11.1</b> Some Definitions</a>
+<ul>
+<li class="chapter" data-level="11.1.1" data-path="newton-interpolation.html"><a href="newton-interpolation.html#definitions"><i class="fa fa-check"></i><b>11.1.1</b> Definitions</a></li>
+<li class="chapter" data-level="11.1.2" data-path="newton-interpolation.html"><a href="newton-interpolation.html#calculation-of-divided-difference"><i class="fa fa-check"></i><b>11.1.2</b> Calculation of Divided Difference</a></li>
+<li class="chapter" data-level="11.1.3" data-path="newton-interpolation.html"><a href="newton-interpolation.html#algorithm-of-calculating-divided-differences"><i class="fa fa-check"></i><b>11.1.3</b> Algorithm of Calculating Divided Differences</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="newton-interpolation.html"><a href="newton-interpolation.html#newton-interpolation-polynomial"><i class="fa fa-check"></i><b>11.2</b> Newton Interpolation Polynomial</a>
+<ul>
+<li class="chapter" data-level="11.2.1" data-path="newton-interpolation.html"><a href="newton-interpolation.html#definition-of-newton-interpolation"><i class="fa fa-check"></i><b>11.2.1</b> Definition of Newton Interpolation</a></li>
+<li class="chapter" data-level="11.2.2" data-path="newton-interpolation.html"><a href="newton-interpolation.html#newton-interpolation-algorithm"><i class="fa fa-check"></i><b>11.2.2</b> Newton Interpolation Algorithm</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="newton-interpolation.html"><a href="newton-interpolation.html#error-analysis-6"><i class="fa fa-check"></i><b>11.3</b> Error Analysis</a></li>
+<li class="chapter" data-level="11.4" data-path="newton-interpolation.html"><a href="newton-interpolation.html#some-remarks-of-newton-interpolation"><i class="fa fa-check"></i><b>11.4</b> Some Remarks of Newton Interpolation</a></li>
+<li class="chapter" data-level="11.5" data-path="newton-interpolation.html"><a href="newton-interpolation.html#implicit-loops-in-r-programming"><i class="fa fa-check"></i><b>11.5</b> Implicit Loops in R Programming</a>
+<ul>
+<li class="chapter" data-level="11.5.1" data-path="newton-interpolation.html"><a href="newton-interpolation.html#implicit-in-r-primitive-functions"><i class="fa fa-check"></i><b>11.5.1</b> Implicit in R Primitive Functions</a></li>
+<li class="chapter" data-level="11.5.2" data-path="newton-interpolation.html"><a href="newton-interpolation.html#some-vectorized-primitive-functions"><i class="fa fa-check"></i><b>11.5.2</b> Some Vectorized Primitive Functions</a></li>
+<li class="chapter" data-level="11.5.3" data-path="newton-interpolation.html"><a href="newton-interpolation.html#divided-difference-variants"><i class="fa fa-check"></i><b>11.5.3</b> Divided Difference Variants</a></li>
+<li class="chapter" data-level="11.5.4" data-path="newton-interpolation.html"><a href="newton-interpolation.html#vectorizing-newtoninterp"><i class="fa fa-check"></i><b>11.5.4</b> Vectorizing <strong>NewtonInterp()</strong></a></li>
+<li class="chapter" data-level="11.5.5" data-path="newton-interpolation.html"><a href="newton-interpolation.html#code-efficiency-with-implivit-loops"><i class="fa fa-check"></i><b>11.5.5</b> Code Efficiency with Implivit Loops</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="gauss-elimination-method.html"><a href="gauss-elimination-method.html"><i class="fa fa-check"></i><b>12</b> Gauss Elimination Method</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="gauss-elimination-method.html"><a href="gauss-elimination-method.html#naive-gaussian-elimination-methods"><i class="fa fa-check"></i><b>12.1</b> Naive Gaussian Elimination Methods</a></li>
+<li class="chapter" data-level="12.2" data-path="gauss-elimination-method.html"><a href="gauss-elimination-method.html#gaussian-elimination-algorithm"><i class="fa fa-check"></i><b>12.2</b> Gaussian Elimination Algorithm</a></li>
+<li class="chapter" data-level="12.3" data-path="gauss-elimination-method.html"><a href="gauss-elimination-method.html#gauss-jordan-elimination-optional"><i class="fa fa-check"></i><b>12.3</b> Gauss-Jordan Elimination (<code>Optional</code>)</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="determinant-and-inversion-of-matrices.html"><a href="determinant-and-inversion-of-matrices.html"><i class="fa fa-check"></i><b>13</b> Determinant and Inversion of Matrices</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="determinant-and-inversion-of-matrices.html"><a href="determinant-and-inversion-of-matrices.html#concepts-of-matrix-a-review"><i class="fa fa-check"></i><b>13.1</b> Concepts of Matrix: A Review</a>
+<ul>
+<li class="chapter" data-level="13.1.1" data-path="determinant-and-inversion-of-matrices.html"><a href="determinant-and-inversion-of-matrices.html#definitions-of-some-special-matrices"><i class="fa fa-check"></i><b>13.1.1</b> Definitions of Some Special Matrices</a></li>
+<li class="chapter" data-level="13.1.2" data-path="determinant-and-inversion-of-matrices.html"><a href="determinant-and-inversion-of-matrices.html#binary-operations"><i class="fa fa-check"></i><b>13.1.2</b> Binary Operations</a></li>
+<li class="chapter" data-level="13.1.3" data-path="determinant-and-inversion-of-matrices.html"><a href="determinant-and-inversion-of-matrices.html#unary-operations"><i class="fa fa-check"></i><b>13.1.3</b> Unary Operations</a></li>
+</ul></li>
+<li class="chapter" data-level="13.2" data-path="determinant-and-inversion-of-matrices.html"><a href="determinant-and-inversion-of-matrices.html#determinant-of-a-square-matrix"><i class="fa fa-check"></i><b>13.2</b> Determinant of a Square Matrix</a></li>
+<li class="chapter" data-level="13.3" data-path="determinant-and-inversion-of-matrices.html"><a href="determinant-and-inversion-of-matrices.html#matrix-inversion"><i class="fa fa-check"></i><b>13.3</b> Matrix Inversion</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="matrix-factorization.html"><a href="matrix-factorization.html"><i class="fa fa-check"></i><b>14</b> Matrix Factorization</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="matrix-factorization.html"><a href="matrix-factorization.html#elementary-and-permutation-matrices"><i class="fa fa-check"></i><b>14.1</b> Elementary and Permutation Matrices</a></li>
+<li class="chapter" data-level="14.2" data-path="matrix-factorization.html"><a href="matrix-factorization.html#lu-factorization-algorithm"><i class="fa fa-check"></i><b>14.2</b> LU Factorization Algorithm</a>
+<ul>
+<li class="chapter" data-level="14.2.1" data-path="matrix-factorization.html"><a href="matrix-factorization.html#row-operations-with-row-swapping"><i class="fa fa-check"></i><b>14.2.1</b> Row Operations with Row Swapping</a></li>
+<li class="chapter" data-level="14.2.2" data-path="matrix-factorization.html"><a href="matrix-factorization.html#row-operations-with-row-swapping-1"><i class="fa fa-check"></i><b>14.2.2</b> Row Operations with Row-swapping</a></li>
+<li class="chapter" data-level="14.2.3" data-path="matrix-factorization.html"><a href="matrix-factorization.html#lu-algorithm"><i class="fa fa-check"></i><b>14.2.3</b> LU ALgorithm</a></li>
+</ul></li>
+<li class="chapter" data-level="14.3" data-path="matrix-factorization.html"><a href="matrix-factorization.html#benefit-of-lu-factorization"><i class="fa fa-check"></i><b>14.3</b> Benefit of LU Factorization</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="least-square-approximation.html"><a href="least-square-approximation.html"><i class="fa fa-check"></i><b>15</b> Least Square Approximation</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="least-square-approximation.html"><a href="least-square-approximation.html#concepts-of-least-square-approximation"><i class="fa fa-check"></i><b>15.1</b> Concepts of Least Square Approximation</a></li>
+<li class="chapter" data-level="15.2" data-path="least-square-approximation.html"><a href="least-square-approximation.html#approximating-one-variable-linear-function"><i class="fa fa-check"></i><b>15.2</b> Approximating One-variable Linear Function</a></li>
+<li class="chapter" data-level="15.3" data-path="least-square-approximation.html"><a href="least-square-approximation.html#approximating-multiple-variable-linear-function"><i class="fa fa-check"></i><b>15.3</b> Approximating Multiple-variable Linear Function</a>
+<ul>
+<li class="chapter" data-level="15.3.1" data-path="least-square-approximation.html"><a href="least-square-approximation.html#an-extension-of-the-height-example"><i class="fa fa-check"></i><b>15.3.1</b> An Extension of the Height Example</a></li>
+<li class="chapter" data-level="15.3.2" data-path="least-square-approximation.html"><a href="least-square-approximation.html#approximating-general-multi-variables-linear-functions"><i class="fa fa-check"></i><b>15.3.2</b> Approximating General Multi-variables Linear Functions</a></li>
+</ul></li>
+<li class="chapter" data-level="15.4" data-path="least-square-approximation.html"><a href="least-square-approximation.html#approximating-one-variable-polynomial-function"><i class="fa fa-check"></i><b>15.4</b> Approximating One-variable Polynomial Function</a>
+<ul>
+<li class="chapter" data-level="15.4.1" data-path="least-square-approximation.html"><a href="least-square-approximation.html#approximating-quadratic-function"><i class="fa fa-check"></i><b>15.4.1</b> Approximating Quadratic Function</a></li>
+<li class="chapter" data-level="15.4.2" data-path="least-square-approximation.html"><a href="least-square-approximation.html#approximating-general-polynomial-functions"><i class="fa fa-check"></i><b>15.4.2</b> Approximating General Polynomial Functions</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="concepts-of-spline-interpolations.html"><a href="concepts-of-spline-interpolations.html"><i class="fa fa-check"></i><b>16</b> Concepts of Spline Interpolations</a>
+<ul>
+<li class="chapter" data-level="16.1" data-path="concepts-of-spline-interpolations.html"><a href="concepts-of-spline-interpolations.html#linear-splines"><i class="fa fa-check"></i><b>16.1</b> Linear Splines</a></li>
+<li class="chapter" data-level="16.2" data-path="concepts-of-spline-interpolations.html"><a href="concepts-of-spline-interpolations.html#quadratic-spline-interpolation"><i class="fa fa-check"></i><b>16.2</b> Quadratic Spline Interpolation</a>
+<ul>
+<li class="chapter" data-level="16.2.1" data-path="concepts-of-spline-interpolations.html"><a href="concepts-of-spline-interpolations.html#formulation-of-quadratic-spline"><i class="fa fa-check"></i><b>16.2.1</b> Formulation of Quadratic Spline</a></li>
+<li class="chapter" data-level="16.2.2" data-path="concepts-of-spline-interpolations.html"><a href="concepts-of-spline-interpolations.html#matrix-representation-of-quadratic-spline-problem"><i class="fa fa-check"></i><b>16.2.2</b> Matrix Representation of Quadratic Spline Problem</a></li>
+<li class="chapter" data-level="16.2.3" data-path="concepts-of-spline-interpolations.html"><a href="concepts-of-spline-interpolations.html#algorithm-of-quadratic-spline"><i class="fa fa-check"></i><b>16.2.3</b> Algorithm of Quadratic Spline</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="cubic-spline-interpolation.html"><a href="cubic-spline-interpolation.html"><i class="fa fa-check"></i><b>17</b> Cubic Spline Interpolation</a>
+<ul>
+<li class="chapter" data-level="17.1" data-path="cubic-spline-interpolation.html"><a href="cubic-spline-interpolation.html#cubic-splines"><i class="fa fa-check"></i><b>17.1</b> Cubic Splines</a>
+<ul>
+<li class="chapter" data-level="17.1.1" data-path="cubic-spline-interpolation.html"><a href="cubic-spline-interpolation.html#formulation-of-cubic-spline"><i class="fa fa-check"></i><b>17.1.1</b> Formulation of Cubic Spline</a></li>
+<li class="chapter" data-level="17.1.2" data-path="cubic-spline-interpolation.html"><a href="cubic-spline-interpolation.html#construction-of-cubic-splines"><i class="fa fa-check"></i><b>17.1.2</b> Construction of Cubic Splines</a></li>
+<li class="chapter" data-level="17.1.3" data-path="cubic-spline-interpolation.html"><a href="cubic-spline-interpolation.html#cubic-spline-algorithm"><i class="fa fa-check"></i><b>17.1.3</b> Cubic Spline Algorithm</a></li>
+</ul></li>
+<li class="chapter" data-level="17.2" data-path="cubic-spline-interpolation.html"><a href="cubic-spline-interpolation.html#clamped-splines"><i class="fa fa-check"></i><b>17.2</b> Clamped Splines</a></li>
+<li class="chapter" data-level="17.3" data-path="cubic-spline-interpolation.html"><a href="cubic-spline-interpolation.html#error-analysis-7"><i class="fa fa-check"></i><b>17.3</b> Error Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="newton-method-for-nonlinear-system-and-optimization.html"><a href="newton-method-for-nonlinear-system-and-optimization.html"><i class="fa fa-check"></i><b>18</b> Newton Method for Nonlinear System and Optimization</a>
+<ul>
+<li class="chapter" data-level="18.1" data-path="newton-method-for-nonlinear-system-and-optimization.html"><a href="newton-method-for-nonlinear-system-and-optimization.html#multivariate-taylor-expansion"><i class="fa fa-check"></i><b>18.1</b> Multivariate Taylor Expansion</a></li>
+<li class="chapter" data-level="18.2" data-path="newton-method-for-nonlinear-system-and-optimization.html"><a href="newton-method-for-nonlinear-system-and-optimization.html#newton-method-for-nonlinear-systems"><i class="fa fa-check"></i><b>18.2</b> Newton Method for Nonlinear Systems</a>
+<ul>
+<li class="chapter" data-level="18.2.1" data-path="newton-method-for-nonlinear-system-and-optimization.html"><a href="newton-method-for-nonlinear-system-and-optimization.html#system-of-two-nonlinear-equations"><i class="fa fa-check"></i><b>18.2.1</b> System of Two Nonlinear Equations</a></li>
+<li class="chapter" data-level="18.2.2" data-path="newton-method-for-nonlinear-system-and-optimization.html"><a href="newton-method-for-nonlinear-system-and-optimization.html#newton-algorithm"><i class="fa fa-check"></i><b>18.2.2</b> Newton Algorithm</a></li>
+</ul></li>
+<li class="chapter" data-level="18.3" data-path="newton-method-for-nonlinear-system-and-optimization.html"><a href="newton-method-for-nonlinear-system-and-optimization.html#optimization"><i class="fa fa-check"></i><b>18.3</b> Optimization</a></li>
+<li class="chapter" data-level="18.4" data-path="newton-method-for-nonlinear-system-and-optimization.html"><a href="newton-method-for-nonlinear-system-and-optimization.html#a-case-study"><i class="fa fa-check"></i><b>18.4</b> A Case Study</a></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html"><i class="fa fa-check"></i><b>19</b> Numerical Integration I</a>
+<ul>
+<li class="chapter" data-level="19.1" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html#numerical-approximation-of-derivatives"><i class="fa fa-check"></i><b>19.1</b> Numerical Approximation of Derivatives</a></li>
+<li class="chapter" data-level="19.2" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html#trapezoid-method"><i class="fa fa-check"></i><b>19.2</b> Trapezoid Method</a>
+<ul>
+<li class="chapter" data-level="19.2.1" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html#formulation-of-trapezoid-method"><i class="fa fa-check"></i><b>19.2.1</b> Formulation of Trapezoid Method</a></li>
+<li class="chapter" data-level="19.2.2" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html#error-analysis-8"><i class="fa fa-check"></i><b>19.2.2</b> Error Analysis</a></li>
+<li class="chapter" data-level="19.2.3" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html#composite-trapezoid-method-and-error-analysis"><i class="fa fa-check"></i><b>19.2.3</b> Composite Trapezoid Method and Error Analysis</a></li>
+<li class="chapter" data-level="19.2.4" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html#trapezoid-algorithm"><i class="fa fa-check"></i><b>19.2.4</b> Trapezoid Algorithm</a></li>
+</ul></li>
+<li class="chapter" data-level="19.3" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html#simpsons-one-third-rule"><i class="fa fa-check"></i><b>19.3</b> Simpson’s One-third Rule</a>
+<ul>
+<li class="chapter" data-level="19.3.1" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html#derivation-of-simpsons-rule"><i class="fa fa-check"></i><b>19.3.1</b> Derivation of Simpson’s Rule</a></li>
+<li class="chapter" data-level="19.3.2" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html#explicit-function-on-x_i-1-x_i1"><i class="fa fa-check"></i><b>19.3.2</b> Explicit Function on <span class="math inline">\([x_{i-1}, x_{i+1}]\)</span></a></li>
+<li class="chapter" data-level="19.3.3" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html#the-composite-simpsons-rule"><i class="fa fa-check"></i><b>19.3.3</b> The Composite Simpsons’ Rule</a></li>
+<li class="chapter" data-level="19.3.4" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html#error-analysis-9"><i class="fa fa-check"></i><b>19.3.4</b> Error Analysis</a></li>
+<li class="chapter" data-level="19.3.5" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html#algorithm-of-simpsons-rule"><i class="fa fa-check"></i><b>19.3.5</b> Algorithm of Simpson’s Rule</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html"><i class="fa fa-check"></i><b>20</b> Romberg Integration and Gaussian Quadratures</a>
+<ul>
+<li class="chapter" data-level="20.1" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#richardson-extrapolation"><i class="fa fa-check"></i><b>20.1</b> Richardson Extrapolation</a>
+<ul>
+<li class="chapter" data-level="20.1.1" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#the-logic-of-the-richardson-method"><i class="fa fa-check"></i><b>20.1.1</b> The Logic of the Richardson Method</a></li>
+<li class="chapter" data-level="20.1.2" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#algorithm-of-richardson-method"><i class="fa fa-check"></i><b>20.1.2</b> Algorithm of Richardson Method</a></li>
+<li class="chapter" data-level="20.1.3" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#higher-order-extrapolation"><i class="fa fa-check"></i><b>20.1.3</b> Higher Order Extrapolation</a></li>
+<li class="chapter" data-level="20.1.4" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#algorithm-and-code"><i class="fa fa-check"></i><b>20.1.4</b> Algorithm and Code</a></li>
+</ul></li>
+<li class="chapter" data-level="20.2" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#romberg-integration"><i class="fa fa-check"></i><b>20.2</b> Romberg Integration</a>
+<ul>
+<li class="chapter" data-level="20.2.1" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#approximation-formula-and-error-analysis"><i class="fa fa-check"></i><b>20.2.1</b> Approximation formula and Error Analysis</a></li>
+<li class="chapter" data-level="20.2.2" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#romberg-algorithm"><i class="fa fa-check"></i><b>20.2.2</b> Romberg Algorithm</a></li>
+<li class="chapter" data-level="20.2.3" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#r-code"><i class="fa fa-check"></i><b>20.2.3</b> R Code</a></li>
+</ul></li>
+<li class="chapter" data-level="20.3" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#gaussian-quadrature"><i class="fa fa-check"></i><b>20.3</b> Gaussian Quadrature</a>
+<ul>
+<li class="chapter" data-level="20.3.1" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#two-point-gauss-legendre-formula"><i class="fa fa-check"></i><b>20.3.1</b> Two-point Gauss Legendre Formula</a></li>
+<li class="chapter" data-level="20.3.2" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#general-gauss-legendre-formula"><i class="fa fa-check"></i><b>20.3.2</b> General Gauss Legendre Formula</a></li>
+<li class="chapter" data-level="20.3.3" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#r-code-1"><i class="fa fa-check"></i><b>20.3.3</b> R Code</a></li>
+</ul></li>
+<li class="chapter" data-level="20.4" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#remarks"><i class="fa fa-check"></i><b>20.4</b> Remarks</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">MAT325 E-Pack: Numerical Analysis</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="gauss-elimination-method" class="section level1 hasAnchor" number="12">
+<h1><span class="header-section-number">Topic 12</span> Gauss Elimination Method<a href="gauss-elimination-method.html#gauss-elimination-method" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>We discuss numerical solutions to the linear system of equations. Consider the following general linear system of equations</p>
+<p><img src="img07/w07-LinearSysEq.png" width="35%" style="display: block; margin: auto;" /></p>
+<p>The goal is to find the solution to this system. There are different methods to solve the linear system. One way is to re-express the linear system into a matrix equation and then solve the matrix equation.</p>
+<p><strong>Example 1</strong> Consider the following linear system of functions</p>
+<p><span class="math display">\[
+\begin{array}{ccc}
+3x_1 - x_2 + 2x_3 &amp; = &amp; 8  \\
+2x_1 - 2x_2 + 3x_3 &amp; = &amp; 2 \\
+4x_1 + x_2 - 4x_3 &amp; = &amp; 9
+\end{array}
+\]</span></p>
+<p>We can re-write the above system of linear equations into the following matrix form</p>
+<p><img src="img07/w07-Example01MatrixForm.png" width="45%" style="display: block; margin: auto;" /></p>
+<p>We denote</p>
+<p><span class="math display">\[
+\mathbf{A} = \left[
+\begin{array}{ccc}
+3 &amp; -1 &amp;  2 \\
+2 &amp; -2 &amp;  3 \\
+4 &amp;  1 &amp; -4
+\end{array}
+\right]
+\]</span>
+be the coefficient matrix.</p>
+<p><span class="math display">\[
+\mathbf{X} = \left[ \begin{array}{c} x_1 \\ x_2 \\ x_3  \end{array} \right]
+\]</span></p>
+<p>the vector of unknown, and</p>
+<p><span class="math display">\[
+\mathbf{B} = \left[ \begin{array}{c} 8 \\ 2 \\ 9  \end{array} \right]
+\]</span></p>
+<p>Then, the matrix form of the equation is equivalent to <span class="math inline">\(\mathbf{A}\mathbf{X} ~=~ \mathbf{B}\)</span>. If the inverse of <span class="math inline">\(\mathbf{A}\)</span>, denoted by <span class="math inline">\(\mathbf{A}^{-1}\)</span>, exists, we multiply <span class="math inline">\(\mathbf{A}^{-1}\)</span> to the left of the matrix equation to get the solution of the linear system in the following</p>
+<p><span class="math display">\[
+\mathbf{X} = \mathbf{A}^{-1}\mathbf{B}
+\]</span></p>
+<p>Finding the inverse of the matrix could be a challenge when the system is large. The R built-in function <code>solve()</code> to calculate the inverse of a matrix (if it exists).
+For example, the inverse of <span class="math inline">\(\mathbf{A}\)</span> can be found using the following code.</p>
+<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb211-1"><a href="gauss-elimination-method.html#cb211-1" tabindex="-1"></a>A <span class="ot">=</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">3</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="sc">-</span><span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">1</span>, <span class="sc">-</span><span class="dv">4</span>), <span class="at">ncol =</span> <span class="dv">3</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb211-2"><a href="gauss-elimination-method.html#cb211-2" tabindex="-1"></a>A.inv <span class="ot">=</span> <span class="fu">solve</span>(A)</span>
+<span id="cb211-3"><a href="gauss-elimination-method.html#cb211-3" tabindex="-1"></a>A.inv        <span class="co"># print out the </span></span></code></pre></div>
+<pre><code>##           [,1]       [,2]        [,3]
+## [1,] 0.3333333 -0.1333333  0.06666667
+## [2,] 1.3333333 -1.3333333 -0.33333333
+## [3,] 0.6666667 -0.4666667 -0.26666667</code></pre>
+<div class="sourceCode" id="cb213"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb213-1"><a href="gauss-elimination-method.html#cb213-1" tabindex="-1"></a><span class="co"># matrix multiplication</span></span>
+<span id="cb213-2"><a href="gauss-elimination-method.html#cb213-2" tabindex="-1"></a>A<span class="sc">%*%</span>A.inv    <span class="co"># expected to be the identity matrix</span></span></code></pre></div>
+<pre><code>##      [,1]          [,2]          [,3]
+## [1,]    1 -2.220446e-16 -2.220446e-16
+## [2,]    0  1.000000e+00 -1.110223e-16
+## [3,]    0  0.000000e+00  1.000000e+00</code></pre>
+<p>Two ways to find the solution to the system</p>
+<div class="sourceCode" id="cb215"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb215-1"><a href="gauss-elimination-method.html#cb215-1" tabindex="-1"></a>B <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">8</span>,<span class="dv">2</span>,<span class="dv">9</span>)</span>
+<span id="cb215-2"><a href="gauss-elimination-method.html#cb215-2" tabindex="-1"></a>X<span class="fl">.1</span> <span class="ot">=</span> <span class="fu">solve</span>(A)<span class="sc">%*%</span>B  <span class="co"># returns a matrix form solution</span></span>
+<span id="cb215-3"><a href="gauss-elimination-method.html#cb215-3" tabindex="-1"></a>X<span class="fl">.1</span>    </span></code></pre></div>
+<pre><code>##      [,1]
+## [1,]    3
+## [2,]    5
+## [3,]    2</code></pre>
+<div class="sourceCode" id="cb217"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb217-1"><a href="gauss-elimination-method.html#cb217-1" tabindex="-1"></a>X<span class="fl">.2</span> <span class="ot">=</span> <span class="fu">solve</span>(A,B)   <span class="co"># returns a vector form solution</span></span>
+<span id="cb217-2"><a href="gauss-elimination-method.html#cb217-2" tabindex="-1"></a>X<span class="fl">.2</span></span></code></pre></div>
+<pre><code>## [1] 3 5 2</code></pre>
+<div id="naive-gaussian-elimination-methods" class="section level2 hasAnchor" number="12.1">
+<h2><span class="header-section-number">12.1</span> Naive Gaussian Elimination Methods<a href="gauss-elimination-method.html#naive-gaussian-elimination-methods" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Linear algebra texts discuss elimination methods to find the solution. The method has two processes: elimination and backward substitution. We use the equation in the above <strong>Example 1</strong> to review the elimination method.</p>
+<p>Recall the linear system</p>
+<p><span class="math display">\[
+\begin{array}{ccc}
+3x_1 - x_2 + 2x_3 &amp; = &amp; 8  \\
+2x_1 - 2x_2 + 3x_3 &amp; = &amp; 2 \\
+4x_1 + x_2 - 4x_3 &amp; = &amp; 9
+\end{array}
+\]</span></p>
+<p>We define the following augmented matrix.</p>
+<p><span class="math display">\[
+\mathbf{A} = \left[
+\begin{array}{ccccc}
+3 &amp; -1 &amp; 2 &amp; \vdots &amp; 8\\
+2 &amp; -2 &amp; 3 &amp; \vdots &amp; 2\\
+4 &amp; 1 &amp; -4 &amp; \vdots &amp; 9\\
+\end{array}
+\right]
+\]</span></p>
+<p><strong>Solution</strong> We show the detailed steps of forward elimination and backward substitution.</p>
+<p><strong>Forward Elimination</strong></p>
+<p>We use <span class="math inline">\(R_1\)</span>, <span class="math inline">\(R_2\)</span>, and <span class="math inline">\(R_3\)</span> to denote the three rows of the above-augmented matrix and then find the solution in the following <span class="math inline">\(r = 3 - 1\)</span> steps:</p>
+<p><strong>Step 1</strong> The equation in the first row is called <strong>pivot equation</strong> and <span class="math inline">\(a_{11} = 3\)</span> is called <strong>pivot element</strong>. We first do the following row operations so that the elements in the first column of the resulting <strong>new augmented</strong> matrix are all zeros except for the one in the <em>pivot</em> element.</p>
+<p><em>1.1</em>. Multiply <span class="math inline">\(-a_{21}/a_{11}\)</span> to <span class="math inline">\(R_1\)</span> and add it to <span class="math inline">\(R_2\)</span> to update <span class="math inline">\(R_2\)</span>. <strong>Row 2</strong>: <span class="math inline">\(i = 2\)</span></p>
+<p><span class="math display">\[
+R_2 \leftarrow R_2 -(a_{21}/a_{11})\times R_1  = (a_{21}, a_{22}, a_{23}, b_2) - \frac{a_{21}}{a_{11}}(a_{11}, a_{12}, a_{13}, b_1)
+\]</span></p>
+<p><span class="math display">\[
+= (a_{21} - \frac{a_{21}}{a_{11}}\times a_{11}, a_{22} - \frac{a_{21}}{a_{11}}\times a_{12}, a_{23}-\frac{a_{21}}{a_{11}}\times a_{11}, b_2-\frac{a_{21}}{a_{11}}\times a_{11})
+\]</span></p>
+<p><span class="math display">\[
+=(2,-2, 3, 2) - \frac{2}{3}(3,-1,2,8)  = (0, -4/3, 5/3, -10/3)
+\]</span></p>
+<p><font color = "color"><strong>The above step can be computed using the implicit loop through vector operation in any vectorized programming language</strong></font></p>
+<p><em>1.2</em> Multiply <span class="math inline">\(-4/3\)</span> to <span class="math inline">\(R_1\)</span> and add it to <span class="math inline">\(R_3\)</span> to update <span class="math inline">\(R_3.\)</span> <strong>Row 3</strong>: <span class="math inline">\(i = 3\)</span></p>
+<p><span class="math display">\[
+R_3 \leftarrow R_3 - (a_{31}/a_{11}) \times R1  = (a_{31}, a_{32}, a_{33}, b_3) - \frac{a_{31}}{a_{11}}(a_{11}, a_{12}, a_{13}, b_1)
+\]</span></p>
+<p><span class="math display">\[
+=(4,1,-4,9) - \frac{4}{3}(3, -1, 2, 8) = \left(0, \frac{7}{3}, -\frac{20}{3}, -\frac{5}{3} \right)
+\]</span></p>
+<p>After this step, we have the updated augmented matrix for the next step elimination.</p>
+<p><span class="math display">\[
+\left[
+\begin{array}{ccccc}
+3 &amp; -1 &amp; 2 &amp; \vdots &amp; 8\\
+0 &amp; -4/3 &amp; 5/3 &amp; \vdots &amp; -10/3\\
+0 &amp; 7/3 &amp; -20/3 &amp; \vdots &amp; -5/3\\
+\end{array}
+\right]
+\]</span></p>
+<p><strong>Step 2</strong>: The equation in the first row is called <em>pivot equation</em> and <span class="math inline">\(a_{22} = -4/3\)</span> (<strong>CAUTION</strong>: <em>using the above updated augmented matrix!</em>)is called pivot element. We next do row operation: <span class="math inline">\(R_3 - \frac{a_{32}}{a_{22}}\times R_2\)</span> so that the resulting new augmented matrix. <strong>Row 3</strong>: <span class="math inline">\(r = 3\)</span>.</p>
+<p><span class="math display">\[
+R_3 \leftarrow R_3 - \frac{a_{32}}{a_{22}}\times R_2 = (a_{31}, a_{32}, a_{33}, b_3) - \frac{a_{32}}{a_{22}}(a_{21}, a_{22}, a_{23}, b_2)
+\]</span></p>
+<p><span class="math display">\[
+= \left( 0, \frac{7}{3}, -\frac{20}{3}, -\frac{5}{3}\right) - \frac{7/3}{-4/3}\left(0, -\frac{4}{3}, \frac{5}{3}, -\frac{-10}{3} \right)  = \left(0, ~~0, ~~-\frac{15}{4}, -\frac{15}{2} \right)
+\]</span></p>
+<p>With the above row operation, we have the following updated augmented matrix that has a triangular coefficient matrix.</p>
+<p><span class="math display">\[
+\left[
+\begin{array}{ccccc}
+3 &amp; -1 &amp; 2 &amp; \vdots &amp; 8\\
+0 &amp; -4/3 &amp; 5/3 &amp; \vdots &amp; -10/3\\
+0 &amp; 0 &amp; -15/4 &amp; \vdots &amp; -15/2\\
+\end{array}
+\right].
+\]</span></p>
+<p>If we re-write the above-augmented matrix into the linear system of equations, we have</p>
+<p><span class="math display">\[
+\left\{
+\begin{array}{ccccc}
+3x_1 &amp; - x_2 &amp; 2x_3 &amp; = &amp; 8\\
+   &amp; -\frac{4}{3}x_2 &amp; \frac{5}{3}x_3 &amp; = &amp; -\frac{10}{3}\\
+   &amp;  &amp; -\frac{15}{4}x_3 &amp; = &amp; -\frac{15}{2}\\
+\end{array}
+\right.
+\]</span></p>
+<p><strong>Backward Substitution</strong></p>
+<p>Next, we do backward substitution to find the solution to the system. The general backward substitution is given by</p>
+<p><span class="math display">\[
+x_i =\frac{1}{a_{ii}}\left(b_i-\sum_{j=i+1}^3 a_{ij}x_j \right),
+\]</span></p>
+<p>where <span class="math inline">\(i = 3-1, 3-2\)</span>. However <span class="math inline">\(i = 3\)</span></p>
+<p><span class="math display">\[
+x_3 =  \frac{b_3}{a_{33}} = \frac{-15/2}{-15/4} = 2.
+\]</span></p>
+<p>We start from <strong>row 3</strong> of the last augmented matrix:</p>
+<p><strong>Row #3</strong>: <span class="math inline">\(r = 3\)</span>:</p>
+<p><span class="math display">\[
+x_3 = \frac{b_3}{a_{33}} = \frac{-15/2}{-15/4} = 2.
+\]</span>
+<strong>Row #2</strong>: <span class="math inline">\(r=2\)</span>
+<span class="math display">\[
+x_2 = \frac{1}{a_{22}}\left( b_2 - a_{23}x_3 \right)= -\frac{1}{4/3}\left(-\frac{10}{3} - \frac{5}{3}\times 2\right) = \frac{3}{4}\frac{20}{3} = 5.
+\]</span></p>
+<p><strong>Row #1</strong>: <span class="math inline">\(r = 1\)</span></p>
+<p><span class="math display">\[
+x_1 = \frac{1}{a_{11}} \left(b_1 -[a_{12}x_2 + a_{13}x_3]  \right) = \frac{1}{3}\left(8-[-1\times 5 + 2\times 2]\right) = \frac{1}{3}(8-(-1)) = 3.
+\]</span></p>
+<p>Therefore, the solution to the above system linear equation is <span class="math inline">\((x_1, x_2, x_3) = (3, 5, 2)\)</span>.</p>
+<p><strong>Remark</strong>: We re-arrange the following linear system of linear equations</p>
+<p><span class="math display">\[
+\left\{
+\begin{array}{ccccc}
+3x_1 &amp; - x_2 &amp; 2x_3 &amp; = &amp; 8\\
+   &amp; -\frac{4}{3}x_2 &amp; \frac{5}{3}x_3 &amp; = &amp; -\frac{10}{3}\\
+   &amp;  &amp; -\frac{15}{4}x_3 &amp; = &amp; -\frac{15}{2}\\
+\end{array}
+\right.
+\]</span></p>
+<p>to get the following equivalent linear system</p>
+<p><span class="math display">\[
+\left\{
+\begin{array}{ccccc}
+-\frac{15}{4}x_3 &amp;  &amp;  &amp; = &amp; -\frac{15}{2}\\
+  \frac{5}{3}x_3&amp; -\frac{4}{3}x_2 &amp;  &amp; = &amp; -\frac{10}{3}\\
+2x_3  &amp; -x_2 &amp; + 3x_1 &amp; = &amp; 8\\
+\end{array}
+\right.
+\]</span></p>
+<p>That can be re-written in the following matrix form</p>
+<p><span class="math display">\[
+\left[
+\begin{array}{ccc}
+-\frac{15}{4} &amp; 0 &amp;  0 \\
+\frac{5}{3} &amp; -\frac{4}{3} &amp;  0 \\
+2&amp;  -1 &amp; 3
+\end{array}
+\right]
+\left[ \begin{array}{c} x_3 \\ x_2 \\ x_1  \end{array} \right]
+=
+\left[ \begin{array}{c}-\frac{15}{2} \\ -\frac{10}{3} \\ 8  \end{array} \right]
+\]</span></p>
+<p>The augmented matrix of the above linear system of equations can be written as</p>
+<p><span class="math display">\[
+\left[
+\begin{array}{ccccc}
+-\frac{15}{4} &amp; 0 &amp;  0 &amp;\vdots &amp; -\frac{15}{2}\\
+\frac{5}{3} &amp; -\frac{4}{3} &amp;  0 &amp;\vdots &amp; -\frac{10}{3} \\
+2 &amp;  -1 &amp; 3 &amp; \vdots &amp; 8
+\end{array}
+\right]
+\]</span></p>
+<p>We can repeat the Gaussian <strong>forward elimination</strong> with the above-augmented matrix:</p>
+<ol style="list-style-type: decimal">
+<li>pivot element <span class="math inline">\(a_{11} = -\frac{15}{4}\)</span></li>
+</ol>
+<p><span class="math display">\[
+R_2 \leftarrow R_2-\frac{a_{21}}{a_{11}}R_1 = \left(\frac{5}{3}, -\frac{4}{3},0, -\frac{10}{3} \right)-\frac{5/3}{-15/4}\left(-\frac{15}{4}, 0, 0, -\frac{15}{2} \right) =\left(0, -\frac{4}{3}, 0, -\frac{20}{3} \right)
+\]</span></p>
+<p><span class="math display">\[
+R_3 \leftarrow R_3 - \frac{a_{31}}{a_{11}}R_1 = \left(2,-1,3,8 \right) - \frac{2}{-15/4}\left(-\frac{15}{4}, 0, 0, -\frac{15}{2} \right) = \left(0,-1, 3, 4 \right)
+\]</span></p>
+<p>We obtain the following updated augmented matrix</p>
+<p><span class="math display">\[
+\left[
+\begin{array}{ccccc}
+-\frac{15}{4} &amp; 0 &amp;  0 &amp;\vdots &amp; -\frac{15}{2}\\
+0 &amp; -\frac{4}{3} &amp;  0 &amp;\vdots &amp; -\frac{20}{3} \\
+0 &amp;  -1 &amp; 3 &amp; \vdots &amp; 4
+\end{array}
+\right]
+\]</span>
+We need one more row operation on the above-augmented matrix</p>
+<p><span class="math display">\[
+R_3 \leftarrow R_3 - \frac{a_{32}}{a_{22}}R_2 = \left(0, -1, 3, 4 \right) - \frac{-1}{-4/3}\left(0, -\frac{4}{3}, 0, -\frac{20}{3} \right) = \left(0, 0, 3, 9 \right)
+\]</span></p>
+<p>The final augmented matrix has the following form</p>
+<p><span class="math display">\[
+\left[
+\begin{array}{ccccc}
+-\frac{15}{4} &amp; 0 &amp;  0 &amp;\vdots &amp; -\frac{15}{2}\\
+0 &amp; -\frac{4}{3} &amp;  0 &amp;\vdots &amp; -\frac{20}{3} \\
+0 &amp;  0 &amp; 3 &amp; \vdots &amp; 9
+\end{array}
+\right].
+\]</span>
+Its equivalent linear system is given by</p>
+<p><span class="math display">\[
+\left\{
+\begin{array}{ccc}
+-\frac{15}{4}x_3 &amp; = &amp; -\frac{15}{2}\\
+  -\frac{4}{3}x_2 &amp;  = &amp; -\frac{20}{3}\\
+   3x_1 &amp; = &amp; 9\\
+\end{array}
+\right.
+\]</span>
+Therefore, the solution to the original system of equation is (using vector operation - pair-wise division)</p>
+<p><span class="math display">\[
+(x_3, x_2, x_1) = \frac{(-15/2, -20/3, 9)}{(-15/4, -4/3, 3)} = (2,5,3)
+\]</span></p>
+<p>We will apply the logic used in this example to implement the <strong>Gaussian Elimination method</strong> (using <em>backward substitution</em>).</p>
+<p><br />
+</p>
+</div>
+<div id="gaussian-elimination-algorithm" class="section level2 hasAnchor" number="12.2">
+<h2><span class="header-section-number">12.2</span> Gaussian Elimination Algorithm<a href="gauss-elimination-method.html#gaussian-elimination-algorithm" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In the elimination step, the first row of the augmented matrix is the basis, and all other elements (cells) in the augmented matrix are updated iteratively using the algorithm using the recursive formula</p>
+<p><span class="math display">\[
+R_i \leftarrow (a_{i1}, a_{i2}, \cdots, a_{in}, b_i) - \frac{a_{ik}}{a_{kk}}(a_{k1}, a_{k2}, \cdots, a_{kn}, b_k)   
+\]</span></p>
+<p>where</p>
+<ul>
+<li><p><span class="math inline">\(k = 1, 2, \cdots, n-1\)</span>, the iteration index for selecting the <em>pivot element</em>.</p></li>
+<li><p><span class="math inline">\(i = k+1, k+2, ...n\)</span>, the iterator of the row of the augmented matrix.</p></li>
+</ul>
+<p><br />
+</p>
+<p>We focus on Gaussian row elimination. The Gaussian forward elimination and backward substitution (Gauss-Jordan) are optional.</p>
+<p>The algorithm of Gaussian is relatively simple compared with the iterative algorithms we learned earlier. We only need to convert the following recursive equation to an algorithm with double loops to accomplish the Gaussian forward elimination.</p>
+<p><strong>Gaussian Forward Elimination Algorithm</strong></p>
+<pre><code>INPUT: A    (augmented matrix)
+
+OUTPUT: A0  (row-echelon matrix)
+
+STEP 1: find n = # of row
+
+STEP 2: FOR i = 1 TO n
+        STEP 3:  IF A[i,i] == 0 DO: 
+                    find j with A[j,i] != 0
+                    swap row i and row j
+                 ENDIF
+         
+        STEP 4:  IF A[i,i] != 0 DO:
+                    FOR j = i + 1 TO n DO: 
+                       A[j,] = A[j,]-(A[j,i]/A[i,i])*A[i,]
+                    ENDFOR
+                 ENDIF
+STEP 5: RETURN A0   </code></pre>
+<p>The vector operation was used in <strong>Step 4</strong> of the pseudo-code. Row-swapping in <strong>step 3</strong> could also involve vector operation.</p>
+<p>Next, we write R code to implement the pseudo-code.</p>
+<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb220-1"><a href="gauss-elimination-method.html#cb220-1" tabindex="-1"></a>Gauss.Elimination <span class="ot">=</span> <span class="cf">function</span>(A){</span>
+<span id="cb220-2"><a href="gauss-elimination-method.html#cb220-2" tabindex="-1"></a>  <span class="co"># Input A: augmented matrix. Make sure that he diagonal </span></span>
+<span id="cb220-3"><a href="gauss-elimination-method.html#cb220-3" tabindex="-1"></a>  <span class="co">#          elements of the coefficient matrix are non-zero! </span></span>
+<span id="cb220-4"><a href="gauss-elimination-method.html#cb220-4" tabindex="-1"></a>  A0 <span class="ot">=</span> A        </span>
+<span id="cb220-5"><a href="gauss-elimination-method.html#cb220-5" tabindex="-1"></a>  n <span class="ot">=</span> <span class="fu">dim</span>(A0)[<span class="dv">1</span>]                <span class="co"># number of rows</span></span>
+<span id="cb220-6"><a href="gauss-elimination-method.html#cb220-6" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>(n<span class="dv">-1</span>)){            <span class="co"># iterator fo pivot element A0[i,i]</span></span>
+<span id="cb220-7"><a href="gauss-elimination-method.html#cb220-7" tabindex="-1"></a>                                <span class="co"># i = 1, 2, ..., n-1</span></span>
+<span id="cb220-8"><a href="gauss-elimination-method.html#cb220-8" tabindex="-1"></a>      <span class="co">#~~~~~~~~~~~~~~~~~~~~~   Make the function robust  ~~~~~~~~~~~~~~~~~~~~~~~~~#</span></span>
+<span id="cb220-9"><a href="gauss-elimination-method.html#cb220-9" tabindex="-1"></a>      <span class="cf">if</span>(A0[i,i] <span class="sc">==</span> <span class="dv">0</span>){</span>
+<span id="cb220-10"><a href="gauss-elimination-method.html#cb220-10" tabindex="-1"></a>          non<span class="fl">.0</span> <span class="ot">=</span> <span class="fu">which</span>(A0[,i] <span class="sc">!=</span> <span class="dv">0</span>)</span>
+<span id="cb220-11"><a href="gauss-elimination-method.html#cb220-11" tabindex="-1"></a>              <span class="co">#cat(&quot;\n\n i =&quot;,i, &quot;, non.0 =&quot;, non.0,&quot;. (i+1):n =&quot;, (i+1):n, &quot;.&quot;)</span></span>
+<span id="cb220-12"><a href="gauss-elimination-method.html#cb220-12" tabindex="-1"></a>              id <span class="ot">=</span> <span class="fu">intersect</span>(non<span class="fl">.0</span>, (i<span class="sc">+</span><span class="dv">1</span>)<span class="sc">:</span>n)[<span class="dv">1</span>] <span class="co"># which() equiv to find() in MATLAB</span></span>
+<span id="cb220-13"><a href="gauss-elimination-method.html#cb220-13" tabindex="-1"></a>              <span class="cf">if</span>(<span class="sc">!</span><span class="fu">is.na</span>(id)){</span>
+<span id="cb220-14"><a href="gauss-elimination-method.html#cb220-14" tabindex="-1"></a>              tempi <span class="ot">=</span> A0[i,]                    <span class="co"># put the i-th row in a place-holder</span></span>
+<span id="cb220-15"><a href="gauss-elimination-method.html#cb220-15" tabindex="-1"></a>              A0[i,] <span class="ot">=</span> A0[id,]                  <span class="co"># row swapping</span></span>
+<span id="cb220-16"><a href="gauss-elimination-method.html#cb220-16" tabindex="-1"></a>              A0[id,] <span class="ot">=</span> tempi    </span>
+<span id="cb220-17"><a href="gauss-elimination-method.html#cb220-17" tabindex="-1"></a>            }</span>
+<span id="cb220-18"><a href="gauss-elimination-method.html#cb220-18" tabindex="-1"></a>      }</span>
+<span id="cb220-19"><a href="gauss-elimination-method.html#cb220-19" tabindex="-1"></a>      <span class="co">#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#</span></span>
+<span id="cb220-20"><a href="gauss-elimination-method.html#cb220-20" tabindex="-1"></a>       <span class="cf">if</span>(A0[i,i] <span class="sc">!=</span> <span class="dv">0</span>){    <span class="co"># A0[i,i] is in the denominator of recursive equation</span></span>
+<span id="cb220-21"><a href="gauss-elimination-method.html#cb220-21" tabindex="-1"></a>          <span class="cf">for</span>(j <span class="cf">in</span> (i<span class="sc">+</span><span class="dv">1</span>)<span class="sc">:</span>n){  <span class="co"># to make the augmented matrix in the row echelon form</span></span>
+<span id="cb220-22"><a href="gauss-elimination-method.html#cb220-22" tabindex="-1"></a>             <span class="co">#cat(&quot;\n\n j =&quot;,j,&quot;.&quot;)</span></span>
+<span id="cb220-23"><a href="gauss-elimination-method.html#cb220-23" tabindex="-1"></a>             A0[j,] <span class="ot">=</span> A0[j,] <span class="sc">-</span> (A0[j,i]<span class="sc">/</span>A0[i,i])<span class="sc">*</span>A0[i,]</span>
+<span id="cb220-24"><a href="gauss-elimination-method.html#cb220-24" tabindex="-1"></a>           }</span>
+<span id="cb220-25"><a href="gauss-elimination-method.html#cb220-25" tabindex="-1"></a>        }</span>
+<span id="cb220-26"><a href="gauss-elimination-method.html#cb220-26" tabindex="-1"></a>      }</span>
+<span id="cb220-27"><a href="gauss-elimination-method.html#cb220-27" tabindex="-1"></a>   A0</span>
+<span id="cb220-28"><a href="gauss-elimination-method.html#cb220-28" tabindex="-1"></a> }</span></code></pre></div>
+<p>We now look at several examples using the above R function <code>Gauss.Elimination()</code>.</p>
+<p><strong>Example 2</strong>: Find the solution of the following system of linear equations.</p>
+<p><img src="img07/w07-LabExample02-eq.png" width="35%" style="display: block; margin: auto;" /></p>
+<p><strong>Solution</strong>: Performing Gaussian eliminations (i.e., the series of row operations), we have</p>
+<p><img src="img07/w07-LabExample02-sol.png" width="55%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb221-1"><a href="gauss-elimination-method.html#cb221-1" tabindex="-1"></a><span class="do">##</span></span>
+<span id="cb221-2"><a href="gauss-elimination-method.html#cb221-2" tabindex="-1"></a>A1 <span class="ot">=</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="sc">-</span><span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="sc">-</span><span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="sc">-</span><span class="dv">1</span>,<span class="dv">2</span>,<span class="sc">-</span><span class="dv">1</span>,<span class="sc">-</span><span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">0</span>,<span class="sc">-</span><span class="dv">6</span>,<span class="dv">4</span>,<span class="dv">3</span>,<span class="sc">-</span><span class="dv">8</span>,<span class="dv">1</span>), <span class="at">ncol =</span><span class="dv">5</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb221-3"><a href="gauss-elimination-method.html#cb221-3" tabindex="-1"></a><span class="fu">Gauss.Elimination</span>(<span class="at">A =</span> A1)</span></code></pre></div>
+<pre><code>##      [,1] [,2] [,3] [,4] [,5]
+## [1,]    2   -2    1    0   -1
+## [2,]    0    1   -3    4    1
+## [3,]    0    0    0    0    0
+## [4,]    0    0    0    0    0</code></pre>
+<p><br />
+</p>
+<p><strong>Example 3</strong> Solve the following system of linear equations.</p>
+<p><img src="img07/w07-LabExample03-eq.png" width="35%" style="display: block; margin: auto;" /></p>
+<p><strong>Solution</strong>: Performing Gaussian eliminations (i.e., the series of row operations), we have</p>
+<p><img src="img07/w07-LabExample03-sol.png" width="55%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb223-1"><a href="gauss-elimination-method.html#cb223-1" tabindex="-1"></a>A1 <span class="ot">=</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="sc">-</span><span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="sc">-</span><span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="sc">-</span><span class="dv">4</span>,<span class="dv">7</span>), <span class="at">ncol =</span> <span class="dv">4</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb223-2"><a href="gauss-elimination-method.html#cb223-2" tabindex="-1"></a><span class="fu">Gauss.Elimination</span>(<span class="at">A =</span> A1)</span></code></pre></div>
+<pre><code>##      [,1] [,2] [,3] [,4]
+## [1,]    1    1   -3    4
+## [2,]    0   -1    5   -6
+## [3,]    0    0    0    1</code></pre>
+<p><br />
+</p>
+<p><strong>Example 4</strong> Solve the following system of linear equations.</p>
+<p><img src="img07/w07-LabExample04-eq.png" width="22%" style="display: block; margin: auto;" /></p>
+<p><strong>Solution</strong>: Performing Gaussian eliminations (i.e., the series of row operations), we have</p>
+<p><img src="img07/w07-LabExample04-1-sol.png" width="50%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb225-1"><a href="gauss-elimination-method.html#cb225-1" tabindex="-1"></a>A1 <span class="ot">=</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">4</span>, <span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">23</span><span class="sc">/</span><span class="dv">4</span>, <span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">7</span>,<span class="dv">4</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">2</span>), <span class="at">ncol =</span> <span class="dv">4</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb225-2"><a href="gauss-elimination-method.html#cb225-2" tabindex="-1"></a><span class="fu">Gauss.Elimination</span>(<span class="at">A =</span> A1)</span></code></pre></div>
+<pre><code>##      [,1] [,2] [,3]   [,4]
+## [1,] 0.25  0.5    1   5.75
+## [2,] 0.00 -1.0   -3 -16.00
+## [3,] 0.00  0.0    3   6.00</code></pre>
+</div>
+<div id="gauss-jordan-elimination-optional" class="section level2 hasAnchor" number="12.3">
+<h2><span class="header-section-number">12.3</span> Gauss-Jordan Elimination (<code>Optional</code>)<a href="gauss-elimination-method.html#gauss-jordan-elimination-optional" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb227-1"><a href="gauss-elimination-method.html#cb227-1" tabindex="-1"></a><span class="do">####</span></span>
+<span id="cb227-2"><a href="gauss-elimination-method.html#cb227-2" tabindex="-1"></a>Gauss.Jordan <span class="ot">=</span> <span class="cf">function</span>(A){</span>
+<span id="cb227-3"><a href="gauss-elimination-method.html#cb227-3" tabindex="-1"></a>  <span class="co"># A is the augmented matrix</span></span>
+<span id="cb227-4"><a href="gauss-elimination-method.html#cb227-4" tabindex="-1"></a>  A1 <span class="ot">=</span> <span class="fu">Gauss.Elimination</span>(A)           <span class="co"># perform Gauss elimination</span></span>
+<span id="cb227-5"><a href="gauss-elimination-method.html#cb227-5" tabindex="-1"></a>  n <span class="ot">=</span> <span class="fu">length</span>(A1[,<span class="dv">1</span>])</span>
+<span id="cb227-6"><a href="gauss-elimination-method.html#cb227-6" tabindex="-1"></a>  id<span class="fl">.0</span> <span class="ot">=</span> <span class="fu">rep</span>(<span class="dv">1</span>,n)                     <span class="co"># indicator of zero A[i,i]</span></span>
+<span id="cb227-7"><a href="gauss-elimination-method.html#cb227-7" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n){</span>
+<span id="cb227-8"><a href="gauss-elimination-method.html#cb227-8" tabindex="-1"></a>    <span class="cf">if</span>(A1[i,i] <span class="sc">==</span> <span class="dv">0</span>) id<span class="fl">.0</span>[i] <span class="ot">=</span> <span class="dv">0</span></span>
+<span id="cb227-9"><a href="gauss-elimination-method.html#cb227-9" tabindex="-1"></a>  }</span>
+<span id="cb227-10"><a href="gauss-elimination-method.html#cb227-10" tabindex="-1"></a>  <span class="cf">if</span>(<span class="fu">sum</span>(id<span class="fl">.0</span>) <span class="sc">==</span> n){                  <span class="co"># A[i,i] != 0</span></span>
+<span id="cb227-11"><a href="gauss-elimination-method.html#cb227-11" tabindex="-1"></a>        k <span class="ot">=</span> n</span>
+<span id="cb227-12"><a href="gauss-elimination-method.html#cb227-12" tabindex="-1"></a>        A2 <span class="ot">=</span> A1[k<span class="sc">:</span><span class="dv">1</span>, <span class="fu">c</span>(k<span class="sc">:</span><span class="dv">1</span>,(n<span class="sc">+</span><span class="dv">1</span>))]     <span class="co"># re-arrange rows and columns</span></span>
+<span id="cb227-13"><a href="gauss-elimination-method.html#cb227-13" tabindex="-1"></a>        A3 <span class="ot">=</span> <span class="fu">Gauss.Elimination</span>(A2)     <span class="co"># perform Gauss elimination</span></span>
+<span id="cb227-14"><a href="gauss-elimination-method.html#cb227-14" tabindex="-1"></a>        A4 <span class="ot">=</span> A3[k<span class="sc">:</span><span class="dv">1</span>, <span class="fu">c</span>(k<span class="sc">:</span><span class="dv">1</span>,(n<span class="sc">+</span><span class="dv">1</span>))]     <span class="co"># backward re-arrangement</span></span>
+<span id="cb227-15"><a href="gauss-elimination-method.html#cb227-15" tabindex="-1"></a>      } <span class="cf">else</span>{                          <span class="co"># if exists A[i,i] =0</span></span>
+<span id="cb227-16"><a href="gauss-elimination-method.html#cb227-16" tabindex="-1"></a>        k <span class="ot">=</span> <span class="fu">which</span>(id<span class="fl">.0</span><span class="sc">==</span><span class="dv">0</span>)[<span class="dv">1</span>]<span class="sc">-</span><span class="dv">1</span>   <span class="co"># select rows and columns for re-arrangement</span></span>
+<span id="cb227-17"><a href="gauss-elimination-method.html#cb227-17" tabindex="-1"></a>        A2 <span class="ot">=</span> A1[<span class="fu">c</span>(k<span class="sc">:</span><span class="dv">1</span>,(k<span class="sc">+</span><span class="dv">1</span>)<span class="sc">:</span>n), <span class="fu">c</span>(k<span class="sc">:</span><span class="dv">1</span>,(k<span class="sc">+</span><span class="dv">1</span>)<span class="sc">:</span>(n<span class="sc">+</span><span class="dv">1</span>))]</span>
+<span id="cb227-18"><a href="gauss-elimination-method.html#cb227-18" tabindex="-1"></a>        A3 <span class="ot">=</span> <span class="fu">Gauss.Elimination</span>(A2)</span>
+<span id="cb227-19"><a href="gauss-elimination-method.html#cb227-19" tabindex="-1"></a>        A4 <span class="ot">=</span> A3[<span class="fu">c</span>(k<span class="sc">:</span><span class="dv">1</span>,(k<span class="sc">+</span><span class="dv">1</span>)<span class="sc">:</span>n), <span class="fu">c</span>(k<span class="sc">:</span><span class="dv">1</span>,(k<span class="sc">+</span><span class="dv">1</span>)<span class="sc">:</span>(n<span class="sc">+</span><span class="dv">1</span>))]</span>
+<span id="cb227-20"><a href="gauss-elimination-method.html#cb227-20" tabindex="-1"></a>      }</span>
+<span id="cb227-21"><a href="gauss-elimination-method.html#cb227-21" tabindex="-1"></a>   A4</span>
+<span id="cb227-22"><a href="gauss-elimination-method.html#cb227-22" tabindex="-1"></a>}</span></code></pre></div>
+<p><strong>Example 5</strong> (continuation of <strong>Example 4</strong>)</p>
+<p>We can perform additional row operations (Gaussian-Jordan) to get</p>
+<p><img src="img07/w07-LabExample04-2-sol.png" width="50%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb228-1"><a href="gauss-elimination-method.html#cb228-1" tabindex="-1"></a>A1 <span class="ot">=</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">4</span>, <span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">23</span><span class="sc">/</span><span class="dv">4</span>, <span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">7</span>,<span class="dv">4</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">2</span>), <span class="at">ncol =</span> <span class="dv">4</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb228-2"><a href="gauss-elimination-method.html#cb228-2" tabindex="-1"></a><span class="fu">Gauss.Jordan</span>(<span class="at">A =</span> A1)</span></code></pre></div>
+<pre><code>##      [,1] [,2] [,3]   [,4]
+## [1,] 0.25    0    0  -1.25
+## [2,] 0.00   -1    0 -10.00
+## [3,] 0.00    0    3   6.00</code></pre>
+<p><br />
+</p>
+<p><strong>Example 6</strong> (continuation of <strong>Example 2</strong>) Gauss-Jordan elimination</p>
+<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb230-1"><a href="gauss-elimination-method.html#cb230-1" tabindex="-1"></a>A6 <span class="ot">=</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="sc">-</span><span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="sc">-</span><span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="sc">-</span><span class="dv">1</span>,<span class="dv">2</span>,<span class="sc">-</span><span class="dv">1</span>,<span class="sc">-</span><span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">0</span>,<span class="sc">-</span><span class="dv">6</span>,<span class="dv">4</span>,<span class="dv">3</span>,<span class="sc">-</span><span class="dv">8</span>,<span class="dv">1</span>), <span class="at">ncol =</span><span class="dv">5</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb230-2"><a href="gauss-elimination-method.html#cb230-2" tabindex="-1"></a><span class="fu">Gauss.Jordan</span>(<span class="at">A =</span> A6)</span></code></pre></div>
+<pre><code>##      [,1] [,2] [,3] [,4] [,5]
+## [1,]    2    0   -5    8    1
+## [2,]    0    1   -3    4    1
+## [3,]    0    0    0    0    0
+## [4,]    0    0    0    0    0</code></pre>
+<p><br />
+</p>
+<p><strong>Example 7</strong> (continuation of <strong>Example 3</strong>) Gauss-Jordan form</p>
+<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb232-1"><a href="gauss-elimination-method.html#cb232-1" tabindex="-1"></a>A7 <span class="ot">=</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="sc">-</span><span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="sc">-</span><span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="sc">-</span><span class="dv">4</span>,<span class="dv">7</span>), <span class="at">ncol =</span> <span class="dv">4</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb232-2"><a href="gauss-elimination-method.html#cb232-2" tabindex="-1"></a><span class="fu">Gauss.Jordan</span>(<span class="at">A =</span> A7)</span></code></pre></div>
+<pre><code>##      [,1] [,2] [,3] [,4]
+## [1,]    1    0    2   -2
+## [2,]    0   -1    5   -6
+## [3,]    0    0    0    1</code></pre>
+<p><br />
+</p>
+<p><strong>Example 8</strong> (continuation of <strong>Example 4</strong>) Gauss-Jordan form</p>
+<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb234-1"><a href="gauss-elimination-method.html#cb234-1" tabindex="-1"></a>A8 <span class="ot">=</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">4</span>, <span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">23</span><span class="sc">/</span><span class="dv">4</span>, <span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">7</span>,<span class="dv">4</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">2</span>), <span class="at">ncol =</span> <span class="dv">4</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb234-2"><a href="gauss-elimination-method.html#cb234-2" tabindex="-1"></a><span class="fu">Gauss.Jordan</span>(<span class="at">A =</span> A8)</span></code></pre></div>
+<pre><code>##      [,1] [,2] [,3]   [,4]
+## [1,] 0.25    0    0  -1.25
+## [2,] 0.00   -1    0 -10.00
+## [3,] 0.00    0    3   6.00</code></pre>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="newton-interpolation.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="determinant-and-inversion-of-matrices.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/pengdsci/MAT325EB/edit/master/11-NumericalMethodLinearSystem.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["MAT325EB.pdf", "MAT325EB.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

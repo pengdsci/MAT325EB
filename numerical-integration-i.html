@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Topic 19 Numerical Integration I | MAT325 E-Pack: Numerical Analysis</title>
+  <meta name="description" content="The output format for this example is bookdown::gitbook." />
+  <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Topic 19 Numerical Integration I | MAT325 E-Pack: Numerical Analysis" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="The output format for this example is bookdown::gitbook." />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Topic 19 Numerical Integration I | MAT325 E-Pack: Numerical Analysis" />
+  
+  <meta name="twitter:description" content="The output format for this example is bookdown::gitbook." />
+  
+
+<meta name="author" content="Cheng Peng" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="newton-method-for-nonlinear-system-and-optimization.html"/>
+<link rel="next" href="romberg-integration-and-gaussian-quadratures.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<center><li><a href="./"><font color = "darkred"><b>MAT 325 E-Coursepack: Numerical Analysis</b></font></a><br><font color = "navy">Cheng Peng</font></li></center>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="calculus-review.html"><a href="calculus-review.html"><i class="fa fa-check"></i><b>2</b> Calculus Review</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="calculus-review.html"><a href="calculus-review.html#limits-and-continuity"><i class="fa fa-check"></i><b>2.1</b> Limits and Continuity</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="calculus-review.html"><a href="calculus-review.html#limits"><i class="fa fa-check"></i><b>2.1.1</b> Limits</a></li>
+<li class="chapter" data-level="2.1.2" data-path="calculus-review.html"><a href="calculus-review.html#continuity"><i class="fa fa-check"></i><b>2.1.2</b> Continuity</a></li>
+<li class="chapter" data-level="2.1.3" data-path="calculus-review.html"><a href="calculus-review.html#convergence-of-a-sequence"><i class="fa fa-check"></i><b>2.1.3</b> Convergence of A Sequence</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="calculus-review.html"><a href="calculus-review.html#differentiation"><i class="fa fa-check"></i><b>2.2</b> Differentiation</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="calculus-review.html"><a href="calculus-review.html#definition"><i class="fa fa-check"></i><b>2.2.1</b> Definition</a></li>
+<li class="chapter" data-level="2.2.2" data-path="calculus-review.html"><a href="calculus-review.html#properties"><i class="fa fa-check"></i><b>2.2.2</b> Properties</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="calculus-review.html"><a href="calculus-review.html#integration"><i class="fa fa-check"></i><b>2.3</b> Integration</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="calculus-review.html"><a href="calculus-review.html#series-vs-sequence"><i class="fa fa-check"></i><b>2.3.1</b> Series vs Sequence</a></li>
+<li class="chapter" data-level="2.3.2" data-path="calculus-review.html"><a href="calculus-review.html#definition-of-definite-integral"><i class="fa fa-check"></i><b>2.3.2</b> Definition of Definite Integral</a></li>
+<li class="chapter" data-level="2.3.3" data-path="calculus-review.html"><a href="calculus-review.html#taylor-expansion"><i class="fa fa-check"></i><b>2.3.3</b> Taylor Expansion</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html"><i class="fa fa-check"></i><b>3</b> Scientific Computing with R</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#vectors-and-matrices"><i class="fa fa-check"></i><b>3.1</b> Vectors and Matrices</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#vectors"><i class="fa fa-check"></i><b>3.1.1</b> Vectors</a></li>
+<li class="chapter" data-level="3.1.2" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#matrices"><i class="fa fa-check"></i><b>3.1.2</b> Matrices</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#built-in-mathematical-functions-and-operators"><i class="fa fa-check"></i><b>3.2</b> Built-in Mathematical Functions and Operators</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#arithmetic-operators"><i class="fa fa-check"></i><b>3.2.1</b> Arithmetic Operators</a></li>
+<li class="chapter" data-level="3.2.2" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#basic-mathematical-functions"><i class="fa fa-check"></i><b>3.2.2</b> Basic Mathematical Functions</a></li>
+<li class="chapter" data-level="3.2.3" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#trigonometry"><i class="fa fa-check"></i><b>3.2.3</b> Trigonometry</a></li>
+<li class="chapter" data-level="3.2.4" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#linear-algebra"><i class="fa fa-check"></i><b>3.2.4</b> Linear Algebra</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#graphic-functions-in-base-r"><i class="fa fa-check"></i><b>3.3</b> Graphic Functions in Base R</a></li>
+<li class="chapter" data-level="3.4" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#rounding-and-related-functions"><i class="fa fa-check"></i><b>3.4</b> Rounding and Related Functions</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#round"><i class="fa fa-check"></i><b>3.4.1</b> round()</a></li>
+<li class="chapter" data-level="3.4.2" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#controlling-number-of-displayed-digits"><i class="fa fa-check"></i><b>3.4.2</b> Controlling Number of Displayed Digits</a></li>
+<li class="chapter" data-level="3.4.3" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#signif"><i class="fa fa-check"></i><b>3.4.3</b> <code>Signif()</code></a></li>
+<li class="chapter" data-level="3.4.4" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#floor-and-ceiling"><i class="fa fa-check"></i><b>3.4.4</b> <code>floor()</code> and <code>ceiling()</code></a></li>
+<li class="chapter" data-level="3.4.5" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#trunc"><i class="fa fa-check"></i><b>3.4.5</b> <code>trunc()</code></a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#control-statements"><i class="fa fa-check"></i><b>3.5</b> Control Statements</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#conditional-statements"><i class="fa fa-check"></i><b>3.5.1</b> Conditional Statements</a></li>
+<li class="chapter" data-level="3.5.2" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#loops-in-r"><i class="fa fa-check"></i><b>3.5.2</b> Loops in R</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#numerical-example"><i class="fa fa-check"></i><b>3.6</b> Numerical Example</a>
+<ul>
+<li class="chapter" data-level="3.6.1" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#version-1"><i class="fa fa-check"></i><b>3.6.1</b> VERSION 1</a></li>
+<li class="chapter" data-level="3.6.2" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#version-2"><i class="fa fa-check"></i><b>3.6.2</b> Version 2</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#user-defined-functions"><i class="fa fa-check"></i><b>3.7</b> User Defined Functions</a>
+<ul>
+<li class="chapter" data-level="3.7.1" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#writing-r-functions-for-root-finding-methods"><i class="fa fa-check"></i><b>3.7.1</b> Writing R Functions for Root-finding Methods</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="basics-of-data-representation-and-error-analysis.html"><a href="basics-of-data-representation-and-error-analysis.html"><i class="fa fa-check"></i><b>4</b> Basics of Data Representation and Error Analysis</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="basics-of-data-representation-and-error-analysis.html"><a href="basics-of-data-representation-and-error-analysis.html#data-representation"><i class="fa fa-check"></i><b>4.1</b> Data Representation</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="basics-of-data-representation-and-error-analysis.html"><a href="basics-of-data-representation-and-error-analysis.html#number-systems"><i class="fa fa-check"></i><b>4.1.1</b> Number Systems</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="basics-of-data-representation-and-error-analysis.html"><a href="basics-of-data-representation-and-error-analysis.html#how-data-is-stored-in-computer-memory"><i class="fa fa-check"></i><b>4.2</b> How data is stored in computer memory</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="basics-of-data-representation-and-error-analysis.html"><a href="basics-of-data-representation-and-error-analysis.html#how-integers-are-stored-in-memory"><i class="fa fa-check"></i><b>4.2.1</b> How integers are stored in memory?</a></li>
+<li class="chapter" data-level="4.2.2" data-path="basics-of-data-representation-and-error-analysis.html"><a href="basics-of-data-representation-and-error-analysis.html#floating-point-numbers"><i class="fa fa-check"></i><b>4.2.2</b> Floating-point Numbers</a></li>
+<li class="chapter" data-level="4.2.3" data-path="basics-of-data-representation-and-error-analysis.html"><a href="basics-of-data-representation-and-error-analysis.html#how-floating-point-numbers-are-stored-in-memory"><i class="fa fa-check"></i><b>4.2.3</b> How Floating-point Numbers Are Stored in Memory?</a></li>
+<li class="chapter" data-level="4.2.4" data-path="basics-of-data-representation-and-error-analysis.html"><a href="basics-of-data-representation-and-error-analysis.html#basic-types-errors-in-error-analysis"><i class="fa fa-check"></i><b>4.2.4</b> Basic Types Errors in Error Analysis</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="error-analysis-algorithms-and-convergence.html"><a href="error-analysis-algorithms-and-convergence.html"><i class="fa fa-check"></i><b>5</b> Error Analysis, Algorithms and Convergence</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="error-analysis-algorithms-and-convergence.html"><a href="error-analysis-algorithms-and-convergence.html#error-analysis"><i class="fa fa-check"></i><b>5.1</b> Error Analysis</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="error-analysis-algorithms-and-convergence.html"><a href="error-analysis-algorithms-and-convergence.html#understanding-numerical-error"><i class="fa fa-check"></i><b>5.1.1</b> Understanding Numerical Error</a></li>
+<li class="chapter" data-level="5.1.2" data-path="error-analysis-algorithms-and-convergence.html"><a href="error-analysis-algorithms-and-convergence.html#error-classification"><i class="fa fa-check"></i><b>5.1.2</b> Error Classification</a></li>
+<li class="chapter" data-level="5.1.3" data-path="error-analysis-algorithms-and-convergence.html"><a href="error-analysis-algorithms-and-convergence.html#approximation-significant-digits-figures"><i class="fa fa-check"></i><b>5.1.3</b> Approximation Significant Digits (Figures)</a></li>
+<li class="chapter" data-level="5.1.4" data-path="error-analysis-algorithms-and-convergence.html"><a href="error-analysis-algorithms-and-convergence.html#nested-arithmetic"><i class="fa fa-check"></i><b>5.1.4</b> Nested Arithmetic</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="error-analysis-algorithms-and-convergence.html"><a href="error-analysis-algorithms-and-convergence.html#algorithms-and-convergence"><i class="fa fa-check"></i><b>5.2</b> Algorithms and Convergence</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="error-analysis-algorithms-and-convergence.html"><a href="error-analysis-algorithms-and-convergence.html#algorithm-and-psuedo-code"><i class="fa fa-check"></i><b>5.2.1</b> Algorithm and Psuedo-code</a></li>
+<li class="chapter" data-level="5.2.2" data-path="error-analysis-algorithms-and-convergence.html"><a href="error-analysis-algorithms-and-convergence.html#rules-of-pseudo-code"><i class="fa fa-check"></i><b>5.2.2</b> Rules of Pseudo-code</a></li>
+<li class="chapter" data-level="5.2.3" data-path="error-analysis-algorithms-and-convergence.html"><a href="error-analysis-algorithms-and-convergence.html#stability-of-algorithms"><i class="fa fa-check"></i><b>5.2.3</b> Stability of Algorithms</a></li>
+<li class="chapter" data-level="5.2.4" data-path="error-analysis-algorithms-and-convergence.html"><a href="error-analysis-algorithms-and-convergence.html#rates-of-convergence"><i class="fa fa-check"></i><b>5.2.4</b> Rates of Convergence</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="bisection-method.html"><a href="bisection-method.html"><i class="fa fa-check"></i><b>6</b> Bisection Method</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="bisection-method.html"><a href="bisection-method.html#the-question"><i class="fa fa-check"></i><b>6.1</b> The Question</a></li>
+<li class="chapter" data-level="6.2" data-path="bisection-method.html"><a href="bisection-method.html#bisection-method-1"><i class="fa fa-check"></i><b>6.2</b> Bisection Method</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="bisection-method.html"><a href="bisection-method.html#the-logic-of-bisection-method"><i class="fa fa-check"></i><b>6.2.1</b> The Logic of Bisection Method</a></li>
+<li class="chapter" data-level="6.2.2" data-path="bisection-method.html"><a href="bisection-method.html#bisection-algorithm"><i class="fa fa-check"></i><b>6.2.2</b> Bisection Algorithm</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="bisection-method.html"><a href="bisection-method.html#error-analysis-1"><i class="fa fa-check"></i><b>6.3</b> Error Analysis</a></li>
+<li class="chapter" data-level="6.4" data-path="bisection-method.html"><a href="bisection-method.html#numerical-examples."><i class="fa fa-check"></i><b>6.4</b> Numerical Examples.</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="fixed-point-method.html"><a href="fixed-point-method.html"><i class="fa fa-check"></i><b>7</b> Fixed Point Method</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="fixed-point-method.html"><a href="fixed-point-method.html#some-theories-of-the-fixed-point-method"><i class="fa fa-check"></i><b>7.1</b> Some Theories of the Fixed Point Method</a></li>
+<li class="chapter" data-level="7.2" data-path="fixed-point-method.html"><a href="fixed-point-method.html#fixed-point-iteration"><i class="fa fa-check"></i><b>7.2</b> Fixed Point Iteration</a></li>
+<li class="chapter" data-level="7.3" data-path="fixed-point-method.html"><a href="fixed-point-method.html#error-analysis-2"><i class="fa fa-check"></i><b>7.3</b> Error Analysis</a></li>
+<li class="chapter" data-level="7.4" data-path="fixed-point-method.html"><a href="fixed-point-method.html#numerical-example-1"><i class="fa fa-check"></i><b>7.4</b> Numerical Example</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="newtons-method.html"><a href="newtons-method.html"><i class="fa fa-check"></i><b>8</b> Newton’s Method</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="newtons-method.html"><a href="newtons-method.html#notations-big-o-and-little-o"><i class="fa fa-check"></i><b>8.1</b> Notations: Big O and Little o</a></li>
+<li class="chapter" data-level="8.2" data-path="newtons-method.html"><a href="newtons-method.html#foundations-of-newton-method"><i class="fa fa-check"></i><b>8.2</b> Foundations of Newton Method</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="newtons-method.html"><a href="newtons-method.html#the-algorithmic-logic"><i class="fa fa-check"></i><b>8.2.1</b> The Algorithmic Logic</a></li>
+<li class="chapter" data-level="8.2.2" data-path="newtons-method.html"><a href="newtons-method.html#initial-starting-value-matters"><i class="fa fa-check"></i><b>8.2.2</b> Initial Starting Value Matters</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="newtons-method.html"><a href="newtons-method.html#algorithm-and-pseudo-code"><i class="fa fa-check"></i><b>8.3</b> Algorithm and Pseudo-code</a></li>
+<li class="chapter" data-level="8.4" data-path="newtons-method.html"><a href="newtons-method.html#error-analysis-3"><i class="fa fa-check"></i><b>8.4</b> Error Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="secant-method.html"><a href="secant-method.html"><i class="fa fa-check"></i><b>9</b> Secant Method</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="secant-method.html"><a href="secant-method.html#secant-method-1"><i class="fa fa-check"></i><b>9.1</b> Secant Method</a></li>
+<li class="chapter" data-level="9.2" data-path="secant-method.html"><a href="secant-method.html#secant-algorithm-and-implementation"><i class="fa fa-check"></i><b>9.2</b> Secant Algorithm and Implementation</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="secant-method.html"><a href="secant-method.html#implementation-with-r"><i class="fa fa-check"></i><b>9.2.1</b> Implementation with R</a></li>
+<li class="chapter" data-level="9.2.2" data-path="secant-method.html"><a href="secant-method.html#numerical-examples"><i class="fa fa-check"></i><b>9.2.2</b> Numerical Examples</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="secant-method.html"><a href="secant-method.html#error-analysis-4"><i class="fa fa-check"></i><b>9.3</b> Error Analysis</a></li>
+<li class="chapter" data-level="9.4" data-path="secant-method.html"><a href="secant-method.html#false-position-method"><i class="fa fa-check"></i><b>9.4</b> False Position Method</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html"><i class="fa fa-check"></i><b>10</b> Lagrange Interpolation</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html#concepts-of-interpolation-method"><i class="fa fa-check"></i><b>10.1</b> Concepts of Interpolation Method</a>
+<ul>
+<li class="chapter" data-level="10.1.1" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html#data-fitting-interpolation"><i class="fa fa-check"></i><b>10.1.1</b> Data-fitting / Interpolation:</a></li>
+<li class="chapter" data-level="10.1.2" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html#functional-equation-curve-approximation"><i class="fa fa-check"></i><b>10.1.2</b> Functional Equation (Curve Approximation)</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html#the-lagrange-interpolation"><i class="fa fa-check"></i><b>10.2</b> The Lagrange Interpolation</a>
+<ul>
+<li class="chapter" data-level="10.2.1" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html#linear-lagrange-interpolation"><i class="fa fa-check"></i><b>10.2.1</b> Linear Lagrange Interpolation</a></li>
+<li class="chapter" data-level="10.2.2" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html#quadratic-lagrange-interpolation"><i class="fa fa-check"></i><b>10.2.2</b> Quadratic Lagrange Interpolation</a></li>
+<li class="chapter" data-level="10.2.3" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html#general-lagrange-interpolation"><i class="fa fa-check"></i><b>10.2.3</b> General Lagrange Interpolation</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html#lagrange-algorithm-and-implementation"><i class="fa fa-check"></i><b>10.3</b> Lagrange Algorithm and Implementation</a>
+<ul>
+<li class="chapter" data-level="10.3.1" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html#pseudo-code"><i class="fa fa-check"></i><b>10.3.1</b> Pseudo-code</a></li>
+<li class="chapter" data-level="10.3.2" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html#r-function-with-scalar-input"><i class="fa fa-check"></i><b>10.3.2</b> R Function with Scalar Input</a></li>
+<li class="chapter" data-level="10.3.3" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html#r-function-with-vector-input"><i class="fa fa-check"></i><b>10.3.3</b> R Function with Vector Input</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html#error-analysis-5"><i class="fa fa-check"></i><b>10.4</b> Error Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="newton-interpolation.html"><a href="newton-interpolation.html"><i class="fa fa-check"></i><b>11</b> Newton Interpolation</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="newton-interpolation.html"><a href="newton-interpolation.html#some-definitions"><i class="fa fa-check"></i><b>11.1</b> Some Definitions</a>
+<ul>
+<li class="chapter" data-level="11.1.1" data-path="newton-interpolation.html"><a href="newton-interpolation.html#definitions"><i class="fa fa-check"></i><b>11.1.1</b> Definitions</a></li>
+<li class="chapter" data-level="11.1.2" data-path="newton-interpolation.html"><a href="newton-interpolation.html#calculation-of-divided-difference"><i class="fa fa-check"></i><b>11.1.2</b> Calculation of Divided Difference</a></li>
+<li class="chapter" data-level="11.1.3" data-path="newton-interpolation.html"><a href="newton-interpolation.html#algorithm-of-calculating-divided-differences"><i class="fa fa-check"></i><b>11.1.3</b> Algorithm of Calculating Divided Differences</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="newton-interpolation.html"><a href="newton-interpolation.html#newton-interpolation-polynomial"><i class="fa fa-check"></i><b>11.2</b> Newton Interpolation Polynomial</a>
+<ul>
+<li class="chapter" data-level="11.2.1" data-path="newton-interpolation.html"><a href="newton-interpolation.html#definition-of-newton-interpolation"><i class="fa fa-check"></i><b>11.2.1</b> Definition of Newton Interpolation</a></li>
+<li class="chapter" data-level="11.2.2" data-path="newton-interpolation.html"><a href="newton-interpolation.html#newton-interpolation-algorithm"><i class="fa fa-check"></i><b>11.2.2</b> Newton Interpolation Algorithm</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="newton-interpolation.html"><a href="newton-interpolation.html#error-analysis-6"><i class="fa fa-check"></i><b>11.3</b> Error Analysis</a></li>
+<li class="chapter" data-level="11.4" data-path="newton-interpolation.html"><a href="newton-interpolation.html#some-remarks-of-newton-interpolation"><i class="fa fa-check"></i><b>11.4</b> Some Remarks of Newton Interpolation</a></li>
+<li class="chapter" data-level="11.5" data-path="newton-interpolation.html"><a href="newton-interpolation.html#implicit-loops-in-r-programming"><i class="fa fa-check"></i><b>11.5</b> Implicit Loops in R Programming</a>
+<ul>
+<li class="chapter" data-level="11.5.1" data-path="newton-interpolation.html"><a href="newton-interpolation.html#implicit-in-r-primitive-functions"><i class="fa fa-check"></i><b>11.5.1</b> Implicit in R Primitive Functions</a></li>
+<li class="chapter" data-level="11.5.2" data-path="newton-interpolation.html"><a href="newton-interpolation.html#some-vectorized-primitive-functions"><i class="fa fa-check"></i><b>11.5.2</b> Some Vectorized Primitive Functions</a></li>
+<li class="chapter" data-level="11.5.3" data-path="newton-interpolation.html"><a href="newton-interpolation.html#divided-difference-variants"><i class="fa fa-check"></i><b>11.5.3</b> Divided Difference Variants</a></li>
+<li class="chapter" data-level="11.5.4" data-path="newton-interpolation.html"><a href="newton-interpolation.html#vectorizing-newtoninterp"><i class="fa fa-check"></i><b>11.5.4</b> Vectorizing <strong>NewtonInterp()</strong></a></li>
+<li class="chapter" data-level="11.5.5" data-path="newton-interpolation.html"><a href="newton-interpolation.html#code-efficiency-with-implivit-loops"><i class="fa fa-check"></i><b>11.5.5</b> Code Efficiency with Implivit Loops</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="gauss-elimination-method.html"><a href="gauss-elimination-method.html"><i class="fa fa-check"></i><b>12</b> Gauss Elimination Method</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="gauss-elimination-method.html"><a href="gauss-elimination-method.html#naive-gaussian-elimination-methods"><i class="fa fa-check"></i><b>12.1</b> Naive Gaussian Elimination Methods</a></li>
+<li class="chapter" data-level="12.2" data-path="gauss-elimination-method.html"><a href="gauss-elimination-method.html#gaussian-elimination-algorithm"><i class="fa fa-check"></i><b>12.2</b> Gaussian Elimination Algorithm</a></li>
+<li class="chapter" data-level="12.3" data-path="gauss-elimination-method.html"><a href="gauss-elimination-method.html#gauss-jordan-elimination-optional"><i class="fa fa-check"></i><b>12.3</b> Gauss-Jordan Elimination (<code>Optional</code>)</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="determinant-and-inversion-of-matrices.html"><a href="determinant-and-inversion-of-matrices.html"><i class="fa fa-check"></i><b>13</b> Determinant and Inversion of Matrices</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="determinant-and-inversion-of-matrices.html"><a href="determinant-and-inversion-of-matrices.html#concepts-of-matrix-a-review"><i class="fa fa-check"></i><b>13.1</b> Concepts of Matrix: A Review</a>
+<ul>
+<li class="chapter" data-level="13.1.1" data-path="determinant-and-inversion-of-matrices.html"><a href="determinant-and-inversion-of-matrices.html#definitions-of-some-special-matrices"><i class="fa fa-check"></i><b>13.1.1</b> Definitions of Some Special Matrices</a></li>
+<li class="chapter" data-level="13.1.2" data-path="determinant-and-inversion-of-matrices.html"><a href="determinant-and-inversion-of-matrices.html#binary-operations"><i class="fa fa-check"></i><b>13.1.2</b> Binary Operations</a></li>
+<li class="chapter" data-level="13.1.3" data-path="determinant-and-inversion-of-matrices.html"><a href="determinant-and-inversion-of-matrices.html#unary-operations"><i class="fa fa-check"></i><b>13.1.3</b> Unary Operations</a></li>
+</ul></li>
+<li class="chapter" data-level="13.2" data-path="determinant-and-inversion-of-matrices.html"><a href="determinant-and-inversion-of-matrices.html#determinant-of-a-square-matrix"><i class="fa fa-check"></i><b>13.2</b> Determinant of a Square Matrix</a></li>
+<li class="chapter" data-level="13.3" data-path="determinant-and-inversion-of-matrices.html"><a href="determinant-and-inversion-of-matrices.html#matrix-inversion"><i class="fa fa-check"></i><b>13.3</b> Matrix Inversion</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="matrix-factorization.html"><a href="matrix-factorization.html"><i class="fa fa-check"></i><b>14</b> Matrix Factorization</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="matrix-factorization.html"><a href="matrix-factorization.html#elementary-and-permutation-matrices"><i class="fa fa-check"></i><b>14.1</b> Elementary and Permutation Matrices</a></li>
+<li class="chapter" data-level="14.2" data-path="matrix-factorization.html"><a href="matrix-factorization.html#lu-factorization-algorithm"><i class="fa fa-check"></i><b>14.2</b> LU Factorization Algorithm</a>
+<ul>
+<li class="chapter" data-level="14.2.1" data-path="matrix-factorization.html"><a href="matrix-factorization.html#row-operations-with-row-swapping"><i class="fa fa-check"></i><b>14.2.1</b> Row Operations with Row Swapping</a></li>
+<li class="chapter" data-level="14.2.2" data-path="matrix-factorization.html"><a href="matrix-factorization.html#row-operations-with-row-swapping-1"><i class="fa fa-check"></i><b>14.2.2</b> Row Operations with Row-swapping</a></li>
+<li class="chapter" data-level="14.2.3" data-path="matrix-factorization.html"><a href="matrix-factorization.html#lu-algorithm"><i class="fa fa-check"></i><b>14.2.3</b> LU ALgorithm</a></li>
+</ul></li>
+<li class="chapter" data-level="14.3" data-path="matrix-factorization.html"><a href="matrix-factorization.html#benefit-of-lu-factorization"><i class="fa fa-check"></i><b>14.3</b> Benefit of LU Factorization</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="least-square-approximation.html"><a href="least-square-approximation.html"><i class="fa fa-check"></i><b>15</b> Least Square Approximation</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="least-square-approximation.html"><a href="least-square-approximation.html#concepts-of-least-square-approximation"><i class="fa fa-check"></i><b>15.1</b> Concepts of Least Square Approximation</a></li>
+<li class="chapter" data-level="15.2" data-path="least-square-approximation.html"><a href="least-square-approximation.html#approximating-one-variable-linear-function"><i class="fa fa-check"></i><b>15.2</b> Approximating One-variable Linear Function</a></li>
+<li class="chapter" data-level="15.3" data-path="least-square-approximation.html"><a href="least-square-approximation.html#approximating-multiple-variable-linear-function"><i class="fa fa-check"></i><b>15.3</b> Approximating Multiple-variable Linear Function</a>
+<ul>
+<li class="chapter" data-level="15.3.1" data-path="least-square-approximation.html"><a href="least-square-approximation.html#an-extension-of-the-height-example"><i class="fa fa-check"></i><b>15.3.1</b> An Extension of the Height Example</a></li>
+<li class="chapter" data-level="15.3.2" data-path="least-square-approximation.html"><a href="least-square-approximation.html#approximating-general-multi-variables-linear-functions"><i class="fa fa-check"></i><b>15.3.2</b> Approximating General Multi-variables Linear Functions</a></li>
+</ul></li>
+<li class="chapter" data-level="15.4" data-path="least-square-approximation.html"><a href="least-square-approximation.html#approximating-one-variable-polynomial-function"><i class="fa fa-check"></i><b>15.4</b> Approximating One-variable Polynomial Function</a>
+<ul>
+<li class="chapter" data-level="15.4.1" data-path="least-square-approximation.html"><a href="least-square-approximation.html#approximating-quadratic-function"><i class="fa fa-check"></i><b>15.4.1</b> Approximating Quadratic Function</a></li>
+<li class="chapter" data-level="15.4.2" data-path="least-square-approximation.html"><a href="least-square-approximation.html#approximating-general-polynomial-functions"><i class="fa fa-check"></i><b>15.4.2</b> Approximating General Polynomial Functions</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="concepts-of-spline-interpolations.html"><a href="concepts-of-spline-interpolations.html"><i class="fa fa-check"></i><b>16</b> Concepts of Spline Interpolations</a>
+<ul>
+<li class="chapter" data-level="16.1" data-path="concepts-of-spline-interpolations.html"><a href="concepts-of-spline-interpolations.html#linear-splines"><i class="fa fa-check"></i><b>16.1</b> Linear Splines</a></li>
+<li class="chapter" data-level="16.2" data-path="concepts-of-spline-interpolations.html"><a href="concepts-of-spline-interpolations.html#quadratic-spline-interpolation"><i class="fa fa-check"></i><b>16.2</b> Quadratic Spline Interpolation</a>
+<ul>
+<li class="chapter" data-level="16.2.1" data-path="concepts-of-spline-interpolations.html"><a href="concepts-of-spline-interpolations.html#formulation-of-quadratic-spline"><i class="fa fa-check"></i><b>16.2.1</b> Formulation of Quadratic Spline</a></li>
+<li class="chapter" data-level="16.2.2" data-path="concepts-of-spline-interpolations.html"><a href="concepts-of-spline-interpolations.html#matrix-representation-of-quadratic-spline-problem"><i class="fa fa-check"></i><b>16.2.2</b> Matrix Representation of Quadratic Spline Problem</a></li>
+<li class="chapter" data-level="16.2.3" data-path="concepts-of-spline-interpolations.html"><a href="concepts-of-spline-interpolations.html#algorithm-of-quadratic-spline"><i class="fa fa-check"></i><b>16.2.3</b> Algorithm of Quadratic Spline</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="cubic-spline-interpolation.html"><a href="cubic-spline-interpolation.html"><i class="fa fa-check"></i><b>17</b> Cubic Spline Interpolation</a>
+<ul>
+<li class="chapter" data-level="17.1" data-path="cubic-spline-interpolation.html"><a href="cubic-spline-interpolation.html#cubic-splines"><i class="fa fa-check"></i><b>17.1</b> Cubic Splines</a>
+<ul>
+<li class="chapter" data-level="17.1.1" data-path="cubic-spline-interpolation.html"><a href="cubic-spline-interpolation.html#formulation-of-cubic-spline"><i class="fa fa-check"></i><b>17.1.1</b> Formulation of Cubic Spline</a></li>
+<li class="chapter" data-level="17.1.2" data-path="cubic-spline-interpolation.html"><a href="cubic-spline-interpolation.html#construction-of-cubic-splines"><i class="fa fa-check"></i><b>17.1.2</b> Construction of Cubic Splines</a></li>
+<li class="chapter" data-level="17.1.3" data-path="cubic-spline-interpolation.html"><a href="cubic-spline-interpolation.html#cubic-spline-algorithm"><i class="fa fa-check"></i><b>17.1.3</b> Cubic Spline Algorithm</a></li>
+</ul></li>
+<li class="chapter" data-level="17.2" data-path="cubic-spline-interpolation.html"><a href="cubic-spline-interpolation.html#clamped-splines"><i class="fa fa-check"></i><b>17.2</b> Clamped Splines</a></li>
+<li class="chapter" data-level="17.3" data-path="cubic-spline-interpolation.html"><a href="cubic-spline-interpolation.html#error-analysis-7"><i class="fa fa-check"></i><b>17.3</b> Error Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="newton-method-for-nonlinear-system-and-optimization.html"><a href="newton-method-for-nonlinear-system-and-optimization.html"><i class="fa fa-check"></i><b>18</b> Newton Method for Nonlinear System and Optimization</a>
+<ul>
+<li class="chapter" data-level="18.1" data-path="newton-method-for-nonlinear-system-and-optimization.html"><a href="newton-method-for-nonlinear-system-and-optimization.html#multivariate-taylor-expansion"><i class="fa fa-check"></i><b>18.1</b> Multivariate Taylor Expansion</a></li>
+<li class="chapter" data-level="18.2" data-path="newton-method-for-nonlinear-system-and-optimization.html"><a href="newton-method-for-nonlinear-system-and-optimization.html#newton-method-for-nonlinear-systems"><i class="fa fa-check"></i><b>18.2</b> Newton Method for Nonlinear Systems</a>
+<ul>
+<li class="chapter" data-level="18.2.1" data-path="newton-method-for-nonlinear-system-and-optimization.html"><a href="newton-method-for-nonlinear-system-and-optimization.html#system-of-two-nonlinear-equations"><i class="fa fa-check"></i><b>18.2.1</b> System of Two Nonlinear Equations</a></li>
+<li class="chapter" data-level="18.2.2" data-path="newton-method-for-nonlinear-system-and-optimization.html"><a href="newton-method-for-nonlinear-system-and-optimization.html#newton-algorithm"><i class="fa fa-check"></i><b>18.2.2</b> Newton Algorithm</a></li>
+</ul></li>
+<li class="chapter" data-level="18.3" data-path="newton-method-for-nonlinear-system-and-optimization.html"><a href="newton-method-for-nonlinear-system-and-optimization.html#optimization"><i class="fa fa-check"></i><b>18.3</b> Optimization</a></li>
+<li class="chapter" data-level="18.4" data-path="newton-method-for-nonlinear-system-and-optimization.html"><a href="newton-method-for-nonlinear-system-and-optimization.html#a-case-study"><i class="fa fa-check"></i><b>18.4</b> A Case Study</a></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html"><i class="fa fa-check"></i><b>19</b> Numerical Integration I</a>
+<ul>
+<li class="chapter" data-level="19.1" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html#numerical-approximation-of-derivatives"><i class="fa fa-check"></i><b>19.1</b> Numerical Approximation of Derivatives</a></li>
+<li class="chapter" data-level="19.2" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html#trapezoid-method"><i class="fa fa-check"></i><b>19.2</b> Trapezoid Method</a>
+<ul>
+<li class="chapter" data-level="19.2.1" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html#formulation-of-trapezoid-method"><i class="fa fa-check"></i><b>19.2.1</b> Formulation of Trapezoid Method</a></li>
+<li class="chapter" data-level="19.2.2" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html#error-analysis-8"><i class="fa fa-check"></i><b>19.2.2</b> Error Analysis</a></li>
+<li class="chapter" data-level="19.2.3" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html#composite-trapezoid-method-and-error-analysis"><i class="fa fa-check"></i><b>19.2.3</b> Composite Trapezoid Method and Error Analysis</a></li>
+<li class="chapter" data-level="19.2.4" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html#trapezoid-algorithm"><i class="fa fa-check"></i><b>19.2.4</b> Trapezoid Algorithm</a></li>
+</ul></li>
+<li class="chapter" data-level="19.3" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html#simpsons-one-third-rule"><i class="fa fa-check"></i><b>19.3</b> Simpson’s One-third Rule</a>
+<ul>
+<li class="chapter" data-level="19.3.1" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html#derivation-of-simpsons-rule"><i class="fa fa-check"></i><b>19.3.1</b> Derivation of Simpson’s Rule</a></li>
+<li class="chapter" data-level="19.3.2" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html#explicit-function-on-x_i-1-x_i1"><i class="fa fa-check"></i><b>19.3.2</b> Explicit Function on <span class="math inline">\([x_{i-1}, x_{i+1}]\)</span></a></li>
+<li class="chapter" data-level="19.3.3" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html#the-composite-simpsons-rule"><i class="fa fa-check"></i><b>19.3.3</b> The Composite Simpsons’ Rule</a></li>
+<li class="chapter" data-level="19.3.4" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html#error-analysis-9"><i class="fa fa-check"></i><b>19.3.4</b> Error Analysis</a></li>
+<li class="chapter" data-level="19.3.5" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html#algorithm-of-simpsons-rule"><i class="fa fa-check"></i><b>19.3.5</b> Algorithm of Simpson’s Rule</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html"><i class="fa fa-check"></i><b>20</b> Romberg Integration and Gaussian Quadratures</a>
+<ul>
+<li class="chapter" data-level="20.1" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#richardson-extrapolation"><i class="fa fa-check"></i><b>20.1</b> Richardson Extrapolation</a>
+<ul>
+<li class="chapter" data-level="20.1.1" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#the-logic-of-the-richardson-method"><i class="fa fa-check"></i><b>20.1.1</b> The Logic of the Richardson Method</a></li>
+<li class="chapter" data-level="20.1.2" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#algorithm-of-richardson-method"><i class="fa fa-check"></i><b>20.1.2</b> Algorithm of Richardson Method</a></li>
+<li class="chapter" data-level="20.1.3" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#higher-order-extrapolation"><i class="fa fa-check"></i><b>20.1.3</b> Higher Order Extrapolation</a></li>
+<li class="chapter" data-level="20.1.4" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#algorithm-and-code"><i class="fa fa-check"></i><b>20.1.4</b> Algorithm and Code</a></li>
+</ul></li>
+<li class="chapter" data-level="20.2" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#romberg-integration"><i class="fa fa-check"></i><b>20.2</b> Romberg Integration</a>
+<ul>
+<li class="chapter" data-level="20.2.1" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#approximation-formula-and-error-analysis"><i class="fa fa-check"></i><b>20.2.1</b> Approximation formula and Error Analysis</a></li>
+<li class="chapter" data-level="20.2.2" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#romberg-algorithm"><i class="fa fa-check"></i><b>20.2.2</b> Romberg Algorithm</a></li>
+<li class="chapter" data-level="20.2.3" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#r-code"><i class="fa fa-check"></i><b>20.2.3</b> R Code</a></li>
+</ul></li>
+<li class="chapter" data-level="20.3" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#gaussian-quadrature"><i class="fa fa-check"></i><b>20.3</b> Gaussian Quadrature</a>
+<ul>
+<li class="chapter" data-level="20.3.1" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#two-point-gauss-legendre-formula"><i class="fa fa-check"></i><b>20.3.1</b> Two-point Gauss Legendre Formula</a></li>
+<li class="chapter" data-level="20.3.2" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#general-gauss-legendre-formula"><i class="fa fa-check"></i><b>20.3.2</b> General Gauss Legendre Formula</a></li>
+<li class="chapter" data-level="20.3.3" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#r-code-1"><i class="fa fa-check"></i><b>20.3.3</b> R Code</a></li>
+</ul></li>
+<li class="chapter" data-level="20.4" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#remarks"><i class="fa fa-check"></i><b>20.4</b> Remarks</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">MAT325 E-Pack: Numerical Analysis</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="numerical-integration-i" class="section level1 hasAnchor" number="19">
+<h1><span class="header-section-number">Topic 19</span> Numerical Integration I<a href="numerical-integration-i.html#numerical-integration-i" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>This note introduces several methods for numerical integration. Before discussing the specific method, we introduce numerical approximation for derivatives based on the Taylor series and then use some definitions and ideas to develop numerical methods for approximating integrals.</p>
+<p><br />
+</p>
+<div id="numerical-approximation-of-derivatives" class="section level2 hasAnchor" number="19.1">
+<h2><span class="header-section-number">19.1</span> Numerical Approximation of Derivatives<a href="numerical-integration-i.html#numerical-approximation-of-derivatives" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><br />
+</p>
+<p>The function <span class="math inline">\(f(x)\)</span> can be expanded over a small interval <span class="math inline">\(t\)</span> using the Taylor series from a start or reference point</p>
+<p><span class="math display">\[
+y(x+t)=y(x) + y^\prime(x)t + \frac{y^{\prime\prime} (x)}{2!} t^2  + \frac{y^{\prime\prime\prime} (x)}{3!} t^3 +\frac{y^{(4)} (x)}{4!} t^4  + \cdots
+\]</span></p>
+<p>This forms an approximation to <span class="math inline">\(f(x)\)</span> in <span class="math inline">\(t\)</span> which runs, say, from <span class="math inline">\(x_i\)</span> to <span class="math inline">\(x_j\)</span>, and can be used to integrate <span class="math inline">\(y(t)\)</span>. For example, if we keep the first four terms on the right-hand side of the above series in integration, we get</p>
+<p><span class="math display">\[
+I = \int_0^h ydt = \int_0^h \left[y + y^\prime t + \frac{y^{\prime\prime}}{2!}t^2 + \frac{y^{\prime\prime\prime}}{4!}t^4 + O(t^4 y^{(4)}) \right]dt
+\]</span></p>
+<p><span class="math display">\[
+= hy + \frac{h^2}{2!}y^{\prime} + \frac{h^3}{3!}y^{\prime\prime} + \frac{h^4}{4!}y^{\prime\prime\prime} + O[h^5y^{(4)}]
+\]</span>
+where <span class="math inline">\(h_i = x_{i+1} - x_i = h\)</span> is a constant.</p>
+<p>Alternatively, we can rewrite the Taylor series as</p>
+<p><span class="math display">\[
+y(x+t)=y(x) + y^\prime(x)t + O(y^{\prime\prime} t^2)
+\]</span>
+Solving <span class="math inline">\(y^\prime\)</span> from the above equation</p>
+<p><span class="math display">\[
+y^\prime(x) = \frac{y(x+t) - y(x)}{t} - O(y^{\prime\prime}t)
+\]</span></p>
+<p>by setting <span class="math inline">\(t\)</span> to <span class="math inline">\(h\)</span> in the Taylor series, we may also approximate the first derivative</p>
+<p><span class="math display">\[
+y^\prime (x) = \frac{y(x+h) - y(x)}{h} - O(hy^{\prime\prime}).
+\]</span></p>
+<p>That is,</p>
+<p><span class="math display">\[
+y_i^\prime= \frac{y_{i+1}-y_i}{h} - O(hy^{\prime\prime})
+\]</span></p>
+<p>The last expression, <strong>a first-forward finite difference</strong>, will be used to complete the trapezoid rule below. Note that this is only the <strong>first order accurate</strong>.</p>
+<p>The well-known <strong>second-order accurate central difference</strong> approximations for derivatives are obtained by writing a backward Taylor expansion <span class="math inline">\(y(x-t)\)</span> and letting <span class="math inline">\(t = h\)</span>. Then subtracting it from <span class="math inline">\(y(x+t)\)</span> yields</p>
+<p><span class="math display">\[
+y(x+t)=y(x) + y^\prime(x)t + \frac{y^{\prime\prime} (x)}{2!} t^2  + \frac{y^{\prime\prime\prime} (x)}{3!} t^3 + O(y^{(4)}t^4) \\
+y(x-t)=y(x) + y^\prime(x)(-t) + \frac{y^{\prime\prime} (x)}{2!} (-t)^2  + \frac{y^{\prime\prime\prime} (x)}{3!} (-t)^3 + O(y^{(4)}t^4)\\
+\]</span></p>
+<p><span class="math display">\[
+y(x+t) + y(x-t) = 2y(x) + y^{\prime\prime}(x)(t^2) + O(y^{(4)}t^4).
+\]</span></p>
+<p>Solve for <span class="math inline">\(y^{\prime\prime}(x)\)</span>, we have</p>
+<p><span class="math display">\[
+y^{\prime\prime}(x) = \frac{y(x+t) + y(x-t) - 2y(x)}{t^2} - O(y^{(4)}t^2).
+\]</span></p>
+<p><br />
+</p>
+<p><img src="img12/w12-ApproximatingDerivatives.png" width="65%" style="display: block; margin: auto;" /></p>
+<p><br />
+</p>
+</div>
+<div id="trapezoid-method" class="section level2 hasAnchor" number="19.2">
+<h2><span class="header-section-number">19.2</span> Trapezoid Method<a href="numerical-integration-i.html#trapezoid-method" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The concept of the trapezoidal rule comes from approximating <span class="math inline">\(y(t)\)</span> at any point <span class="math inline">\(t\)</span> in an interval by a linear polynomial using Taylor’s series and then integrating the approximation.</p>
+<p><br />
+</p>
+<p><img src="img12/w12-trapezoid-sum.gif" width="45%" style="display: block; margin: auto;" /><br />
+</p>
+<div id="formulation-of-trapezoid-method" class="section level3 hasAnchor" number="19.2.1">
+<h3><span class="header-section-number">19.2.1</span> Formulation of Trapezoid Method<a href="numerical-integration-i.html#formulation-of-trapezoid-method" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>If the approximation is a linear function, the resulting integration is called the trapezoidal rule. For the data interval <span class="math inline">\([x_i, x_{i+1}]\)</span></p>
+<p><span class="math display">\[
+I_{x_i}^{x_{i+1}} = \int_0^h ydt = \int_0^h \left[y_i+ y^\prime t + O(y^{\prime\prime} t^2) \right]dt = \int_0^hy_idt + \int_0^hy^\prime t dt + \int_0^h O(y^{\prime\prime} h^2)dt\\
+=hy_i + \frac{y^\prime h^2}{2} + O(y^{\prime\prime} h^3) = hy_i +\frac{h^2}{2}\frac{y_{i+1}-y_i}{h} +O(y^{\prime\prime} h^3) = \frac{h}{2}(y_{i+1}+y_i) + O(y^{\prime\prime} h^3).
+\]</span></p>
+<p>This is the trapezoidal rule for one interval.</p>
+<p><br />
+</p>
+</div>
+<div id="error-analysis-8" class="section level3 hasAnchor" number="19.2.2">
+<h3><span class="header-section-number">19.2.2</span> Error Analysis<a href="numerical-integration-i.html#error-analysis-8" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The <strong>Error bound</strong> of the trapezoid rule for one interval <span class="math inline">\([x_i, x_{i+1}]\)</span> is easy to see that <span class="math inline">\(S(x)\)</span> in the following figure has an equation</p>
+<p><span class="math display">\[
+S(x) =  \frac{f(x_{i+1})-f(x_i)}{x_{i+1} - x_i} x + \frac{x_{i+1}f(x_{i}) - x_if(x_{i+1})}{x_{i+1} - x_i}
+\]</span></p>
+<p><img src="img12/w12-TrapezoidApproximating.png" width="45%" style="display: block; margin: auto;" /></p>
+<p>The error bound we will estimate is based on the following inequality</p>
+<p><span class="math display">\[
+E_i = \left|\int_{x_i}^{x_{i+1}}\left[f(x) -  S(x)\right]dx \right|
+\]</span></p>
+<p>Define the auxiliary function</p>
+<p><span class="math display">\[
+G(x) = f(x) - S(x) - q(x-x_i)(x-x_{i+1}),
+\]</span>
+where q is a constant. For a given <span class="math inline">\(t \in (x_i, x_{i+1})\)</span>, we can choose <span class="math inline">\(q\)</span> such that <span class="math inline">\(G(t) = 0\)</span>. That is,</p>
+<p><span class="math display">\[
+q = \frac{f(t) - S(t)}{(t-x_i)(t-x_{i+1})}.
+\]</span>
+Therefore, <span class="math inline">\(G(x) = 0\)</span> has three distinct roots <span class="math inline">\(x = x_i, t, x_{i+1}\)</span>. If <span class="math inline">\(f(x)\)</span> is twice differentiable, there exists <span class="math inline">\(c \in (x_i, x_{i+1})\)</span> such that <span class="math inline">\(G^{\prime\prime}(c) = 0\)</span>.</p>
+<p><img src="img12/w12-TrapezoidErrorBound.png" width="45%" style="display: block; margin: auto;" /></p>
+<p>On the other hand, <span class="math inline">\(G^{\prime\prime}(x) = f^{\prime\prime}(x) – 2q\)</span> implies that <span class="math inline">\(q = f^{\prime\prime}(c)/2\)</span>. We rewrite the expression q and obtain the following</p>
+<p><span class="math display">\[
+f(t) - S(t) = \frac{f^{\prime\prime}(c)}{2}(t-x_i)(t-x_{i+1}).
+\]</span></p>
+<p>A direct calculation gives</p>
+<p><span class="math display">\[
+\int_{x_i}^{x_{i+1}}[f(t) - S(t)] dt = \frac{f^{\prime\prime}(c)}{2}\int_{x_i}^{x_{i+1}}(t-x_i)(t-x_{i+1})dt =  \frac{f^{\prime\prime}(c)}{2}\left[-\frac{(x_{i+1}-x_i)^3}{6} \right]
+\]</span>
+Therefore, if <span class="math inline">\(f^{\prime\prime}(c) \le K_i\)</span> on <span class="math inline">\((x_i, x_{i+1})\)</span>, we have</p>
+<p><span class="math display">\[
+E_i = \left|\int_{x_i}^{x_{i+1}}\left[f(x) -  S(x)\right]dx \right| \le \frac{h^3K_i}{12}
+\]</span></p>
+<p>where <span class="math inline">\(h = x_{i+1} - x_i\)</span>, <span class="math inline">\(\{a = x_0, x_1, \cdots, x_{n-1}, x_n = b \}\)</span> be equally spaced partition of <span class="math inline">\([a, b]\)</span>.</p>
+<p><br />
+</p>
+</div>
+<div id="composite-trapezoid-method-and-error-analysis" class="section level3 hasAnchor" number="19.2.3">
+<h3><span class="header-section-number">19.2.3</span> Composite Trapezoid Method and Error Analysis<a href="numerical-integration-i.html#composite-trapezoid-method-and-error-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Using the same idea, we estimate the overall error over interval <span class="math inline">\([a, b]\)</span> as follows</p>
+<p><span class="math display">\[
+I_a^b = \sum_{i=1}^n\frac{h}{2}(y_i + y_{i-1}) + \sum_{i = 1}^nO(h^3 y^{\prime\prime}) = \frac{h}{2} \left( y_0 + 2\sum_{i=2}^{n-1} y_i + y_n\right) + \sum_{i = 1}^nO(h^3 y^{\prime\prime}).
+\]</span></p>
+<p>This is called the <strong>composite trapezoidal rule</strong>.</p>
+<p>The overall <strong>error bound</strong> for the <strong>composite trapezoidal rule</strong> can be similarly estimated as</p>
+<p><span class="math display">\[
+E=\sum_{i=1}^n E_i  \le \sum_{i=1}^n \frac{h^3 K_i}{12} = \frac{1}{12}\left( \frac{b-a}{n}\right)^3\sum_{i=1}^nK_i
+\]</span></p>
+</div>
+<div id="trapezoid-algorithm" class="section level3 hasAnchor" number="19.2.4">
+<h3><span class="header-section-number">19.2.4</span> Trapezoid Algorithm<a href="numerical-integration-i.html#trapezoid-algorithm" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The algorithm of the trapezoid method is relatively simple. We assume the partition of the given interval <span class="math inline">\([a, b]\)</span> is equally spaced. We will not develop the pseudo-code. The following is the R function of the trapezoid method.</p>
+<div class="sourceCode" id="cb303"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb303-1"><a href="numerical-integration-i.html#cb303-1" tabindex="-1"></a>Trapezoid.int <span class="ot">=</span> <span class="cf">function</span>(fun,          <span class="co"># fun = user-defined function</span></span>
+<span id="cb303-2"><a href="numerical-integration-i.html#cb303-2" tabindex="-1"></a>                         xvec,         <span class="co"># interval [a, b] </span></span>
+<span id="cb303-3"><a href="numerical-integration-i.html#cb303-3" tabindex="-1"></a>                         <span class="at">n =</span> <span class="dv">1</span>,        <span class="co"># number of partitions</span></span>
+<span id="cb303-4"><a href="numerical-integration-i.html#cb303-4" tabindex="-1"></a>                         <span class="at">graph=</span><span class="cn">TRUE</span>){  <span class="co"># request graphical representation</span></span>
+<span id="cb303-5"><a href="numerical-integration-i.html#cb303-5" tabindex="-1"></a>  a <span class="ot">=</span> <span class="fu">min</span>(xvec)</span>
+<span id="cb303-6"><a href="numerical-integration-i.html#cb303-6" tabindex="-1"></a>  b <span class="ot">=</span> <span class="fu">max</span>(xvec)</span>
+<span id="cb303-7"><a href="numerical-integration-i.html#cb303-7" tabindex="-1"></a>  m <span class="ot">=</span> <span class="fu">length</span>(xvec)</span>
+<span id="cb303-8"><a href="numerical-integration-i.html#cb303-8" tabindex="-1"></a>  <span class="cf">if</span> (n <span class="sc">&gt;=</span> m) xvec <span class="ot">=</span> <span class="fu">seq</span>(a,b,(b<span class="sc">-</span>a)<span class="sc">/</span>n)</span>
+<span id="cb303-9"><a href="numerical-integration-i.html#cb303-9" tabindex="-1"></a>  yvec <span class="ot">=</span> <span class="fu">fun</span>(xvec)</span>
+<span id="cb303-10"><a href="numerical-integration-i.html#cb303-10" tabindex="-1"></a>  nn <span class="ot">=</span> <span class="fu">length</span>(yvec)</span>
+<span id="cb303-11"><a href="numerical-integration-i.html#cb303-11" tabindex="-1"></a>  h <span class="ot">=</span> xvec[<span class="sc">-</span><span class="dv">1</span>]<span class="sc">-</span> xvec[<span class="sc">-</span>nn]</span>
+<span id="cb303-12"><a href="numerical-integration-i.html#cb303-12" tabindex="-1"></a>  y.adjacent.sum <span class="ot">=</span>  yvec[<span class="sc">-</span><span class="dv">1</span>] <span class="sc">+</span> yvec[<span class="sc">-</span>nn]</span>
+<span id="cb303-13"><a href="numerical-integration-i.html#cb303-13" tabindex="-1"></a>  Iab <span class="ot">=</span> <span class="fu">sum</span>(h<span class="sc">*</span>y.adjacent.sum)<span class="sc">/</span><span class="dv">2</span></span>
+<span id="cb303-14"><a href="numerical-integration-i.html#cb303-14" tabindex="-1"></a>  <span class="cf">if</span>(graph <span class="sc">==</span> <span class="cn">TRUE</span>){</span>
+<span id="cb303-15"><a href="numerical-integration-i.html#cb303-15" tabindex="-1"></a>      x.margin <span class="ot">=</span> <span class="fl">0.1</span><span class="sc">*</span><span class="fu">abs</span>(b<span class="sc">-</span>a)</span>
+<span id="cb303-16"><a href="numerical-integration-i.html#cb303-16" tabindex="-1"></a>      tt <span class="ot">=</span> <span class="fu">seq</span>(a<span class="sc">-</span>x.margin, b<span class="sc">+</span>x.margin, (b<span class="sc">-</span>a<span class="sc">+</span><span class="dv">2</span><span class="sc">*</span>x.margin)<span class="sc">/</span><span class="dv">10</span><span class="sc">^</span><span class="dv">4</span>)</span>
+<span id="cb303-17"><a href="numerical-integration-i.html#cb303-17" tabindex="-1"></a>      lim.x <span class="ot">=</span> <span class="fu">c</span>(a<span class="sc">-</span>x.margin, b<span class="sc">+</span>x.margin)</span>
+<span id="cb303-18"><a href="numerical-integration-i.html#cb303-18" tabindex="-1"></a>      y.max <span class="ot">=</span> <span class="fu">max</span>(<span class="fu">fun</span>(tt))</span>
+<span id="cb303-19"><a href="numerical-integration-i.html#cb303-19" tabindex="-1"></a>      y.min <span class="ot">=</span> <span class="fu">min</span>(<span class="fu">fun</span>(tt))</span>
+<span id="cb303-20"><a href="numerical-integration-i.html#cb303-20" tabindex="-1"></a>      y.margin <span class="ot">=</span> <span class="fl">0.1</span><span class="sc">*</span><span class="fu">abs</span>(y.max<span class="sc">-</span>y.min)</span>
+<span id="cb303-21"><a href="numerical-integration-i.html#cb303-21" tabindex="-1"></a>      lim.y <span class="ot">=</span> <span class="fu">c</span>(y.min <span class="sc">-</span> y.margin, y.max <span class="sc">+</span> y.margin)</span>
+<span id="cb303-22"><a href="numerical-integration-i.html#cb303-22" tabindex="-1"></a>      <span class="fu">plot</span>(tt, <span class="fu">fun</span>(tt), <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">col=</span><span class="st">&quot;blue&quot;</span>, <span class="at">xlim=</span>lim.x, <span class="at">ylim=</span>lim.y, <span class="at">xlab=</span><span class="st">&quot; &quot;</span>,<span class="at">ylab=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb303-23"><a href="numerical-integration-i.html#cb303-23" tabindex="-1"></a>      <span class="fu">title</span>(<span class="st">&quot;Trapezoidal Rule&quot;</span>)</span>
+<span id="cb303-24"><a href="numerical-integration-i.html#cb303-24" tabindex="-1"></a>      <span class="fu">lines</span>(xvec, yvec, <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span>
+<span id="cb303-25"><a href="numerical-integration-i.html#cb303-25" tabindex="-1"></a>      <span class="fu">points</span>(xvec, yvec, <span class="at">pch=</span><span class="dv">21</span>, <span class="at">col=</span><span class="st">&quot;red&quot;</span>, <span class="at">cex =</span> <span class="fl">0.6</span>)</span>
+<span id="cb303-26"><a href="numerical-integration-i.html#cb303-26" tabindex="-1"></a>    }</span>
+<span id="cb303-27"><a href="numerical-integration-i.html#cb303-27" tabindex="-1"></a>  Iab</span>
+<span id="cb303-28"><a href="numerical-integration-i.html#cb303-28" tabindex="-1"></a>}</span>
+<span id="cb303-29"><a href="numerical-integration-i.html#cb303-29" tabindex="-1"></a>fun<span class="ot">=</span><span class="cf">function</span>(x) <span class="fu">sin</span>(x)</span>
+<span id="cb303-30"><a href="numerical-integration-i.html#cb303-30" tabindex="-1"></a><span class="fu">Trapezoid.int</span>(<span class="at">fun=</span>fun, <span class="at">xvec=</span><span class="fu">c</span>(<span class="dv">0</span>,pi), <span class="at">n =</span> <span class="dv">50</span>, <span class="at">graph=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<p><img src="MAT325EB_files/figure-html/unnamed-chunk-228-1.png" width="480" style="display: block; margin: auto;" /></p>
+<pre><code>## [1] 1.999342</code></pre>
+<p><br />
+</p>
+</div>
+</div>
+<div id="simpsons-one-third-rule" class="section level2 hasAnchor" number="19.3">
+<h2><span class="header-section-number">19.3</span> Simpson’s One-third Rule<a href="numerical-integration-i.html#simpsons-one-third-rule" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Simpson’s One-third rule is an extension of the Trapezoidal rule where the integrand is approximated by a second-order polynomial.</p>
+<p>Simpson’s rule approximates the integral over two neighboring sub-intervals by the area between a parabola and the <span class="math inline">\(x\)</span>-axis. To describe this parabola we need <span class="math inline">\(3\)</span> distinct points (which is why we approximate two sub-integrals at a time). That is, we approximate</p>
+<p><span class="math display">\[
+\int_{x_0}^{x_1} f(x) dx + \int_{x_1}^{x_2}f(x) dx = \int_{x_0}^{x_2}f(x)dx
+\]</span></p>
+<p>by the area bounded by the parabola that passes through the three points <span class="math inline">\((x_0, f(x_0)), (x_1, f(x_1))\)</span> and <span class="math inline">\((x_2, f(x_2))\)</span>. The <span class="math inline">\(x\)</span>-axis and the vertical lines <span class="math inline">\(x = x_0\)</span> and <span class="math inline">\(x = x_2\)</span></p>
+<p><img src="img12/w12-SimpsonOneThirdRule.png" width="45%" style="display: block; margin: auto;" /></p>
+<p><br />
+</p>
+<p>The next animated graph shows the process of the approximation over an interval with different partitions.</p>
+<p><img src="img12/w12-Simpsons_One-Third_Rule.gif" width="65%" style="display: block; margin: auto;" /></p>
+<p><br />
+</p>
+<div id="derivation-of-simpsons-rule" class="section level3 hasAnchor" number="19.3.1">
+<h3><span class="header-section-number">19.3.1</span> Derivation of Simpson’s Rule<a href="numerical-integration-i.html#derivation-of-simpsons-rule" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>To derive Simpson’s rule formula, we first find the equation of the parabola that passes through the three points <span class="math inline">\((x_0, f(x_0)), (x_1, f(x_1))\)</span> and <span class="math inline">\((x_2, f(x_2))\)</span>. Then we find the area between the <span class="math inline">\(x\)</span>-axis and the part of that parabola with <span class="math inline">\(x_0 \le x \le x_2\)</span>. Assuming an equally spaced partition, we consider the three points <span class="math inline">\((-h, y_{-h}), (0, y_0)\)</span> and <span class="math inline">\((h, y_h)\)</span> first (without loss of generality) to develop the formula of the approximated formula that is only dependent on the y-coordinates and the width of the sub-intervals <span class="math inline">\(h = x_{i+1} - x_i\)</span>, for <span class="math inline">\(i = 0, 1, \cdots, n-1\)</span>.</p>
+<p>Using the quadratic function in the following form,
+<span class="math display">\[
+y = ax^2 + bx + c
+\]</span></p>
+<p>we write the area between it and the <span class="math inline">\(x\)</span>-axis with x running from <span class="math inline">\(-h\)</span> to <span class="math inline">\(h\)</span> as</p>
+<p><span class="math display">\[
+\int_{-h}^h [ax^2 + bx + c]dx = \frac{h}{3}(2ah^2 + 6c)
+\]</span></p>
+<p>Because the quadratic function passes through <span class="math inline">\((-h, y_{-h}), (0, y_0)\)</span> and <span class="math inline">\((h, y_h)\)</span>, so we have</p>
+<p><span class="math display">\[
+\begin{array}{ccccc}
+ah^2 &amp; - bh  &amp;  +c &amp; =  &amp; y_{-h}  \\
+   &amp;   &amp;   c &amp; =  &amp; y_0  \\
+ah^2 &amp; + bh  &amp;  +c &amp; =  &amp; y_{h}  \\
+\end{array}
+\]</span></p>
+<p>Therefore, we can express <span class="math inline">\(2ah^2 + 6c = y_{-h} +4y_0 + y_h\)</span>, consequently</p>
+<p><span class="math display">\[
+\text{Area} = \int_{-h}^h(ax^2 + bx + c)dx = \frac{h}{3}( y_{-h} +4y_0 + y_h)
+\]</span></p>
+<p><strong>Remarks</strong></p>
+<ul>
+<li><p><span class="math inline">\(h\)</span> is one-half of the length of the <span class="math inline">\(x\)</span>-interval under consideration.</p></li>
+<li><p><span class="math inline">\(y_{-h}\)</span> is the height of the parabola at the left-hand end of the interval under consideration.</p></li>
+<li><p><span class="math inline">\(y_0\)</span> is the height of the parabola at the middle point of the interval under consideration.</p></li>
+<li><p><span class="math inline">\(y_h\)</span> is the height of the parabola at the right-hand end of the interval under consideration.</p></li>
+</ul>
+</div>
+<div id="explicit-function-on-x_i-1-x_i1" class="section level3 hasAnchor" number="19.3.2">
+<h3><span class="header-section-number">19.3.2</span> Explicit Function on <span class="math inline">\([x_{i-1}, x_{i+1}]\)</span><a href="numerical-integration-i.html#explicit-function-on-x_i-1-x_i1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Assume that <span class="math inline">\(y = A_ix^2 + B_ix + C_i\)</span> passes through <span class="math inline">\((x_{i-1}, f(x_{i-1})), (x_i, f(x_i))\)</span> and <span class="math inline">\((x_{i+1}, f(x_{i+1}))\)</span>. This implies that</p>
+<p><span class="math display">\[
+\begin{array}{ccccc}
+A_ix^2_{i-1} &amp; - B_i x_{i-1}  &amp;  + C_i &amp; =  &amp; y_{i-1}  \\
+A_ix^2_{i} &amp; - B_i x_{i}  &amp;  + C_i &amp; =  &amp; y_{i}   \\
+A_ix^2_{i+1} &amp; - B_i x_{i+1}  &amp;  + C_i &amp; =  &amp; y_{i+1}  
+\end{array}
+\]</span>
+The solution to the above system is given by</p>
+<p><span class="math display">\[
+\begin{array}{ccccc}
+C_i &amp; =  &amp; \frac{x_{i-1}^2f(x_{i+1}) + x_{i-1}x_{i+1}f(x_{i+1})-4x_{i-1}x_{i+1}f(x_{i})+x_{i-1}x_{i+1}f(x_{i-1})+x_{i+1}^2f(x_{i-1})}{(x_{i+1}-x_{i-1})^2}  \\
+B_i &amp; =  &amp; \frac{x_{i-1}f(x_{i-1})-4x_{i-1}f(x_{i})+3x_{i-1}f(x_{i+1})+3x_{i+1}f(x_{i-1})-4x_{i+1}f(x_i)+x_{i+1}f(x_{i+1})}{(x_{i+1}-x_{i-1})^2}   \\
+A_i &amp; =  &amp; \frac{2[f(x_{i-1})-2f(x_i) + f(x_{i+1})]}{(x_{i+1} - x_{i-1})^2}  
+\end{array}
+\]</span></p>
+</div>
+<div id="the-composite-simpsons-rule" class="section level3 hasAnchor" number="19.3.3">
+<h3><span class="header-section-number">19.3.3</span> The Composite Simpsons’ Rule<a href="numerical-integration-i.html#the-composite-simpsons-rule" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>To approximate the integral over interval <span class="math inline">\([a, b]\)</span>, we calculate the approximate integrals <span class="math inline">\([x_0, x_2], [x_2, x_4], \cdots, [x_{n-2}, x_n]\)</span> separately and then take the sum of all individual integral.</p>
+<p><span class="math display">\[
+\int_{x_0}^{x_2}f(x)dx \approx \frac{\Delta x}{3}[f(x_0)+ 4f(x_1) + f(x_2)]
+\]</span>
+and</p>
+<p><span class="math display">\[
+\int_{x_2}^{x_4}f(x)dx \approx \frac{\Delta x}{3}[f(x_2)+ 4f(x_3) + f(x_4)],
+\]</span></p>
+<p>and so on. Summing these all together gives</p>
+<p><span class="math display">\[
+I_a^b = \int_a^b f(x)dx \approx \frac{\Delta x}{3}[f(x_0)+ 4f(x_1) + 2f(x_2) + 4f(x_3) + 2f(x_4) + \cdots + 2f(x_{n-2}) + 4f(x_{n-1}) + f(x_n)].
+\]</span>
+<span class="math display">\[
+=  \frac{\Delta x}{3}\left[f(x_0)+ 4\sum_{i=1, ~i=\text{odd}}^{n-1} f(x_i) + 2\sum_{i=2,~i=\text{even}}^{n-2} f(x_i) + f(x_n)\right]
+\]</span></p>
+<p><br />
+</p>
+</div>
+<div id="error-analysis-9" class="section level3 hasAnchor" number="19.3.4">
+<h3><span class="header-section-number">19.3.4</span> Error Analysis<a href="numerical-integration-i.html#error-analysis-9" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>Error bound</strong> of Simpson’s rule: Without loss of generality, we consider interval <span class="math inline">\([-h, +h]\)</span> (i.e., <span class="math inline">\(a = -h, b = +h, (a+b)/2 = 0)\)</span>. Let <span class="math inline">\(f^{(n)}\)</span> be the n-th derivative of <span class="math inline">\(f(x)\)</span> evaluated at <span class="math inline">\(x = 0\)</span>. On one hand,</p>
+<p><span class="math display">\[
+I = \int_{-h}^h f(x)dx = \int_{-h}^h \left[ f(0) + f^\prime(0) x + \frac{f^{\prime\prime}(0)}{2}x^2 + \frac{f^{\prime\prime\prime}(0)}{3!}x^3 + \frac{f^{(4)}(0)}{4!}x^4 + O(x^5)\right]dx
+\]</span>
+<span class="math display">\[
+= 2hf(0) + \frac{2h^3}{6}f^{\prime\prime}(x_0) + \frac{2h^5}{5!}f^{(4)} + O(h^7)
+\]</span></p>
+<p>On the other hand,</p>
+<p><span class="math display">\[
+S = \frac{h}{3}[f(-h) + 4f(0) + f(h)] = \frac{h}{3}\left[6f(0) + \frac{2h^2}{2}f^{\prime\prime}(0) + \frac{2h^4}{4!} f^{(4)} + O(h^6) \right]
+\]</span>
+<span class="math display">\[
+=2hf(0) + \frac{2h^3}{6}f^{\prime\prime}(0) + \frac{2h^5}{3\times 4!}f^{(4)} + O(h^7)
+\]</span></p>
+<p>Therefore,</p>
+<p><span class="math display">\[
+E = |I - S| = \frac{h^5}{90}f^{(5)}(0) + O(h^6) = \frac{h^5}{90}f^{(4)}(\xi)~~\text{for}~~ \xi\in(-h, h).
+\]</span></p>
+<p>Let’s consider three points <span class="math inline">\(x_{i-1}, x_i, x_{i+1}\)</span> and <span class="math inline">\(h = x_{i+1} - x_i = x_i - x_{i-1} = (b - a)/n\)</span>. Then</p>
+<p><span class="math display">\[
+E_i = |I_i - S_i| = \frac{h^5}{90}f^{(4)}(\xi) = \frac{(x_{i+1}-x_{i-1})^5}{2880}f^{(4)}(\xi)
+\]</span></p>
+<p>In general, for a given interval <span class="math inline">\([a, b]\)</span>, let equally spaced partition <span class="math inline">\(a = x_0 &lt; x_1 &lt; \cdots &lt; x_{n-1} &lt; x_n = b\)</span>. The error</p>
+<p><span class="math display">\[
+E_1 = \frac{(x_2-x_0)^5}{2880}f^{(4)}(\xi_1) = \frac{h^5}{90}f^{(4)}(\xi_1), ~~~ x_0 &lt; \xi_1 &lt; x_2
+\]</span>
+<span class="math display">\[
+E_2 = \frac{(x_4-x_2)^5}{2880}f^{(4)}(\xi_2) = \frac{h^5}{90}f^{(4)}(\xi_2), ~~~ x_2 &lt; \xi_2 &lt; x_4
+\]</span>
+<span class="math display">\[
+E_3 = \frac{(x_6-x_4)^5}{2880}f^{(4)}(\xi_3) = \frac{h^5}{90}f^{(4)}(\xi_3), ~~~ x_4 &lt; \xi_3 &lt; x_6
+\]</span></p>
+<p>Assuming is an even number, then</p>
+<p><span class="math display">\[
+E_{n/2} = \frac{(x_n-x_{n-2})^5}{2880}f^{(4)}(\xi_{n/2}) = \frac{h^5}{90}f^{(4)}(\xi_{n/2}), ~~~ x_{n-2} &lt; \xi_{n/2} &lt; x_n \]</span></p>
+<p>Therefore, the total approximation error is given by</p>
+<p><span class="math display">\[
+E = \sum_{i=1}^{n/2} E_i = \frac{h^5}{90}\sum_{i=1}^{n/2} f^{(4)}(\xi_i) = \frac{1}{90} \left(\frac{b-a}{n} \right)^5\sum_{i=1}^{n/2} f^{(4)}(\xi_i)
+\]</span></p>
+</div>
+<div id="algorithm-of-simpsons-rule" class="section level3 hasAnchor" number="19.3.5">
+<h3><span class="header-section-number">19.3.5</span> Algorithm of Simpson’s Rule<a href="numerical-integration-i.html#algorithm-of-simpsons-rule" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Simpson’s one-third rule is defined based on intervals <span class="math inline">\([x_0, x_2], []x_2, x_4], \cdots, [x_{n-2}, x_n]\)</span>. The function is not necessarily to be known if both x-coordinates and y-coordinates of the <span class="math inline">\(n+1\)</span> points are given. Because the explicit formula of the approximation is explicitly given. We can simply write a function in either R or MATLAB to implement the Simpson Rule.</p>
+<p><strong>R code</strong></p>
+<div class="sourceCode" id="cb305"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb305-1"><a href="numerical-integration-i.html#cb305-1" tabindex="-1"></a>SimpsonGraph <span class="ot">=</span> <span class="cf">function</span>(<span class="at">fun =</span> <span class="cn">NULL</span>,     <span class="co"># fun = user-defined function</span></span>
+<span id="cb305-2"><a href="numerical-integration-i.html#cb305-2" tabindex="-1"></a>                        xvec,           <span class="co"># vec = interval [a,b]</span></span>
+<span id="cb305-3"><a href="numerical-integration-i.html#cb305-3" tabindex="-1"></a>                        n               <span class="co"># number of partitions: MUST be an even number. </span></span>
+<span id="cb305-4"><a href="numerical-integration-i.html#cb305-4" tabindex="-1"></a>                        ){</span>
+<span id="cb305-5"><a href="numerical-integration-i.html#cb305-5" tabindex="-1"></a>  a <span class="ot">=</span> <span class="fu">min</span>(xvec)</span>
+<span id="cb305-6"><a href="numerical-integration-i.html#cb305-6" tabindex="-1"></a>  b <span class="ot">=</span> <span class="fu">max</span>(xvec)</span>
+<span id="cb305-7"><a href="numerical-integration-i.html#cb305-7" tabindex="-1"></a>  m <span class="ot">=</span> <span class="fu">length</span>(xvec)</span>
+<span id="cb305-8"><a href="numerical-integration-i.html#cb305-8" tabindex="-1"></a>  x0<span class="ot">=</span> <span class="fu">seq</span>(a,b,(b<span class="sc">-</span>a)<span class="sc">/</span>n)</span>
+<span id="cb305-9"><a href="numerical-integration-i.html#cb305-9" tabindex="-1"></a>  y0 <span class="ot">=</span> <span class="fu">fun</span>(x0)</span>
+<span id="cb305-10"><a href="numerical-integration-i.html#cb305-10" tabindex="-1"></a>  <span class="do">##</span></span>
+<span id="cb305-11"><a href="numerical-integration-i.html#cb305-11" tabindex="-1"></a>  xx <span class="ot">=</span> <span class="fu">seq</span>(a, b, <span class="at">length =</span> <span class="dv">500</span>)</span>
+<span id="cb305-12"><a href="numerical-integration-i.html#cb305-12" tabindex="-1"></a>  yy <span class="ot">=</span> <span class="fu">fun</span>(xx)</span>
+<span id="cb305-13"><a href="numerical-integration-i.html#cb305-13" tabindex="-1"></a>  <span class="do">##</span></span>
+<span id="cb305-14"><a href="numerical-integration-i.html#cb305-14" tabindex="-1"></a>  id1 <span class="ot">=</span> (<span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(x0))<span class="sc">%%</span><span class="dv">2</span> <span class="sc">==</span><span class="dv">1</span></span>
+<span id="cb305-15"><a href="numerical-integration-i.html#cb305-15" tabindex="-1"></a>  x <span class="ot">=</span> x0[id1]</span>
+<span id="cb305-16"><a href="numerical-integration-i.html#cb305-16" tabindex="-1"></a>  nn <span class="ot">=</span> <span class="fu">length</span>(x)</span>
+<span id="cb305-17"><a href="numerical-integration-i.html#cb305-17" tabindex="-1"></a>  <span class="fu">plot</span>(xx, yy, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;&quot;</span>, <span class="at">main =</span> <span class="st">&quot;&quot;</span>)</span>
+<span id="cb305-18"><a href="numerical-integration-i.html#cb305-18" tabindex="-1"></a>  <span class="fu">points</span>(x0, y0, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">cex =</span> <span class="fl">0.8</span>)</span>
+<span id="cb305-19"><a href="numerical-integration-i.html#cb305-19" tabindex="-1"></a>  fn <span class="ot">=</span> fun</span>
+<span id="cb305-20"><a href="numerical-integration-i.html#cb305-20" tabindex="-1"></a>  A <span class="ot">=</span> <span class="fu">matrix</span>(<span class="dv">0</span>, <span class="at">ncol =</span> <span class="dv">3</span>, <span class="at">nrow =</span> nn<span class="dv">-1</span>)</span>
+<span id="cb305-21"><a href="numerical-integration-i.html#cb305-21" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>(nn<span class="dv">-1</span>)){</span>
+<span id="cb305-22"><a href="numerical-integration-i.html#cb305-22" tabindex="-1"></a>    xi <span class="ot">=</span> <span class="fu">seq</span>(x[i], x[i<span class="sc">+</span><span class="dv">1</span>], <span class="at">length=</span><span class="dv">100</span>)</span>
+<span id="cb305-23"><a href="numerical-integration-i.html#cb305-23" tabindex="-1"></a>    <span class="co">#cat(&quot;\n\n i =&quot;,i,&quot;.&quot;)</span></span>
+<span id="cb305-24"><a href="numerical-integration-i.html#cb305-24" tabindex="-1"></a>    A2 <span class="ot">=</span> <span class="dv">2</span><span class="sc">*</span>(<span class="fu">fn</span>(x[i]) <span class="sc">-</span><span class="dv">2</span><span class="sc">*</span><span class="fu">fn</span>((x[i]<span class="sc">+</span>x[i<span class="sc">+</span><span class="dv">1</span>])<span class="sc">/</span><span class="dv">2</span>)<span class="sc">+</span><span class="fu">fn</span>(x[i<span class="sc">+</span><span class="dv">1</span>]))<span class="sc">/</span>(x[i<span class="sc">+</span><span class="dv">1</span>]<span class="sc">-</span>x[i])<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb305-25"><a href="numerical-integration-i.html#cb305-25" tabindex="-1"></a>    A1 <span class="ot">=</span> <span class="sc">-</span>(x[i]<span class="sc">*</span><span class="fu">fn</span>(x[i])<span class="sc">-</span><span class="dv">4</span><span class="sc">*</span>x[i]<span class="sc">*</span><span class="fu">fn</span>((x[i]<span class="sc">+</span>x[i<span class="sc">+</span><span class="dv">1</span>])<span class="sc">/</span><span class="dv">2</span>)<span class="sc">+</span><span class="dv">3</span><span class="sc">*</span>x[i]<span class="sc">*</span><span class="fu">fn</span>(x[i<span class="sc">+</span><span class="dv">1</span>])<span class="sc">+</span><span class="dv">3</span><span class="sc">*</span>x[i<span class="sc">+</span><span class="dv">1</span>]<span class="sc">*</span><span class="fu">fn</span>(x[i])<span class="sc">-</span><span class="dv">4</span><span class="sc">*</span>x[i<span class="sc">+</span><span class="dv">1</span>]<span class="sc">*</span><span class="fu">fn</span>((x[i]<span class="sc">+</span>x[i<span class="sc">+</span><span class="dv">1</span>])<span class="sc">/</span><span class="dv">2</span>)<span class="sc">+</span>x[i<span class="sc">+</span><span class="dv">1</span>]<span class="sc">*</span><span class="fu">fn</span>(x[i<span class="sc">+</span><span class="dv">1</span>]))<span class="sc">/</span>(x[i<span class="sc">+</span><span class="dv">1</span>]<span class="sc">-</span>x[i])<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb305-26"><a href="numerical-integration-i.html#cb305-26" tabindex="-1"></a>    A0 <span class="ot">=</span> (x[i]<span class="sc">^</span><span class="dv">2</span><span class="sc">*</span><span class="fu">fn</span>(x[i<span class="sc">+</span><span class="dv">1</span>])<span class="sc">+</span>x[i]<span class="sc">*</span>x[i<span class="sc">+</span><span class="dv">1</span>]<span class="sc">*</span><span class="fu">fn</span>(x[i<span class="sc">+</span><span class="dv">1</span>])<span class="sc">-</span><span class="dv">4</span><span class="sc">*</span>x[i]<span class="sc">*</span>x[i<span class="sc">+</span><span class="dv">1</span>]<span class="sc">*</span><span class="fu">fn</span>((x[i<span class="sc">+</span><span class="dv">1</span>]<span class="sc">+</span>x[i])<span class="sc">/</span><span class="dv">2</span>)<span class="sc">+</span>x[i]<span class="sc">*</span>x[i<span class="sc">+</span><span class="dv">1</span>]<span class="sc">*</span><span class="fu">fn</span>(x[i])<span class="sc">+</span>x[i<span class="sc">+</span><span class="dv">1</span>]<span class="sc">^</span><span class="dv">2</span><span class="sc">*</span><span class="fu">fn</span>(x[i]))<span class="sc">/</span>(x[i<span class="sc">+</span><span class="dv">1</span>]<span class="sc">-</span>x[i])<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb305-27"><a href="numerical-integration-i.html#cb305-27" tabindex="-1"></a>    yi <span class="ot">=</span> A2<span class="sc">*</span>xi<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> A1<span class="sc">*</span>xi <span class="sc">+</span> A0</span>
+<span id="cb305-28"><a href="numerical-integration-i.html#cb305-28" tabindex="-1"></a>    <span class="fu">lines</span>(xi, yi, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span>
+<span id="cb305-29"><a href="numerical-integration-i.html#cb305-29" tabindex="-1"></a>    A[i,] <span class="ot">=</span> <span class="fu">c</span>(A2, A1, A0)</span>
+<span id="cb305-30"><a href="numerical-integration-i.html#cb305-30" tabindex="-1"></a>  }</span>
+<span id="cb305-31"><a href="numerical-integration-i.html#cb305-31" tabindex="-1"></a>  <span class="fu">list</span>(<span class="at">coef =</span> A)</span>
+<span id="cb305-32"><a href="numerical-integration-i.html#cb305-32" tabindex="-1"></a>}</span>
+<span id="cb305-33"><a href="numerical-integration-i.html#cb305-33" tabindex="-1"></a>fun<span class="ot">=</span><span class="cf">function</span>(x) <span class="fu">sin</span>(x)</span>
+<span id="cb305-34"><a href="numerical-integration-i.html#cb305-34" tabindex="-1"></a><span class="fu">SimpsonGraph</span>(<span class="at">fun =</span> fun, <span class="at">xvec=</span><span class="fu">c</span>(<span class="dv">0</span>,pi), <span class="at">n =</span> <span class="dv">4</span>)</span></code></pre></div>
+<p><img src="MAT325EB_files/figure-html/unnamed-chunk-231-1.png" width="672" /></p>
+<pre><code>## $coef
+##            [,1]      [,2]      [,3]
+## [1,] -0.3357489 1.1640129 0.0000000
+## [2,] -0.3357489 0.9455595 0.3431458</code></pre>
+<div class="sourceCode" id="cb307"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb307-1"><a href="numerical-integration-i.html#cb307-1" tabindex="-1"></a>fun<span class="ot">=</span><span class="cf">function</span>(x) <span class="fu">sin</span>(x)</span>
+<span id="cb307-2"><a href="numerical-integration-i.html#cb307-2" tabindex="-1"></a><span class="do">##</span></span>
+<span id="cb307-3"><a href="numerical-integration-i.html#cb307-3" tabindex="-1"></a>Simpson.int<span class="ot">=</span><span class="cf">function</span>(<span class="at">fun =</span> <span class="cn">NULL</span>,     <span class="co"># fun = user-defined function</span></span>
+<span id="cb307-4"><a href="numerical-integration-i.html#cb307-4" tabindex="-1"></a>                     xvec,           <span class="co"># vec = interval [a,b]</span></span>
+<span id="cb307-5"><a href="numerical-integration-i.html#cb307-5" tabindex="-1"></a>                     n          <span class="co"># number of partitions: MUST be an even number.</span></span>
+<span id="cb307-6"><a href="numerical-integration-i.html#cb307-6" tabindex="-1"></a>                     ){</span>
+<span id="cb307-7"><a href="numerical-integration-i.html#cb307-7" tabindex="-1"></a>  a <span class="ot">=</span> <span class="fu">min</span>(xvec)</span>
+<span id="cb307-8"><a href="numerical-integration-i.html#cb307-8" tabindex="-1"></a>  b <span class="ot">=</span> <span class="fu">max</span>(xvec)</span>
+<span id="cb307-9"><a href="numerical-integration-i.html#cb307-9" tabindex="-1"></a>  m <span class="ot">=</span> <span class="fu">length</span>(xvec)</span>
+<span id="cb307-10"><a href="numerical-integration-i.html#cb307-10" tabindex="-1"></a>  <span class="cf">if</span> (n <span class="sc">&gt;</span> m) x <span class="ot">=</span> <span class="fu">seq</span>(a,b,(b<span class="sc">-</span>a)<span class="sc">/</span>n)</span>
+<span id="cb307-11"><a href="numerical-integration-i.html#cb307-11" tabindex="-1"></a>  y <span class="ot">=</span> <span class="fu">fun</span>(x)</span>
+<span id="cb307-12"><a href="numerical-integration-i.html#cb307-12" tabindex="-1"></a>  nn <span class="ot">=</span> <span class="fu">length</span>(y)</span>
+<span id="cb307-13"><a href="numerical-integration-i.html#cb307-13" tabindex="-1"></a>  h <span class="ot">=</span> x[<span class="sc">-</span><span class="dv">1</span>] <span class="sc">-</span> x[<span class="sc">-</span>nn]</span>
+<span id="cb307-14"><a href="numerical-integration-i.html#cb307-14" tabindex="-1"></a>  <span class="do">### caution: the formula starts from i = 0!</span></span>
+<span id="cb307-15"><a href="numerical-integration-i.html#cb307-15" tabindex="-1"></a>  fx0 <span class="ot">=</span> y[<span class="dv">1</span>]</span>
+<span id="cb307-16"><a href="numerical-integration-i.html#cb307-16" tabindex="-1"></a>  y<span class="fl">.0</span> <span class="ot">=</span> y[<span class="sc">-</span><span class="dv">1</span>]</span>
+<span id="cb307-17"><a href="numerical-integration-i.html#cb307-17" tabindex="-1"></a>  N <span class="ot">=</span> <span class="fu">length</span>(y<span class="fl">.0</span>)</span>
+<span id="cb307-18"><a href="numerical-integration-i.html#cb307-18" tabindex="-1"></a>  id02 <span class="ot">=</span> <span class="fu">seq</span>(<span class="dv">2</span>,N<span class="dv">-2</span>,<span class="dv">2</span>)</span>
+<span id="cb307-19"><a href="numerical-integration-i.html#cb307-19" tabindex="-1"></a>  id01 <span class="ot">=</span> <span class="fu">seq</span>(<span class="dv">1</span>,N<span class="dv">-1</span>,<span class="dv">2</span>)</span>
+<span id="cb307-20"><a href="numerical-integration-i.html#cb307-20" tabindex="-1"></a>  Iab <span class="ot">=</span> ((b<span class="sc">-</span>a)<span class="sc">/</span>(<span class="dv">3</span><span class="sc">*</span>N))<span class="sc">*</span>(fx0 <span class="sc">+</span> <span class="dv">4</span><span class="sc">*</span><span class="fu">sum</span>(y<span class="fl">.0</span>[id01])<span class="sc">+</span><span class="dv">2</span><span class="sc">*</span><span class="fu">sum</span>(y<span class="fl">.0</span>[id02])<span class="sc">+</span>y<span class="fl">.0</span>[N])</span>
+<span id="cb307-21"><a href="numerical-integration-i.html#cb307-21" tabindex="-1"></a>  <span class="fu">list</span>(<span class="at">Estimated.Area =</span> Iab)</span>
+<span id="cb307-22"><a href="numerical-integration-i.html#cb307-22" tabindex="-1"></a>}</span>
+<span id="cb307-23"><a href="numerical-integration-i.html#cb307-23" tabindex="-1"></a></span>
+<span id="cb307-24"><a href="numerical-integration-i.html#cb307-24" tabindex="-1"></a><span class="fu">Simpson.int</span>(<span class="at">fun=</span>fun, <span class="at">xvec=</span><span class="fu">c</span>(<span class="dv">0</span>,pi), <span class="at">n =</span> <span class="dv">18</span>)</span></code></pre></div>
+<pre><code>## $Estimated.Area
+## [1] 2.00001</code></pre>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="newton-method-for-nonlinear-system-and-optimization.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="romberg-integration-and-gaussian-quadratures.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/pengdsci/MAT325EB/edit/master/18-NumericalIntegration.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["MAT325EB.pdf", "MAT325EB.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

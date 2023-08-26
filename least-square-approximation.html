@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Topic 15 Least Square Approximation | MAT325 E-Pack: Numerical Analysis</title>
+  <meta name="description" content="The output format for this example is bookdown::gitbook." />
+  <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Topic 15 Least Square Approximation | MAT325 E-Pack: Numerical Analysis" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="The output format for this example is bookdown::gitbook." />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Topic 15 Least Square Approximation | MAT325 E-Pack: Numerical Analysis" />
+  
+  <meta name="twitter:description" content="The output format for this example is bookdown::gitbook." />
+  
+
+<meta name="author" content="Cheng Peng" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="matrix-factorization.html"/>
+<link rel="next" href="concepts-of-spline-interpolations.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<center><li><a href="./"><font color = "darkred"><b>MAT 325 E-Coursepack: Numerical Analysis</b></font></a><br><font color = "navy">Cheng Peng</font></li></center>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="calculus-review.html"><a href="calculus-review.html"><i class="fa fa-check"></i><b>2</b> Calculus Review</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="calculus-review.html"><a href="calculus-review.html#limits-and-continuity"><i class="fa fa-check"></i><b>2.1</b> Limits and Continuity</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="calculus-review.html"><a href="calculus-review.html#limits"><i class="fa fa-check"></i><b>2.1.1</b> Limits</a></li>
+<li class="chapter" data-level="2.1.2" data-path="calculus-review.html"><a href="calculus-review.html#continuity"><i class="fa fa-check"></i><b>2.1.2</b> Continuity</a></li>
+<li class="chapter" data-level="2.1.3" data-path="calculus-review.html"><a href="calculus-review.html#convergence-of-a-sequence"><i class="fa fa-check"></i><b>2.1.3</b> Convergence of A Sequence</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="calculus-review.html"><a href="calculus-review.html#differentiation"><i class="fa fa-check"></i><b>2.2</b> Differentiation</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="calculus-review.html"><a href="calculus-review.html#definition"><i class="fa fa-check"></i><b>2.2.1</b> Definition</a></li>
+<li class="chapter" data-level="2.2.2" data-path="calculus-review.html"><a href="calculus-review.html#properties"><i class="fa fa-check"></i><b>2.2.2</b> Properties</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="calculus-review.html"><a href="calculus-review.html#integration"><i class="fa fa-check"></i><b>2.3</b> Integration</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="calculus-review.html"><a href="calculus-review.html#series-vs-sequence"><i class="fa fa-check"></i><b>2.3.1</b> Series vs Sequence</a></li>
+<li class="chapter" data-level="2.3.2" data-path="calculus-review.html"><a href="calculus-review.html#definition-of-definite-integral"><i class="fa fa-check"></i><b>2.3.2</b> Definition of Definite Integral</a></li>
+<li class="chapter" data-level="2.3.3" data-path="calculus-review.html"><a href="calculus-review.html#taylor-expansion"><i class="fa fa-check"></i><b>2.3.3</b> Taylor Expansion</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html"><i class="fa fa-check"></i><b>3</b> Scientific Computing with R</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#vectors-and-matrices"><i class="fa fa-check"></i><b>3.1</b> Vectors and Matrices</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#vectors"><i class="fa fa-check"></i><b>3.1.1</b> Vectors</a></li>
+<li class="chapter" data-level="3.1.2" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#matrices"><i class="fa fa-check"></i><b>3.1.2</b> Matrices</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#built-in-mathematical-functions-and-operators"><i class="fa fa-check"></i><b>3.2</b> Built-in Mathematical Functions and Operators</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#arithmetic-operators"><i class="fa fa-check"></i><b>3.2.1</b> Arithmetic Operators</a></li>
+<li class="chapter" data-level="3.2.2" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#basic-mathematical-functions"><i class="fa fa-check"></i><b>3.2.2</b> Basic Mathematical Functions</a></li>
+<li class="chapter" data-level="3.2.3" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#trigonometry"><i class="fa fa-check"></i><b>3.2.3</b> Trigonometry</a></li>
+<li class="chapter" data-level="3.2.4" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#linear-algebra"><i class="fa fa-check"></i><b>3.2.4</b> Linear Algebra</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#graphic-functions-in-base-r"><i class="fa fa-check"></i><b>3.3</b> Graphic Functions in Base R</a></li>
+<li class="chapter" data-level="3.4" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#rounding-and-related-functions"><i class="fa fa-check"></i><b>3.4</b> Rounding and Related Functions</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#round"><i class="fa fa-check"></i><b>3.4.1</b> round()</a></li>
+<li class="chapter" data-level="3.4.2" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#controlling-number-of-displayed-digits"><i class="fa fa-check"></i><b>3.4.2</b> Controlling Number of Displayed Digits</a></li>
+<li class="chapter" data-level="3.4.3" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#signif"><i class="fa fa-check"></i><b>3.4.3</b> <code>Signif()</code></a></li>
+<li class="chapter" data-level="3.4.4" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#floor-and-ceiling"><i class="fa fa-check"></i><b>3.4.4</b> <code>floor()</code> and <code>ceiling()</code></a></li>
+<li class="chapter" data-level="3.4.5" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#trunc"><i class="fa fa-check"></i><b>3.4.5</b> <code>trunc()</code></a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#control-statements"><i class="fa fa-check"></i><b>3.5</b> Control Statements</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#conditional-statements"><i class="fa fa-check"></i><b>3.5.1</b> Conditional Statements</a></li>
+<li class="chapter" data-level="3.5.2" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#loops-in-r"><i class="fa fa-check"></i><b>3.5.2</b> Loops in R</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#numerical-example"><i class="fa fa-check"></i><b>3.6</b> Numerical Example</a>
+<ul>
+<li class="chapter" data-level="3.6.1" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#version-1"><i class="fa fa-check"></i><b>3.6.1</b> VERSION 1</a></li>
+<li class="chapter" data-level="3.6.2" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#version-2"><i class="fa fa-check"></i><b>3.6.2</b> Version 2</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#user-defined-functions"><i class="fa fa-check"></i><b>3.7</b> User Defined Functions</a>
+<ul>
+<li class="chapter" data-level="3.7.1" data-path="scientific-computing-with-r.html"><a href="scientific-computing-with-r.html#writing-r-functions-for-root-finding-methods"><i class="fa fa-check"></i><b>3.7.1</b> Writing R Functions for Root-finding Methods</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="basics-of-data-representation-and-error-analysis.html"><a href="basics-of-data-representation-and-error-analysis.html"><i class="fa fa-check"></i><b>4</b> Basics of Data Representation and Error Analysis</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="basics-of-data-representation-and-error-analysis.html"><a href="basics-of-data-representation-and-error-analysis.html#data-representation"><i class="fa fa-check"></i><b>4.1</b> Data Representation</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="basics-of-data-representation-and-error-analysis.html"><a href="basics-of-data-representation-and-error-analysis.html#number-systems"><i class="fa fa-check"></i><b>4.1.1</b> Number Systems</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="basics-of-data-representation-and-error-analysis.html"><a href="basics-of-data-representation-and-error-analysis.html#how-data-is-stored-in-computer-memory"><i class="fa fa-check"></i><b>4.2</b> How data is stored in computer memory</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="basics-of-data-representation-and-error-analysis.html"><a href="basics-of-data-representation-and-error-analysis.html#how-integers-are-stored-in-memory"><i class="fa fa-check"></i><b>4.2.1</b> How integers are stored in memory?</a></li>
+<li class="chapter" data-level="4.2.2" data-path="basics-of-data-representation-and-error-analysis.html"><a href="basics-of-data-representation-and-error-analysis.html#floating-point-numbers"><i class="fa fa-check"></i><b>4.2.2</b> Floating-point Numbers</a></li>
+<li class="chapter" data-level="4.2.3" data-path="basics-of-data-representation-and-error-analysis.html"><a href="basics-of-data-representation-and-error-analysis.html#how-floating-point-numbers-are-stored-in-memory"><i class="fa fa-check"></i><b>4.2.3</b> How Floating-point Numbers Are Stored in Memory?</a></li>
+<li class="chapter" data-level="4.2.4" data-path="basics-of-data-representation-and-error-analysis.html"><a href="basics-of-data-representation-and-error-analysis.html#basic-types-errors-in-error-analysis"><i class="fa fa-check"></i><b>4.2.4</b> Basic Types Errors in Error Analysis</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="error-analysis-algorithms-and-convergence.html"><a href="error-analysis-algorithms-and-convergence.html"><i class="fa fa-check"></i><b>5</b> Error Analysis, Algorithms and Convergence</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="error-analysis-algorithms-and-convergence.html"><a href="error-analysis-algorithms-and-convergence.html#error-analysis"><i class="fa fa-check"></i><b>5.1</b> Error Analysis</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="error-analysis-algorithms-and-convergence.html"><a href="error-analysis-algorithms-and-convergence.html#understanding-numerical-error"><i class="fa fa-check"></i><b>5.1.1</b> Understanding Numerical Error</a></li>
+<li class="chapter" data-level="5.1.2" data-path="error-analysis-algorithms-and-convergence.html"><a href="error-analysis-algorithms-and-convergence.html#error-classification"><i class="fa fa-check"></i><b>5.1.2</b> Error Classification</a></li>
+<li class="chapter" data-level="5.1.3" data-path="error-analysis-algorithms-and-convergence.html"><a href="error-analysis-algorithms-and-convergence.html#approximation-significant-digits-figures"><i class="fa fa-check"></i><b>5.1.3</b> Approximation Significant Digits (Figures)</a></li>
+<li class="chapter" data-level="5.1.4" data-path="error-analysis-algorithms-and-convergence.html"><a href="error-analysis-algorithms-and-convergence.html#nested-arithmetic"><i class="fa fa-check"></i><b>5.1.4</b> Nested Arithmetic</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="error-analysis-algorithms-and-convergence.html"><a href="error-analysis-algorithms-and-convergence.html#algorithms-and-convergence"><i class="fa fa-check"></i><b>5.2</b> Algorithms and Convergence</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="error-analysis-algorithms-and-convergence.html"><a href="error-analysis-algorithms-and-convergence.html#algorithm-and-psuedo-code"><i class="fa fa-check"></i><b>5.2.1</b> Algorithm and Psuedo-code</a></li>
+<li class="chapter" data-level="5.2.2" data-path="error-analysis-algorithms-and-convergence.html"><a href="error-analysis-algorithms-and-convergence.html#rules-of-pseudo-code"><i class="fa fa-check"></i><b>5.2.2</b> Rules of Pseudo-code</a></li>
+<li class="chapter" data-level="5.2.3" data-path="error-analysis-algorithms-and-convergence.html"><a href="error-analysis-algorithms-and-convergence.html#stability-of-algorithms"><i class="fa fa-check"></i><b>5.2.3</b> Stability of Algorithms</a></li>
+<li class="chapter" data-level="5.2.4" data-path="error-analysis-algorithms-and-convergence.html"><a href="error-analysis-algorithms-and-convergence.html#rates-of-convergence"><i class="fa fa-check"></i><b>5.2.4</b> Rates of Convergence</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="bisection-method.html"><a href="bisection-method.html"><i class="fa fa-check"></i><b>6</b> Bisection Method</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="bisection-method.html"><a href="bisection-method.html#the-question"><i class="fa fa-check"></i><b>6.1</b> The Question</a></li>
+<li class="chapter" data-level="6.2" data-path="bisection-method.html"><a href="bisection-method.html#bisection-method-1"><i class="fa fa-check"></i><b>6.2</b> Bisection Method</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="bisection-method.html"><a href="bisection-method.html#the-logic-of-bisection-method"><i class="fa fa-check"></i><b>6.2.1</b> The Logic of Bisection Method</a></li>
+<li class="chapter" data-level="6.2.2" data-path="bisection-method.html"><a href="bisection-method.html#bisection-algorithm"><i class="fa fa-check"></i><b>6.2.2</b> Bisection Algorithm</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="bisection-method.html"><a href="bisection-method.html#error-analysis-1"><i class="fa fa-check"></i><b>6.3</b> Error Analysis</a></li>
+<li class="chapter" data-level="6.4" data-path="bisection-method.html"><a href="bisection-method.html#numerical-examples."><i class="fa fa-check"></i><b>6.4</b> Numerical Examples.</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="fixed-point-method.html"><a href="fixed-point-method.html"><i class="fa fa-check"></i><b>7</b> Fixed Point Method</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="fixed-point-method.html"><a href="fixed-point-method.html#some-theories-of-the-fixed-point-method"><i class="fa fa-check"></i><b>7.1</b> Some Theories of the Fixed Point Method</a></li>
+<li class="chapter" data-level="7.2" data-path="fixed-point-method.html"><a href="fixed-point-method.html#fixed-point-iteration"><i class="fa fa-check"></i><b>7.2</b> Fixed Point Iteration</a></li>
+<li class="chapter" data-level="7.3" data-path="fixed-point-method.html"><a href="fixed-point-method.html#error-analysis-2"><i class="fa fa-check"></i><b>7.3</b> Error Analysis</a></li>
+<li class="chapter" data-level="7.4" data-path="fixed-point-method.html"><a href="fixed-point-method.html#numerical-example-1"><i class="fa fa-check"></i><b>7.4</b> Numerical Example</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="newtons-method.html"><a href="newtons-method.html"><i class="fa fa-check"></i><b>8</b> Newton’s Method</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="newtons-method.html"><a href="newtons-method.html#notations-big-o-and-little-o"><i class="fa fa-check"></i><b>8.1</b> Notations: Big O and Little o</a></li>
+<li class="chapter" data-level="8.2" data-path="newtons-method.html"><a href="newtons-method.html#foundations-of-newton-method"><i class="fa fa-check"></i><b>8.2</b> Foundations of Newton Method</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="newtons-method.html"><a href="newtons-method.html#the-algorithmic-logic"><i class="fa fa-check"></i><b>8.2.1</b> The Algorithmic Logic</a></li>
+<li class="chapter" data-level="8.2.2" data-path="newtons-method.html"><a href="newtons-method.html#initial-starting-value-matters"><i class="fa fa-check"></i><b>8.2.2</b> Initial Starting Value Matters</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="newtons-method.html"><a href="newtons-method.html#algorithm-and-pseudo-code"><i class="fa fa-check"></i><b>8.3</b> Algorithm and Pseudo-code</a></li>
+<li class="chapter" data-level="8.4" data-path="newtons-method.html"><a href="newtons-method.html#error-analysis-3"><i class="fa fa-check"></i><b>8.4</b> Error Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="secant-method.html"><a href="secant-method.html"><i class="fa fa-check"></i><b>9</b> Secant Method</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="secant-method.html"><a href="secant-method.html#secant-method-1"><i class="fa fa-check"></i><b>9.1</b> Secant Method</a></li>
+<li class="chapter" data-level="9.2" data-path="secant-method.html"><a href="secant-method.html#secant-algorithm-and-implementation"><i class="fa fa-check"></i><b>9.2</b> Secant Algorithm and Implementation</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="secant-method.html"><a href="secant-method.html#implementation-with-r"><i class="fa fa-check"></i><b>9.2.1</b> Implementation with R</a></li>
+<li class="chapter" data-level="9.2.2" data-path="secant-method.html"><a href="secant-method.html#numerical-examples"><i class="fa fa-check"></i><b>9.2.2</b> Numerical Examples</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="secant-method.html"><a href="secant-method.html#error-analysis-4"><i class="fa fa-check"></i><b>9.3</b> Error Analysis</a></li>
+<li class="chapter" data-level="9.4" data-path="secant-method.html"><a href="secant-method.html#false-position-method"><i class="fa fa-check"></i><b>9.4</b> False Position Method</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html"><i class="fa fa-check"></i><b>10</b> Lagrange Interpolation</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html#concepts-of-interpolation-method"><i class="fa fa-check"></i><b>10.1</b> Concepts of Interpolation Method</a>
+<ul>
+<li class="chapter" data-level="10.1.1" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html#data-fitting-interpolation"><i class="fa fa-check"></i><b>10.1.1</b> Data-fitting / Interpolation:</a></li>
+<li class="chapter" data-level="10.1.2" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html#functional-equation-curve-approximation"><i class="fa fa-check"></i><b>10.1.2</b> Functional Equation (Curve Approximation)</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html#the-lagrange-interpolation"><i class="fa fa-check"></i><b>10.2</b> The Lagrange Interpolation</a>
+<ul>
+<li class="chapter" data-level="10.2.1" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html#linear-lagrange-interpolation"><i class="fa fa-check"></i><b>10.2.1</b> Linear Lagrange Interpolation</a></li>
+<li class="chapter" data-level="10.2.2" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html#quadratic-lagrange-interpolation"><i class="fa fa-check"></i><b>10.2.2</b> Quadratic Lagrange Interpolation</a></li>
+<li class="chapter" data-level="10.2.3" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html#general-lagrange-interpolation"><i class="fa fa-check"></i><b>10.2.3</b> General Lagrange Interpolation</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html#lagrange-algorithm-and-implementation"><i class="fa fa-check"></i><b>10.3</b> Lagrange Algorithm and Implementation</a>
+<ul>
+<li class="chapter" data-level="10.3.1" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html#pseudo-code"><i class="fa fa-check"></i><b>10.3.1</b> Pseudo-code</a></li>
+<li class="chapter" data-level="10.3.2" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html#r-function-with-scalar-input"><i class="fa fa-check"></i><b>10.3.2</b> R Function with Scalar Input</a></li>
+<li class="chapter" data-level="10.3.3" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html#r-function-with-vector-input"><i class="fa fa-check"></i><b>10.3.3</b> R Function with Vector Input</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="lagrange-interpolation.html"><a href="lagrange-interpolation.html#error-analysis-5"><i class="fa fa-check"></i><b>10.4</b> Error Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="newton-interpolation.html"><a href="newton-interpolation.html"><i class="fa fa-check"></i><b>11</b> Newton Interpolation</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="newton-interpolation.html"><a href="newton-interpolation.html#some-definitions"><i class="fa fa-check"></i><b>11.1</b> Some Definitions</a>
+<ul>
+<li class="chapter" data-level="11.1.1" data-path="newton-interpolation.html"><a href="newton-interpolation.html#definitions"><i class="fa fa-check"></i><b>11.1.1</b> Definitions</a></li>
+<li class="chapter" data-level="11.1.2" data-path="newton-interpolation.html"><a href="newton-interpolation.html#calculation-of-divided-difference"><i class="fa fa-check"></i><b>11.1.2</b> Calculation of Divided Difference</a></li>
+<li class="chapter" data-level="11.1.3" data-path="newton-interpolation.html"><a href="newton-interpolation.html#algorithm-of-calculating-divided-differences"><i class="fa fa-check"></i><b>11.1.3</b> Algorithm of Calculating Divided Differences</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="newton-interpolation.html"><a href="newton-interpolation.html#newton-interpolation-polynomial"><i class="fa fa-check"></i><b>11.2</b> Newton Interpolation Polynomial</a>
+<ul>
+<li class="chapter" data-level="11.2.1" data-path="newton-interpolation.html"><a href="newton-interpolation.html#definition-of-newton-interpolation"><i class="fa fa-check"></i><b>11.2.1</b> Definition of Newton Interpolation</a></li>
+<li class="chapter" data-level="11.2.2" data-path="newton-interpolation.html"><a href="newton-interpolation.html#newton-interpolation-algorithm"><i class="fa fa-check"></i><b>11.2.2</b> Newton Interpolation Algorithm</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="newton-interpolation.html"><a href="newton-interpolation.html#error-analysis-6"><i class="fa fa-check"></i><b>11.3</b> Error Analysis</a></li>
+<li class="chapter" data-level="11.4" data-path="newton-interpolation.html"><a href="newton-interpolation.html#some-remarks-of-newton-interpolation"><i class="fa fa-check"></i><b>11.4</b> Some Remarks of Newton Interpolation</a></li>
+<li class="chapter" data-level="11.5" data-path="newton-interpolation.html"><a href="newton-interpolation.html#implicit-loops-in-r-programming"><i class="fa fa-check"></i><b>11.5</b> Implicit Loops in R Programming</a>
+<ul>
+<li class="chapter" data-level="11.5.1" data-path="newton-interpolation.html"><a href="newton-interpolation.html#implicit-in-r-primitive-functions"><i class="fa fa-check"></i><b>11.5.1</b> Implicit in R Primitive Functions</a></li>
+<li class="chapter" data-level="11.5.2" data-path="newton-interpolation.html"><a href="newton-interpolation.html#some-vectorized-primitive-functions"><i class="fa fa-check"></i><b>11.5.2</b> Some Vectorized Primitive Functions</a></li>
+<li class="chapter" data-level="11.5.3" data-path="newton-interpolation.html"><a href="newton-interpolation.html#divided-difference-variants"><i class="fa fa-check"></i><b>11.5.3</b> Divided Difference Variants</a></li>
+<li class="chapter" data-level="11.5.4" data-path="newton-interpolation.html"><a href="newton-interpolation.html#vectorizing-newtoninterp"><i class="fa fa-check"></i><b>11.5.4</b> Vectorizing <strong>NewtonInterp()</strong></a></li>
+<li class="chapter" data-level="11.5.5" data-path="newton-interpolation.html"><a href="newton-interpolation.html#code-efficiency-with-implivit-loops"><i class="fa fa-check"></i><b>11.5.5</b> Code Efficiency with Implivit Loops</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="gauss-elimination-method.html"><a href="gauss-elimination-method.html"><i class="fa fa-check"></i><b>12</b> Gauss Elimination Method</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="gauss-elimination-method.html"><a href="gauss-elimination-method.html#naive-gaussian-elimination-methods"><i class="fa fa-check"></i><b>12.1</b> Naive Gaussian Elimination Methods</a></li>
+<li class="chapter" data-level="12.2" data-path="gauss-elimination-method.html"><a href="gauss-elimination-method.html#gaussian-elimination-algorithm"><i class="fa fa-check"></i><b>12.2</b> Gaussian Elimination Algorithm</a></li>
+<li class="chapter" data-level="12.3" data-path="gauss-elimination-method.html"><a href="gauss-elimination-method.html#gauss-jordan-elimination-optional"><i class="fa fa-check"></i><b>12.3</b> Gauss-Jordan Elimination (<code>Optional</code>)</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="determinant-and-inversion-of-matrices.html"><a href="determinant-and-inversion-of-matrices.html"><i class="fa fa-check"></i><b>13</b> Determinant and Inversion of Matrices</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="determinant-and-inversion-of-matrices.html"><a href="determinant-and-inversion-of-matrices.html#concepts-of-matrix-a-review"><i class="fa fa-check"></i><b>13.1</b> Concepts of Matrix: A Review</a>
+<ul>
+<li class="chapter" data-level="13.1.1" data-path="determinant-and-inversion-of-matrices.html"><a href="determinant-and-inversion-of-matrices.html#definitions-of-some-special-matrices"><i class="fa fa-check"></i><b>13.1.1</b> Definitions of Some Special Matrices</a></li>
+<li class="chapter" data-level="13.1.2" data-path="determinant-and-inversion-of-matrices.html"><a href="determinant-and-inversion-of-matrices.html#binary-operations"><i class="fa fa-check"></i><b>13.1.2</b> Binary Operations</a></li>
+<li class="chapter" data-level="13.1.3" data-path="determinant-and-inversion-of-matrices.html"><a href="determinant-and-inversion-of-matrices.html#unary-operations"><i class="fa fa-check"></i><b>13.1.3</b> Unary Operations</a></li>
+</ul></li>
+<li class="chapter" data-level="13.2" data-path="determinant-and-inversion-of-matrices.html"><a href="determinant-and-inversion-of-matrices.html#determinant-of-a-square-matrix"><i class="fa fa-check"></i><b>13.2</b> Determinant of a Square Matrix</a></li>
+<li class="chapter" data-level="13.3" data-path="determinant-and-inversion-of-matrices.html"><a href="determinant-and-inversion-of-matrices.html#matrix-inversion"><i class="fa fa-check"></i><b>13.3</b> Matrix Inversion</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="matrix-factorization.html"><a href="matrix-factorization.html"><i class="fa fa-check"></i><b>14</b> Matrix Factorization</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="matrix-factorization.html"><a href="matrix-factorization.html#elementary-and-permutation-matrices"><i class="fa fa-check"></i><b>14.1</b> Elementary and Permutation Matrices</a></li>
+<li class="chapter" data-level="14.2" data-path="matrix-factorization.html"><a href="matrix-factorization.html#lu-factorization-algorithm"><i class="fa fa-check"></i><b>14.2</b> LU Factorization Algorithm</a>
+<ul>
+<li class="chapter" data-level="14.2.1" data-path="matrix-factorization.html"><a href="matrix-factorization.html#row-operations-with-row-swapping"><i class="fa fa-check"></i><b>14.2.1</b> Row Operations with Row Swapping</a></li>
+<li class="chapter" data-level="14.2.2" data-path="matrix-factorization.html"><a href="matrix-factorization.html#row-operations-with-row-swapping-1"><i class="fa fa-check"></i><b>14.2.2</b> Row Operations with Row-swapping</a></li>
+<li class="chapter" data-level="14.2.3" data-path="matrix-factorization.html"><a href="matrix-factorization.html#lu-algorithm"><i class="fa fa-check"></i><b>14.2.3</b> LU ALgorithm</a></li>
+</ul></li>
+<li class="chapter" data-level="14.3" data-path="matrix-factorization.html"><a href="matrix-factorization.html#benefit-of-lu-factorization"><i class="fa fa-check"></i><b>14.3</b> Benefit of LU Factorization</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="least-square-approximation.html"><a href="least-square-approximation.html"><i class="fa fa-check"></i><b>15</b> Least Square Approximation</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="least-square-approximation.html"><a href="least-square-approximation.html#concepts-of-least-square-approximation"><i class="fa fa-check"></i><b>15.1</b> Concepts of Least Square Approximation</a></li>
+<li class="chapter" data-level="15.2" data-path="least-square-approximation.html"><a href="least-square-approximation.html#approximating-one-variable-linear-function"><i class="fa fa-check"></i><b>15.2</b> Approximating One-variable Linear Function</a></li>
+<li class="chapter" data-level="15.3" data-path="least-square-approximation.html"><a href="least-square-approximation.html#approximating-multiple-variable-linear-function"><i class="fa fa-check"></i><b>15.3</b> Approximating Multiple-variable Linear Function</a>
+<ul>
+<li class="chapter" data-level="15.3.1" data-path="least-square-approximation.html"><a href="least-square-approximation.html#an-extension-of-the-height-example"><i class="fa fa-check"></i><b>15.3.1</b> An Extension of the Height Example</a></li>
+<li class="chapter" data-level="15.3.2" data-path="least-square-approximation.html"><a href="least-square-approximation.html#approximating-general-multi-variables-linear-functions"><i class="fa fa-check"></i><b>15.3.2</b> Approximating General Multi-variables Linear Functions</a></li>
+</ul></li>
+<li class="chapter" data-level="15.4" data-path="least-square-approximation.html"><a href="least-square-approximation.html#approximating-one-variable-polynomial-function"><i class="fa fa-check"></i><b>15.4</b> Approximating One-variable Polynomial Function</a>
+<ul>
+<li class="chapter" data-level="15.4.1" data-path="least-square-approximation.html"><a href="least-square-approximation.html#approximating-quadratic-function"><i class="fa fa-check"></i><b>15.4.1</b> Approximating Quadratic Function</a></li>
+<li class="chapter" data-level="15.4.2" data-path="least-square-approximation.html"><a href="least-square-approximation.html#approximating-general-polynomial-functions"><i class="fa fa-check"></i><b>15.4.2</b> Approximating General Polynomial Functions</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="concepts-of-spline-interpolations.html"><a href="concepts-of-spline-interpolations.html"><i class="fa fa-check"></i><b>16</b> Concepts of Spline Interpolations</a>
+<ul>
+<li class="chapter" data-level="16.1" data-path="concepts-of-spline-interpolations.html"><a href="concepts-of-spline-interpolations.html#linear-splines"><i class="fa fa-check"></i><b>16.1</b> Linear Splines</a></li>
+<li class="chapter" data-level="16.2" data-path="concepts-of-spline-interpolations.html"><a href="concepts-of-spline-interpolations.html#quadratic-spline-interpolation"><i class="fa fa-check"></i><b>16.2</b> Quadratic Spline Interpolation</a>
+<ul>
+<li class="chapter" data-level="16.2.1" data-path="concepts-of-spline-interpolations.html"><a href="concepts-of-spline-interpolations.html#formulation-of-quadratic-spline"><i class="fa fa-check"></i><b>16.2.1</b> Formulation of Quadratic Spline</a></li>
+<li class="chapter" data-level="16.2.2" data-path="concepts-of-spline-interpolations.html"><a href="concepts-of-spline-interpolations.html#matrix-representation-of-quadratic-spline-problem"><i class="fa fa-check"></i><b>16.2.2</b> Matrix Representation of Quadratic Spline Problem</a></li>
+<li class="chapter" data-level="16.2.3" data-path="concepts-of-spline-interpolations.html"><a href="concepts-of-spline-interpolations.html#algorithm-of-quadratic-spline"><i class="fa fa-check"></i><b>16.2.3</b> Algorithm of Quadratic Spline</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="cubic-spline-interpolation.html"><a href="cubic-spline-interpolation.html"><i class="fa fa-check"></i><b>17</b> Cubic Spline Interpolation</a>
+<ul>
+<li class="chapter" data-level="17.1" data-path="cubic-spline-interpolation.html"><a href="cubic-spline-interpolation.html#cubic-splines"><i class="fa fa-check"></i><b>17.1</b> Cubic Splines</a>
+<ul>
+<li class="chapter" data-level="17.1.1" data-path="cubic-spline-interpolation.html"><a href="cubic-spline-interpolation.html#formulation-of-cubic-spline"><i class="fa fa-check"></i><b>17.1.1</b> Formulation of Cubic Spline</a></li>
+<li class="chapter" data-level="17.1.2" data-path="cubic-spline-interpolation.html"><a href="cubic-spline-interpolation.html#construction-of-cubic-splines"><i class="fa fa-check"></i><b>17.1.2</b> Construction of Cubic Splines</a></li>
+<li class="chapter" data-level="17.1.3" data-path="cubic-spline-interpolation.html"><a href="cubic-spline-interpolation.html#cubic-spline-algorithm"><i class="fa fa-check"></i><b>17.1.3</b> Cubic Spline Algorithm</a></li>
+</ul></li>
+<li class="chapter" data-level="17.2" data-path="cubic-spline-interpolation.html"><a href="cubic-spline-interpolation.html#clamped-splines"><i class="fa fa-check"></i><b>17.2</b> Clamped Splines</a></li>
+<li class="chapter" data-level="17.3" data-path="cubic-spline-interpolation.html"><a href="cubic-spline-interpolation.html#error-analysis-7"><i class="fa fa-check"></i><b>17.3</b> Error Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="newton-method-for-nonlinear-system-and-optimization.html"><a href="newton-method-for-nonlinear-system-and-optimization.html"><i class="fa fa-check"></i><b>18</b> Newton Method for Nonlinear System and Optimization</a>
+<ul>
+<li class="chapter" data-level="18.1" data-path="newton-method-for-nonlinear-system-and-optimization.html"><a href="newton-method-for-nonlinear-system-and-optimization.html#multivariate-taylor-expansion"><i class="fa fa-check"></i><b>18.1</b> Multivariate Taylor Expansion</a></li>
+<li class="chapter" data-level="18.2" data-path="newton-method-for-nonlinear-system-and-optimization.html"><a href="newton-method-for-nonlinear-system-and-optimization.html#newton-method-for-nonlinear-systems"><i class="fa fa-check"></i><b>18.2</b> Newton Method for Nonlinear Systems</a>
+<ul>
+<li class="chapter" data-level="18.2.1" data-path="newton-method-for-nonlinear-system-and-optimization.html"><a href="newton-method-for-nonlinear-system-and-optimization.html#system-of-two-nonlinear-equations"><i class="fa fa-check"></i><b>18.2.1</b> System of Two Nonlinear Equations</a></li>
+<li class="chapter" data-level="18.2.2" data-path="newton-method-for-nonlinear-system-and-optimization.html"><a href="newton-method-for-nonlinear-system-and-optimization.html#newton-algorithm"><i class="fa fa-check"></i><b>18.2.2</b> Newton Algorithm</a></li>
+</ul></li>
+<li class="chapter" data-level="18.3" data-path="newton-method-for-nonlinear-system-and-optimization.html"><a href="newton-method-for-nonlinear-system-and-optimization.html#optimization"><i class="fa fa-check"></i><b>18.3</b> Optimization</a></li>
+<li class="chapter" data-level="18.4" data-path="newton-method-for-nonlinear-system-and-optimization.html"><a href="newton-method-for-nonlinear-system-and-optimization.html#a-case-study"><i class="fa fa-check"></i><b>18.4</b> A Case Study</a></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html"><i class="fa fa-check"></i><b>19</b> Numerical Integration I</a>
+<ul>
+<li class="chapter" data-level="19.1" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html#numerical-approximation-of-derivatives"><i class="fa fa-check"></i><b>19.1</b> Numerical Approximation of Derivatives</a></li>
+<li class="chapter" data-level="19.2" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html#trapezoid-method"><i class="fa fa-check"></i><b>19.2</b> Trapezoid Method</a>
+<ul>
+<li class="chapter" data-level="19.2.1" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html#formulation-of-trapezoid-method"><i class="fa fa-check"></i><b>19.2.1</b> Formulation of Trapezoid Method</a></li>
+<li class="chapter" data-level="19.2.2" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html#error-analysis-8"><i class="fa fa-check"></i><b>19.2.2</b> Error Analysis</a></li>
+<li class="chapter" data-level="19.2.3" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html#composite-trapezoid-method-and-error-analysis"><i class="fa fa-check"></i><b>19.2.3</b> Composite Trapezoid Method and Error Analysis</a></li>
+<li class="chapter" data-level="19.2.4" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html#trapezoid-algorithm"><i class="fa fa-check"></i><b>19.2.4</b> Trapezoid Algorithm</a></li>
+</ul></li>
+<li class="chapter" data-level="19.3" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html#simpsons-one-third-rule"><i class="fa fa-check"></i><b>19.3</b> Simpson’s One-third Rule</a>
+<ul>
+<li class="chapter" data-level="19.3.1" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html#derivation-of-simpsons-rule"><i class="fa fa-check"></i><b>19.3.1</b> Derivation of Simpson’s Rule</a></li>
+<li class="chapter" data-level="19.3.2" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html#explicit-function-on-x_i-1-x_i1"><i class="fa fa-check"></i><b>19.3.2</b> Explicit Function on <span class="math inline">\([x_{i-1}, x_{i+1}]\)</span></a></li>
+<li class="chapter" data-level="19.3.3" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html#the-composite-simpsons-rule"><i class="fa fa-check"></i><b>19.3.3</b> The Composite Simpsons’ Rule</a></li>
+<li class="chapter" data-level="19.3.4" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html#error-analysis-9"><i class="fa fa-check"></i><b>19.3.4</b> Error Analysis</a></li>
+<li class="chapter" data-level="19.3.5" data-path="numerical-integration-i.html"><a href="numerical-integration-i.html#algorithm-of-simpsons-rule"><i class="fa fa-check"></i><b>19.3.5</b> Algorithm of Simpson’s Rule</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html"><i class="fa fa-check"></i><b>20</b> Romberg Integration and Gaussian Quadratures</a>
+<ul>
+<li class="chapter" data-level="20.1" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#richardson-extrapolation"><i class="fa fa-check"></i><b>20.1</b> Richardson Extrapolation</a>
+<ul>
+<li class="chapter" data-level="20.1.1" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#the-logic-of-the-richardson-method"><i class="fa fa-check"></i><b>20.1.1</b> The Logic of the Richardson Method</a></li>
+<li class="chapter" data-level="20.1.2" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#algorithm-of-richardson-method"><i class="fa fa-check"></i><b>20.1.2</b> Algorithm of Richardson Method</a></li>
+<li class="chapter" data-level="20.1.3" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#higher-order-extrapolation"><i class="fa fa-check"></i><b>20.1.3</b> Higher Order Extrapolation</a></li>
+<li class="chapter" data-level="20.1.4" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#algorithm-and-code"><i class="fa fa-check"></i><b>20.1.4</b> Algorithm and Code</a></li>
+</ul></li>
+<li class="chapter" data-level="20.2" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#romberg-integration"><i class="fa fa-check"></i><b>20.2</b> Romberg Integration</a>
+<ul>
+<li class="chapter" data-level="20.2.1" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#approximation-formula-and-error-analysis"><i class="fa fa-check"></i><b>20.2.1</b> Approximation formula and Error Analysis</a></li>
+<li class="chapter" data-level="20.2.2" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#romberg-algorithm"><i class="fa fa-check"></i><b>20.2.2</b> Romberg Algorithm</a></li>
+<li class="chapter" data-level="20.2.3" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#r-code"><i class="fa fa-check"></i><b>20.2.3</b> R Code</a></li>
+</ul></li>
+<li class="chapter" data-level="20.3" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#gaussian-quadrature"><i class="fa fa-check"></i><b>20.3</b> Gaussian Quadrature</a>
+<ul>
+<li class="chapter" data-level="20.3.1" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#two-point-gauss-legendre-formula"><i class="fa fa-check"></i><b>20.3.1</b> Two-point Gauss Legendre Formula</a></li>
+<li class="chapter" data-level="20.3.2" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#general-gauss-legendre-formula"><i class="fa fa-check"></i><b>20.3.2</b> General Gauss Legendre Formula</a></li>
+<li class="chapter" data-level="20.3.3" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#r-code-1"><i class="fa fa-check"></i><b>20.3.3</b> R Code</a></li>
+</ul></li>
+<li class="chapter" data-level="20.4" data-path="romberg-integration-and-gaussian-quadratures.html"><a href="romberg-integration-and-gaussian-quadratures.html#remarks"><i class="fa fa-check"></i><b>20.4</b> Remarks</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">MAT325 E-Pack: Numerical Analysis</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="least-square-approximation" class="section level1 hasAnchor" number="15">
+<h1><span class="header-section-number">Topic 15</span> Least Square Approximation<a href="least-square-approximation.html#least-square-approximation" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>We have introduced the direct methods in matrix algebra and several interpolation methods to approximate a univariate function with either an explicitly given analytic expression or with an unknown expression. In this note, we use matrix algebra to approximate an unknown linear and some nonlinear functions with multiple variables.</p>
+<p><br />
+</p>
+<div id="concepts-of-least-square-approximation" class="section level2 hasAnchor" number="15.1">
+<h2><span class="header-section-number">15.1</span> Concepts of Least Square Approximation<a href="least-square-approximation.html#concepts-of-least-square-approximation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>To get a better idea of the least square approximation, we start with a linear approximation with only a single variable.</p>
+<ul>
+<li><p><strong>The Linear Function to Approximate</strong>: <span class="math inline">\(y = f(x) =\beta_0 + \beta_1 x\)</span>. <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span> are unknown and will be estimated from the given information.</p></li>
+<li><p><strong>Given Information</strong>: A set of data points <span class="math inline">\(\{(x_1, y_1), (x_2, y_2), \cdots, (x_n, y_n)\}\)</span>.</p></li>
+</ul>
+<p>The idea is to find <span class="math inline">\(\hat{\beta}_0\)</span> and <span class="math inline">\(\hat{\beta}_1\)</span> based on the given data points that <strong>MINIMIZES</strong> the mean square error (MSE) between the predicted second coordinate <span class="math inline">\(\hat{y}_i = \hat{\beta}_0 + \hat{\beta}_1 x_i\)</span> and the observed <span class="math inline">\(y_i\)</span>. To be more specific,</p>
+<ol style="list-style-type: decimal">
+<li><p>Assume that the hypothetical linear function has analytic expression <span class="math inline">\(y = \beta_0 + \beta_1 x\)</span>.</p></li>
+<li><p>Define the predicted to be <span class="math inline">\(\hat{y}_i = \beta_0 + \beta_1 x_i\)</span>.</p></li>
+<li><p>Define error <span class="math inline">\(d_i = \hat{y}_i - y_i\)</span>.</p></li>
+<li><p>Define MSE as
+<span class="math display">\[
+\text{MSE}(\beta_0, \beta_1) = \frac{\sum_{i=1}^n d_i^2}{n-2}
+\]</span></p></li>
+</ol>
+<p>The LSE estimates the unknowns <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span> by minimizing the MSE!</p>
+<p><img src="img14/w14-best-fit-line.gif" width="55%" style="display: block; margin: auto;" /></p>
+<p><br />
+</p>
+</div>
+<div id="approximating-one-variable-linear-function" class="section level2 hasAnchor" number="15.2">
+<h2><span class="header-section-number">15.2</span> Approximating One-variable Linear Function<a href="least-square-approximation.html#approximating-one-variable-linear-function" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>To approximate <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span>, we minimize MSE defined in the previous section in the following. Denote <span class="math inline">\(Q(\beta_0, \beta_1) = \sum_{i =1}^n d_i^2 = \sum_{i =1}^n (y_i - \beta_0 - \beta_1 x_i )^2\)</span>. The approximated <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span>, denoted by <span class="math inline">\(\hat{\beta}_0\)</span> and <span class="math inline">\(\hat{\beta}_1\)</span>, is the solution to the following optimization problem</p>
+<p><span class="math display">\[
+\text{arg min}_{\beta_0, \beta_1} Q(\beta_0, \beta_1)
+\]</span></p>
+<p>To minimize <span class="math inline">\(Q(\beta_0, \beta_1)\)</span>, we find the first-order derivatives and set them to zero.</p>
+<p><span class="math display">\[
+\frac{\partial Q(\beta_0, \beta_1)}{\partial \beta_0} = -\sum_{i=1}^n (y_i-\beta_0 - \beta_1 x_i) =0,\\
+\frac{\partial Q(\beta_0, \beta_1)}{\partial \beta_1} = -\sum_{i=1}^n (y_i-\beta_0 - \beta_1 x_i)x_i=0.
+\]</span></p>
+<p>The above system is equivalent to</p>
+<p><span class="math display">\[
+\begin{array}{rclcl}
+n\beta_0 &amp; + &amp; (\sum_{i=1}^n x_i)\beta_1 &amp; = &amp; \sum_{i=1}^n y_i, \\
+(\sum_{i=1}^nx_i)\beta_0 &amp;  + &amp;(\sum_{i=1}^nx_i^2)\beta_1&amp; = &amp;\sum_{i=1}^n x_iy_i.
+\end{array}
+\]</span></p>
+<p>The matrix representation of the above system is given by</p>
+<p><span class="math display">\[
+\left[
+\begin{array}{cc}
+n               &amp; \sum_{i=1}^n x_i \\
+\sum_{i=1}^nx_i &amp; \sum_{i=1}^nx_i^2
+\end{array}
+\right]
+\left[
+\begin{array}{c}
+\beta_0 \\
+\beta_1
+\end{array}
+\right]
+~~=~~
+\left[
+\begin{array}{c}
+\sum_{i=1}^n y_i \\
+\sum_{i=1}^n x_iy_i
+\end{array}
+\right],
+\]</span></p>
+<p>which can be further re-expressed as</p>
+<p><span class="math display">\[
+\left[
+\begin{array}{cccccc}
+1 &amp; 1 &amp;\cdots &amp; 1 &amp; 1 \\
+x_1 &amp; x_2 &amp; \cdots &amp; x_{n-1} &amp; x_n \\
+\end{array}
+\right]
+\left[
+\begin{array}{cc}
+1 &amp; x_1 \\
+1 &amp; x_2 \\
+\vdots &amp; \vdots \\
+1 &amp; x_{n-1}\\
+1 &amp; x_n \\
+\end{array}
+\right]
+\left[
+\begin{array}{c}
+\beta_0 \\
+\beta_1
+\end{array}
+\right]
+~~=~~
+\left[
+\begin{array}{cccccc}
+1 &amp; 1 &amp;\cdots &amp; 1 &amp; 1 \\
+x_1 &amp; x_2 &amp; \cdots &amp; x_{n-1} &amp; x_n \\
+\end{array}
+\right]
+\left[
+\begin{array}{c}
+y_1 \\
+y_2\\
+\vdots\\
+y_{n-1}\\
+y_n
+\end{array}
+\right].
+\]</span></p>
+<p>Denote
+<span class="math display">\[
+\mathbf{X} =
+\left[
+\begin{array}{cc}
+1 &amp; x_1 \\
+1 &amp; x_2 \\
+\vdots &amp; \vdots \\
+1 &amp; x_{n-1} \\
+1 &amp; x_n
+\end{array}
+\right],
+~~~
+\mathbf{Y} =
+\left[
+\begin{array}{c}
+y_1 \\
+y_2\\
+\vdots\\
+y_{n-1}\\
+y_n
+\end{array}
+\right],
+~~\text{and}~~
+\mathbf{\beta} =
+\left[
+\begin{array}{c}
+\beta_0 \\
+\beta_1
+\end{array}
+\right].
+\]</span>
+Then</p>
+<p><span class="math display">\[
+\mathbf{X}^T \mathbf{X} \mathbf{\beta} = \mathbf{X}^T\mathbf{Y}.
+\]</span></p>
+<p>Clearly, <span class="math inline">\(\mathbf{X}^T \mathbf{X}\)</span> is a square matrix. If it is invertible, we solve for <span class="math inline">\(\mathbf{\beta}\)</span> from the above system
+<span class="math display">\[
+\mathbf{\beta} = [\mathbf{X}^T \mathbf{X}]^{-1} \mathbf{X}^T\mathbf{Y}.
+\]</span>
+The right-hand side of the above equation is only dependent on the given data points. Therefore, <span class="math inline">\(\mathbf{\hat{\beta}} = [\mathbf{X}^T \mathbf{X}]^{-1} \mathbf{X}^T\mathbf{Y}\)</span> is the solution to the minimization problem.</p>
+<p>Therefore, <span class="math inline">\(\hat{y} = \hat{\beta}_0 + \hat{\beta}_1 x\)</span> is the least square approximation of <span class="math inline">\(y = \beta_0 + \beta_1 x\)</span>.</p>
+<p><br />
+</p>
+<p><strong>Example 1</strong>: The data are from <span class="math inline">\(n = 214\)</span> females in statistics classes at the University of California at Davis (<a href="https://raw.githubusercontent.com/pengdsci/MAT325/main/w14/LS-ApproxHeights.txt" class="uri">https://raw.githubusercontent.com/pengdsci/MAT325/main/w14/LS-ApproxHeights.txt</a>). The variables are <span class="math inline">\(y = \text{student’s self-reported height}\)</span>, <span class="math inline">\(x_1 = \text{student’s guess at her mother’s height}\)</span>, and <span class="math inline">\(x_2 = \text{student’s guess at her father’s height}\)</span>. All heights are in inches. The scatter plots below are of each student’s height versus the mother’s height and the student’s height against the father’s height.</p>
+<div class="sourceCode" id="cb260"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb260-1"><a href="least-square-approximation.html#cb260-1" tabindex="-1"></a>height <span class="ot">=</span> <span class="fu">read.table</span>(<span class="st">&quot;https://raw.githubusercontent.com/pengdsci/MAT325/main/w14/LS-ApproxHeights.txt&quot;</span>, <span class="at">header =</span> <span class="cn">TRUE</span>)  <span class="co"># read data </span></span>
+<span id="cb260-2"><a href="least-square-approximation.html#cb260-2" tabindex="-1"></a>studentHeight <span class="ot">=</span> height<span class="sc">$</span>Height    <span class="co"># extract students&#39; heights from the data set and store them in a numeric vector</span></span>
+<span id="cb260-3"><a href="least-square-approximation.html#cb260-3" tabindex="-1"></a>momHeight <span class="ot">=</span> height<span class="sc">$</span>momheight     <span class="co"># vector of mothers&#39; heights</span></span>
+<span id="cb260-4"><a href="least-square-approximation.html#cb260-4" tabindex="-1"></a>dadHeight <span class="ot">=</span> height<span class="sc">$</span>dadheight     <span class="co"># vector of fathers&#39; heights</span></span>
+<span id="cb260-5"><a href="least-square-approximation.html#cb260-5" tabindex="-1"></a><span class="do">## making scatter plots</span></span>
+<span id="cb260-6"><a href="least-square-approximation.html#cb260-6" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))              <span class="co"># setting up the layout of the graphical page</span></span>
+<span id="cb260-7"><a href="least-square-approximation.html#cb260-7" tabindex="-1"></a><span class="fu">plot</span>(momHeight, studentHeight, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">main =</span> <span class="st">&quot;&quot;</span>)</span>
+<span id="cb260-8"><a href="least-square-approximation.html#cb260-8" tabindex="-1"></a><span class="fu">plot</span>(dadHeight, studentHeight, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="st">&quot;darkred&quot;</span>, <span class="at">main =</span> <span class="st">&quot;&quot;</span>)</span></code></pre></div>
+<p><img src="MAT325EB_files/figure-html/unnamed-chunk-164-1.png" width="672" style="display: block; margin: auto;" />
+<strong>Solution</strong>: We want to approximate the linear relationship between students’ heights and their mothers’ and fathers’ heights respectively.</p>
+<p><em>Part I</em>: Assume that the linear function between students’ heights and their mothers’ heights is of the following form</p>
+<p><span class="math display">\[
+y= \beta_0 + \beta_1 x_1
+\]</span>
+To approximate <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span>, we define <span class="math inline">\(\mathbf{X}\)</span> and <span class="math inline">\(\mathbf{Y}\)</span> and then find the solution of the LS approximation in the following R code.</p>
+<div class="sourceCode" id="cb261"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb261-1"><a href="least-square-approximation.html#cb261-1" tabindex="-1"></a>n <span class="ot">=</span> <span class="fu">length</span>(studentHeight)</span>
+<span id="cb261-2"><a href="least-square-approximation.html#cb261-2" tabindex="-1"></a>X <span class="ot">=</span> <span class="fu">cbind</span>(<span class="fu">rep</span>(<span class="dv">1</span>,n), momHeight)</span>
+<span id="cb261-3"><a href="least-square-approximation.html#cb261-3" tabindex="-1"></a>Y <span class="ot">=</span> <span class="fu">cbind</span>(studentHeight)</span>
+<span id="cb261-4"><a href="least-square-approximation.html#cb261-4" tabindex="-1"></a>beta <span class="ot">=</span> <span class="fu">round</span>(<span class="fu">solve</span>(<span class="fu">t</span>(X)<span class="sc">%*%</span>X)<span class="sc">%*%</span>(<span class="fu">t</span>(X)<span class="sc">%*%</span>Y),<span class="dv">4</span>)</span>
+<span id="cb261-5"><a href="least-square-approximation.html#cb261-5" tabindex="-1"></a><span class="fu">kable</span>(beta)</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">studentHeight</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"></td>
+<td align="right">34.0223</td>
+</tr>
+<tr class="even">
+<td align="left">momHeight</td>
+<td align="right">0.4834</td>
+</tr>
+</tbody>
+</table>
+<p>Therefore, the linear function is approximated by <span class="math inline">\(y = 34.0223 + 0.4834x_1\)</span>.</p>
+<p><br />
+</p>
+</div>
+<div id="approximating-multiple-variable-linear-function" class="section level2 hasAnchor" number="15.3">
+<h2><span class="header-section-number">15.3</span> Approximating Multiple-variable Linear Function<a href="least-square-approximation.html#approximating-multiple-variable-linear-function" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="an-extension-of-the-height-example" class="section level3 hasAnchor" number="15.3.1">
+<h3><span class="header-section-number">15.3.1</span> An Extension of the Height Example<a href="least-square-approximation.html#an-extension-of-the-height-example" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>In the above example, we assume that a student’s height is only dependent on her mother’s height. However, the height of a person is dependent on both parents. We further assume that the relationship has form <span class="math inline">\(y = \beta_0 + \beta_1 x_1 + \beta_2 x_2\)</span>. Then we need to approximate unknowns <span class="math inline">\((\beta_0, \beta_1, \beta_2\)</span> using the same logic that was used for approximating the linear function with only a single variable. To be more specific, we need only to modify the matrix of <span class="math inline">\(\mathbf{X}\)</span> by adding one additional column. The three matrices for</p>
+<p><span class="math display">\[
+\mathbf{X} =
+\left[
+\begin{array}{ccc}
+1 &amp; x_{11} &amp; x_{21} \\
+1 &amp; x_{12} &amp; x_{22} \\
+\vdots &amp; \vdots \\
+1 &amp; x_{1,n-1} &amp; x_{2, n-1} \\
+1 &amp; x_{1n} &amp; x_{2n}
+\end{array}
+\right],
+~~~
+\mathbf{Y} =
+\left[
+\begin{array}{c}
+y_1 \\
+y_2\\
+\vdots\\
+y_{n-1}\\
+y_n
+\end{array}
+\right],
+~~\text{and}~~
+\mathbf{\beta} =
+\left[
+\begin{array}{c}
+\beta_0 \\
+\beta_1 \\
+\beta_2
+\end{array}
+\right].
+\]</span></p>
+<p>The LS approximation of <span class="math inline">\((\beta_0, \beta_1, \beta_2)\)</span> is given by</p>
+<p><span class="math display">\[
+\mathbf{\beta} = [\mathbf{X}^T \mathbf{X}]^{-1} \mathbf{X}^T\mathbf{Y}.
+\]</span></p>
+<p><br />
+</p>
+<p><strong>Example 2</strong> [Continuation of <em>Example 1</em>]. We now approximate linear function <span class="math inline">\(y = \beta_0 + \beta_1 x_1 + \beta x_2\)</span> using the data given in example 1. The following R code approximates the coefficients of the linear function.</p>
+<div class="sourceCode" id="cb262"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb262-1"><a href="least-square-approximation.html#cb262-1" tabindex="-1"></a>height <span class="ot">=</span> <span class="fu">read.table</span>(<span class="st">&quot;https://raw.githubusercontent.com/pengdsci/MAT325/main/w14/LS-ApproxHeights.txt&quot;</span>, <span class="at">header =</span> <span class="cn">TRUE</span>)  <span class="co"># read data </span></span>
+<span id="cb262-2"><a href="least-square-approximation.html#cb262-2" tabindex="-1"></a>studentHeight <span class="ot">=</span> height<span class="sc">$</span>Height    <span class="co"># extract students&#39; heights from the data set and store them in a numeric vector</span></span>
+<span id="cb262-3"><a href="least-square-approximation.html#cb262-3" tabindex="-1"></a>momHeight <span class="ot">=</span> height<span class="sc">$</span>momheight     <span class="co"># vector of mothers&#39; heights</span></span>
+<span id="cb262-4"><a href="least-square-approximation.html#cb262-4" tabindex="-1"></a>dadHeight <span class="ot">=</span> height<span class="sc">$</span>dadheight     <span class="co"># vector of fathers&#39; heights</span></span>
+<span id="cb262-5"><a href="least-square-approximation.html#cb262-5" tabindex="-1"></a>n <span class="ot">=</span> <span class="fu">length</span>(studentHeight)</span>
+<span id="cb262-6"><a href="least-square-approximation.html#cb262-6" tabindex="-1"></a>X <span class="ot">=</span> <span class="fu">cbind</span>(<span class="fu">rep</span>(<span class="dv">1</span>,n), momHeight, dadHeight)</span>
+<span id="cb262-7"><a href="least-square-approximation.html#cb262-7" tabindex="-1"></a>Y <span class="ot">=</span> <span class="fu">cbind</span>(studentHeight)</span>
+<span id="cb262-8"><a href="least-square-approximation.html#cb262-8" tabindex="-1"></a>beta <span class="ot">=</span> <span class="fu">round</span>(<span class="fu">solve</span>(<span class="fu">t</span>(X)<span class="sc">%*%</span>X)<span class="sc">%*%</span>(<span class="fu">t</span>(X)<span class="sc">%*%</span>Y),<span class="dv">4</span>)</span>
+<span id="cb262-9"><a href="least-square-approximation.html#cb262-9" tabindex="-1"></a><span class="fu">kable</span>(beta)</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">studentHeight</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"></td>
+<td align="right">18.5473</td>
+</tr>
+<tr class="even">
+<td align="left">momHeight</td>
+<td align="right">0.3035</td>
+</tr>
+<tr class="odd">
+<td align="left">dadHeight</td>
+<td align="right">0.3879</td>
+</tr>
+</tbody>
+</table>
+<p>Therefore, the approximated linear function is <span class="math inline">\(y = 18.55 + 0.3035x_1 + 0.3879x_2\)</span>.</p>
+<p><br />
+</p>
+</div>
+<div id="approximating-general-multi-variables-linear-functions" class="section level3 hasAnchor" number="15.3.2">
+<h3><span class="header-section-number">15.3.2</span> Approximating General Multi-variables Linear Functions<a href="least-square-approximation.html#approximating-general-multi-variables-linear-functions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>To approximate linear function <span class="math inline">\(y = \beta_0 + \beta_1x_1 + \beta_2x_2 + \cdots = \beta_kx_k\)</span> based on a set of given data points <span class="math inline">\((y_i, x_{1i}, x_{2i}, \cdots, x_{ki})\)</span> for <span class="math inline">\(i = 1, 2, \cdots, n\)</span>, we extend the <span class="math inline">\(\mathbf{X}\)</span> matrix similarly by adding more columns to it based on the given data points. To be more specific, the three matrices used in the LS approximation are explicitly given by</p>
+<p><span class="math display">\[
+\mathbf{X} =
+\left[
+\begin{array}{ccccc}
+1 &amp; x_{11} &amp; x_{21} &amp; \cdots &amp; x_{k1} \\
+1 &amp; x_{12} &amp; x_{22} &amp; \cdots &amp; x_{k2}\\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots &amp;\vdots\\
+1 &amp; x_{1,n-1} &amp; x_{2, n-1} &amp; \cdots &amp; x_{k,n-1}\\
+1 &amp; x_{1n} &amp; x_{2n} &amp; \cdots &amp; x_{kn}
+\end{array}
+\right],
+~~~
+\mathbf{Y} =
+\left[
+\begin{array}{c}
+y_1 \\
+y_2\\
+\vdots\\
+y_{n-1}\\
+y_n
+\end{array}
+\right],
+~~\text{and}~~
+\mathbf{\beta} =
+\left[
+\begin{array}{c}
+\beta_0 \\
+\beta_1 \\
+\beta_2 \\
+\vdots \\
+\beta_{k-1}\\
+\beta_k
+\end{array}
+\right].
+\]</span></p>
+<p>The solution to the LS approximation has the same general form given below</p>
+<p><span class="math display">\[
+\mathbf{\beta} = [\mathbf{X}^T \mathbf{X}]^{-1} \mathbf{X}^T\mathbf{Y}.
+\]</span></p>
+<p><strong>Example 3</strong>: For a sample of <span class="math inline">\(n = 20\)</span> individuals, we have measurements of <span class="math inline">\(y = \text{body fat}\)</span>, <span class="math inline">\(x_1 = \text{triceps skinfold thickness}\)</span>, $x_2 = text{thigh circumference}, and <span class="math inline">\(x_3 = \text{midarm circumference}\)</span>. The Data can be found at <a href="https://raw.githubusercontent.com/pengdsci/MAT325/main/w14/LS-Approximation-Bodyfat.txt" class="uri">https://raw.githubusercontent.com/pengdsci/MAT325/main/w14/LS-Approximation-Bodyfat.txt</a>.</p>
+<p><strong>Solution</strong> We use the following code to find the approximated coefficients in the linear function <span class="math inline">\(y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \beta_3 x_3\)</span>.</p>
+<div class="sourceCode" id="cb263"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb263-1"><a href="least-square-approximation.html#cb263-1" tabindex="-1"></a>bodyFat <span class="ot">=</span> <span class="fu">read.table</span>(<span class="st">&quot;https://raw.githubusercontent.com/pengdsci/MAT325/main/w14/LS-Approximation-Bodyfat.txt&quot;</span>, <span class="at">header =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb263-2"><a href="least-square-approximation.html#cb263-2" tabindex="-1"></a>n <span class="ot">=</span> <span class="fu">dim</span>(bodyFat)[<span class="dv">1</span>]   <span class="co"># number of data points</span></span>
+<span id="cb263-3"><a href="least-square-approximation.html#cb263-3" tabindex="-1"></a>X <span class="ot">=</span> <span class="fu">as.matrix</span>(<span class="fu">cbind</span>(<span class="at">intercept=</span><span class="fu">rep</span>(<span class="dv">1</span>,n), bodyFat[, <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]))</span>
+<span id="cb263-4"><a href="least-square-approximation.html#cb263-4" tabindex="-1"></a>Y <span class="ot">=</span> <span class="fu">as.matrix</span>(bodyFat[,<span class="dv">4</span>])</span>
+<span id="cb263-5"><a href="least-square-approximation.html#cb263-5" tabindex="-1"></a>beta <span class="ot">=</span> <span class="fu">round</span>(<span class="fu">solve</span>(<span class="fu">t</span>(X)<span class="sc">%*%</span>X)<span class="sc">%*%</span>(<span class="fu">t</span>(X)<span class="sc">%*%</span>Y),<span class="dv">4</span>)</span>
+<span id="cb263-6"><a href="least-square-approximation.html#cb263-6" tabindex="-1"></a><span class="fu">kable</span>(beta)</span></code></pre></div>
+<table>
+<tbody>
+<tr class="odd">
+<td align="left">intercept</td>
+<td align="right">117.0847</td>
+</tr>
+<tr class="even">
+<td align="left">Triceps</td>
+<td align="right">4.3341</td>
+</tr>
+<tr class="odd">
+<td align="left">Thigh</td>
+<td align="right">-2.8568</td>
+</tr>
+<tr class="even">
+<td align="left">Midarm</td>
+<td align="right">-2.1861</td>
+</tr>
+</tbody>
+</table>
+<p>Therefore, the approximated linear function is <span class="math inline">\(y = 117.1 + 4.334x_1 - 2.857 x_2 - 2.186 x_3\)</span>, or equivalently, <span class="math inline">\(\text{body fat} = 117.1 + 4.334\text{Tricps} - 2.857 \text{Thigh} - 2.186 \text{Midarm}\)</span>.</p>
+<p><br />
+</p>
+</div>
+</div>
+<div id="approximating-one-variable-polynomial-function" class="section level2 hasAnchor" number="15.4">
+<h2><span class="header-section-number">15.4</span> Approximating One-variable Polynomial Function<a href="least-square-approximation.html#approximating-one-variable-polynomial-function" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>We have introduced several interpolation-based approximations to a function. In this section, we use the LS approach to approximate a single variable polynomial. <span class="math inline">\(y = a_0 + a_1 x + a_2x^2 + \cdots + a_kx^k\)</span>.</p>
+<p><br />
+</p>
+<div id="approximating-quadratic-function" class="section level3 hasAnchor" number="15.4.1">
+<h3><span class="header-section-number">15.4.1</span> Approximating Quadratic Function<a href="least-square-approximation.html#approximating-quadratic-function" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>As an illustrative example, let’s approximate the trend line of the sales of a particular brand of vehicles. <span class="math inline">\(\text{sales} = f(\text{time})\)</span>, the variable <strong>time</strong> represents the number of weeks.</p>
+<p><img src="img14/w14-CarSaleTrendLine.png" width="35%" style="display: block; margin: auto;" /></p>
+<p>The scatter plot of the two variables is given below.</p>
+<p><img src="MAT325EB_files/figure-html/unnamed-chunk-169-1.png" width="480" style="display: block; margin: auto;" /></p>
+<p>The above plot indicates a non-linear trend. A quadratic trend seems to be more appropriate to characterize the relationship.</p>
+<p>Assuming the quadratic relation between the time and the sales, we have the unknown quadratic function <span class="math inline">\(\text{sales} = f(\text{time}) = a_0 + a_1 \text{time} + a_2\text{time}^2\)</span>. If we denote <span class="math inline">\(y = \text{sales}\)</span>, <span class="math inline">\(x_1 = \text{time}\)</span>, and <span class="math inline">\(x_2 = \text{time}^2\)</span>, the unknown quadratic function can written as <span class="math inline">\(y = a_0 + a_1x_1 +a_2x_2\)</span>. This means we can still use the multi-variable LS to approximate the unknown quadratic function. To be more specific, matrices <span class="math inline">\(\mathbf{X}\)</span> and <span class="math inline">\(\mathbf{Y}\)</span> for the LS approximation are given by</p>
+<p><span class="math display">\[
+\mathbf{X} = \left[
+\begin{array}{ccc}
+1  &amp;  168  &amp;  28224  \\
+1  &amp;  428  &amp;  183184  \\
+1  &amp;  296  &amp;  87616  \\
+1  &amp;  392  &amp;  153664  \\
+1  &amp;  80  &amp;  6400  \\
+1  &amp;  56  &amp;  3136  \\
+1  &amp;  352  &amp;  123904  \\
+1  &amp;  444  &amp;  197136  \\
+1  &amp;  168  &amp;  28224  \\
+1  &amp;  200  &amp;  40000\\
+1  &amp;  4  &amp;  16  \\
+1  &amp;  52  &amp;  2704  \\
+1  &amp;  20  &amp;  400  \\
+1  &amp;  228  &amp;  51984  \\
+1  &amp;  72  &amp;  5184
+\end{array}
+\right]
+~~~~
+\mathbf{Y} =\left[
+\begin{array}{c}
+272\\
+300\\
+311\\
+365\\
+167\\
+149\\
+366\\
+310\\
+192\\
+229\\
+88\\
+118\\
+62\\
+319\\
+193
+\end{array}
+\right]
+\]</span></p>
+<p>The coefficients of the quadratic function are estimated by</p>
+<p><span class="math display">\[
+\mathbf{\beta} = [\mathbf{X}^T \mathbf{X}]^{-1} \mathbf{X}^T\mathbf{Y}.
+\]</span>
+The following R code calculates the approximated coefficients.</p>
+<div class="sourceCode" id="cb264"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb264-1"><a href="least-square-approximation.html#cb264-1" tabindex="-1"></a>Y <span class="ot">=</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">272</span>, <span class="dv">300</span>, <span class="dv">311</span>, <span class="dv">365</span>, <span class="dv">167</span>, <span class="dv">149</span>, <span class="dv">366</span>, <span class="dv">310</span>, <span class="dv">192</span>, <span class="dv">229</span>, <span class="dv">88</span>, <span class="dv">118</span>, <span class="dv">62</span>, <span class="dv">319</span>, <span class="dv">193</span>), <span class="at">ncol=</span><span class="dv">1</span>)</span>
+<span id="cb264-2"><a href="least-square-approximation.html#cb264-2" tabindex="-1"></a>no.weeks <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">168</span>, <span class="dv">428</span>, <span class="dv">296</span>, <span class="dv">392</span>, <span class="dv">80</span>, <span class="dv">56</span>, <span class="dv">352</span>, <span class="dv">444</span>, <span class="dv">168</span>, <span class="dv">200</span>, <span class="dv">4</span>, <span class="dv">52</span>, <span class="dv">20</span>, <span class="dv">228</span>, <span class="dv">72</span>)</span>
+<span id="cb264-3"><a href="least-square-approximation.html#cb264-3" tabindex="-1"></a>X <span class="ot">=</span> <span class="fu">as.matrix</span>(<span class="fu">cbind</span>(<span class="at">intercept =</span> <span class="fu">rep</span>(<span class="dv">1</span>, <span class="fu">length</span>(Y)), <span class="at">weeks =</span> no.weeks, <span class="at">weeks.sq =</span> no.weeks<span class="sc">^</span><span class="dv">2</span>))</span>
+<span id="cb264-4"><a href="least-square-approximation.html#cb264-4" tabindex="-1"></a>beta <span class="ot">=</span> <span class="fu">solve</span>(<span class="fu">t</span>(X)<span class="sc">%*%</span>X)<span class="sc">%*%</span>(<span class="fu">t</span>(X)<span class="sc">%*%</span>Y)</span>
+<span id="cb264-5"><a href="least-square-approximation.html#cb264-5" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">round</span>(beta,<span class="dv">4</span>))</span></code></pre></div>
+<table>
+<tbody>
+<tr class="odd">
+<td align="left">intercept</td>
+<td align="right">63.8510</td>
+</tr>
+<tr class="even">
+<td align="left">weeks</td>
+<td align="right">1.4095</td>
+</tr>
+<tr class="odd">
+<td align="left">weeks.sq</td>
+<td align="right">-0.0019</td>
+</tr>
+</tbody>
+</table>
+<p>Therefore, the unknown quadratic function is approximated by</p>
+<p><span class="math display">\[
+\text{sales} = 63.8510 + 1.4095\times \text{time} -0.0019\times \text{time}^2
+\]</span></p>
+<p><img src="MAT325EB_files/figure-html/unnamed-chunk-171-1.png" width="480" style="display: block; margin: auto;" /></p>
+<p><br />
+</p>
+</div>
+<div id="approximating-general-polynomial-functions" class="section level3 hasAnchor" number="15.4.2">
+<h3><span class="header-section-number">15.4.2</span> Approximating General Polynomial Functions<a href="least-square-approximation.html#approximating-general-polynomial-functions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>In general, for a given set of data points <span class="math inline">\(\{(x_1, y_1), (x_2, y_2), \cdots, (x_n, y_n)\}\)</span>, the unknown polynomial has form <span class="math inline">\(f(x) = a_0 + a_1 x + a_2x^2 + \cdots + a_kx^k\)</span> can be approximated based on the following two matrices</p>
+<p><span class="math display">\[
+\mathbf{X} = \left[
+\begin{array}{cccccc}
+1 &amp; x_1 &amp; x_1^2 &amp; \cdots &amp; x^k_1 \\
+1 &amp; x_2 &amp; x_2^2 &amp; \cdots &amp; x^k_2 \\
+\vdots &amp; \vdots &amp; \vdots&amp; \ddots &amp; \vdots \\
+1 &amp; x_{n-1} &amp; x_{n-1}^2 &amp; \cdots &amp; x^k_{n-1} \\
+1 &amp; x_n &amp; x_n^2 &amp; \cdots &amp; x^k_n
+\end{array}
+\right]
+~~~~
+\mathbf{Y} = \left[
+\begin{array}{c}
+y_1 \\
+y_2 \\
+\vdots \\
+y_{n-1} \\
+y_n \\
+\end{array}
+\right]
+\]</span></p>
+<p>The coefficients <span class="math inline">\(\mathbf{\alpha} = c(a_0, a_1, \cdots, a_k)^T\)</span> is given by</p>
+<p><span class="math display">\[
+\mathbf{\alpha} = (X^TX)^{-1}X^TY.
+\]</span></p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="matrix-factorization.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="concepts-of-spline-interpolations.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/pengdsci/MAT325EB/edit/master/14-LeastSquareApproximation.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["MAT325EB.pdf", "MAT325EB.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
